@@ -71,6 +71,22 @@ input, select, textarea {
 	-ms-appearance: none;
 	appearance: none;
 }
+.profile-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+/* 简历照片 */
+.profile-photo {
+    width: 100px; /* 或根据需要调整 */
+    height: 100px; /* 或根据需要调整 */
+    border-radius: 50%; /* 使照片呈现圆形 */
+    margin-right: 20px;
+}
+
+.basic-info p {
+    margin: 5px 0; /* 调整段落之间的间距 */
+}
 
 /* Basic */
 
