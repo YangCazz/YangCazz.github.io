@@ -2530,7 +2530,7 @@ input, select, textarea {
 #sidebar {
 		color: rgba(255, 255, 255, 0.55);
 		text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
-		width: 22em;
+		width: 12em;
 		padding: 3em 1.35em 1em 1.15em;
 		background: #364050 url("images/bg01.png");
 		overflow-y: auto;
