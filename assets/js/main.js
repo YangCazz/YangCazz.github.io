@@ -46,13 +46,28 @@
 		*/
 
 		// Title Bar.
-			$(
+			var titleBar = $(
 				'<div id="titleBar">' +
 					'<a href="#sidebar" class="toggle"></a>' +
-					'<span class="title">' + $('#logo').html() + '</span>' +
+					'<span class="title">YangCazz</span>' +  // 默认标题
 				'</div>'
-			)
-				.appendTo($body);
+			).appendTo($body);
+
+			// 监听#logo元素加载
+			var observer = new MutationObserver(function(mutations) {
+				mutations.forEach(function(mutation) {
+					if ($('#logo').length > 0) {
+						titleBar.find('.title').text($('#logo').text());
+						observer.disconnect();
+					}
+				});
+			});
+
+			// 开始观察
+			observer.observe(document.body, {
+				childList: true,
+				subtree: true
+			});
 
 		// Sidebar
 			$('#sidebar')
