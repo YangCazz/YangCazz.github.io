@@ -74,36 +74,83 @@ input, select, textarea {
 /* 简历样式 */
 .resume-section {
     margin: 2em 0;
-    padding: 1.5em;
-    background: rgba(255, 255, 255, 0.9);
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 2em;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.resume-header {
+    text-align: center;
+    margin-bottom: 2em;
+}
+
+.resume-header h2 {
+    font-size: 2.2em;
+    color: #c94663;
+    margin-bottom: 0.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.resume-subtitle {
+    font-size: 1.2em;
+    color: #666;
+    font-style: italic;
 }
 
 .resume-section h3 {
     color: #c94663;
     border-bottom: 2px solid #c94663;
     padding-bottom: 0.5em;
-    margin-bottom: 1em;
-    font-size: 1.4em;
+    margin-bottom: 1.5em;
+    font-size: 1.6em;
+    position: relative;
+}
+
+.resume-section h3::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 50px;
+    height: 2px;
+    background: #c94663;
 }
 
 .profile-info {
     display: flex;
     align-items: center;
-    margin-bottom: 2em;
-    padding: 1.5em;
+    margin-bottom: 3em;
+    padding: 2em;
     background: #f8f8f8;
-    border-radius: 8px;
+    border-radius: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-info::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: #c94663;
 }
 
 .profile-photo {
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     border-radius: 50%;
-    margin-right: 2em;
+    margin-right: 2.5em;
     border: 4px solid #c94663;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 15px rgba(201, 70, 99, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.profile-photo:hover {
+    transform: scale(1.05);
 }
 
 .basic-info {
@@ -111,9 +158,20 @@ input, select, textarea {
 }
 
 .basic-info p {
-    margin: 0.8em 0;
+    margin: 1em 0;
     font-size: 1.1em;
     color: #444;
+    position: relative;
+    padding-left: 1.5em;
+}
+
+.basic-info p::before {
+    content: '•';
+    color: #c94663;
+    font-size: 1.5em;
+    position: absolute;
+    left: 0;
+    top: -0.1em;
 }
 
 .basic-info strong {
@@ -121,53 +179,125 @@ input, select, textarea {
     margin-right: 0.5em;
 }
 
-.resume-section ul {
-    list-style: none;
-    padding-left: 1.5em;
-}
-
-.resume-section ul li {
-    margin: 1em 0;
-    padding-left: 1.5em;
+/* 教育背景时间轴 */
+.education-section {
     position: relative;
-    line-height: 1.6;
+    padding-left: 2em;
 }
 
-.resume-section ul li::before {
-    content: "•";
-    color: #c94663;
-    font-size: 1.5em;
+.education-section::before {
+    content: '';
     position: absolute;
-    left: 0;
-    top: -0.2em;
+    left: 0.5em;
+    top: 0;
+    height: 100%;
+    width: 2px;
+    background: #c94663;
 }
 
-.project-item {
-    margin: 1.5em 0;
-    padding: 1em;
+.education-item {
+    position: relative;
+    margin-bottom: 2em;
+    padding-left: 2em;
+}
+
+.education-item::before {
+    content: '';
+    position: absolute;
+    left: -0.25em;
+    top: 0.5em;
+    width: 1em;
+    height: 1em;
+    border-radius: 50%;
+    background: #fff;
+    border: 3px solid #c94663;
+    z-index: 1;
+}
+
+.education-details {
     background: #f8f8f8;
-    border-radius: 6px;
+    padding: 1.5em;
+    border-radius: 8px;
+    position: relative;
+}
+
+.education-details::before {
+    content: '';
+    position: absolute;
+    left: -1em;
+    top: 1em;
+    width: 0;
+    height: 0;
+    border-top: 1em solid transparent;
+    border-bottom: 1em solid transparent;
+    border-right: 1em solid #f8f8f8;
+}
+
+/* 项目经验卡片 */
+.project-item {
+    margin: 2em 0;
+    padding: 1.5em;
+    background: #f8f8f8;
+    border-radius: 12px;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.project-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background: #c94663;
 }
 
 .project-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
 .project-item h4 {
     color: #c94663;
-    margin-bottom: 0.8em;
+    margin-bottom: 1em;
+    font-size: 1.4em;
 }
 
+.project-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5em;
+    margin-top: 1em;
+}
+
+.detail-label {
+    font-weight: bold;
+    color: #c94663;
+    margin-right: 0.5em;
+}
+
+.detail-content {
+    color: #555;
+    line-height: 1.6;
+}
+
+/* 技能标签 */
 .skill-badge {
     display: inline-block;
-    padding: 0.5em 1em;
+    padding: 0.6em 1.2em;
     margin: 0.3em;
     background: #c94663;
     color: white;
-    border-radius: 20px;
+    border-radius: 25px;
     font-size: 0.9em;
+    transition: all 0.3s ease;
+}
+
+.skill-badge:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 10px rgba(201, 70, 99, 0.3);
 }
 
 /* 响应式设计 */
@@ -175,14 +305,27 @@ input, select, textarea {
     .profile-info {
         flex-direction: column;
         text-align: center;
+        padding: 1.5em;
     }
     
     .profile-photo {
-        margin: 0 0 1.5em 0;
+        margin: 0 auto 1.5em;
     }
     
     .resume-section {
-        padding: 1em;
+        padding: 1.5em;
+    }
+    
+    .project-details {
+        grid-template-columns: 1fr;
+    }
+    
+    .education-section {
+        padding-left: 1em;
+    }
+    
+    .education-item {
+        padding-left: 1.5em;
     }
 }
 
@@ -2499,16 +2642,23 @@ input, select, textarea {
 
 	@media screen and (min-width: 737px) {
 
-		/* Basic */
+/* Basic */
 
-			body {
-				height: 100%;
-				line-height: 1.75em;
-			}
+	body {
+		background-color: #ffffff;
+		background-image: url("images/bg01.png"), url("images/bg02.png");
+		background-size: 128px 128px, 128px 128px;
+		background-position: top left, top left;
+		background-repeat: repeat, repeat;
+		background-attachment: fixed, fixed;
+	}
 
-			input, textarea, select {
-				line-height: 1.75em;
-			}
+	hr.section-divider {
+		border: 0;
+		height: 1px;
+		background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+		margin: 2em 0;
+	}
 
 			h2 {
 				font-size: 1.2em;
