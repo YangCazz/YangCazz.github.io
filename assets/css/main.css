@@ -71,21 +71,119 @@ input, select, textarea {
 	-ms-appearance: none;
 	appearance: none;
 }
+/* 简历样式 */
+.resume-section {
+    margin: 2em 0;
+    padding: 1.5em;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.resume-section h3 {
+    color: #c94663;
+    border-bottom: 2px solid #c94663;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    font-size: 1.4em;
+}
+
 .profile-info {
     display: flex;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 2em;
+    padding: 1.5em;
+    background: #f8f8f8;
+    border-radius: 8px;
 }
-/* 简历照片 */
+
 .profile-photo {
-    width: 100px; /* 或根据需要调整 */
-    height: 100px; /* 或根据需要调整 */
-    border-radius: 50%; /* 使照片呈现圆形 */
-    margin-right: 20px;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-right: 2em;
+    border: 4px solid #c94663;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.basic-info {
+    flex: 1;
 }
 
 .basic-info p {
-    margin: 5px 0; /* 调整段落之间的间距 */
+    margin: 0.8em 0;
+    font-size: 1.1em;
+    color: #444;
+}
+
+.basic-info strong {
+    color: #c94663;
+    margin-right: 0.5em;
+}
+
+.resume-section ul {
+    list-style: none;
+    padding-left: 1.5em;
+}
+
+.resume-section ul li {
+    margin: 1em 0;
+    padding-left: 1.5em;
+    position: relative;
+    line-height: 1.6;
+}
+
+.resume-section ul li::before {
+    content: "•";
+    color: #c94663;
+    font-size: 1.5em;
+    position: absolute;
+    left: 0;
+    top: -0.2em;
+}
+
+.project-item {
+    margin: 1.5em 0;
+    padding: 1em;
+    background: #f8f8f8;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+
+.project-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.project-item h4 {
+    color: #c94663;
+    margin-bottom: 0.8em;
+}
+
+.skill-badge {
+    display: inline-block;
+    padding: 0.5em 1em;
+    margin: 0.3em;
+    background: #c94663;
+    color: white;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .profile-info {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .profile-photo {
+        margin: 0 0 1.5em 0;
+    }
+    
+    .resume-section {
+        padding: 1em;
+    }
 }
 
 /* Basic */
