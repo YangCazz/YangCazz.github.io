@@ -2290,6 +2290,8 @@ input, select, textarea {
 		color: rgba(255, 255, 255, 0.55);
 		text-shadow: -1px -1px 0px rgba(0, 0, 0, 0.5);
 		width: 14em;
+		min-width: 10em;
+		max-width: 20em;
 		padding: 3em 1.35em 1em 1.15em;
 		background: #364050 url("images/bg01.png");
 		overflow-y: auto;
@@ -2307,6 +2309,25 @@ input, select, textarea {
 		-webkit-flex-shrink: 0;
 		-ms-flex-shrink: 0;
 		flex-shrink: 0;
+		position: relative;
+		resize: horizontal;
+		overflow: hidden;
+	}
+
+	#sidebar::after {
+		content: '';
+		position: absolute;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		width: 5px;
+		cursor: ew-resize;
+		background: rgba(255, 255, 255, 0.1);
+		transition: background 0.2s;
+	}
+
+	#sidebar:hover::after {
+		background: rgba(255, 255, 255, 0.3);
 	}
 
 		#sidebar form input, #sidebar form select, #sidebar form textarea {

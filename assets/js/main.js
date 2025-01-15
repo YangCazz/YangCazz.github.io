@@ -31,6 +31,17 @@
 				side: 'left',
 				target: $body,
 				visibleClass: 'sidebar-visible'
+			})
+			.draggable({
+				handle: '.sidebar-header',
+				containment: 'window',
+				cursor: 'move',
+				start: function() {
+					$('#sidebar').addClass('dragging');
+				},
+				stop: function() {
+					$('#sidebar').removeClass('dragging');
+				}
 			});
 
 	// Calendar click handler
