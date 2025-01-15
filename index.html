@@ -3,7 +3,6 @@
 	Striped by HTML5 UP
 	html5up.net | @ajlkn
 	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-	Edited by YangCazz, you can pick up this from https://github.com/YangCazz
 -->
 <html>
 	<head>
@@ -17,47 +16,30 @@
 		<!-- Content -->
 			<div id="content">
 				<div class="inner">
-					<!-- 推文 -->
-						<!-- 文章profile -->
+
+					<!-- Post -->
 						<article class="box post post-excerpt">
 							<header>
+								<!--
+									Note: Titles and subtitles will wrap automatically when necessary, so don't worry
+									if they get too long. You can also remove the <p> entirely if you don't
+									need a subtitle.
+								-->
 								<h2><a href="#">欢迎来到我的博客</a></h2>
 								<p>欢快而自由的人生</p>
 							</header>
-								<!--展示文章的预览图，<p>之间为一个段落-->
-							<a href="#" class="image featured"><img src="images/image01.png" alt="" style="display:block; max-width:30%;" /></a>
-							<p>
-								<strong>你好!</strong> 你现在看到的是 <strong>小杨同学-YangCazz的博客</strong>
-							</p>
-							<p>
-								我的<strong>github主页</strong>链接是 <a href="https://github.com/YangCazz">YangCazz</a>
-							</p>
-							<p>
-								或者你也可以直接链接到我当前的<strong>博客</strong> <a href="https://yangcazz.github.io/">GitHub.io</a>
-							</p>
-						</article>
-
-					<!-- 推文-->
-						<article class="box post post-excerpt">
-							<header>
-								<!--
-									注意: 标题和副标题会在必要时自动换行，所以如果它们变得太长也不用担心。
-									如果你不需要副标题，也可以完全去掉<p>标签。
-								-->
-								<h2><a href="#">文章测试</a></h2>
-								<p>这是一个文章测试界面</p>
-							</header>
 							<div class="info">
 								<!--
-									注意: 日期应该按照下面的格式准确填写。特别是，月份的“不重要的”字符应该被放在<span>元素中，
-									以表示在1200px模式下会被省略的部分（例如，“January”的“uary”）。
-									哦，如果你不需要某个页面或帖子的日期，你可以简单地删除整个“date”元素。
+									Note: The date should be formatted exactly as it's shown below. In particular, the
+									"least significant" characters of the month should be encapsulated in a <span>
+									element to denote what gets dropped in 1200px mode (eg. the "uary" in "January").
+									Oh, and if you don't need a date for a particular page or post you can simply delete
+									the entire "date" element.
 
 								-->
-								<span class="date"><span class="year">2023年</span><span class="month">5月</span><span class="day">26</span></span>
+								<span class="date"><span class="month">5月<span>y</span></span> <span class="day">26</span><span class="year">, 2023</span></span>
 								<!--
-									Stats用于表示文章状态-评论、收藏、推特、脸书
-									注意: 你可以根据需要改变“stats”中列表项的数量。
+									Note: You can change the number of list items in "stats" to whatever you want.
 								-->
 								<ul class="stats">
 									<li><a href="#" class="icon fa-comment">16</a></li>
@@ -66,101 +48,129 @@
 									<li><a href="#" class="icon brands fa-facebook-f">128</a></li>
 								</ul>
 							</div>
-							<!-- 展示文章的预览图，<p>之间为一个段落 -->
+							<a href="#" class="image featured"><img src="images/image01.png" alt="" style="display:block; max-width:30%;" /></a>
+							<p>
+								<strong>你好!</strong> 你现在看到的是 <strong>小杨同学-YangCazz的博客</strong>, 我的<strong>github主页</strong>链接是 <a href="https://github.com/YangCazz">YangCazz</a>
+								或者你也可以直接链接到我当前的<strong>博客</strong> <a href="https://yangcazz.github.io/">blog</a>
+							</p>
+							<p>
+								Striped is released for free under the <a href="http://html5up.net/license">Creative Commons Attribution license</a> so feel free to use it for personal projects
+								or even commercial ones &ndash; just be sure to credit <a href="http://html5up.net">HTML5 UP</a> for the design. If you like what you see here, be sure to check out
+								<a href="http://html5up.net">HTML5 UP</a> for more cool designs or follow me on <a href="http://twitter.com/ajlkn">Twitter</a> for new releases and updates.
+							</p>
+						</article>
+
+					<!-- Post -->
+						<article class="box post post-excerpt">
+							<header>
+								<h2><a href="#">文章测试</a></h2>
+								<p>这是一个文章测试界面</p>
+							</header>
+							<div class="info">
+								<span class="date"><span class="month">5月<span>y</span></span> <span class="day">26</span><span class="year">, 2023</span></span>
+								<ul class="stats">
+									<li><a href="#" class="icon fa-comment">16</a></li>
+									<li><a href="#" class="icon fa-heart">32</a></li>
+									<li><a href="#" class="icon brands fa-twitter">64</a></li>
+									<li><a href="#" class="icon brands fa-facebook-f">128</a></li>
+								</ul>
+							</div>
 							<a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
 							<p>
 								在这里我会将自己的学习过程展示在自己的博客上
 							</p>
 						</article>
 
-					<!-- 分页导航 -->
+					<!-- Pagination -->
 						<div class="pagination">
 							<!--<a href="#" class="button previous">Previous Page</a>-->
 							<div class="pages">
-								<a href="index.html" class="active">1</a>
-								<a href="index.html">2</a>
-								<a href="index.html">3</a>
-								<a href="index.html">4</a>
+								<a href="#" class="active">1</a>
+								<a href="#">2</a>
+								<a href="#">3</a>
+								<a href="#">4</a>
 								<span>&hellip;</span>
-								<a href="index.html">20</a>
+								<a href="#">20</a>
 							</div>
-							<a href="index.html" class="button next">下一页</a>
+							<a href="#" class="button next">下一页</a>
 						</div>
 
 				</div>
 			</div>
 
-		<!-- 边栏 -->
+		<!-- Sidebar -->
 			<div id="sidebar">
-				<!-- 上边栏标题 Logo -->
-					<h1 id="logo"><a href="index.html">YangCazz</a></h1>
-				<!-- 导航按钮：最近提出、总日志列表、个人简历、联系方式 -->
+
+				<!-- Logo -->
+					<h1 id="logo"><a href="#">YangCazz</a></h1>
+
+				<!-- Nav -->
 					<nav id="nav">
 						<ul>
-							<li class="current"><a href="./">日志列表</a></li>
-							<li><a href="resume.html">个人简历</a></li>
+							<li class="current"><a href="#">最近提出</a></li>
+							<li><a href="#">日志</a></li>
+							<li><a href="#">个人简历</a></li>
+							<li><a href="#">联系方式</a></li>
 						</ul>
 					</nav>
 
-				<!-- 搜索框 -->
+				<!-- Search -->
 					<section class="box search">
 						<form method="post" action="#">
 							<input type="text" class="text" name="search" placeholder="搜索" />
 						</form>
 					</section>
 
-				<!-- 简单文本框 -->
+				<!-- Text -->
 					<section class="box text-style1">
 						<div class="inner">
 							<p>
-								<strong>个人简介: </strong> <a>致力于"让医学人工智能普惠人民大众"</a>
-							</p>
-							<p>
-								<strong>个人主页: </strong> <a href="https://github.com/YangCazz">YangCazz.github</a>
+								<strong>个人简介:</strong> 一个致力于将图神经网络应用于医疗领域的研究者
+								个人主页 <a href="https://github.com/YangCazz">Yang Cazz</a>
 							</p>
 						</div>
 					</section>
 
-				<!-- 最近提出的文章 -->
+				<!-- Recent Posts -->
 					<section class="box recent-posts">
 						<header>
-							<h2>最近提出</h2>
+							<h2>最近提出的问题</h2>
 						</header>
 						<ul>
-							<li><a href="index.html">如何在GNN上进行消息传递</a></li>
-							<li><a href="index.html">Graph Transformer</a></li>
-							<li><a href="index.html">Multimodal Fusion</a></li>
-							<li><a href="index.html">大语言模型</a></li>
-							<li><a href="index.html">多模态图神经网络</a></li>
+							<li><a href="#">如何在GNN上进行消息传递</a></li>
+							<li><a href="#">Graph Transformer</a></li>
+							<li><a href="#">Multimodal Fusion</a></li>
+							<li><a href="#">大语言模型</a></li>
+							<li><a href="#">多模态图神经网络</a></li>
 						</ul>
 					</section>
 
-				<!-- 最近提出的思考 -->
+				<!-- Recent Comments -->
 					<section class="box recent-comments">
 						<header>
-							<h2>最近思考</h2>
+							<h2>最近的思考</h2>
 						</header>
 						<ul>
-							<li>GNN <a href="index.html">信息补足</a></li>
-							<li>多模态 <a href="index.html">多模态融合</a></li>
-							<li>深度学习 <a href="index.html">自监督学习</a></li>
+							<li>GNN <a href="#">信息补足r</a></li>
+							<li>多模态 <a href="#">多模态融合</a></li>
+							<li>深度学习 <a href="#">自监督学习</a></li>
 						</ul>
 					</section>
 
-				<!-- 日期表 -->
+				<!-- Calendar -->
 					<section class="box calendar">
 						<div class="inner">
 							<table>
-								<caption>2024 年 3 月</caption>
+								<caption>July 2023</caption>
 								<thead>
 									<tr>
-										<th scope="col" title="Monday">一</th>
-										<th scope="col" title="Tuesday">二</th>
-										<th scope="col" title="Wednesday">三</th>
-										<th scope="col" title="Thursday">四</th>
-										<th scope="col" title="Friday">五</th>
-										<th scope="col" title="Saturday">六</th>
-										<th scope="col" title="Sunday">日</th>
+										<th scope="col" title="Monday">M</th>
+										<th scope="col" title="Tuesday">T</th>
+										<th scope="col" title="Wednesday">W</th>
+										<th scope="col" title="Thursday">T</th>
+										<th scope="col" title="Friday">F</th>
+										<th scope="col" title="Saturday">S</th>
+										<th scope="col" title="Sunday">S</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -199,12 +209,9 @@
 									</tr>
 									<tr>
 										<td><a href="#">25</a></td>
-										<td><span>26</span></td>
+										<td class="today"><a href="#">26</a></td>
 										<td><span>27</span></td>
 										<td><span>28</span></td>
-										<td><span>29</span></td>
-										<td class="today"><a href="index.html">30</a></td>
-										<td><span>31</span></td>
 										<td class="pad" colspan="3"><span>&nbsp;</span></td>
 									</tr>
 								</tbody>
@@ -212,14 +219,14 @@
 						</div>
 					</section>
 
-				<!-- 版权申明 -->
+				<!-- Copyright -->
 					<ul id="copyright">
-						<li>&copy; YangCazz</li><li><a href="https://github.com/YangCazz">YangCazz.github</a></li>
+						<li>&copy; YangCazz</li><li>Design: <a href="https://github.com/YangCazz">Yang Cazz</a></li>
 					</ul>
 
 			</div>
 
-		<!-- 源脚本 -->
+		<!-- Scripts -->
 			<script src="assets/js/jquery.min.js"></script>
 			<script src="assets/js/browser.min.js"></script>
 			<script src="assets/js/breakpoints.min.js"></script>
