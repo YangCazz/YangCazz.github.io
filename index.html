@@ -93,30 +93,133 @@
 			</div>
 
 		<!-- 边栏 -->
-			<div id="sidebar"></div>
+			<div id="sidebar">
+				<!-- 上边栏标题 Logo -->
+					<h1 id="logo"><a href="index.html">YangCazz</a></h1>
+				<!-- 导航按钮：最近提出、总日志列表、个人简历、联系方式 -->
+					<nav id="nav">
+						<ul>
+							<li class="current"><a href="./">日志列表</a></li>
+							<li><a href="resume.html">个人简历</a></li>
+						</ul>
+					</nav>
 
-			<script>
-				// 动态加载侧边栏
-				document.addEventListener('DOMContentLoaded', function() {
-					const sidebar = document.getElementById('sidebar');
-					sidebar.innerHTML = '<p>加载侧边栏中...</p>';  // 添加加载提示
-					
-					fetch('./includes/sidebar.html')
-						.then(response => {
-							if (!response.ok) {
-								throw new Error('网络响应异常');
-							}
-							return response.text();
-						})
-						.then(data => {
-							sidebar.innerHTML = data;
-						})
-						.catch(error => {
-							console.error('加载侧边栏出错:', error);
-							sidebar.innerHTML = '<p>侧边栏加载失败，请刷新页面重试</p>';
-						});
-				});
-			</script>
+				<!-- 搜索框 -->
+					<section class="box search">
+						<form method="post" action="#">
+							<input type="text" class="text" name="search" placeholder="搜索" />
+						</form>
+					</section>
+
+				<!-- 简单文本框 -->
+					<section class="box text-style1">
+						<div class="inner">
+							<p>
+								<strong>个人简介: </strong> <a>致力于"让医学人工智能普惠人民大众"</a>
+							</p>
+							<p>
+								<strong>个人主页: </strong> <a href="https://github.com/YangCazz">YangCazz.github</a>
+							</p>
+						</div>
+					</section>
+
+				<!-- 最近提出的文章 -->
+					<section class="box recent-posts">
+						<header>
+							<h2>最近提出</h2>
+						</header>
+						<ul>
+							<li><a href="index.html">如何在GNN上进行消息传递</a></li>
+							<li><a href="index.html">Graph Transformer</a></li>
+							<li><a href="index.html">Multimodal Fusion</a></li>
+							<li><a href="index.html">大语言模型</a></li>
+							<li><a href="index.html">多模态图神经网络</a></li>
+						</ul>
+					</section>
+
+				<!-- 最近提出的思考 -->
+					<section class="box recent-comments">
+						<header>
+							<h2>最近思考</h2>
+						</header>
+						<ul>
+							<li>GNN <a href="index.html">信息补足</a></li>
+							<li>多模态 <a href="index.html">多模态融合</a></li>
+							<li>深度学习 <a href="index.html">自监督学习</a></li>
+						</ul>
+					</section>
+
+				<!-- 日期表 -->
+					<section class="box calendar">
+						<div class="inner">
+							<table>
+								<caption>2024 年 3 月</caption>
+								<thead>
+									<tr>
+										<th scope="col" title="Monday">一</th>
+										<th scope="col" title="Tuesday">二</th>
+										<th scope="col" title="Wednesday">三</th>
+										<th scope="col" title="Thursday">四</th>
+										<th scope="col" title="Friday">五</th>
+										<th scope="col" title="Saturday">六</th>
+										<th scope="col" title="Sunday">日</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td colspan="4" class="pad"><span>&nbsp;</span></td>
+										<td><span>1</span></td>
+										<td><span>2</span></td>
+										<td><span>3</span></td>
+									</tr>
+									<tr>
+										<td><span>4</span></td>
+										<td><span>5</span></td>
+										<td><a href="#">6</a></td>
+										<td><span>7</span></td>
+										<td><span>8</span></td>
+										<td><span>9</span></td>
+										<td><a href="#">10</a></td>
+									</tr>
+									<tr>
+										<td><span>11</span></td>
+										<td><span>12</span></td>
+										<td><span>13</span></td>
+										<td><span>14</span></td>
+										<td><span>15</span></td>
+										<td><span>16</span></td>
+										<td><span>17</span></td>
+									</tr>
+									<tr>
+										<td><span>18</span></td>
+										<td><span>19</span></td>
+										<td><span>20</span></td>
+										<td><span>21</span></td>
+										<td><span>22</span></td>
+										<td><a href="#">23</a></td>
+										<td><span>24</span></td>
+									</tr>
+									<tr>
+										<td><a href="#">25</a></td>
+										<td><span>26</span></td>
+										<td><span>27</span></td>
+										<td><span>28</span></td>
+										<td><span>29</span></td>
+										<td class="today"><a href="index.html">30</a></td>
+										<td><span>31</span></td>
+										<td class="pad" colspan="3"><span>&nbsp;</span></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+					</section>
+
+				<!-- 版权申明 -->
+					<ul id="copyright">
+						<li>&copy; YangCazz</li><li><a href="https://github.com/YangCazz">YangCazz.github</a></li>
+					</ul>
+
+			</div>
 
 		<!-- 源脚本 -->
 			<script src="assets/js/jquery.min.js"></script>
