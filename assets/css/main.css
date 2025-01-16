@@ -3066,6 +3066,25 @@ input, select, textarea {
 				font-size: 1.5em;
 			}
 
+		/* Sidebar */
+		
+			#sidebar {
+				position: fixed;
+				top: 44px;
+				left: 0;
+				width: 100%;
+				height: auto;
+				padding: 1em;
+				box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+				z-index: 1000;
+				transform: translateX(-100%);
+				transition: transform 0.3s ease;
+			}
+
+			body.sidebar-visible #sidebar {
+				transform: translateX(0);
+			}
+
 		/* Nav */
 		
 			#nav {
@@ -3073,23 +3092,50 @@ input, select, textarea {
 				flex-direction: column;
 				align-items: center;
 				padding: 1em 0;
+				background: #364050;
 			}
 
 			#nav li {
 				width: 100%;
 				text-align: center;
 				padding: 0.5em 0;
+				border-bottom: 1px solid rgba(255,255,255,0.1);
 			}
 
 			#nav li a {
 				padding: 0.8em 1em;
 				font-size: 1.1em;
+				color: #fff;
+				display: block;
+			}
+
+			#nav li.current a {
+				background: rgba(255,255,255,0.1);
+			}
+
+			#nav li:hover a {
+				background: rgba(255,255,255,0.2);
 			}
 
 		/* Section/Article */
 
 			section, article {
 				clear: both;
+				margin-bottom: 2em;
+				padding: 1em;
+				background: #fff;
+				box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+				border-radius: 4px;
+			}
+
+			.box.post {
+				padding: 1.5em;
+				margin: 1em 0;
+			}
+
+			.box.post .image.featured {
+				margin: -1.5em -1.5em 1.5em -1.5em;
+				width: calc(100% + 3em);
 			}
 
 		/* Button */
