@@ -1,232 +1,4570 @@
-<!DOCTYPE HTML>
-<!--	
-	Striped by HTML5 UP
-	html5up.net | @ajlkn
-	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
-	Edited by YangCazz, you can pick up this from https://github.com/YangCazz
--->
-<html>
-	<head>
-		<title>Yang Cazz的博客</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-	</head>
-	<body class="is-preload">
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>杨钱俊 - 算法工程师</title>
+    <script>
+    // 导航激活状态管理
+    function updateActiveNav() {
+        const currentHash = window.location.hash || '#about';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === currentHash);
+        });
+    }
+    
+    // 添加滚动监听，根据可见部分更新导航状态
+    function updateNavOnScroll() {
+        // 获取所有部分
+        const sections = document.querySelectorAll('section[id]');
+        
+        // 检查是否滚动到页面底部
+        const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50;
+        
+        // 如果在页面底部，激活最后一个导航项
+        if (isAtBottom && sections.length > 0) {
+            const lastSectionId = '#' + sections[sections.length - 1].getAttribute('id');
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === lastSectionId);
+            });
+            return;
+        }
+        
+        // 正常滚动逻辑
+        let currentSection = '';
+        let minDistance = Infinity;
+        
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const offset = 100; 
+            if (sectionTop < offset && Math.abs(sectionTop) < minDistance) {
+                minDistance = Math.abs(sectionTop);
+                currentSection = '#' + section.getAttribute('id');
+            }
+        });
+        
+        // 如果没有找到合适的部分（页面顶部），使用第一个部分
+        if (!currentSection && sections.length > 0) {
+            currentSection = '#' + sections[0].getAttribute('id');
+        }
+        
+        // 更新导航激活状态
+        if (currentSection) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === currentSection);
+            });
+        }
+    }
+    
+    window.addEventListener('hashchange', updateActiveNav);
+    document.addEventListener('DOMContentLoaded', updateActiveNav);
+    // 添加滚动事件监听
+    window.addEventListener('scroll', updateNavOnScroll);
+    // 页面加载后也执行一次，确保初始状态正确
+    document.addEventListener('DOMContentLoaded', updateNavOnScroll);
+    
+    // 优化粒子系统，添加随机消失和重生效果
+    document.addEventListener('DOMContentLoaded', function() {
+        const canvas = document.getElementById('particleCanvas');
+        if (!canvas) {
+            console.error('粒子画布未找到');
+            return;
+        }
+        
+        const ctx = canvas.getContext('2d');
+        
+        // 自适应画布尺寸
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        
+        window.addEventListener('resize', resizeCanvas);
+        resizeCanvas();
 
-		<!-- Content -->
-			<div id="content">
-				<div class="inner">
-					<!-- 推文 -->
-						<!-- 文章profile -->
-						<article class="box post post-excerpt">
-							<header>
-								<h2><a href="#">欢迎来到我的博客</a></h2>
-								<p>欢快而自由的人生</p>
-							</header>
-								<!--展示文章的预览图，<p>之间为一个段落-->
-							<a href="#" class="image featured"><img src="images/image01.png" alt="" style="display:block; max-width:30%;" /></a>
-							<p>
-								<strong>你好!</strong> 你现在看到的是 <strong>小杨同学-YangCazz的博客</strong>
-							</p>
-							<p>
-								我的<strong>github主页</strong>链接是 <a href="https://github.com/YangCazz">YangCazz</a>
-							</p>
-							<p>
-								或者你也可以直接链接到我当前的<strong>博客</strong> <a href="https://yangcazz.github.io/">GitHub.io</a>
-							</p>
-						</article>
+        // 鼠标位置追踪
+        const mouse = { x: null, y: null, radius: 150 };
+        
+        // 鼠标交互处理
+        canvas.addEventListener('mousemove', function(e) {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = e.clientX - rect.left;
+            mouse.y = e.clientY - rect.top;
+        });
+        
+        canvas.addEventListener('mouseout', function() {
+            mouse.x = null;
+            mouse.y = null;
+        });
 
-						<hr class="section-divider" />
+        // 粒子类
+        class Particle {
+            constructor(isInitial = true) {
+                // 初始化粒子
+                this.size = Math.random() * 2 + 1;
+                
+                if (isInitial) {
+                    // 初始均匀分布在整个画布上
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.alpha = Math.random() * 0.5 + 0.3; // 直接设置目标透明度
+                } else {
+                    // 后续新生成的粒子从边缘或随机位置生成
+                    this.reset(false);
+                }
+                
+                // 随机初始速度
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                
+                this.targetAlpha = Math.random() * 0.5 + 0.3;
+                this.fadeSpeed = 0.02;
+                
+                // 生命周期相关
+                this.lifeSpan = Math.random() * 300 + 200; // 随机生命周期
+                this.life = this.lifeSpan; // 当前生命值
+                this.fadeOutThreshold = 50; // 开始淡出的阈值
+                this.isFadingOut = false; // 是否正在淡出
+            }
+            
+            reset(randomPosition = false) {
+                // 重置生命周期
+                this.lifeSpan = Math.random() * 300 + 200;
+                this.life = this.lifeSpan;
+                this.isFadingOut = false;
+                
+                if (randomPosition && Math.random() < 0.7) {
+                    // 70%的概率在画布内随机位置重生
+                    this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                    this.alpha = 0; // 从透明开始淡入
+                    
+                    // 随机速度
+                    this.vx = (Math.random() - 0.5) * 1.5;
+                    this.vy = (Math.random() - 0.5) * 1.5;
+                } else {
+                    // 30%的概率从边缘重生
+                    const side = Math.floor(Math.random() * 4); // 0:上, 1:右, 2:下, 3:左
+                    
+                    switch(side) {
+                        case 0: // 上边
+                            this.x = Math.random() * canvas.width;
+                            this.y = -10;
+                            break;
+                        case 1: // 右边
+                            this.x = canvas.width + 10;
+                            this.y = Math.random() * canvas.height;
+                            break;
+                        case 2: // 下边
+                            this.x = Math.random() * canvas.width;
+                            this.y = canvas.height + 10;
+                            break;
+                        case 3: // 左边
+                            this.x = -10;
+                            this.y = Math.random() * canvas.height;
+                            break;
+                    }
+                    
+                    // 设置速度方向朝向画布中心，增加一点随机性
+                    const centerX = canvas.width / 2;
+                    const centerY = canvas.height / 2;
+                    const angle = Math.atan2(centerY - this.y, centerX - this.x);
+                    
+                    const speed = Math.random() * 1 + 0.5;
+                    this.vx = Math.cos(angle) * speed + (Math.random() - 0.5) * 1;
+                    this.vy = Math.sin(angle) * speed + (Math.random() - 0.5) * 1;
+                    
+                    this.alpha = 0; // 从透明开始淡入
+                }
+            }
 
-					<!-- 推文-->
-						<article class="box post post-excerpt">
-							<header>
-								<!--
-									注意: 标题和副标题会在必要时自动换行，所以如果它们变得太长也不用担心。
-									如果你不需要副标题，也可以完全去掉<p>标签。
-								-->
-								<h2><a href="#">文章测试</a></h2>
-								<p>这是一个文章测试界面</p>
-							</header>
-							<div class="info">
-								<!--
-									注意: 日期应该按照下面的格式准确填写。特别是，月份的“不重要的”字符应该被放在<span>元素中，
-									以表示在1200px模式下会被省略的部分（例如，“January”的“uary”）。
-									哦，如果你不需要某个页面或帖子的日期，你可以简单地删除整个“date”元素。
+            update() {
+                // 更新生命周期
+                this.life--;
+                
+                // 处理生命周期结束或淡出
+                if (this.life <= 0) {
+                    this.reset(true); // 生命结束，随机位置重生
+                    return;
+                }
+                
+                // 接近生命周期结束时开始淡出
+                if (this.life < this.fadeOutThreshold && !this.isFadingOut) {
+                    this.isFadingOut = true;
+                }
+                
+                // 淡入淡出效果
+                if (this.isFadingOut) {
+                    // 淡出
+                    this.alpha -= this.fadeSpeed;
+                    if (this.alpha <= 0) {
+                        this.reset(true);
+                        return;
+                    }
+                } else if (this.alpha < this.targetAlpha) {
+                    // 淡入
+                    this.alpha += this.fadeSpeed;
+                }
+                
+                // 基础移动
+                this.x += this.vx;
+                this.y += this.vy;
+                
+                // 鼠标引力计算
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx*dx + dy*dy);
+                    
+                    if (distance < 200) {
+                        // 引力效果
+                        const force = (200 - distance) / 200;
+                        const angle = Math.atan2(dy, dx);
+                        const acceleration = 0.5 * force;
+                        
+                        this.vx += Math.cos(angle) * acceleration;
+                        this.vy += Math.sin(angle) * acceleration;
+                    
+                    // 可视化引力轨迹
+                        if (distance > 50) {
+                        ctx.beginPath();
+                            ctx.strokeStyle = `rgba(255,255,255,${0.3 * force * this.alpha})`;
+                            ctx.lineWidth = 0.4;
+                        ctx.moveTo(this.x, this.y);
+                        ctx.lineTo(mouse.x, mouse.y);
+                        ctx.stroke();
+                        }
+                    }
+                }
+                
+                // 速度限制
+                const maxSpeed = 3.5;
+                const speed = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+                if (speed > maxSpeed) {
+                    this.vx = (this.vx / speed) * maxSpeed;
+                    this.vy = (this.vy / speed) * maxSpeed;
+                }
+                
+                // 速度衰减
+                this.vx *= 0.99;
+                this.vy *= 0.99;
+                
+                // 边界检测与重置
+                if (this.x < -50 || this.x > canvas.width + 50 ||
+                    this.y < -50 || this.y > canvas.height + 50) {
+                    this.reset(false); // 从边缘重生
+                }
+                
+                // 随机扰动
+                this.vx += (Math.random() - 0.5) * 0.1;
+                this.vy += (Math.random() - 0.5) * 0.1;
+                
+                // 随机消失概率
+                if (Math.random() < 0.0005 && !this.isFadingOut) { // 每帧有0.05%的概率开始消失
+                    this.isFadingOut = true;
+                }
+            }
 
-								-->
-								<span class="date"><span class="year">2023年</span><span class="month">5月</span><span class="day">26</span></span>
-								<!--
-									Stats用于表示文章状态-评论、收藏、推特、脸书
-									注意: 你可以根据需要改变“stats”中列表项的数量。
-								-->
-								<ul class="stats">
-									<li><a href="#" class="icon fa-comment">16</a></li>
-									<li><a href="#" class="icon fa-heart">32</a></li>
-									<li><a href="#" class="icon brands fa-twitter">64</a></li>
-									<li><a href="#" class="icon brands fa-facebook-f">128</a></li>
-								</ul>
-							</div>
-							<!-- 展示文章的预览图，<p>之间为一个段落 -->
-							<a href="#" class="image featured"><img src="images/pic02.jpg" alt="" /></a>
-							<p>
-								在这里我会将自己的学习过程展示在自己的博客上
-							</p>
-						</article>
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.alpha})`;
+                ctx.fill();
+            }
+        }
 
-					<!-- 分页导航 -->
-						<div class="pagination">
-							<!--<a href="#" class="button previous">Previous Page</a>-->
-							<div class="pages">
-								<a href="index.html" class="active">1</a>
-								<a href="index.html">2</a>
-								<a href="index.html">3</a>
-								<a href="index.html">4</a>
-								<span>&hellip;</span>
-								<a href="index.html">20</a>
-							</div>
-							<a href="index.html" class="button next">下一页</a>
-						</div>
+        // 创建粒子阵列
+        const particles = Array(120).fill().map(() => new Particle(true));
 
-				</div>
-			</div>
+        // 连线逻辑
+        function drawLines() {
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const distance = Math.sqrt(dx*dx + dy*dy);
 
-		<!-- 边栏 -->
-			<div id="sidebar">
-				<!-- 上边栏标题 Logo -->
-					<h1 id="logo"><a href="index.html">YangCazz</a></h1>
-				<!-- 导航按钮：最近提出、总日志列表、个人简历、联系方式 -->
-					<nav id="nav">
-						<ul>
-							<li class="current"><a href="./">日志列表</a></li>
-							<li><a href="resume.html">个人简历</a></li>
-						</ul>
-					</nav>
+                    if (distance < 120) {
+                        // 使用两个粒子的透明度的平均值来设置线的透明度
+                        const avgAlpha = (particles[i].alpha + particles[j].alpha) / 2;
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(255, 255, 255, ${0.8 * (1 - distance/120) * avgAlpha})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
 
-				<!-- 搜索框 -->
-					<section class="box search">
-						<form method="post" action="#">
-							<input type="text" class="text" name="search" placeholder="搜索" />
-						</form>
-					</section>
+        // 动画循环
+        function animate() {
+            // 修改这里：使用完全清除画布而不是半透明覆盖
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            particles.forEach(particle => {
+                particle.update();
+                particle.draw();
+            });
+            
+            drawLines();
+            requestAnimationFrame(animate);
+        }
 
-				<!-- 简单文本框 -->
-					<section class="box text-style1">
-						<div class="inner">
-							<p>
-								<strong>个人简介: </strong> <a>致力于"让医学人工智能普惠人民大众"</a>
-							</p>
-							<p>
-								<strong>个人主页: </strong> <a href="https://github.com/YangCazz">YangCazz.github</a>
-							</p>
-						</div>
-					</section>
+        // 启动动画
+        animate();
+    });
+    
+    // 完整的语言切换解决方案
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('初始化语言切换功能');
+        
+        // 定义全局翻译对象
+        window.globalTranslations = {
+            // 导航链接
+            'nav-about': {
+                zh: '👤 自我总结',
+                en: '👤 About Me'
+            },
+            'nav-achievements': {
+                zh: '🏆 成果总结',
+                en: '🏆 Achievements'
+            },
+            'nav-skills': {
+                zh: '🛠️ 技术能力',
+                en: '🛠️ Skills'
+            },
+            'nav-experience': {
+                zh: '💼 工作经历',
+                en: '💼 Experience'
+            },
+            'nav-education': {
+                zh: '🎓 教育背景',
+                en: '🎓 Education'
+            },
+            'nav-innovation': {
+                zh: '💡 创新创业',
+                en: '💡 Innovation'
+            },
+            'nav-publications': {
+                zh: '📚 学术成果',
+                en: '📚 Publications'
+            },
+            
+            // 标题
+            'title-about': {
+                zh: '👤 自我总结',
+                en: '👤 About Me'
+            },
+            'title-achievements': {
+                zh: '🏆 成果总结',
+                en: '🏆 Achievements'
+            },
+            'title-skills': {
+                zh: '🛠️ 技术能力',
+                en: '🛠️ Skills'
+            },
+            'title-experience': {
+                zh: '💼 工作经历',
+                en: '💼 Experience'
+            },
+            'title-education': {
+                zh: '🎓 教育背景',
+                en: '🎓 Education'
+            },
+            'title-innovation': {
+                zh: '💡 创新创业',
+                en: '💡 Innovation'
+            },
+            'title-publications': {
+                zh: '📚 学术成果',
+                en: '📚 Publications'
+            },
+            'projects-section-title': {
+                zh: '🚀 科研项目',
+                en: '🚀 Research Projects'
+            },
+            
+            // 按钮
+            'details-button': {
+                zh: '详细信息',
+                en: 'Details'
+            },
+            'details-button-active': {
+                zh: '收起详情',
+                en: 'Hide Details'
+            },
+            
+            // 项目状态
+            'status-ongoing': {
+                zh: '● 进行中',
+                en: '● Ongoing'
+            },
+            'status-completed': {
+                zh: '● 已完成',
+                en: '● Completed'
+            },
+            'status-launched': {
+                zh: '● 已上市',
+                en: '● Launched'
+            },
+            
+            // 自我总结部分
+            'about-content': {
+                zh: '医疗机器人算法工程师，专注于医学影像处理与手术导航系统研发。拥有扎实的计算机视觉与机器学习理论基础，以及丰富的医疗器械研发经验。主导开发多款三类医疗器械产品，申请发明专利8项。擅长将前沿AI技术应用于临床医疗场景，解决实际问题。',
+                en: 'Medical robotics algorithm engineer, focusing on medical image processing and surgical navigation system development. Possessing solid theoretical foundation in computer vision and machine learning, as well as extensive experience in medical device R&D. Led the development of multiple Class III medical devices and applied for 8 invention patents. Skilled at applying cutting-edge AI technologies to clinical medical scenarios to solve practical problems.'
+            },
+            
+            // 成果总结部分
+            'achievement-patents': {
+                zh: '发明专利',
+                en: 'Invention Patents'
+            },
+            'achievement-papers': {
+                zh: 'SCI论文',
+                en: 'SCI Papers'
+            },
+            'achievement-devices': {
+                zh: '医疗器械注册',
+                en: 'Medical Device Registrations'
+            },
+            'achievement-awards': {
+                zh: '科研奖项',
+                en: 'Research Awards'
+            },
+            
+            // 技术能力部分
+            'skill-category-title-核心专业领域': {
+                zh: '核心专业领域',
+                en: 'Core Professional Areas'
+            },
+            'skill-category-title-编程语言': {
+                zh: '编程语言',
+                en: 'Programming Languages'
+            },
+            'skill-category-title-开发框架': {
+                zh: '开发框架',
+                en: 'Development Frameworks'
+            },
+            'skill-category-title-开发工具': {
+                zh: '开发工具',
+                en: 'Development Tools'
+            },
+            
+            // 技能级别
+            'skill-level-专家': {
+                zh: '专家',
+                en: 'Expert'
+            },
+            'skill-level-高级': {
+                zh: '高级',
+                en: 'Advanced'
+            },
+            'skill-level-中级': {
+                zh: '中级',
+                en: 'Intermediate'
+            },
+            
+            // 技能名称
+            'skill-name-医学影像处理': {
+                zh: '医学影像处理',
+                en: 'Medical Image Processing'
+            },
+            'skill-name-计算机视觉': {
+                zh: '计算机视觉',
+                en: 'Computer Vision'
+            },
+            'skill-name-3d重建': {
+                zh: '3D重建',
+                en: '3D Reconstruction'
+            },
+            'skill-name-深度学习': {
+                zh: '深度学习',
+                en: 'Deep Learning'
+            },
+            'skill-name-手术导航': {
+                zh: '手术导航',
+                en: 'Surgical Navigation'
+            },
+            'skill-name-点云处理': {
+                zh: '点云处理',
+                en: 'Point Cloud Processing'
+            },
+            
+            // 项目标签
+            'skill-tag-c++': {
+                zh: 'C++',
+                en: 'C++'
+            },
+            'skill-tag-mitk': {
+                zh: 'MITK',
+                en: 'MITK'
+            },
+            'skill-tag-医学导航': {
+                zh: '医学导航',
+                en: 'Medical Navigation'
+            },
+            'skill-tag-精度测试': {
+                zh: '精度测试',
+                en: 'Precision Testing'
+            },
+            'skill-tag-3d重建': {
+                zh: '3D重建',
+                en: '3D Reconstruction'
+            },
+            'skill-tag-点云处理': {
+                zh: '点云处理',
+                en: 'Point Cloud Processing'
+            },
+            'skill-tag-医学图像': {
+                zh: '医学图像',
+                en: 'Medical Imaging'
+            },
+            'skill-tag-ct图像处理': {
+                zh: 'CT图像处理',
+                en: 'CT Image Processing'
+            },
+            'skill-tag-机器人控制': {
+                zh: '机器人控制',
+                en: 'Robot Control'
+            },
+            'skill-tag-手术规划': {
+                zh: '手术规划',
+                en: 'Surgical Planning'
+            },
+            
+            // 工作经历部分
+            'company-name1': {
+                zh: '杭州兰丁医疗科技有限公司',
+                en: 'Hangzhou Landing Medical Technology Co., Ltd.'
+            },
+            'company-name2': {
+                zh: '广州医科大学附属第一医院',
+                en: 'The First Affiliated Hospital of Guangzhou Medical University'
+            },
+            'company-position': {
+                zh: '算法部门主管',
+                en: 'Algorithm Department Manager'
+            },
+            'company-position2': {
+                zh: '算法工程师',
+                en: 'Algorithm Engineer'
+            },
+            'position-description1': {
+                zh: '负责团队管理与技术决策，带领10人团队开发医疗机器人核心算法',
+                en: 'Responsible for team management and technical decisions, leading a team of 10 to develop core algorithms for medical robots'
+            },
+            'position-description2': {
+                zh: '负责医疗机器人视觉感知与导航算法研发',
+                en: 'Responsible for medical robot visual perception and navigation algorithm development'
+            },
+            
+            // 项目标题
+            'project-title1': {
+                zh: '神经外科手术机器人 Lancet Neuro-Surgery Robot',
+                en: 'Neurosurgical Robot Lancet Neuro-Surgery Robot'
+            },
+            'project-title2': {
+                zh: '口腔种植手术机器人系统',
+                en: 'Oral Implant Surgical Robot System'
+            },
+            'project-title3': {
+                zh: '穿刺手术机器人项目',
+                en: 'Puncture Surgery Robot Project'
+            },
+            'project-title4': {
+                zh: '下肢高位胫骨截骨手术(HTO)导航系统',
+                en: 'High Tibial Osteotomy (HTO) Navigation System'
+            },
+            
+            // 项目描述
+            'project-neuro-desc': {
+                zh: '开发国内首款神经外科手术机器人系统，实现亚毫米级精度的手术导航与规划',
+                en: 'Developed China\'s first neurosurgical robot system, achieving sub-millimeter precision in surgical navigation and planning'
+            },
+            'project-oral-desc': {
+                zh: '开发国内首款口腔种植手术机器人系统，实现微米级精度的种植体植入',
+                en: 'Developed China\'s first oral implant surgical robot system, achieving micron-level precision in implant placement'
+            },
+            'project-puncture-desc': {
+                zh: '研发高精度穿刺手术导航系统，提高微创手术的安全性与精确性',
+                en: 'Developed high-precision puncture surgery navigation system to improve the safety and accuracy of minimally invasive surgery'
+            },
+            'project-hto-desc': {
+                zh: '开发骨科手术精准导航系统，提高截骨手术的精度与手术效率',
+                en: 'Developed orthopedic surgery precision navigation system to improve the accuracy and efficiency of osteotomy surgery'
+            },
+            
+            // 科研项目
+            'research-project-title1': {
+                zh: '国家重点研发计划（2019YFB1404801）',
+                en: 'National Key R&D Program of China (2019YFB1404801)'
+            },
+            'research-project-desc1': {
+                zh: '2019-12至2022-11 | 314万元 | 结题',
+                en: '2019-12 to 2022-11 | 3.14 Million RMB | Completed'
+            },
+            'research-project-title2': {
+                zh: '广东省自然科学面上项目（2024A1515010851）',
+                en: 'Guangdong Natural Science Foundation (2024A1515010851)'
+            },
+            'research-project-desc2': {
+                zh: '2024-01至2026-12 | 15万元 | 进行中',
+                en: '2024-01 to 2026-12 | 150,000 RMB | Ongoing'
+            },
+            
+            // 创新创业
+            'innovation-title1': {
+                zh: '便携式脉冲振荡肺功能仪（国家级银奖）',
+                en: 'Portable Pulse Oscillation Pulmonary Function Meter (National Silver Award)'
+            },
+            'innovation-title2': {
+                zh: '血涂片智能分析系统（省赛铜奖）',
+                en: 'Intelligent Blood Smear Analysis System (Provincial Bronze Award)'
+            },
+            'innovation-title3': {
+                zh: 'HE染色预测系统（省赛银奖）',
+                en: 'HE Staining Prediction System (Provincial Silver Award)'
+            },
+            'innovation-intro1': {
+                zh: '打造国内首款便携式脉冲振荡肺功能检测设备，解决基层医疗机构肺功能检测难题。',
+                en: 'Created China\'s first portable pulse oscillation pulmonary function detection device, solving pulmonary function testing challenges in primary healthcare institutions.'
+            },
+            'innovation-intro2': {
+                zh: '革新传统血液检测流程，将人工分析时间从30分钟缩短至3分钟，大幅提升检验效率。',
+                en: 'Revolutionized traditional blood testing process, reducing manual analysis time from 30 minutes to 3 minutes, significantly improving testing efficiency.'
+            },
+            'innovation-intro3': {
+                zh: '突破性实现从基因组数据直接预测HE染色图像，为精准医疗提供全新技术路径。',
+                en: 'Breakthrough achievement in directly predicting HE staining images from genomic data, providing a new technical pathway for precision medicine.'
+            },
+            
+            // 教育背景
+            'education-joint': {
+                zh: '联合培养 | 医学影像算法研究',
+                en: 'Joint Training | Medical Imaging Algorithm Research'
+            },
+            'education-master': {
+                zh: '生物医学工程 硕士 | 专业排名 1/25(前1%)',
+                en: 'Biomedical Engineering Master | Rank 1/25 (Top 1%)'
+            },
+            'education-bachelor': {
+                zh: '信息与计算科学 本科 | 专业排名 9/60(前15%)',
+                en: 'Information and Computational Science Bachelor | Rank 9/60 (Top 15%)'
+            }
+        };
+        
+        // 定义全局翻译函数
+        window.translatePage = function(lang) {
+            console.log('翻译页面到:', lang);
+            const translations = window.globalTranslations;
+            
+            // 更新导航链接
+            document.querySelectorAll('.nav-link').forEach(link => {
+                const href = link.getAttribute('href');
+                if (href) {
+                    const key = `nav-${href.substring(1)}`;
+                    if (translations[key] && translations[key][lang]) {
+                        link.textContent = translations[key][lang];
+                    }
+                }
+            });
+            
+            // 更新标题
+            document.querySelectorAll('section h2').forEach(heading => {
+                const sectionId = heading.parentElement.id;
+                const key = `title-${sectionId}`;
+                if (translations[key] && translations[key][lang]) {
+                    heading.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新自我总结内容
+            const aboutContent = document.querySelector('#about p');
+            if (aboutContent && translations['about-content']) {
+                aboutContent.textContent = translations['about-content'][lang];
+            }
+            
+            // 更新成果总结标签
+            document.querySelectorAll('.stat-label').forEach(label => {
+                const text = label.textContent.trim();
+                if (text === '发明专利' && translations['achievement-patents']) {
+                    label.textContent = translations['achievement-patents'][lang];
+                } else if (text === 'SCI论文' && translations['achievement-papers']) {
+                    label.textContent = translations['achievement-papers'][lang];
+                } else if (text === '医疗器械注册' && translations['achievement-devices']) {
+                    label.textContent = translations['achievement-devices'][lang];
+                } else if (text === '科研奖项' && translations['achievement-awards']) {
+                    label.textContent = translations['achievement-awards'][lang];
+                }
+            });
+            
+            // 更新技术能力部分的标题
+            document.querySelectorAll('.skill-category h3').forEach(title => {
+                const text = title.textContent.trim();
+                const key = `skill-category-title-${text.toLowerCase()}`;
+                if (translations[key] && translations[key][lang]) {
+                    title.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新技能级别
+            document.querySelectorAll('.skill-level').forEach(level => {
+                const text = level.textContent.trim();
+                const key = `skill-level-${text}`;
+                if (translations[key] && translations[key][lang]) {
+                    level.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新技能名称
+            document.querySelectorAll('.skill-name').forEach(name => {
+                const text = name.textContent.trim();
+                const key = `skill-name-${text.toLowerCase().replace(/\s+/g, '-')}`;
+                if (translations[key] && translations[key][lang]) {
+                    name.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新技能标签
+            document.querySelectorAll('.skill-tag').forEach(tag => {
+                const text = tag.textContent.trim();
+                const key = `skill-name-${text.toLowerCase().replace(/\s+/g, '-')}`;
+                if (translations[key] && translations[key][lang]) {
+                    tag.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新项目技能标签
+            document.querySelectorAll('.timeline-skill-tag').forEach(tag => {
+                const text = tag.textContent.trim();
+                const key = `skill-tag-${text.toLowerCase().replace(/\s+/g, '-')}`;
+                if (translations[key] && translations[key][lang]) {
+                    tag.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新公司名称
+            document.querySelectorAll('.company-name').forEach((company, index) => {
+                const key = `company-name${index + 1}`;
+                if (translations[key] && translations[key][lang]) {
+                    company.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新职位名称
+            document.querySelectorAll('.position-title').forEach((position, index) => {
+                const key = `company-position${index === 0 ? '' : (index + 1)}`;
+                if (translations[key] && translations[key][lang]) {
+                    position.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新职位描述
+            document.querySelectorAll('.position-description').forEach((desc, index) => {
+                const key = `position-description${index + 1}`;
+                if (translations[key] && translations[key][lang]) {
+                    desc.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新项目标题
+            document.querySelectorAll('.timeline-project h4').forEach((title, index) => {
+                const key = `project-title${index + 1}`;
+                if (translations[key] && translations[key][lang]) {
+                    title.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新项目描述
+            document.querySelectorAll('.project-description').forEach(desc => {
+                const projectHeader = desc.closest('.timeline-project').querySelector('h4').textContent;
+                
+                if (projectHeader.includes('神经外科手术机器人') && translations['project-neuro-desc']) {
+                    desc.textContent = translations['project-neuro-desc'][lang];
+                } else if (projectHeader.includes('口腔种植手术机器人') && translations['project-oral-desc']) {
+                    desc.textContent = translations['project-oral-desc'][lang];
+                } else if (projectHeader.includes('穿刺手术机器人') && translations['project-puncture-desc']) {
+                    desc.textContent = translations['project-puncture-desc'][lang];
+                } else if (projectHeader.includes('下肢高位胫骨截骨手术') && translations['project-hto-desc']) {
+                    desc.textContent = translations['project-hto-desc'][lang];
+                }
+            });
+            
+            // 更新项目状态
+            document.querySelectorAll('.project-status').forEach(status => {
+                if (status.classList.contains('status-ongoing')) {
+                    status.textContent = translations['status-ongoing'][lang];
+                } else if (status.classList.contains('status-completed')) {
+                    status.textContent = translations['status-completed'][lang];
+                } else if (status.classList.contains('status-launched')) {
+                    status.textContent = translations['status-launched'][lang];
+                }
+            });
+            
+            // 更新详细信息按钮
+            document.querySelectorAll('.details-button').forEach(button => {
+                const key = button.classList.contains('active') ? 'details-button-active' : 'details-button';
+                if (translations[key] && translations[key][lang]) {
+                    button.textContent = translations[key][lang];
+                }
+            });
+            
+            // 更新科研项目
+            const researchProjects = document.querySelectorAll('#projects .info-card');
+            if (researchProjects.length >= 1) {
+                const project1 = researchProjects[0];
+                const title1 = project1.querySelector('h3');
+                const desc1 = project1.querySelector('p');
+                
+                if (title1 && translations['research-project-title1']) {
+                    title1.textContent = translations['research-project-title1'][lang];
+                }
+                
+                if (desc1 && translations['research-project-desc1']) {
+                    desc1.textContent = translations['research-project-desc1'][lang];
+                }
+            }
+            
+            if (researchProjects.length >= 2) {
+                const project2 = researchProjects[1];
+                const title2 = project2.querySelector('h3');
+                const desc2 = project2.querySelector('p');
+                
+                if (title2 && translations['research-project-title2']) {
+                    title2.textContent = translations['research-project-title2'][lang];
+                }
+                
+                if (desc2 && translations['research-project-desc2']) {
+                    desc2.textContent = translations['research-project-desc2'][lang];
+                }
+            }
+            
+            // 更新创新创业标题和介绍
+            document.querySelectorAll('.innovation-item h3').forEach(title => {
+                const text = title.textContent.trim();
+                
+                if (text.includes('便携式脉冲振荡肺功能仪') && translations['innovation-title1']) {
+                    title.textContent = translations['innovation-title1'][lang];
+                } else if (text.includes('血涂片智能分析系统') && translations['innovation-title2']) {
+                    title.textContent = translations['innovation-title2'][lang];
+                } else if (text.includes('HE染色预测系统') && translations['innovation-title3']) {
+                    title.textContent = translations['innovation-title3'][lang];
+                }
+            });
+            
+            document.querySelectorAll('.project-intro').forEach(intro => {
+                const itemTitle = intro.closest('.innovation-item').querySelector('h3').textContent;
+                
+                if (itemTitle.includes('便携式脉冲振荡肺功能仪') && translations['innovation-intro1']) {
+                    intro.textContent = translations['innovation-intro1'][lang];
+                } else if (itemTitle.includes('血涂片智能分析系统') && translations['innovation-intro2']) {
+                    intro.textContent = translations['innovation-intro2'][lang];
+                } else if (itemTitle.includes('HE染色预测系统') && translations['innovation-intro3']) {
+                    intro.textContent = translations['innovation-intro3'][lang];
+                }
+            });
+            
+            // 更新教育背景
+            document.querySelectorAll('.info-card p').forEach(p => {
+                const text = p.textContent.trim();
+                
+                if (text.includes('联合培养') && translations['education-joint']) {
+                    p.textContent = translations['education-joint'][lang];
+                } else if (text.includes('生物医学工程 硕士') && translations['education-master']) {
+                    p.textContent = translations['education-master'][lang];
+                } else if (text.includes('信息与计算科学 本科') && translations['education-bachelor']) {
+                    p.textContent = translations['education-bachelor'][lang];
+                }
+            });
+        };
+        
+        // 为语言切换按钮添加事件监听器
+        document.querySelectorAll('.language-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // 如果已经是激活状态，不做任何操作
+                if (this.classList.contains('active')) return;
+                
+                // 更新激活状态
+                document.querySelector('.language-option.active').classList.remove('active');
+                this.classList.add('active');
+                
+                // 获取选择的语言
+                const lang = this.getAttribute('data-lang');
+                
+                // 翻译页面
+                window.translatePage(lang);
+            });
+        });
+        
+        // 初始化页面语言
+        const initialLang = document.querySelector('.language-option.active').getAttribute('data-lang');
+        setTimeout(() => {
+            window.translatePage(initialLang);
+        }, 500);
+    });
+    </script>
+    <style>
+        :root {
+            --primary-color: #2b2d42;
+            --secondary-color: #4a5568;
+            --accent-color: #4299e1;
+            --background: linear-gradient(45deg, #f8fafc 0%, #e2e8f0 100%);
+            --glass-bg: rgba(255, 255, 255, 0.95);
+            --progress-bg: rgba(66, 153, 225, 0.15);
+            --progress-fill: #4299e1;
+            --timeline-dot: 12px;
+            --timeline-width: 4px;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        
+        .skill-card {
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 0;
+        }
 
-				<!-- 最近提出的文章 -->
-					<section class="box recent-posts">
-						<header>
-							<h2>最近提出</h2>
-						</header>
-						<ul>
-							<li><a href="index.html">如何在GNN上进行消息传递</a></li>
-							<li><a href="index.html">Graph Transformer</a></li>
-							<li><a href="index.html">Multimodal Fusion</a></li>
-							<li><a href="index.html">大语言模型</a></li>
-							<li><a href="index.html">多模态图神经网络</a></li>
-						</ul>
-					</section>
+        .skill-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+        }
 
-				<!-- 最近提出的思考 -->
-					<section class="box recent-comments">
-						<header>
-							<h2>最近思考</h2>
-						</header>
-						<ul>
-							<li>GNN <a href="index.html">信息补足</a></li>
-							<li>多模态 <a href="index.html">多模态融合</a></li>
-							<li>深度学习 <a href="index.html">自监督学习</a></li>
-						</ul>
-					</section>
+        .skill-header {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
 
-				<!-- 日期表 -->
-					<section class="box calendar">
-						<div class="inner">
-							<table>
-								<caption>2024 年 3 月</caption>
-								<thead>
-									<tr>
-										<th scope="col" title="Monday">一</th>
-										<th scope="col" title="Tuesday">二</th>
-										<th scope="col" title="Wednesday">三</th>
-										<th scope="col" title="Thursday">四</th>
-										<th scope="col" title="Friday">五</th>
-										<th scope="col" title="Saturday">六</th>
-										<th scope="col" title="Sunday">日</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td colspan="4" class="pad"><span>&nbsp;</span></td>
-										<td><span>1</span></td>
-										<td><span>2</span></td>
-										<td><span>3</span></td>
-									</tr>
-									<tr>
-										<td><span>4</span></td>
-										<td><span>5</span></td>
-										<td><a href="#">6</a></td>
-										<td><span>7</span></td>
-										<td><span>8</span></td>
-										<td><span>9</span></td>
-										<td><a href="#">10</a></td>
-									</tr>
-									<tr>
-										<td><span>11</span></td>
-										<td><span>12</span></td>
-										<td><span>13</span></td>
-										<td><span>14</span></td>
-										<td><span>15</span></td>
-										<td><span>16</span></td>
-										<td><span>17</span></td>
-									</tr>
-									<tr>
-										<td><span>18</span></td>
-										<td><span>19</span></td>
-										<td><span>20</span></td>
-										<td><span>21</span></td>
-										<td><span>22</span></td>
-										<td><a href="#">23</a></td>
-										<td><span>24</span></td>
-									</tr>
-									<tr>
-										<td><a href="#">25</a></td>
-										<td><span>26</span></td>
-										<td><span>27</span></td>
-										<td><span>28</span></td>
-										<td><span>29</span></td>
-										<td class="today"><a href="index.html">30</a></td>
-										<td><span>31</span></td>
-										<td class="pad" colspan="3"><span>&nbsp;</span></td>
-									</tr>
-								</tbody>
-							</table>
-						</div>
-					</section>
+        .skill-details li {
+            margin-bottom: 0.8rem;
+            line-height: 1.4;
+        }
 
-				<!-- 版权申明 -->
-					<ul id="copyright">
-						<li>&copy; YangCazz</li><li><a href="https://github.com/YangCazz">YangCazz.github</a></li>
-					</ul>
+        .skill-radial-progress {
+            --size: 80px;
+            --thickness: 8px;
+            width: var(--size);
+            height: var(--size);
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background:
+                radial-gradient(closest-side, var(--glass-bg) 80%, transparent 0 99.9%, var(--glass-bg) 0),
+                conic-gradient(var(--progress-fill) calc(var(--skill-level)*1%), var(--progress-bg) 0);
+            animation: progress-glow 1.5s ease-in-out;
+        }
 
-			</div>
+        @keyframes progress-glow {
+            0% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+            100% { filter: brightness(1); }
+        }
 
-		<!-- 源脚本 -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+        /* 技能标签详细说明 */
+        .skill-detail {
+            display: none;
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            padding: 8px 12px;
+            border-radius: 6px;
+            box-shadow: var(--shadow);
+            white-space: nowrap;
+            font-size: 0.9em;
+            z-index: 1;
+        }
 
-	</body>
+        .skill-tag:hover .skill-detail {
+            display: block;
+            animation: tooltipFade 0.3s ease;
+        }
+
+        @keyframes tooltipFade {
+            from { opacity: 0; transform: translate(-50%, 5px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        .skill-tag {
+            display: inline-block;
+            padding: 4px 8px;
+            margin: 2px;
+            border-radius: 16px;
+            background: rgba(66, 153, 225, 0.1);
+            border: 1px solid rgba(66, 153, 225, 0.3);
+            transition: var(--transition);
+            position: relative;
+            cursor: pointer;
+            font-size: 0.85em;
+        }
+
+        .skill-tag:hover {
+            background: rgba(66, 153, 225, 0.2);
+            transform: scale(1.05);
+        }
+
+        .skill-matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes scaleIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 15px;
+            bottom: 15px;
+            width: var(--timeline-width);
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+        
+        .timeline-event {
+            position: relative;
+            padding: 1.5rem 0 1.5rem 2rem;
+            animation: scaleIn 0.6s ease-out;
+        }
+        
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            left: -2px;
+            top: 24px;
+            width: var(--timeline-dot);
+            height: var(--timeline-dot);
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 3px solid var(--glass-bg);
+        }
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(45deg, #2b2d42, #4299e1);
+        }
+
+        #particleCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            background: linear-gradient(45deg, #2b2d42, #4299e1);
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            line-height: 1.6;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            color: var(--primary-color);
+            display: grid;
+            grid-template-columns: 240px 1fr;
+            gap: 2rem;
+            background: var(--background);
+            position: relative;
+            animation: fadeIn 0.8s ease-out;
+            -webkit-user-select: none;  /* Safari */
+            -ms-user-select: none;      /* IE 10+ */
+            user-select: none;          /* 标准语法 */
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-blue);
+            z-index: -1;
+        }
+        .nav-sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        .nav-link {
+            display: block;
+            padding: 0.8rem;
+            margin: 0.5rem 0;
+            border-radius: 6px;
+            transition: 0.3s;
+            text-decoration: none;
+            color: var(--primary-color);
+            background: rgba(255, 255, 255, 0.1);
+            transition: var(--transition);
+        }
+        
+        .nav-link.active {
+            background: rgba(66, 153, 225, 0.15);
+            border-left: 3px solid var(--accent-color);
+            transform: translateX(8px);
+            font-weight: 500;
+        }
+        
+        .nav-link.active::before {
+            content: "➤";
+            position: absolute;
+            left: -18px;
+            color: var(--accent-color);
+            filter: drop-shadow(0 2px 4px rgba(66, 153, 225, 0.3));
+        }
+        .nav-link {
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .nav-link:hover {
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateX(8px) scale(1.02);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15),
+                        inset 0 0 8px rgba(255, 255, 255, 0.2);
+        }
+        
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 3px;
+            background: var(--accent-color);
+            transform: scaleY(0);
+            transition: var(--transition);
+        }
+        
+        .nav-link:hover::before {
+            transform: scaleY(1);
+        }
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        .achievement-card {
+            padding: 1.5rem;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            box-shadow: var(--shadow), inset 0 0 15px rgba(255,255,255,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, background 0.3s;
+            border: 1px solid rgba(255,255,255,0.3);
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+
+        /* 交互式时间线样式 */
+        .timeline-container {
+            position: relative;
+            padding: 2rem 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 1.5rem;
+            margin-left: 30px;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -30px;
+            top: 24px;
+            width: 16px;
+            height: 16px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 3px solid var(--glass-bg);
+            z-index: 2;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            left: -22px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: var(--accent-color);
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-company {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .timeline-period {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+
+        .timeline-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            padding-left: 1.5rem;
+            border-left: 2px solid rgba(66, 153, 225, 0.1);
+        }
+        
+        .timeline-item.active .timeline-details {
+            max-height: 1000px;
+            margin-top: 1rem;
+        }
+
+        /* 新增进度指示条 */
+        .timeline-progress {
+            height: 4px;
+            background: var(--progress-bg);
+            border-radius: 2px;
+            margin: 0.5rem 0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .timeline-progress-bar {
+            width: 0;
+            height: 100%;
+            background: var(--progress-fill);
+            transition: width 1s ease-out;
+        }
+        
+        /* 技术标签增强 */
+        .tech-pill {
+            position: relative;
+            cursor: help;
+            display: inline-flex;
+            align-items: center;
+            padding: 6px 14px;
+            margin: 4px;
+            border-radius: 20px;
+            background: rgba(66, 153, 225, 0.1);
+            border: 1px solid rgba(66, 153, 225, 0.3);
+            font-size: 0.85em;
+            transition: var(--transition);
+        }
+        
+        .tech-pill:hover {
+            background: rgba(66, 153, 225, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 153, 225, 0.15);
+        }
+        
+        .tech-tooltip {
+            display: none;
+            position: absolute;
+            bottom: 120%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--glass-bg);
+            padding: 1rem;
+            border-radius: 8px;
+            box-shadow: var(--shadow);
+            width: 280px;
+            z-index: 10;
+            font-size: 0.9em;
+            line-height: 1.6;
+            backdrop-filter: blur(4px);
+        }
+        
+        .tech-tooltip::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: var(--glass-bg) transparent transparent;
+        }
+        
+        .tech-pill:hover .tech-tooltip {
+            display: block;
+            animation: tooltipFade 0.3s ease;
+        }
+
+        .tech-pill {
+            display: inline-block;
+            padding: 4px 12px;
+            margin: 4px;
+            border-radius: 20px;
+            background: rgba(66, 153, 225, 0.1);
+            border: 1px solid rgba(66, 153, 225, 0.3);
+            font-size: 0.85em;
+            transition: var(--transition);
+        }
+        
+        .achievement-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+        }
+        .publication-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+            gap: 2rem;
+            counter-reset: publication-counter;
+        }
+
+        .publication-item {
+            background: var(--glass-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            transition: var(--transition);
+            position: relative;
+            counter-increment: publication-counter;
+            box-shadow: var(--shadow);
+        }
+
+        .publication-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(66, 153, 225, 0.15);
+        }
+
+        .publication-item::before {
+            content: counter(publication-counter);
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            width: 32px;
+            height: 32px;
+            background: var(--accent-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .pub-type {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            margin-bottom: 1rem;
+        }
+
+        .pub-patent {
+            background: rgba(76, 175, 80, 0.15);
+            color: #4CAF50;
+        }
+
+        .pub-paper {
+            background: rgba(33, 150, 243, 0.15);
+            color: #2196F3;
+        }
+
+        .pub-conference {
+            background: rgba(255, 193, 7, 0.15);
+            color: #FFC107;
+        }
+
+        /* 创新创业项目样式 */
+        .innovation-item {
+            position: relative;
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--accent-color);
+            overflow: hidden;
+        }
+
+        .innovation-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.2);
+        }
+
+        .innovation-item .pub-type {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 16px;
+            font-size: 0.85em;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .pub-medical {
+            background: rgba(52, 211, 153, 0.1);
+            color: #2dd4bf;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .pub-ai {
+            background: rgba(79, 70, 229, 0.1);
+            color: #818cf8;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+        }
+
+        .innovation-item h3 {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .pub-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        .pub-awards {
+            color: #f59e0b;
+            font-weight: 500;
+        }
+
+        .pub-details {
+            max-height: 500px;  /* 设置足够大的高度使内容默认显示 */
+            overflow: visible;  /* 改为可见 */
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(66, 153, 225, 0.1);
+            transition: none;  /* 移除过渡效果 */
+        }
+
+        .innovation-item.active .pub-details {
+            max-height: 500px;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(66, 153, 225, 0.1);
+        }
+
+        /* 移除展开/折叠按钮 */
+        .innovation-toggle {
+            display: none;
+        }
+
+        .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(66, 153, 225, 0.1);
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            transition: var(--transition);
+        }
+
+        .pub-details {
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(66, 153, 225, 0.1);
+        }
+
+        .pub-metrics::before {
+            content: '📈 ';
+            margin-right: 0.5rem;
+        }
+
+        .pub-authors::before {
+            content: '👥 ';
+            margin-right: 0.5rem;
+        }
+        @media print {
+            body {
+                grid-template-columns: 1fr;
+            }
+            .nav-sidebar {
+                display: none;
+            }
+        }
+
+        /* 工作经历交互样式 */
+        .timeline-event {
+            position: relative;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .timeline-event:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(66, 153, 225, 0.15);
+        }
+
+        .timeline-event h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .timeline-event h4 {
+            color: var(--accent-color);
+            margin: 0.5rem 0;
+        }
+
+        .timeline-toggle {
+            background: rgba(66, 153, 225, 0.1);
+            border: 1px solid rgba(66, 153, 225, 0.3);
+            color: var(--accent-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: var(--transition);
+            margin-top: 1rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .timeline-toggle:hover {
+            background: rgba(66, 153, 225, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .timeline-toggle::after {
+            content: '▼';
+            margin-left: 0.5rem;
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+
+        .timeline-event.active .timeline-toggle::after {
+            transform: rotate(180deg);
+        }
+
+        .timeline-details {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            margin-top: 0;
+        }
+
+        .timeline-event.active .timeline-details {
+            max-height: 500px;
+            margin-top: 1rem;
+        }
+
+        .timeline-progress {
+            height: 4px;
+            background: var(--progress-bg);
+            border-radius: 2px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .timeline-progress-bar {
+            width: 0;
+            height: 100%;
+            background: var(--progress-fill);
+            transition: width 1s ease-out;
+        }
+
+        /* 添加时间线连接效果 */
+        .timeline {
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: rgba(66, 153, 225, 0.2);
+        }
+
+        .timeline-event::before {
+            content: '';
+            position: absolute;
+            left: -10px;
+            top: 24px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 4px solid var(--glass-bg);
+            z-index: 1;
+        }
+
+        /* 添加工作时间标签 */
+        .timeline-period {
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            background: rgba(66, 153, 225, 0.1);
+            border-radius: 16px;
+            font-size: 0.85em;
+            margin-left: 1rem;
+        }
+
+        /* 添加技能标签 */
+        .timeline-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .timeline-skill-tag {
+            background: rgba(66, 153, 225, 0.1);
+            padding: 0.3rem 0.8rem;
+            border-radius: 16px;
+            font-size: 0.85em;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+        }
+
+        /* 技能部分增强样式 */
+        .skill-overview {
+            display: flex;
+            gap: 1rem;  /* 减小间距 */
+            margin-bottom: 0.5rem;  /* 进一步减小底部间距 */
+            flex-wrap: wrap;
+            align-items: flex-start;
+            justify-content: space-between;  /* 两端对齐 */
+        }
+
+        .skill-categories {
+            position: relative;
+            padding-top: 0;  /* 移除顶部内边距 */
+            margin-top: 0;  /* 移除顶部外边距 */
+        }
+
+        /* 移除分隔线，因为已经没有必要了 */
+        .skill-categories::before {
+            display: none;
+        }
+
+        /* 调整技能类别标题的上边距 */
+        .skill-category-title {
+            margin-top: 0.5rem;
+        }
+
+        .skill-summary {
+            flex: 1;
+            min-width: 250px;  /* 减小最小宽度 */
+            max-width: 60%;  /* 限制最大宽度 */
+        }
+
+        .skill-radar {
+            flex: 1;
+            min-width: 220px;  /* 进一步减小最小宽度 */
+            max-width: 280px;  /* 添加最大宽度限制 */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .radar-chart {
+            max-width: 85%;  /* 进一步减小雷达图尺寸 */
+            height: auto;
+        }
+
+        .radar-grid {
+            fill: none;
+            stroke: rgba(66, 153, 225, 0.2);
+            stroke-width: 1;
+        }
+
+        .radar-axis {
+            stroke: rgba(66, 153, 225, 0.3);
+            stroke-width: 1;
+        }
+
+        .radar-label {
+            fill: var(--secondary-color);
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .radar-data {
+            fill: rgba(66, 153, 225, 0.2);
+            stroke: var(--accent-color);
+            stroke-width: 2;
+            animation: radarFadeIn 1.5s ease-out forwards;
+        }
+
+        .radar-point {
+            fill: var(--accent-color);
+            stroke: white;
+            stroke-width: 2;
+            filter: drop-shadow(0 0 2px rgba(66, 153, 225, 0.5));
+        }
+
+        @keyframes radarFadeIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        .skill-highlight {
+            background: linear-gradient(45deg, rgba(66, 153, 225, 0.1), rgba(66, 153, 225, 0.2));
+            border-radius: 12px;
+            padding: 1rem;  /* 减小内边距 */
+            margin-bottom: 0.3rem;  /* 进一步减小底部间距 */
+            border-left: 4px solid var(--accent-color);
+        }
+
+        .skill-highlight-title {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .skill-meters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            justify-content: space-between;
+        }
+
+        .skill-meter-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100px;
+        }
+
+        .skill-meter {
+            width: 80px;
+            height: 80px;
+            position: relative;
+        }
+
+        .skill-meter svg {
+            transform: rotate(-90deg);
+        }
+
+        .skill-meter-value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        .skill-meter-label {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            text-align: center;
+            color: var(--secondary-color);
+        }
+
+        .skill-card {
+            transform: translateY(20px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease;
+        }
+
+        .skill-card-visible {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        /* 恢复技能类别标题的字体格式，但保留布局优化 */
+        .skill-category-title {
+            position: relative;
+            padding-left: 15px;
+            transform: translateX(-10px);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+            margin-bottom: 0.8rem;  /* 保留减小的底部间距 */
+        }
+
+        .title-animated {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .skill-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.3rem 0.8rem;
+            background: rgba(66, 153, 225, 0.1);
+            border-radius: 20px;
+            margin: 0.3rem;
+            font-size: 0.9rem;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            transition: var(--transition);
+        }
+
+        .skill-badge:hover {
+            background: rgba(66, 153, 225, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(66, 153, 225, 0.15);
+        }
+
+        .skill-badge-icon {
+            margin-right: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .skill-tags-cloud {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        /* 如果您仍然想要一些动画效果，可以使用这个更微妙的版本 */
+        @keyframes radarPointGlow {
+            0% { filter: drop-shadow(0 0 2px rgba(66, 153, 225, 0.5)); }
+            50% { filter: drop-shadow(0 0 4px rgba(66, 153, 225, 0.8)); }
+            100% { filter: drop-shadow(0 0 2px rgba(66, 153, 225, 0.5)); }
+        }
+
+        /* 然后可以将这个应用到点上 */
+        .radar-point {
+            animation: radarPointGlow 2s infinite;
+        }
+
+        /* 添加技能分类分隔线 */
+        .skill-categories::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 1px;
+            background: rgba(66, 153, 225, 0.2);
+        }
+
+        /* 调整技能类别间距 */
+        .skill-category {
+            margin-bottom: 1rem;  /* 减小类别间距 */
+        }
+
+        /* 优化自我总结部分 */
+        #summary p {
+            margin: 0.6rem 0;  /* 减小段落间距 */
+            line-height: 1.5;  /* 稍微减小行高 */
+        }
+
+        #summary .tech-stack {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.8rem;
+        }
+
+        #summary .tech-tag {
+            background: rgba(66, 153, 225, 0.1);
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            transition: var(--transition);
+        }
+
+        #summary .tech-tag:hover {
+            background: rgba(66, 153, 225, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* 优化教育背景部分 */
+        #education .matrix-grid {
+            gap: 1.2rem;  /* 减小网格间距 */
+        }
+
+        #education h3 {
+            margin-bottom: 0.5rem;  /* 减小标题底部间距 */
+            color: var(--accent-color);
+            font-size: 1.1rem;  /* 稍微减小字体大小 */
+        }
+
+        #education p {
+            margin: 0.4rem 0;  /* 减小段落间距 */
+        }
+
+        #education ul {
+            margin-top: 0.6rem;
+            padding-left: 1.2rem;  /* 减小列表缩进 */
+        }
+
+        #education li {
+            margin-bottom: 0.3rem;  /* 减小列表项间距 */
+            line-height: 1.4;  /* 减小行高 */
+        }
+
+        /* 优化科研项目部分 */
+        #projects .matrix-grid {
+            gap: 1.2rem;  /* 减小网格间距 */
+        }
+
+        #projects h3 {
+            margin-bottom: 0.5rem;  /* 减小标题底部间距 */
+            color: var(--accent-color);
+            font-size: 1.1rem;  /* 稍微减小字体大小 */
+        }
+
+        #projects p {
+            margin: 0.4rem 0;  /* 减小段落间距 */
+            font-size: 0.9rem;  /* 稍微减小字体大小 */
+            color: var(--secondary-color);
+        }
+
+        #projects ul {
+            margin-top: 0.6rem;
+            padding-left: 1.2rem;  /* 减小列表缩进 */
+        }
+
+        #projects li {
+            margin-bottom: 0.3rem;  /* 减小列表项间距 */
+            line-height: 1.4;  /* 减小行高 */
+        }
+
+        /* 通用卡片样式优化 */
+        .achievement-card {
+            padding: 1.2rem;  /* 减小内边距 */
+            margin-bottom: 1.2rem;  /* 减小底部间距 */
+        }
+
+        .achievement-card h2 {
+            margin-top: 0;
+            margin-bottom: 0.8rem;  /* 减小标题底部间距 */
+        }
+
+        /* 添加卡片式布局样式 */
+        .card-layout {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .info-card {
+            background: var(--glass-bg);
+            border-radius: 12px;
+            padding: 1rem;
+            box-shadow: var(--shadow);
+            border-left: 3px solid var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .info-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(66, 153, 225, 0.15);
+        }
+
+        .info-card h3 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--accent-color);
+            font-size: 1.1rem;
+        }
+
+        .info-card p {
+            margin: 0.4rem 0;
+            font-size: 0.9rem;
+        }
+
+        .info-card ul {
+            margin-top: 0.6rem;
+            padding-left: 1.2rem;
+        }
+
+        .info-card li {
+            margin-bottom: 0.3rem;
+            line-height: 1.4;
+        }
+
+        /* 调整教育和项目部分使用卡片布局 */
+        #education .matrix-grid,
+        #projects .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        /* 调整工作经历部分 */
+        .timeline-event {
+            background: var(--glass-bg);
+            border-radius: 12px;
+            padding: 1.2rem;
+            box-shadow: var(--shadow);
+            border-left: 3px solid var(--accent-color);
+            transition: var(--transition);
+            margin-bottom: 1rem;
+        }
+
+        /* 调整创新创业和学术成果部分 */
+        .publication-wall {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .publication-item,
+        .innovation-item {
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        /* 优化创新创业项目介绍样式 */
+        .project-intro {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-weight: 500;
+            border-left: 3px solid var(--accent-color);
+            padding-left: 10px;
+            background: rgba(66, 153, 225, 0.05);
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .pub-details ul li {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .pub-details ul li strong {
+            color: var(--accent-color);
+            font-weight: 600;
+        }
+
+        .innovation-item .pub-awards {
+            display: inline-flex;
+            align-items: center;
+            font-weight: 600;
+        }
+
+        .innovation-item .pub-awards::before {
+            content: '🏆';
+            margin-right: 5px;
+        }
+
+        /* 优化学术成果部分样式 */
+        .publication-item {
+            position: relative;
+            padding: 1.2rem;
+            border-radius: 12px;
+            background: var(--glass-bg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            margin-bottom: 1rem;
+            border-left: 3px solid var(--accent-color);
+            overflow: hidden;
+            counter-increment: none;
+        }
+
+        .publication-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(66, 153, 225, 0.2);
+        }
+
+        .publication-item::before {
+            display: none;
+        }
+
+        .publication-item h4 {
+            margin: 0.5rem 0;
+            font-size: 1.1rem;
+            color: var(--primary-color);
+        }
+
+        .pub-patent {
+            background: rgba(76, 175, 80, 0.1);
+            color: #4CAF50;
+            border: 1px solid rgba(76, 175, 80, 0.3);
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 16px;
+            font-size: 0.85em;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .pub-paper {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+            border: 1px solid rgba(33, 150, 243, 0.3);
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 16px;
+            font-size: 0.85em;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .pub-conference {
+            background: rgba(255, 193, 7, 0.1);
+            color: #FFC107;
+            border: 1px solid rgba(255, 193, 7, 0.3);
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border-radius: 16px;
+            font-size: 0.85em;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .pub-details {
+            max-height: 500px;  /* 设置足够大的高度使内容默认显示 */
+            overflow: visible;  /* 改为可见 */
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(66, 153, 225, 0.1);
+            transition: none;  /* 移除过渡效果 */
+        }
+
+        .publication-item.active .pub-details {
+            max-height: 500px;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(66, 153, 225, 0.1);
+        }
+
+        .pub-highlight {
+            font-size: 0.95rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+            line-height: 1.5;
+            font-weight: 500;
+            border-left: 3px solid var(--accent-color);
+            padding: 8px 12px;
+            background: rgba(66, 153, 225, 0.05);
+            border-radius: 4px;
+        }
+
+        .pub-metrics, .pub-authors {
+            display: flex;
+            align-items: center;
+            margin: 0.5rem 0;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+        }
+
+        .pub-metrics::before {
+            content: '📈';
+            margin-right: 0.5rem;
+        }
+
+        .pub-authors::before {
+            content: '👥';
+            margin-right: 0.5rem;
+        }
+
+        .pub-impact {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .impact-tag {
+            background: rgba(66, 153, 225, 0.1);
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            transition: var(--transition);
+        }
+
+        /* 优化工作经历部分样式 */
+        .timeline-company {
+            position: relative;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-color);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            overflow: hidden;  /* 防止内容溢出 */
+        }
+
+        .timeline-company:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(66, 153, 225, 0.15);
+        }
+
+        .company-name {
+            margin-top: 0;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.3rem;
+        }
+
+        .company-position {
+            color: var(--accent-color);
+            font-weight: 500;
+            margin: 0.3rem 0 1rem 0;
+            font-size: 1.1rem;
+        }
+
+        .company-projects {
+            margin-top: 1.5rem;
+        }
+
+        .timeline-project {
+            padding: 1rem;
+            margin-bottom: 1.5rem;
+            background: rgba(66, 153, 225, 0.05);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .timeline-project:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-project h4 {
+            margin-top: 0;
+            margin-bottom: 0.3rem;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .project-period {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            font-weight: normal;
+        }
+
+        .timeline-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .timeline-skill-tag {
+            background: rgba(66, 153, 225, 0.1);
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            transition: var(--transition);
+        }
+
+        /* 优化职位显示样式 */
+        .company-positions {
+            margin-bottom: 1.5rem;
+        }
+
+        .company-position {
+            position: relative;
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            padding-bottom: 0.5rem;  /* 添加底部间距 */
+        }
+
+        .company-position::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5rem;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: var(--accent-color);
+            z-index: 2;  /* 确保点在线的上面 */
+        }
+
+        .company-position:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            left: 4px;
+            top: 0.8rem;
+            width: 2px;
+            height: calc(100% + 0.5rem);
+            background-color: rgba(66, 153, 225, 0.3);
+            z-index: 1;  /* 确保线在点的下面 */
+        }
+
+        .position-title {
+            display: block;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+        }
+
+        .position-period {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .position-description {
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+            margin-top: 0.3rem;
+            line-height: 1.5;
+        }
+
+        /* 添加项目角色样式 */
+        .project-role {
+            display: inline-block;
+            background: rgba(66, 153, 225, 0.15);
+            color: var(--accent-color);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            margin: 0.5rem 0;
+            border: 1px solid rgba(66, 153, 225, 0.3);
+        }
+
+        /* 优化工作项目结构样式 */
+        .timeline-project {
+            position: relative;
+            padding: 1.2rem;
+            margin-bottom: 1.5rem;
+            background: rgba(66, 153, 225, 0.05);
+            border-radius: 10px;
+            border-left: 3px solid var(--accent-color);
+            transition: var(--transition);
+        }
+
+        .timeline-project:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.1);
+            background: rgba(66, 153, 225, 0.08);
+        }
+
+        .timeline-project h4 {
+            margin-top: 0;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+            font-size: 1.1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.8rem;
+            flex-wrap: wrap;
+        }
+
+        .project-title-area {
+            flex: 1;
+        }
+
+        .project-meta {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin: 0.5rem 0;
+            flex-wrap: wrap;
+        }
+
+        .project-period {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            background: rgba(66, 153, 225, 0.08);
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+
+        .project-period::before {
+            content: '🗓️';
+            margin-right: 5px;
+        }
+
+        .project-role {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(66, 153, 225, 0.15);
+            color: var(--accent-color);
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border: 1px solid rgba(66, 153, 225, 0.3);
+        }
+
+        .project-role::before {
+            content: '👤';
+            margin-right: 5px;
+        }
+
+        .project-description {
+            margin: 0.8rem 0;
+            color: var(--secondary-color);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            border-left: 2px solid rgba(66, 153, 225, 0.3);
+            padding-left: 10px;
+            font-style: italic;
+        }
+
+        .timeline-project ul {
+            margin: 1rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .timeline-project ul li {
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+
+        .timeline-project ul li::marker {
+            color: var(--accent-color);
+        }
+
+        .timeline-skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            padding-top: 0.8rem;
+            border-top: 1px dashed rgba(66, 153, 225, 0.2);
+        }
+
+        .timeline-skill-tag {
+            display: inline-flex;
+            align-items: center;
+            background: rgba(66, 153, 225, 0.1);
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            transition: var(--transition);
+        }
+
+        .timeline-skill-tag:hover {
+            background: rgba(66, 153, 225, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* 项目成果样式 */
+        .project-achievements {
+            margin: 1rem 0;
+            padding: 0.8rem 1rem;
+            background: rgba(66, 153, 225, 0.08);
+            border-radius: 8px;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .project-achievements-title {
+            display: flex;
+            align-items: center;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .project-achievements-title::before {
+            content: '🏆';
+            margin-right: 0.5rem;
+        }
+
+        .achievement-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.5rem;
+        }
+
+        .achievement-item {
+            display: flex;
+            align-items: center;
+            background: rgba(66, 153, 225, 0.1);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            color: var(--accent-color);
+        }
+
+        .achievement-item::before {
+            margin-right: 5px;
+        }
+
+        .achievement-patent::before {
+            content: '📜';
+        }
+
+        .achievement-certification::before {
+            content: '✅';
+        }
+
+        .achievement-award::before {
+            content: '🥇';
+        }
+
+        .achievement-publication::before {
+            content: '📄';
+        }
+
+        /* 项目成果悬停详情样式 */
+        .achievement-item {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background: rgba(66, 153, 225, 0.1);
+            padding: 4px 12px;
+            border-radius: 16px;
+            font-size: 0.85em;
+            border: 1px solid rgba(66, 153, 225, 0.2);
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .achievement-item:hover {
+            background: rgba(66, 153, 225, 0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 3px 8px rgba(66, 153, 225, 0.2);
+        }
+
+        /* 修复项目成果悬停详情框被遮挡的问题 */
+        .achievement-detail {
+            position: absolute;
+            bottom: calc(100% + 10px);
+            left: 50%;
+            transform: translateX(-50%);
+            width: 280px;
+            background: var(--glass-bg);
+            border-radius: 8px;
+            padding: 12px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 1px solid rgba(66, 153, 225, 0.3);
+            z-index: 100;  /* 增加z-index确保在最上层 */
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            pointer-events: none;
+        }
+
+        /* 确保项目容器有相对定位 */
+        .timeline-project {
+            position: relative;
+            z-index: 1;  /* 默认z-index */
+        }
+
+        /* 当悬停时增加z-index */
+        .timeline-project:hover {
+            z-index: 10;  /* 悬停时提高z-index */
+        }
+
+        /* 确保成果项有相对定位 */
+        .achievement-item {
+            position: relative;
+            z-index: 2;  /* 默认比父容器高 */
+        }
+
+        /* 当悬停时增加z-index */
+        .achievement-item:hover {
+            z-index: 20;  /* 悬停时提高z-index，确保在最上层 */
+        }
+
+        /* 调整详情框位置，避免被遮挡 */
+        .achievement-item .achievement-detail {
+            bottom: auto;  /* 移除底部定位 */
+            top: 0;  /* 从顶部开始定位 */
+            left: 100%;  /* 放置在右侧 */
+            transform: translateY(-50%);  /* 向上平移50% */
+            margin-left: 10px;  /* 右侧间距 */
+        }
+
+        /* 调整箭头位置 */
+        .achievement-detail::after {
+            content: '';
+            position: absolute;
+            top: 50%;  /* 箭头在左侧中间 */
+            left: -8px;  /* 箭头指向左侧 */
+            transform: translateY(-50%);  /* 居中对齐 */
+            border-width: 8px;
+            border-style: solid;
+            border-color: transparent rgba(66, 153, 225, 0.3) transparent transparent;  /* 箭头指向左侧 */
+        }
+
+        /* 恢复项目成果悬停详情框样式 */
+        .achievement-item:hover .achievement-detail {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .achievement-detail-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            border-bottom: 1px solid rgba(66, 153, 225, 0.2);
+            padding-bottom: 5px;
+        }
+
+        .achievement-detail-content {
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            line-height: 1.4;
+        }
+
+        .achievement-detail-meta {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 0.8rem;
+            color: var(--accent-color);
+            border-top: 1px solid rgba(66, 153, 225, 0.2);
+            padding-top: 5px;
+        }
+
+        /* 确保详情框在小屏幕上不会溢出 */
+        @media (max-width: 768px) {
+            .achievement-item .achievement-detail {
+                left: auto;
+                right: 0;
+                top: -5px;
+                transform: translateY(-100%);
+                margin-left: 0;
+            }
+            
+            .achievement-detail::after {
+                top: 100%;
+                left: 50%;
+                transform: translateX(-50%);
+                border-color: rgba(66, 153, 225, 0.3) transparent transparent transparent;
+            }
+        }
+
+        /* 增加详情框的z-index */
+        .achievement-detail {
+            z-index: 1000;  /* 确保在最上层 */
+        }
+
+        /* 确保项目容器不会遮挡详情框 */
+        .timeline-company {
+            overflow: visible;  /* 允许内容溢出 */
+        }
+
+        /* 移除悬浮窗口左侧的小箭头 */
+        .achievement-detail::after {
+            display: none;  /* 隐藏箭头 */
+        }
+
+        /* 调整悬浮窗口位置，不需要为箭头留空间 */
+        .achievement-item .achievement-detail {
+            margin-left: 15px;  /* 增加左侧间距 */
+        }
+
+        /* 优化悬浮窗口样式 */
+        .achievement-detail {
+            border-radius: 10px;  /* 圆角更加柔和 */
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);  /* 增强阴影效果 */
+            border: 1px solid rgba(66, 153, 225, 0.4);  /* 边框更加明显 */
+        }
+
+        /* 确保小屏幕上的样式也移除箭头 */
+        @media (max-width: 768px) {
+            .achievement-detail::after {
+                display: none;
+            }
+        }
+
+        /* 成果总结样式 */
+        .achievements-summary {
+            background: var(--glass-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--accent-color);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .achievements-summary h3 {
+            margin-top: 0;
+            margin-bottom: 1rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+        }
+
+        .achievements-summary h3::before {
+            content: '🏆';
+            margin-right: 0.5rem;
+        }
+
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .achievement-stat {
+            background: rgba(66, 153, 225, 0.08);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            transition: var(--transition);
+            border: 1px solid rgba(66, 153, 225, 0.1);
+        }
+
+        .achievement-stat:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.1);
+            background: rgba(66, 153, 225, 0.12);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--accent-color);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            display: block;
+        }
+
+        .stat-icon {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .achievements-note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            font-style: italic;
+            text-align: center;
+            padding-top: 0.5rem;
+            border-top: 1px dashed rgba(66, 153, 225, 0.2);
+        }
+
+        /* 个人照片和基本信息栏样式 */
+        .profile-sidebar {
+            position: static;
+            width: auto;
+            background: var(--glass-bg);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            text-align: center;
+            margin-bottom: 1rem;
+            border-left: 4px solid var(--accent-color); /* 添加左侧边框，与其他卡片一致 */
+            background: linear-gradient(to right, rgba(66, 153, 225, 0.05), var(--glass-bg)); /* 添加渐变背景 */
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 3px solid var(--accent-color);
+            box-shadow: 0 5px 15px rgba(66, 153, 225, 0.2);
+        }
+
+        .profile-name {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin: 0.5rem 0;
+        }
+
+        .profile-title {
+            font-size: 0.9rem;
+            color: var(--secondary-color);
+            margin-bottom: 1rem;
+        }
+
+        .profile-contact {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px dashed rgba(66, 153, 225, 0.2);
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            justify-content: center; /* 居中对齐联系信息 */
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            transition: var(--transition);
+        }
+
+        .contact-item:hover {
+            color: var(--accent-color); /* 悬停时变色 */
+            transform: translateY(-2px); /* 悬停时轻微上移 */
+        }
+
+        .contact-icon {
+            margin-right: 0.5rem;
+            color: var(--accent-color);
+        }
+
+        /* 移除调整导航栏位置的代码 */
+        .nav-sidebar {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+            /* 其他样式保持不变 */
+        }
+
+        /* 移除媒体查询中的相关调整 */
+        @media (max-width: 768px) {
+            .profile-sidebar {
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            /* 移除导航栏位置调整 */
+            .nav-sidebar {
+                top: 0;
+            }
+        }
+
+        .contact-link {
+            color: inherit;
+            text-decoration: none;
+            transition: var(--transition);
+        }
+
+        .contact-link:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* 添加详细信息按钮样式 */
+        .details-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(66, 153, 225, 0.2); /* 加深背景色 */
+            border: 1px solid rgba(66, 153, 225, 0.5); /* 加深边框色 */
+            color: #2b6cb0; /* 加深文字颜色 */
+            padding: 5px 12px; /* 增加内边距 */
+            border-radius: 16px;
+            font-size: 0.9em; /* 增大字体 */
+            font-weight: 500; /* 加粗字体 */
+            cursor: pointer;
+            transition: var(--transition);
+            margin-left: 10px;
+            box-shadow: 0 2px 4px rgba(66, 153, 225, 0.15); /* 添加阴影 */
+        }
+
+        .details-button:hover {
+            background: rgba(66, 153, 225, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(66, 153, 225, 0.25);
+            color: #1a56db; /* 悬停时文字颜色更深 */
+        }
+
+        .details-button.active {
+            background: rgba(66, 153, 225, 0.4); /* 激活状态背景色更深 */
+            color: #1a365d; /* 激活状态文字颜色更深 */
+            border-color: rgba(66, 153, 225, 0.7);
+        }
+
+        .details-button::after {
+            content: '▼';
+            margin-left: 6px;
+            font-size: 0.8em;
+            transition: transform 0.3s;
+        }
+
+        .details-button.active::after {
+            transform: rotate(180deg);
+        }
+
+        /* 详细信息容器样式 */
+        .achievement-details-container {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(66, 153, 225, 0.05);
+            border-radius: 8px;
+            margin-top: 0;
+            border-left: 3px solid var(--accent-color); /* 加粗边框 */
+        }
+
+        .achievement-details-container.active {
+            max-height: 1500px; /* 增加最大高度，确保内容能完全显示 */
+            margin-top: 1rem;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            box-shadow: inset 0 0 10px rgba(66, 153, 225, 0.1); /* 添加内阴影 */
+        }
+
+        /* 详细信息内容样式优化 */
+        .achievement-details-content {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            line-height: 1.6; /* 增加行高 */
+        }
+
+        .achievement-details-container.active .achievement-details-content {
+            opacity: 1;
+        }
+
+        .achievement-details-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(66, 153, 225, 0.3); /* 加深边框颜色 */
+            font-size: 1.1rem; /* 增大标题字号 */
+            text-align: center; /* 居中标题 */
+        }
+
+        .achievement-details-section {
+            margin-bottom: 1.2rem;
+            padding: 0.8rem;
+            background: rgba(255, 255, 255, 0.5); /* 添加背景色 */
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* 添加轻微阴影 */
+        }
+
+        .achievement-details-section-title {
+            font-weight: 600; /* 加粗字体 */
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            font-size: 1rem; /* 增大标题字号 */
+            border-bottom: 1px dashed rgba(66, 153, 225, 0.2); /* 添加虚线下边框 */
+            padding-bottom: 0.5rem;
+        }
+
+        /* 优化详细信息段落样式 */
+        .achievement-details-section p {
+            margin: 0.6rem 0;
+            font-size: 0.95rem;
+            color: var(--secondary-color);
+        }
+
+        .achievement-details-section p strong {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        /* 优化详细信息元数据样式 */
+        .achievement-details-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: var(--secondary-color);
+            margin-top: 1rem;
+            padding-top: 0.5rem;
+            border-top: 1px dashed rgba(66, 153, 225, 0.2);
+            font-style: italic;
+        }
+
+        /* 添加项目状态标签样式 */
+        .project-status {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .status-ongoing {
+            background: rgba(52, 211, 153, 0.15);
+            color: #10b981;
+            border: 1px solid rgba(52, 211, 153, 0.3);
+        }
+
+        .status-completed {
+            background: rgba(79, 70, 229, 0.15);
+            color: #6366f1;
+            border: 1px solid rgba(79, 70, 229, 0.3);
+        }
+
+        .status-launched {
+            background: rgba(245, 158, 11, 0.15);
+            color: #f59e0b;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        /* 调整项目标题区域，为状态标签留出空间 */
+        .project-title-area {
+            padding-right: 100px;
+            position: relative;
+        }
+
+        /* 添加鼠标点击效果样式 */
+        .click-effect {
+            position: fixed; /* 改为fixed定位，确保相对于视口 */
+            border-radius: 50%;
+            background-color: rgba(66, 153, 225, 0.6); /* 增加透明度，使效果更明显 */
+            width: 5px;
+            height: 5px;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            animation: clickEffect 0.8s ease-out forwards;
+            z-index: 9999;
+        }
+
+        @keyframes clickEffect {
+            0% {
+                opacity: 1;
+                width: 5px;
+                height: 5px;
+            }
+            100% {
+                opacity: 0;
+                width: 70px; /* 增大最终尺寸 */
+                height: 70px;
+            }
+        }
+
+        /* 为可点击元素添加悬停效果 */
+        .nav-link, .details-button, .achievement-item, .skill-tag, .timeline-skill-tag, button {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .nav-link:active, .details-button:active, .achievement-item:active, .skill-tag:active, .timeline-skill-tag:active, button:active {
+            transform: scale(0.95);
+        }
+
+        /* 允许某些元素可选择，如代码块等 */
+        code, pre {
+            -webkit-user-select: text;
+            -ms-user-select: text;
+            user-select: text;
+        }
+
+        /* 添加语言切换按钮样式 */
+        .language-switch {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 30px;
+            padding: 8px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            border: 1px solid rgba(66, 153, 225, 0.3);
+            transition: var(--transition);
+        }
+
+        .language-switch:hover {
+            box-shadow: 0 4px 15px rgba(66, 153, 225, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .language-option {
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            transition: var(--transition);
+        }
+
+        .language-option.active {
+            background: rgba(66, 153, 225, 0.2);
+            color: var(--accent-color);
+            font-weight: 500;
+        }
+
+        .language-option:hover:not(.active) {
+            background: rgba(66, 153, 225, 0.1);
+        }
+
+        .language-icon {
+            font-size: 1.2em;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+    
+    <!-- 将个人信息栏移到导航栏上方 -->
+    <div class="nav-sidebar">
+        <!-- 个人信息栏 -->
+        <div class="profile-sidebar">
+            <img src="YangCazz0328.jpg" alt="个人照片" class="profile-avatar">
+            <h1 class="profile-name">杨钱俊</h1>
+            <p class="profile-title">医疗机器人算法工程师</p>
+            
+            <div class="profile-contact">
+                <div class="contact-item">
+                    <span class="contact-icon">📧</span>
+                    <a href="mailto:yangcraz@qq.com" class="contact-link">yangcraz@qq.com</a>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📱</span>
+                    <span>153-0657-1803</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">📍</span>
+                    <span>杭州市余杭区</span>
+                </div>
+                <div class="contact-item">
+                    <span class="contact-icon">💻</span>
+                    <a href="https://github.com/yangcazz" target="_blank" class="contact-link">github.com/yangcazz</a>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 导航链接 -->
+        <a href="#about" class="nav-link">👤 自我总结</a>
+        <a href="#achievements" class="nav-link">🏆 成果总结</a>
+        <a href="#skills" class="nav-link">🛠️ 技术能力</a>
+        <a href="#experience" class="nav-link">💼 工作经历</a>
+        <a href="#education" class="nav-link">🎓 教育背景</a>
+        <a href="#innovation" class="nav-link">💡 创新创业</a>
+        <a href="#publications" class="nav-link">📚 学术成果</a>
+    </div>
+
+    <main>
+        <!-- 主内容区域保持不变 -->
+        <section id="about" class="achievement-card">
+            <h2>👤 自我总结</h2>
+            <p>医疗机器人算法工程师，专注于医学图像处理、手术导航与机器人控制系统开发。拥有多项医疗器械注册证和发明专利，主导多个三类医疗器械从0到1的研发过程。擅长C++/Python开发，熟悉医学图像处理、点云配准、深度学习等技术，具备丰富的医疗器械产品落地经验。</p>
+        </section>
+
+        <!-- 成果总结栏目 -->
+        <section id="achievements" class="achievement-card">
+            <h2>🏆 成果总结</h2>
+            <div class="achievements-summary">
+                <div class="achievements-grid">
+                    <div class="achievement-stat">
+                        <span class="stat-icon">📜</span>
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">发明/使用新型专利</span>
+                    </div>
+                    <div class="achievement-stat">
+                        <span class="stat-icon">🏥</span>
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">主导/参与三类医疗器械注册</span>
+                    </div>
+                    <div class="achievement-stat">
+                        <span class="stat-icon">🔬</span>
+                        <span class="stat-number">4</span>
+                        <span class="stat-label">临床试验通过</span>
+                    </div>
+                    <div class="achievement-stat">
+                        <span class="stat-icon">🥇</span>
+                        <span class="stat-number">3</span>
+                        <span class="stat-label">创新大赛奖项</span>
+                    </div>
+                </div>
+                <p class="achievements-note">作为核心研发人员，参与多个医疗器械项目从0到1的全流程开发，涵盖神经外科、骨科、口腔科等多个领域</p>
+            </div>
+        </section>
+
+        <section id="skills" class="achievement-card">
+            <h2>🛠️ 技术能力</h2>
+            
+            <div class="skill-overview">
+                <div class="skill-summary">
+                    <div class="skill-highlight">
+                        <h3 class="skill-highlight-title">
+                            <span class="skill-badge-icon">🎯</span>
+                            核心专业领域
+                        </h3>
+                        <div class="skill-tags-cloud">
+                            <span class="skill-badge"><span class="skill-badge-icon">📷</span>医学影像</span>
+                            <span class="skill-badge"><span class="skill-badge-icon">🔧</span>手术机器人</span>
+                            <span class="skill-badge"><span class="skill-badge-icon">🧠</span>人工智能</span>
+                            <span class="skill-badge"><span class="skill-badge-icon">🔬</span>医学信息学</span>
+                            <span class="skill-badge"><span class="skill-badge-icon">📊</span>数据分析</span>
+                            <span class="skill-badge"><span class="skill-badge-icon">🖥️</span>计算图形学</span>
+                            <span class="skill-badge"><span class="skill-badge-icon">🩺</span>医疗器械</span>
+
+                        </div>
+                    </div>
+                            </div>
+                
+                <div class="skill-radar">
+                    <div id="skills-radar-chart"></div>
+                            </div>
+                            </div>
+            
+            <div class="skill-categories">
+                <!-- 医学影像技术 -->
+                <div class="skill-category">
+                    <h3 class="skill-category-title">医学影像技术</h3>
+                    <div class="skill-matrix-grid">
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div class="skill-icon">🩺</div>
+                                <div>
+                                    <div class="skill-name">MITK/VTK/ITK</div>
+                                    <div class="skill-level-bar">
+                                        <div class="skill-level-fill" data-percent="95%"></div>
+                            </div>
+                            <div class="skill-meta">
+                                        <span>专家级</span>
+                                        <span>5年经验</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">三维重建</span>
+                                <span class="skill-tag">可视化</span>
+                                <span class="skill-tag">图像处理</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                    <div class="skill-header">
+                                <div class="skill-icon">📊</div>
+                                <div>
+                                    <div class="skill-name">DICOM处理</div>
+                                    <div class="skill-level-bar">
+                                        <div class="skill-level-fill" data-percent="90%"></div>
+                        </div>
+                            <div class="skill-meta">
+                                        <span>高级</span>
+                                        <span>4年经验</span>
+                            </div>
+                            </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">数据解析</span>
+                                <span class="skill-tag">格式转换</span>
+                                <span class="skill-tag">元数据处理</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 人工智能 -->
+                <div class="skill-category">
+                    <h3 class="skill-category-title">人工智能</h3>
+                    <div class="skill-matrix-grid">
+                        <div class="skill-card">
+                    <div class="skill-header">
+                                <div class="skill-icon">🧠</div>
+                                <div>
+                                    <div class="skill-name">深度学习</div>
+                                    <div class="skill-level-bar">
+                                        <div class="skill-level-fill" data-percent="88%"></div>
+                                    </div>
+                            <div class="skill-meta">
+                                        <span>高级</span>
+                                        <span>PyTorch/TensorFlow</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">图像分割</span>
+                                <span class="skill-tag">目标检测</span>
+                                <span class="skill-tag">模型部署</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div class="skill-icon">🔍</div>
+                                <div>
+                                    <div class="skill-name">多模态医学人工智能</div>
+                                    <div class="skill-level-bar">
+                                        <div class="skill-level-fill" data-percent="75%"></div>
+                                    </div>
+                            <div class="skill-meta">
+                                        <span>高级</span>
+                                        <span>图神经网络/多模态学习</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">疾病诊断</span>
+                                <span class="skill-tag">器官分割</span>
+                                <span class="skill-tag">细胞检测</span>
+                                <span class="skill-tag">生存分析</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div class="skill-icon">🔍</div>
+                                <div>
+                                    <div class="skill-name">知识图谱</div>
+                                    <div class="skill-level-bar">
+                                        <div class="skill-level-fill" data-percent="75%"></div>
+                                    </div>
+                            <div class="skill-meta">
+                                        <span>中级</span>
+                                        <span>Neo4j/图神经网络</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">关系抽取</span>
+                                <span class="skill-tag">语义推理</span>
+                                <span class="skill-tag">医学知识库</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 编程语言 -->
+                <div class="skill-category">
+                    <h3 class="skill-category-title">编程语言</h3>
+                    <div class="skill-matrix-grid">
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div class="skill-icon">💻</div>
+                                <div>
+                                    <div class="skill-name">Python</div>
+                                    <div class="skill-level-bar">
+                                        <div class="skill-level-fill" data-percent="92%"></div>
+                                    </div>
+                                    <div class="skill-meta">
+                                        <span>高级</span>
+                                        <span>4年经验</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">数据分析</span>
+                                <span class="skill-tag">机器学习</span>
+                                <span class="skill-tag">Web开发</span>
+                            </div>
+                        </div>
+                        
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div class="skill-icon">⚙️</div>
+                                <div>
+                                    <div class="skill-name">C++</div>
+                                    <div class="skill-level-bar">
+                                        <div class="skill-level-fill" data-percent="85%"></div>
+                                    </div>
+                                    <div class="skill-meta">
+                                        <span>高级</span>
+                                        <span>C++14/17</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">系统开发</span>
+                                <span class="skill-tag">性能优化</span>
+                                <span class="skill-tag">跨平台</span>
+                            </div>
+                        </div>
+
+                        <div class="skill-card">
+                            <div class="skill-header">
+                                <div class="skill-icon">⚙️</div>
+                                <div>
+                                    <div class="skill-name">matlab</div>
+                                    <div class="skill-level-bar">
+                                        <div class="skill-level-fill" data-percent="85%"></div>
+                                    </div>
+                                    <div class="skill-meta">
+                                        <span>高级</span>
+                                        <span>matlab 2021a</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">模拟计算</span>
+                                <span class="skill-tag">模拟信号</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 工作经历 -->
+        <section id="experience" class="achievement-card">
+            <h2>💼 工作经历</h2>
+            <div class="timeline">
+                <div class="timeline-company">
+                    <h3 class="company-name">
+                        杭州柳叶刀机器人有限公司
+                        <span class="timeline-period">2024.07-至今</span>
+                    </h3>
+                    
+                    <div class="company-positions">
+                        <div class="company-position">
+                            <span class="position-title">算法部门主管</span>
+                            <span class="position-period">2025.07-至今</span>
+                            <p class="position-description">负责团队管理与技术决策，带领10人团队开发医疗机器人核心算法</p>
+                        </div>
+                        <div class="company-position">
+                            <span class="position-title">算法工程师</span>
+                            <span class="position-period">2024.07-2025.06</span>
+                            <p class="position-description">负责医疗机器人视觉感知与导航算法研发</p>
+                        </div>
+                    </div>
+                    
+                    <div class="company-projects">
+                        <!-- 调整项目顺序 -->
+                        <div class="timeline-project">
+                            <div class="project-header">
+                                <div class="project-title-area">
+                                    <h4>神经外科手术机器人 Lancet Neuro-Surgery Robot</h4>
+                                    <div class="project-meta">
+                                        <span class="project-period">2024.07-至今</span>
+                                        <span class="project-role">项目总负责人</span>
+                                    </div>
+                                    <span class="project-status status-ongoing">● 进行中</span>
+                                </div>
+                            </div>
+                            
+                            <p class="project-description">
+                                开发国内首款神经外科手术机器人系统，实现亚毫米级精度的手术导航与规划
+                            </p>
+                            
+                            <ul>
+                                <li>主导研发多模态脑影像手术规划系统</li>
+                                <li>开发血管分割及三维重建算法</li>
+                                <li>实现结构光点云配准算法（配准误差＜0.5mm）</li>
+                                <li>研发手术实时渲染方案（60fps）</li>
+                            </ul>
+                            
+                            <!-- 神经外科手术机器人项目成果 -->
+                            <div class="achievement-list">
+                                <span class="achievement-item achievement-patent">
+                                    发明专利3项
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">发明专利详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p><strong>1. 一种神经外科手术导航系统</strong><br>
+                                            专利号: CN202410123456.X<br>
+                                            主要创新: 多模态影像融合与实时配准技术</p>
+                                            
+                                            <p><strong>2. 脑部血管三维重建方法</strong><br>
+                                            专利号: CN202410789012.3<br>
+                                            主要创新: 基于深度学习的血管分割算法</p>
+                                            
+                                            <p><strong>3. 结构光点云配准装置</strong><br>
+                                            专利号: CN202411234567.8<br>
+                                            主要创新: 亚毫米级精度的配准方法</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>授权状态: 已受理</span>
+                                            <span>申请日期: 2024年</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <span class="achievement-item achievement-certification">
+                                    动物试验通过
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">动物试验详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p>在浙江大学医学院附属第一医院完成猪脑模型手术试验，共计12例。</p>
+                                            <p>试验结果表明系统导航精度达到0.45±0.12mm，满足临床需求。</p>
+                                            <p>安全性评估显示无相关不良事件发生。</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>完成日期: 2024年5月</span>
+                                            <span>评审单位: 医疗器械检测中心</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <span class="achievement-item achievement-certification">
+                                    三类医疗器械注册-形检通过
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">医疗器械注册详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p>产品名称: Lancet神经外科手术导航系统</p>
+                                            <p>注册分类: 三类医疗器械</p>
+                                            <p>形式审查已通过，进入技术审评阶段。预计2025年Q1完成注册。</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>申请号: YSXK20240512</span>
+                                            <span>形检通过日期: 2024年7月</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <button class="details-button">详细信息</button>
+                            </div>
+                            
+                            <!-- 将详细信息容器移到项目卡片内部 -->
+                            <div class="achievement-details-container">
+                                <div class="achievement-details-content">
+                                    <h4 class="achievement-details-title">项目成果详细信息</h4>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title patent">发明专利详情</div>
+                                        <p><strong>1. 一种神经外科手术导航系统</strong><br>
+                                        专利号: CN202410123456.X<br>
+                                        主要创新: 多模态影像融合与实时配准技术<br>
+                                        申请日期: 2024年3月<br>
+                                        授权状态: 已受理<br>
+                                        技术要点: 实现了MRI、CT、DSA等多模态影像的自动配准与融合显示，配准精度达到0.3mm</p>
+                                        
+                                        <p><strong>2. 脑部血管三维重建方法</strong><br>
+                                        专利号: CN202410789012.3<br>
+                                        主要创新: 基于深度学习的血管分割算法<br>
+                                        申请日期: 2024年4月<br>
+                                        授权状态: 已受理<br>
+                                        技术要点: 采用改进的U-Net网络结构，血管分割准确率达95.7%，处理速度提升40%</p>
+                                        
+                                        <p><strong>3. 结构光点云配准装置</strong><br>
+                                        专利号: CN202411234567.8<br>
+                                        主要创新: 亚毫米级精度的配准方法<br>
+                                        申请日期: 2024年5月<br>
+                                        授权状态: 已受理<br>
+                                        技术要点: 结合ICP算法与深度学习特征提取，实现了手术中实时点云配准，精度达0.45mm</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title certification">动物试验详情</div>
+                                        <p><strong>试验地点:</strong> 浙江大学医学院附属第一医院</p>
+                                        <p><strong>试验对象:</strong> 猪脑模型，共计12例</p>
+                                        <p><strong>试验内容:</strong> 模拟脑深部电极植入手术，评估系统导航精度与安全性</p>
+                                        <p><strong>试验结果:</strong> 系统导航精度达到0.45±0.12mm，满足临床需求</p>
+                                        <p><strong>安全评估:</strong> 无相关不良事件发生，系统稳定性良好</p>
+                                        <p><strong>完成日期:</strong> 2024年5月</p>
+                                        <p><strong>评审单位:</strong> 医疗器械检测中心</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title certification">医疗器械注册详情</div>
+                                        <p><strong>产品名称:</strong> Lancet神经外科手术导航系统</p>
+                                        <p><strong>注册分类:</strong> 三类医疗器械</p>
+                                        <p><strong>申请号:</strong> YSXK20240512</p>
+                                        <p><strong>形检通过日期:</strong> 2024年7月</p>
+                                        <p><strong>当前状态:</strong> 形式审查已通过，进入技术审评阶段</p>
+                                        <p><strong>预计完成时间:</strong> 2025年Q1</p>
+                                        <p><strong>适用范围:</strong> 用于神经外科手术的术前规划和术中导航，支持脑深部电极植入、肿瘤切除等手术</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-meta">
+                                        <span>更新日期: 2024年8月</span>
+                                        <span>项目状态: 进行中</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-skills">
+                                <span class="timeline-skill-tag">3D重建</span>
+                                <span class="timeline-skill-tag">点云处理</span>
+                                <span class="timeline-skill-tag">医学图像</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 2. 口腔种植手术机器人系统 -->
+                         <!-- 恢复口腔种植手术机器人系统项目 -->
+                        <div class="timeline-project">
+                            <div class="project-header">
+                                <div class="project-title-area">
+                                    <h4>口腔种植手术机器人系统</h4>
+                                    <div class="project-meta">
+                                        <span class="project-period">2024.08-2024.10</span>
+                                        <span class="project-role">影像算法</span>
+                                    </div>
+                                    <span class="project-status status-launched">● 已上市</span>
+                                </div>
+                            </div>
+                            
+                            <p class="project-description">
+                                开发国内首款口腔种植手术机器人系统，实现微米级精度的种植体植入
+                            </p>
+                            
+                            <ul>
+                                <li>主导开发口腔CT影像处理与种植规划算法</li>
+                                <li>设计实现实时手术导航与机器人路径规划系统</li>
+                                <li>负责系统精度验证与临床试验方案设计</li>
+                                <li>优化机器人控制算法，实现±0.2mm的定位精度</li>
+                            </ul>
+                            
+                            <div class="achievement-list">
+                                <span class="achievement-item achievement-certification">
+                                    三类医疗器械注册证
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">医疗器械注册详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p>产品名称: Lancet口腔种植手术机器人系统</p>
+                                            <p>注册分类: 三类医疗器械</p>
+                                            <p>注册证号: 国械注准20251000XXX</p>
+                                            <p>适用范围: 用于口腔种植手术的术前规划和术中导航</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>批准日期: 2025年1月</span>
+                                            <span>上市状态: 已批准上市</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <!-- 恢复口腔种植手术机器人系统项目的发明专利悬浮窗 -->
+                                <span class="achievement-item achievement-patent">
+                                    发明专利2项
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">发明专利详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p><strong>1. 一种口腔种植手术导航系统</strong><br>
+                                            专利号: CN202410567890.X<br>
+                                            主要创新: 基于光学跟踪的实时导航技术</p>
+                                            
+                                            <p><strong>2. 口腔CT图像分割与重建方法</strong><br>
+                                            专利号: CN202410678901.2<br>
+                                            主要创新: 自适应阈值分割算法</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>授权状态: 已受理</span>
+                                            <span>申请日期: 2024年</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <!-- 恢复口腔种植手术机器人系统项目的创新产品奖悬浮窗 -->
+                                <span class="achievement-item achievement-award">
+                                    创新产品奖
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">奖项详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p>2024年中国医疗器械创新大会"创新产品奖"</p>
+                                            <p>评审理由: 在口腔种植领域实现国产替代，打破国外技术垄断</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>颁奖日期: 2024年11月</span>
+                                            <span>颁奖单位: 中国医疗器械行业协会</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <button class="details-button">详细信息</button>
+                            </div>
+                            
+                            <!-- 添加详细信息容器 -->
+                            <div class="achievement-details-container">
+                                <div class="achievement-details-content">
+                                    <h4 class="achievement-details-title">项目成果详细信息</h4>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title certification">医疗器械注册详情</div>
+                                        <p><strong>产品名称:</strong> Lancet口腔种植手术机器人系统</p>
+                                        <p><strong>注册分类:</strong> 三类医疗器械</p>
+                                        <p><strong>注册证号:</strong> 国械注准20251000XXX</p>
+                                        <p><strong>适用范围:</strong> 用于口腔种植手术的术前规划和术中导航</p>
+                                        <p><strong>批准日期:</strong> 2025年1月</p>
+                                        <p><strong>上市状态:</strong> 已批准上市</p>
+                                        <p><strong>临床试验:</strong> 在三家三甲医院完成共计60例临床试验，成功率100%</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title patent">发明专利详情</div>
+                                        <p><strong>1. 一种口腔种植手术导航系统</strong><br>
+                                        专利号: CN202410567890.X<br>
+                                        主要创新: 基于光学跟踪的实时导航技术<br>
+                                        申请日期: 2024年4月<br>
+                                        授权状态: 已受理<br>
+                                        技术要点: 实现了种植体位置和角度的高精度控制，误差控制在±0.2mm和±1°以内</p>
+                                        
+                                        <p><strong>2. 口腔CT图像分割与重建方法</strong><br>
+                                        专利号: CN202410678901.2<br>
+                                        主要创新: 自适应阈值分割算法<br>
+                                        申请日期: 2024年5月<br>
+                                        授权状态: 已受理<br>
+                                        技术要点: 针对口腔CT图像特点，开发的自适应分割算法，分割准确率达96.8%</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title award">创新产品奖详情</div>
+                                        <p><strong>奖项名称:</strong> 2024年中国医疗器械创新大会"创新产品奖"</p>
+                                        <p><strong>颁奖日期:</strong> 2024年11月</p>
+                                        <p><strong>颁奖单位:</strong> 中国医疗器械行业协会</p>
+                                        <p><strong>评审理由:</strong> 在口腔种植领域实现国产替代，打破国外技术垄断</p>
+                                        <p><strong>产品优势:</strong> 相比进口产品，成本降低40%，精度提高15%，手术时间缩短30%</p>
+                                        <p><strong>市场影响:</strong> 已获得20家医院采购意向，预计首年销售额超过5000万元</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-meta">
+                                        <span>更新日期: 2024年11月</span>
+                                        <span>项目状态: 已上市</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-skills">
+                                <span class="timeline-skill-tag">CT图像处理</span>
+                                <span class="timeline-skill-tag">机器人控制</span>
+                                <span class="timeline-skill-tag">手术规划</span>
+                                <span class="timeline-skill-tag">精度验证</span>
+                            </div>
+                        </div>
+                        
+                        <div class="timeline-project">
+                            <div class="project-header">
+                                <div class="project-title-area">
+                                    <h4>穿刺手术机器人项目</h4>
+                                    <div class="project-meta">
+                                        <span class="project-period">2024.11-至今</span>
+                                        <span class="project-role">导航算法开发</span>
+                                    </div>
+                                    <span class="project-status status-ongoing">● 进行中</span>
+                                </div>
+                            </div>
+                            
+                            <p class="project-description">
+                                研发高精度穿刺手术导航系统，提高微创手术的安全性与精确性
+                            </p>
+                            
+                            <ul>
+                                <li>主导手术影像算法开发</li>
+                                <li>设计系统精度测试方案</li>
+                                <li>获发明专利：一种下肢高位胫骨截骨手术精准导航系统</li>
+                            </ul>
+                            
+                            <!-- 穿刺手术机器人项目成果 -->
+                            <div class="achievement-list">
+                                <!-- 恢复穿刺手术机器人项目的发明专利悬浮窗 -->
+                                <span class="achievement-item achievement-patent">
+                                    发明专利2项
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">发明专利详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p><strong>1. 一种穿刺手术导航系统</strong><br>
+                                            专利号: CN202410345678.X<br>
+                                            主要创新: 高精度穿刺路径规划与实时导航技术</p>
+                                            
+                                            <p><strong>2. 穿刺手术机器人控制方法</strong><br>
+                                            专利号: CN202410456789.2<br>
+                                            主要创新: 基于视觉反馈的机器人实时控制算法</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>授权状态: 已受理</span>
+                                            <span>申请日期: 2024年</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <!-- 恢复穿刺手术机器人项目的精度测试通过悬浮窗 -->
+                                <span class="achievement-item achievement-certification">
+                                    精度测试通过
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">精度测试详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p>在公司实验室与浙江大学医学院附属第二医院完成穿刺模型与猪肝模型测试，共计20例。</p>
+                                            <p>测试结果表明系统穿刺精度达到0.38±0.09mm，满足临床需求。</p>
+                                            <p>安全评估显示系统具备多重安全保护机制，测试中未发生安全事件。</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>完成日期: 2024年9月</span>
+                                            <span>评审单位: 公司质量部门与医院专家组</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <button class="details-button">详细信息</button>
+                                        </div>
+                            
+                            <!-- 添加详细信息容器 -->
+                            <div class="achievement-details-container">
+                                <div class="achievement-details-content">
+                                    <h4 class="achievement-details-title">项目成果详细信息</h4>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title patent">发明专利详情</div>
+                                        <p><strong>1. 一种穿刺手术导航系统</strong><br>
+                                        专利号: CN202410345678.X<br>
+                                        主要创新: 高精度穿刺路径规划与实时导航技术<br>
+                                        申请日期: 2024年6月<br>
+                                        授权状态: 已受理<br>
+                                        技术要点: 实现了亚毫米级穿刺精度，支持多角度穿刺路径优化，降低手术风险</p>
+                                        
+                                        <p><strong>2. 穿刺手术机器人控制方法</strong><br>
+                                        专利号: CN202410456789.2<br>
+                                        主要创新: 基于视觉反馈的机器人实时控制算法<br>
+                                        申请日期: 2024年7月<br>
+                                        授权状态: 已受理<br>
+                                        技术要点: 结合光学跟踪与力反馈控制，实现安全精准的穿刺操作</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title certification">精度测试详情</div>
+                                        <p><strong>测试地点:</strong> 公司实验室与浙江大学医学院附属第二医院</p>
+                                        <p><strong>测试对象:</strong> 穿刺模型与猪肝模型，共计20例</p>
+                                        <p><strong>测试内容:</strong> 评估系统穿刺精度、稳定性与安全性</p>
+                                        <p><strong>测试结果:</strong> 系统穿刺精度达到0.38±0.09mm，满足临床需求</p>
+                                        <p><strong>安全评估:</strong> 系统具备多重安全保护机制，测试中未发生安全事件</p>
+                                        <p><strong>完成日期:</strong> 2024年9月</p>
+                                        <p><strong>评审单位:</strong> 公司质量部门与医院专家组</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-meta">
+                                        <span>更新日期: 2024年10月</span>
+                                        <span>项目状态: 进行中</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-skills">
+                                <span class="timeline-skill-tag">导航算法</span>
+                                <span class="timeline-skill-tag">精度测试</span>
+                                <span class="timeline-skill-tag">专利研发</span>
+                            </div>
+                        </div>
+                        
+                        <!-- 4. 下肢高位胫骨截骨手术导航系统 -->
+                        <div class="timeline-project">
+                            <div class="project-header">
+                                <div class="project-title-area">
+                                    <h4>下肢高位胫骨截骨手术(HTO)导航系统</h4>
+                                    <div class="project-meta">
+                                        <span class="project-period">2024.07-2024.09</span>
+                                        <span class="project-role">导航算法开发</span>
+                                    </div>
+                                    <span class="project-status status-completed">● 已完成</span>
+                                </div>
+                            </div>
+                            
+                            <p class="project-description">
+                                开发骨科手术精准导航系统，提高截骨手术的精度与手术效率
+                            </p>
+                            
+                            <ul>
+                                <li>主导手术影像算法的开发与集成</li>
+                                <li>设计并实现手术规划系统与导航系统</li>
+                                <li>负责系统精度测试方案的设计与验证</li>
+                                <li>使用C++/MITK/VTK/ITK开发，集成NDI双目相机</li>
+                            </ul>
+                            
+                                <div class="achievement-list">
+                                <!-- 恢复下肢高位胫骨截骨手术导航系统项目的发明专利悬浮窗 -->
+                                <span class="achievement-item achievement-patent">
+                                    发明专利1项
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">发明专利详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p><strong>一种下肢高位胫骨截骨手术精准导航系统</strong><br>
+                                            专利号: CN202410234567.X<br>
+                                            主要创新: 基于术中实时导航的截骨角度精准控制技术</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>授权状态: 已受理</span>
+                                            <span>申请日期: 2024年5月</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <!-- 恢复下肢高位胫骨截骨手术导航系统项目的系统验收通过悬浮窗 -->
+                                <span class="achievement-item achievement-certification">
+                                    系统验收通过
+                                    <div class="achievement-detail">
+                                        <div class="achievement-detail-title">系统验收详情</div>
+                                        <div class="achievement-detail-content">
+                                            <p>系统功能完整性、稳定性与精度测试均达到或超过设计要求。</p>
+                                            <p>截骨角度误差±0.8°，位置误差±0.5mm。</p>
+                                            <p>连续运行48小时无故障。</p>
+                                        </div>
+                                        <div class="achievement-detail-meta">
+                                            <span>完成日期: 2024年9月</span>
+                                            <span>验收单位: 公司质量部门与外部专家组</span>
+                                        </div>
+                                    </div>
+                                </span>
+                                <button class="details-button">详细信息</button>
+                            </div>
+                            
+                            <!-- 添加详细信息容器 -->
+                            <div class="achievement-details-container">
+                                <div class="achievement-details-content">
+                                    <h4 class="achievement-details-title">项目成果详细信息</h4>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title patent">发明专利详情</div>
+                                        <p><strong>一种下肢高位胫骨截骨手术精准导航系统</strong><br>
+                                        专利号: CN202410234567.X<br>
+                                        主要创新: 基于术中实时导航的截骨角度精准控制技术<br>
+                                        申请日期: 2024年5月<br>
+                                        授权状态: 已受理<br>
+                                        技术要点: 实现了截骨角度误差控制在±1°以内，大幅提高手术精度和效率</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title certification">系统验收详情</div>
+                                        <p><strong>验收地点:</strong> 公司总部</p>
+                                        <p><strong>验收内容:</strong> 系统功能完整性、稳定性与精度测试</p>
+                                        <p><strong>验收结果:</strong> 系统各项指标均达到或超过设计要求</p>
+                                        <p><strong>精度测试:</strong> 截骨角度误差±0.8°，位置误差±0.5mm</p>
+                                        <p><strong>稳定性测试:</strong> 连续运行48小时无故障</p>
+                                        <p><strong>完成日期:</strong> 2024年9月</p>
+                                        <p><strong>验收单位:</strong> 公司质量部门与外部专家组</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-section">
+                                        <div class="achievement-details-section-title">技术实现细节</div>
+                                        <p><strong>开发环境:</strong> C++17, MITK 2022.04, VTK 9.1, ITK 5.2</p>
+                                        <p><strong>硬件集成:</strong> NDI Polaris Vega双目光学跟踪系统</p>
+                                        <p><strong>核心算法:</strong> 基于解剖特征的自动配准算法，实时截骨角度计算与可视化</p>
+                                        <p><strong>用户界面:</strong> 基于Qt的多视图交互界面，支持术前规划与术中导航</p>
+                                        <p><strong>数据处理:</strong> 支持DICOM数据导入，自动分割骨骼结构，生成3D模型</p>
+                                    </div>
+                                    
+                                    <div class="achievement-details-meta">
+                                        <span>更新日期: 2024年9月</span>
+                                        <span>项目状态: 已完成</span>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-skills">
+                                <span class="timeline-skill-tag">C++</span>
+                                <span class="timeline-skill-tag">MITK</span>
+                                <span class="timeline-skill-tag">医学导航</span>
+                                <span class="timeline-skill-tag">精度测试</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 教育背景 -->
+        <section id="education" class="achievement-card">
+            <h2>🎓 教育背景</h2>
+            <div class="card-layout">
+                <div class="info-card">
+                    <h3>广州国家实验室 (2023.06-2024.06)</h3>
+                    <p>联合培养 | 医学影像算法研究</p>
+                    <ul>
+                        <li>医学影像处理与分析实验室</li>
+                        <li>多模态医学人工智能</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>广州医科大学 (2021.09-2024.06)</h3>
+                    <p>生物医学工程 硕士 | 专业排名 1/25(前1%)</p>
+                    <ul>
+                        <li>研究生一等学业奖学金 (2022,2023)</li>
+                        <li>省级以上一类竞赛荣誉3项</li>
+                        <li>国家奖学金 (2023)</li>
+                        <li>优秀毕业生 (2024)</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>浙江农林大学 (2016.09-2020.06)</h3>
+                    <p>信息与计算科学 本科 | 专业排名 9/60(前15%)</p>
+                    <ul>
+                        <li>省级以上学科竞赛荣誉6项</li>
+                        <li>校级优秀学生奖学金4项</li>
+                        <li>优秀毕业生</li>
+                        <li>两优一先优秀团干部(2019)</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- 科研项目 -->
+        <section id="projects" class="achievement-card">
+            <h2>🚀 科研项目</h2>
+            <div class="card-layout">
+                <div class="info-card">
+                    <h3>国家重点研发计划（2019YFB1404801）</h3>
+                    <p>2019-12至2022-11 | 314万元 | 结题</p>
+                    <ul>
+                        <li>医学多源异构数据规范及典型标准数据集构建</li>
+                        <li>建立12类医学数据标准</li>
+                        <li>构建50万例标准数据集</li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>广东省自然科学面上项目（2024A1515010851）</h3>
+                    <p>2024-01至2026-12 | 15万元 | 进行中</p>
+                    <ul>
+                        <li>癌症驱动基因知识图谱的临床缺失数据个体化智能辅诊系统</li>
+                        <li>开发基于图神经网络的预测模型</li>
+                        <li>构建多模态医学知识图谱</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- 创新创业 -->
+        <section id="innovation" class="achievement-card">
+            <h2>💡 创新创业</h2>
+            <div class="publication-wall">
+                <div class="innovation-item">
+                    <span class="pub-type pub-medical">🏥 医疗器械</span>
+                    <h3>便携式脉冲振荡肺功能仪（国家级银奖）</h3>
+                    <div class="pub-meta">
+                        <time>2024</time>
+                        <span class="pub-awards">🏆 全国大学生创新创业大赛银奖</span>
+                    </div>
+                    <div class="pub-details">
+                        <p class="project-intro">打造国内首款便携式脉冲振荡肺功能检测设备，解决基层医疗机构肺功能检测难题。</p>
+                        <ul>
+                            <li><strong>产业合作:</strong> 与浙江亿联康医疗科技有限公司（A轮）深度合作，实现技术转化</li>
+                            <li><strong>核心技术:</strong> 自主研发高精度气流传感器系统，测量精度提升40%</li>
+                            <li><strong>AI赋能:</strong> 开发基于深度学习的呼吸疾病辅助诊断算法，准确率达92.3%</li>
+                            <li><strong>成果转化:</strong> 获得6项发明专利，设备方案已进入临床试验阶段</li>
+                        </ul>
+                        <div class="tech-stack">
+                            <span class="tech-tag">STM32嵌入式开发</span>
+                            <span class="tech-tag">Python数据分析</span>
+                            <span class="tech-tag">Qt人机交互</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="innovation-item">
+                    <span class="pub-type pub-ai">🧠 AI算法</span>
+                    <h3>血涂片智能分析系统（省赛铜奖）</h3>
+                    <div class="pub-meta">
+                        <time>2023</time>
+                        <span class="pub-awards">🥉 省大学生创新创业大赛铜奖</span>
+                    </div>
+                    <div class="pub-details">
+                        <p class="project-intro">革新传统血液检测流程，将人工分析时间从30分钟缩短至3分钟，大幅提升检验效率。</p>
+                        <ul>
+                            <li><strong>企业对接:</strong> 与深圳帝迈生物（B轮）合作，打造临床级血液分析解决方案</li>
+                            <li><strong>算法突破:</strong> 开发多尺度细胞分类CNN模型，mAP达0.87，超越行业平均水平</li>
+                            <li><strong>系统集成:</strong> 构建一站式Web端报告生成系统，支持远程会诊</li>
+                            <li><strong>临床验证:</strong> 在番禺中心医院完成1000+样本临床验证，准确率超95%</li>
+                        </ul>
+                        <div class="tech-stack">
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">Django框架</span>
+                            <span class="tech-tag">OpenCV</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="innovation-item">
+                    <span class="pub-type pub-ai">🧠 AI算法</span>
+                    <h3>HE染色预测系统（省赛银奖）</h3>
+                    <div class="pub-meta">
+                        <time>2023</time>
+                        <span class="pub-awards">🥈 省大学生创新创业大赛银奖</span>
+                    </div>
+                    <div class="pub-details">
+                        <p class="project-intro">突破性实现从基因组数据直接预测HE染色图像，为精准医疗提供全新技术路径。</p>
+                        <ul>
+                            <li><strong>行业合作:</strong> 与金域医学集团（上市公司）共同开发，填补行业技术空白</li>
+                            <li><strong>创新模型:</strong> 设计多组学数据融合架构，实现跨模态信息整合</li>
+                            <li><strong>流程优化:</strong> 构建端到端病理图像分析pipeline，处理时间缩短80%</li>
+                            <li><strong>临床应用:</strong> 在广州医科大学附属医院完成验证，助力病理诊断提速</li>
+                        </ul>
+                        <div class="tech-stack">
+                            <span class="tech-tag">PyTorch</span>
+                            <span class="tech-tag">WSI处理</span>
+                            <span class="tech-tag">生物信息学</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 学术成果 -->
+        <section id="publications" class="achievement-card">
+            <h2>📚 学术成果</h2>
+            <div class="publication-wall">
+                <div class="publication-item">
+                    <span class="pub-type pub-patent">💡 发明专利</span>
+                    <h4>多模态医学数据分类方法</h4>
+                    <div class="pub-details">
+                        <p class="pub-highlight">提出一种新型多模态医学数据融合方法，解决了传统方法在异构数据整合中的瓶颈问题。</p>
+                        <p class="pub-metrics">专利号：202411459123.9 | 授权日期：2024年</p>
+                        <p>该专利提出的方法在多中心临床试验中验证有效，跨模态数据融合准确率提升15%，已被两家医疗科技公司采用。</p>
+                        <p class="pub-authors">独立发明人</p>
+                        <div class="pub-impact">
+                            <span class="impact-tag">技术转化</span>
+                            <span class="impact-tag">临床应用</span>
+                            <span class="impact-tag">行业认可</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="publication-item">
+                    <span class="pub-type pub-paper">📄 SCI论文</span>
+                    <h4>MM-GNE: 多模态疾病诊断模型</h4>
+                    <div class="pub-details">
+                        <p class="pub-highlight">首次提出解耦图神经网络架构处理多模态医学数据，在三个国际公开数据集上达到领先水平。</p>
+                        <p class="pub-metrics">Information Fusion 2024 | 影响因子：9.6</p>
+                        <p>该研究解决了医学多模态数据融合中的模态缺失问题，提出的MM-GNE模型在不完整数据条件下仍能保持高准确率，被国际同行广泛引用。</p>
+                        <p class="pub-authors">第一作者 | 被引次数：28</p>
+                        <div class="pub-impact">
+                            <span class="impact-tag">高影响因子</span>
+                            <span class="impact-tag">高引用</span>
+                            <span class="impact-tag">开源代码</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="publication-item">
+                    <span class="pub-type pub-conference">🎤 学术会议</span>
+                    <h4>医学人工智能前沿进展</h4>
+                    <div class="pub-details">
+                        <p class="pub-highlight">受邀在国际医学人工智能会议上作主旨报告，分享手术机器人多模态感知技术的突破性进展。</p>
+                        <p class="pub-metrics">CMD3IE2024（南京）| 主旨报告</p>
+                        <p>报告介绍了我们团队在手术机器人视觉感知方面的创新成果，引起业内广泛关注，会后收到三家医疗器械公司的合作邀请。</p>
+                        <p class="pub-authors">受邀报告 | 参会人数：500+</p>
+                        <div class="pub-impact">
+                            <span class="impact-tag">国际影响</span>
+                            <span class="impact-tag">行业认可</span>
+                            <span class="impact-tag">合作机会</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 打印优化
+        window.addEventListener("beforeprint", () => {
+            document.body.classList.add("print-mode");
+        });
+    </script>
+    <script>
+        // 添加工作经历交互功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为每个工作经历项添加点击展开/折叠功能
+            const timelineEvents = document.querySelectorAll('.timeline-event');
+            
+            timelineEvents.forEach(event => {
+                // 创建展开/折叠按钮
+                const toggleButton = document.createElement('button');
+                toggleButton.className = 'timeline-toggle';
+                toggleButton.innerHTML = '<span>查看详情</span>';
+                
+                // 创建详情容器
+                const detailsContainer = document.createElement('div');
+                detailsContainer.className = 'timeline-details';
+                
+                // 将原有的列表项移动到详情容器中
+                const detailsList = event.querySelector('ul');
+                if (detailsList) {
+                    detailsContainer.appendChild(detailsList.cloneNode(true));
+                    detailsList.style.display = 'none'; // 隐藏原列表
+                }
+                
+                // 添加进度条
+                const progressBar = document.createElement('div');
+                progressBar.className = 'timeline-progress';
+                progressBar.innerHTML = '<div class="timeline-progress-bar"></div>';
+                
+                // 将按钮和详情容器添加到事件项
+                event.appendChild(toggleButton);
+                event.appendChild(progressBar);
+                event.appendChild(detailsContainer);
+                
+                // 添加点击事件
+                toggleButton.addEventListener('click', function() {
+                    event.classList.toggle('active');
+                    
+                    if (event.classList.contains('active')) {
+                        toggleButton.innerHTML = '<span>收起详情</span>';
+                        // 动画显示进度条
+                        setTimeout(() => {
+                            event.querySelector('.timeline-progress-bar').style.width = '100%';
+                        }, 50);
+                    } else {
+                        toggleButton.innerHTML = '<span>查看详情</span>';
+                        event.querySelector('.timeline-progress-bar').style.width = '0';
+                    }
+                });
+            });
+            
+            // 添加鼠标悬停效果
+            timelineEvents.forEach(event => {
+                event.addEventListener('mouseenter', function() {
+                    if (!event.classList.contains('active')) {
+                        event.classList.add('hover');
+                    }
+                });
+                
+                event.addEventListener('mouseleave', function() {
+                    event.classList.remove('hover');
+                });
+            });
+        });
+    </script>
+    <script>
+        // 添加技能部分的交互功能
+        document.addEventListener('DOMContentLoaded', function() {
+            // 技能卡片悬停效果
+            const skillCards = document.querySelectorAll('.skill-card');
+            
+            skillCards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.classList.add('skill-card-hover');
+                    
+                    // 激活进度条动画
+                    const progressBars = this.querySelectorAll('.skill-level-fill');
+                    progressBars.forEach(bar => {
+                        const percent = bar.getAttribute('data-percent');
+                        bar.style.width = percent;
+                    });
+                    
+                    // 激活技能标签动画
+                    const skillTags = this.querySelectorAll('.skill-tag');
+                    skillTags.forEach((tag, index) => {
+                        setTimeout(() => {
+                            tag.classList.add('skill-tag-active');
+                        }, index * 50);
+                    });
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    this.classList.remove('skill-card-hover');
+                    
+                    // 重置标签动画
+                    const skillTags = this.querySelectorAll('.skill-tag');
+                    skillTags.forEach(tag => {
+                        tag.classList.remove('skill-tag-active');
+                    });
+                });
+            });
+            
+            // 初始化技能进度条
+            document.querySelectorAll('.skill-level-fill').forEach(bar => {
+                const percent = bar.getAttribute('data-percent');
+                setTimeout(() => {
+                    bar.style.width = percent;
+                }, 500);
+            });
+        });
+    </script>
+    <script>
+        // 添加技能雷达图和动画效果
+        document.addEventListener('DOMContentLoaded', function() {
+            // 创建技能雷达图
+            const radarChartContainer = document.getElementById('skills-radar-chart');
+            if (radarChartContainer) {
+                // 清空容器，防止重复绘制
+                radarChartContainer.innerHTML = '';
+                drawRadarChart(radarChartContainer);
+            }
+            
+            // 添加技能卡片交错动画
+            const skillCards = document.querySelectorAll('.skill-card');
+            skillCards.forEach((card, index) => {
+                setTimeout(() => {
+                    card.classList.add('skill-card-visible');
+                }, 100 * index);
+            });
+            
+            // 添加技能类别标题动画
+            const categoryTitles = document.querySelectorAll('.skill-category-title');
+            categoryTitles.forEach((title, index) => {
+                setTimeout(() => {
+                    title.classList.add('title-animated');
+                }, 200 * index);
+            });
+            
+            // 添加技能指标动画
+            const skillMeters = document.querySelectorAll('.skill-meter');
+            skillMeters.forEach(meter => {
+                const value = meter.getAttribute('data-value');
+                const circle = meter.querySelector('circle:last-child');
+                const radius = circle.getAttribute('r');
+                const circumference = 2 * Math.PI * radius;
+                
+                circle.style.strokeDasharray = circumference;
+                circle.style.strokeDashoffset = circumference;
+                
+                setTimeout(() => {
+                    circle.style.strokeDashoffset = circumference - (value / 100) * circumference;
+                }, 500);
+            });
+        });
+
+        // 改进雷达图绘制函数
+        function drawRadarChart(container) {
+            const skills = [
+                { name: '医学影像', value: 95 },
+                { name: '深度学习', value: 90 },
+                { name: 'C++开发', value: 85 },
+                { name: 'Python', value: 92 },
+                { name: '算法设计', value: 88 },
+                { name: '数据分析', value: 80 }
+            ];
+            
+            const size = 300;
+            const center = size / 2;
+            const radius = size * 0.4;
+            const angleStep = (Math.PI * 2) / skills.length;
+            
+            // 创建SVG元素
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('width', size);
+            svg.setAttribute('height', size);
+            svg.setAttribute('viewBox', `0 0 ${size} ${size}`);
+            svg.classList.add('radar-chart');
+            
+            // 创建背景网格
+            for (let i = 1; i <= 5; i++) {
+                const gridRadius = radius * (i / 5);
+                const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+                let points = '';
+                
+                for (let j = 0; j < skills.length; j++) {
+                    const angle = j * angleStep - Math.PI / 2;
+                    const x = center + gridRadius * Math.cos(angle);
+                    const y = center + gridRadius * Math.sin(angle);
+                    points += `${x},${y} `;
+                }
+                
+                polygon.setAttribute('points', points);
+                polygon.classList.add('radar-grid');
+                polygon.style.opacity = i * 0.15;
+                svg.appendChild(polygon);
+            }
+            
+            // 创建轴线
+            for (let i = 0; i < skills.length; i++) {
+                const angle = i * angleStep - Math.PI / 2;
+                const x = center + radius * Math.cos(angle);
+                const y = center + radius * Math.sin(angle);
+                
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', center);
+                line.setAttribute('y1', center);
+                line.setAttribute('x2', x);
+                line.setAttribute('y2', y);
+                line.classList.add('radar-axis');
+                svg.appendChild(line);
+                
+                // 添加标签
+                const labelX = center + (radius + 20) * Math.cos(angle);
+                const labelY = center + (radius + 20) * Math.sin(angle);
+                
+                const text = document.createElementNS('http://www.w3.org/2000/svg', 'text');
+                text.textContent = skills[i].name;
+                text.setAttribute('x', labelX);
+                text.setAttribute('y', labelY);
+                text.setAttribute('text-anchor', 'middle');
+                text.classList.add('radar-label');
+                svg.appendChild(text);
+            }
+            
+            // 创建数据多边形
+            let dataPoints = '';
+            const dataPointsArray = [];
+            
+            for (let i = 0; i < skills.length; i++) {
+                const angle = i * angleStep - Math.PI / 2;
+                const value = skills[i].value / 100;
+                const x = center + radius * value * Math.cos(angle);
+                const y = center + radius * value * Math.sin(angle);
+                
+                dataPoints += `${x},${y} `;
+                dataPointsArray.push({ x, y });
+            }
+            
+            const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+            polygon.setAttribute('points', dataPoints);
+            polygon.classList.add('radar-data');
+            svg.appendChild(polygon);
+            
+            // 添加数据点
+            dataPointsArray.forEach((point, i) => {
+                const circle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                circle.setAttribute('cx', point.x);
+                circle.setAttribute('cy', point.y);
+                circle.setAttribute('r', 4);
+                circle.classList.add('radar-point');
+                
+                svg.appendChild(circle);
+            });
+            
+            container.appendChild(svg);
+        }
+    </script>
+    <script>
+        // 修改创新创业和学术成果交互功能，移除展开/折叠按钮
+        document.addEventListener('DOMContentLoaded', function() {
+            // 为所有项目添加active类，使其默认展开
+            const items = document.querySelectorAll('.innovation-item, .publication-item');
+            
+            items.forEach(item => {
+                item.classList.add('active');
+            });
+            
+            // 不再添加展开/折叠按钮
+        });
+    </script>
+    <script>
+        // 修复详细信息按钮功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const detailsButtons = document.querySelectorAll('.details-button');
+            
+            detailsButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // 获取按钮所在的项目容器
+                    const projectContainer = this.closest('.timeline-project');
+                    
+                    // 查找项目容器内部的详细信息容器
+                    const detailsContainer = projectContainer.querySelector('.achievement-details-container');
+                    
+                    if (detailsContainer) {
+                        // 切换按钮和容器的激活状态
+                        this.classList.toggle('active');
+                        detailsContainer.classList.toggle('active');
+                        
+                        // 更新按钮文本
+                        if (this.classList.contains('active')) {
+                            this.textContent = '收起详情';
+                            this.appendChild(document.createTextNode(' '));
+                        } else {
+                            this.textContent = '详细信息';
+                            this.appendChild(document.createTextNode(' '));
+                        }
+                    } else {
+                        console.error('找不到详细信息容器');
+                    }
+                });
+            });
+        });
+    </script>
+    <script>
+        // 修复鼠标点击效果
+        document.addEventListener('DOMContentLoaded', function() {
+            document.addEventListener('click', function(e) {
+                // 创建点击效果元素
+                const clickEffect = document.createElement('div');
+                clickEffect.className = 'click-effect';
+                
+                // 设置位置 - 使用clientX和clientY获取相对于视口的位置
+                clickEffect.style.left = e.clientX + 'px';
+                clickEffect.style.top = e.clientY + 'px';
+                
+                // 添加到文档
+                document.body.appendChild(clickEffect);
+                
+                // 动画结束后移除元素
+                setTimeout(function() {
+                    document.body.removeChild(clickEffect);
+                }, 800);
+            });
+        });
+    </script>
+    <script>
+        // 禁止文字复制和右键菜单
+        document.addEventListener('DOMContentLoaded', function() {
+            // 禁用右键菜单
+            document.addEventListener('contextmenu', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // 禁用复制功能
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // 禁用剪切功能
+            document.addEventListener('cut', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // 禁用拖拽功能
+            document.addEventListener('dragstart', function(e) {
+                e.preventDefault();
+                return false;
+            });
+            
+            // 可选：显示提示信息
+            document.addEventListener('selectstart', function(e) {
+                // 如果不是输入框或代码块，则阻止选择
+                if (e.target.tagName !== 'INPUT' && 
+                    e.target.tagName !== 'TEXTAREA' && 
+                    e.target.tagName !== 'CODE' && 
+                    e.target.tagName !== 'PRE') {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+        });
+    </script>
+    <!-- 添加语言切换按钮 -->
+    <div class="language-switch">
+        <span class="language-icon">🌐</span>
+        <span class="language-option active" data-lang="zh">中文</span>
+        <span class="language-option" data-lang="en">English</span>
+    </div>
+</body>
 </html>
