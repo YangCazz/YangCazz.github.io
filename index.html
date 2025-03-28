@@ -689,13 +689,13 @@
             // 更新成果总结标签
             document.querySelectorAll('.stat-label').forEach(label => {
                 const text = label.textContent.trim();
-                if (text === '发明专利' && translations['achievement-patents']) {
+                if (text === '发明/使用新型专利' && translations['achievement-patents']) {
                     label.textContent = translations['achievement-patents'][lang];
-                } else if (text === 'SCI论文' && translations['achievement-papers']) {
+                } else if (text === '主导/参与三类医疗器械注册' && translations['achievement-papers']) {
                     label.textContent = translations['achievement-papers'][lang];
-                } else if (text === '医疗器械注册' && translations['achievement-devices']) {
+                } else if (text === '临床试验通过' && translations['achievement-devices']) {
                     label.textContent = translations['achievement-devices'][lang];
-                } else if (text === '科研奖项' && translations['achievement-awards']) {
+                } else if (text === '创新大赛奖项' && translations['achievement-awards']) {
                     label.textContent = translations['achievement-awards'][lang];
                 }
             });
