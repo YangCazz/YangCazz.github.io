@@ -412,26 +412,26 @@
             
             // 自我总结部分
             'about-content': {
-                zh: '医疗机器人算法工程师，专注于医学影像处理与手术导航系统研发。拥有扎实的计算机视觉与机器学习理论基础，以及丰富的医疗器械研发经验。主导开发多款三类医疗器械产品，申请发明专利8项。擅长将前沿AI技术应用于临床医疗场景，解决实际问题。',
-                en: 'Medical robotics algorithm engineer, focusing on medical image processing and surgical navigation system development. Possessing solid theoretical foundation in computer vision and machine learning, as well as extensive experience in medical device R&D. Led the development of multiple Class III medical devices and applied for 8 invention patents. Skilled at applying cutting-edge AI technologies to clinical medical scenarios to solve practical problems.'
+                zh: '医疗机器人算法工程师，专注于医学影像处理与手术导航系统研发。拥有扎实的计算机视觉与机器学习理论基础，以及丰富的医疗器械研发经验。主导开发多款三类医疗器械产品，申请发明/实用新型专利8项。擅长将前沿AI技术应用于临床医疗场景，解决实际问题。',
+                en: 'Medical robotics algorithm engineer, focusing on medical image processing and surgical navigation system development. Possessing solid theoretical foundation in computer vision and machine learning, as well as extensive experience in medical device R&D. Led the development of multiple Class III medical devices and applied for 8 invention/utility model patents. Skilled at applying cutting-edge AI technologies to clinical medical scenarios to solve practical problems.'
             },
             
             // 成果总结部分
             'achievement-patents': {
-                zh: '发明专利',
-                en: 'Invention Patents'
+                zh: '发明/实用新型专利',
+                en: 'Invention/Utility Model Patents'
             },
             'achievement-papers': {
-                zh: 'SCI论文',
-                en: 'SCI Papers'
+                zh: '主导/参与三类医疗器械注册',
+                en: 'Lead/Participate in Class III Medical Device Registrations'
             },
             'achievement-devices': {
-                zh: '医疗器械注册',
-                en: 'Medical Device Registrations'
+                zh: '临床试验通过',
+                en: 'Clinical Trial Passed'
             },
             'achievement-awards': {
-                zh: '科研奖项',
-                en: 'Research Awards'
+                zh: '创新大赛奖项',
+                en: 'Innovation Competition Awards'
             },
             
             // 技术能力部分
@@ -536,8 +536,8 @@
             
             // 工作经历部分
             'company-name1': {
-                zh: '杭州兰丁医疗科技有限公司',
-                en: 'Hangzhou Landing Medical Technology Co., Ltd.'
+                zh: '杭州柳叶刀机器人有限公司',
+                en: 'Hangzhou Lancet Robotics Co., Ltd.'
             },
             'company-name2': {
                 zh: '广州医科大学附属第一医院',
@@ -652,6 +652,43 @@
             'education-bachelor': {
                 zh: '信息与计算科学 本科 | 专业排名 9/60(前15%)',
                 en: 'Information and Computational Science Bachelor | Rank 9/60 (Top 15%)'
+            },
+            'achievements-note': {
+                zh: '作为核心研发人员，参与多个医疗器械项目从0到1的全流程开发，涵盖神经外科、骨科、口腔科等多个领域',
+                en: 'As a core R&D member, participated in the full-process development of multiple medical device projects from 0 to 1, covering neurosurgery, orthopedics, stomatology and other fields'
+            },
+            // 在翻译对象中添加核心专业领域的标签翻译
+            'skill-highlight-title': {
+                zh: '核心专业领域',
+                en: 'Core Professional Areas'
+            },
+            'skill-badge-医学影像': {
+                zh: '医学影像',
+                en: 'Medical Imaging'
+            },
+            'skill-badge-手术机器人': {
+                zh: '手术机器人',
+                en: 'Surgical Robotics'
+            },
+            'skill-badge-人工智能': {
+                zh: '人工智能',
+                en: 'Artificial Intelligence'
+            },
+            'skill-badge-医学信息学': {
+                zh: '医学信息学',
+                en: 'Medical Informatics'
+            },
+            'skill-badge-数据分析': {
+                zh: '数据分析',
+                en: 'Data Analysis'
+            },
+            'skill-badge-计算图形学': {
+                zh: '计算图形学',
+                en: 'Computer Graphics'
+            },
+            'skill-badge-医疗器械': {
+                zh: '医疗器械',
+                en: 'Medical Devices'
             }
         };
         
@@ -689,7 +726,7 @@
             // 更新成果总结标签
             document.querySelectorAll('.stat-label').forEach(label => {
                 const text = label.textContent.trim();
-                if (text === '发明/使用新型专利' && translations['achievement-patents']) {
+                if (text === '发明/实用新型专利' && translations['achievement-patents']) {
                     label.textContent = translations['achievement-patents'][lang];
                 } else if (text === '主导/参与三类医疗器械注册' && translations['achievement-papers']) {
                     label.textContent = translations['achievement-papers'][lang];
@@ -878,6 +915,24 @@
                     p.textContent = translations['education-bachelor'][lang];
                 }
             });
+            
+            // 更新科研项目标题
+            const projectsTitle = document.querySelector('#projects-section-title');
+            if (projectsTitle && translations['projects-section-title']) {
+                projectsTitle.textContent = translations['projects-section-title'][lang];
+            }
+            
+            // 更新成果总结标题
+            const achievementsTitle = document.querySelector('#achievements h2');
+            if (achievementsTitle && translations['title-achievements']) {
+                achievementsTitle.textContent = translations['title-achievements'][lang];
+            }
+            
+            // 更新成果总结描述文本
+            const achievementsNote = document.querySelector('.achievements-note');
+            if (achievementsNote && translations['achievements-note']) {
+                achievementsNote.textContent = translations['achievements-note'][lang];
+            }
         };
         
         // 为语言切换按钮添加事件监听器
@@ -3216,7 +3271,7 @@
                     <div class="achievement-stat">
                         <span class="stat-icon">📜</span>
                         <span class="stat-number">10+</span>
-                        <span class="stat-label">发明/使用新型专利</span>
+                        <span class="stat-label">发明/实用新型专利</span>
                     </div>
                     <div class="achievement-stat">
                         <span class="stat-icon">🏥</span>
