@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>EN - YangCazz</title>
     <script>
     // 导航激活状态管理
@@ -63,7 +63,7 @@
     // 页面加载后也执行一次，确保初始状态正确
     document.addEventListener('DOMContentLoaded', updateNavOnScroll);
     
-    // 优化粒子系统，添加随机消失和重生效果
+     // 优化粒子系统，添加随机消失和重生效果
     document.addEventListener('DOMContentLoaded', function() {
         const canvas = document.getElementById('particleCanvas');
         if (!canvas) {
@@ -519,16 +519,17 @@
             position: fixed;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
             z-index: -1;
             background: linear-gradient(45deg, #2b2d42, #4299e1);
         }
 
-        #particleCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            background: linear-gradient(45deg, #2b2d42, #4299e1);
+        /* 仅在移动设备上降低不透明度 */
+        @media (max-width: 768px) {
+            #particleCanvas {
+                opacity: 0.5;
+            }
         }
 
         body {
@@ -2612,10 +2613,226 @@
             font-size: 1.2em;
             color: var(--accent-color);
         }
+
+        /* 添加响应式设计样式 */
+        @media (max-width: 768px) {
+            body {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+                gap: 1rem;
+            }
+            
+            .nav-sidebar {
+                position: relative;
+                top: 0;
+                width: 100%;
+                margin-bottom: 1rem;
+            }
+            
+            .profile-sidebar {
+                padding: 1rem;
+            }
+            
+            .profile-avatar {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .profile-name {
+                font-size: 1.2rem;
+            }
+            
+            .skill-matrix-grid,
+            .matrix-grid,
+            .card-layout,
+            .publication-wall {
+                grid-template-columns: 1fr;
+            }
+            
+            .skill-overview {
+                flex-direction: column;
+            }
+            
+            .skill-summary, 
+            .skill-radar {
+                max-width: 100%;
+            }
+            
+            .timeline-project h4 {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .project-meta {
+                margin-top: 0.5rem;
+            }
+            
+            .project-status {
+                position: static;
+                display: inline-flex;
+                margin-top: 0.5rem;
+            }
+            
+            .project-title-area {
+                padding-right: 0;
+            }
+            
+            .achievement-list {
+                flex-wrap: wrap;
+            }
+            
+            .achievement-item .achievement-detail {
+                width: 220px;
+                left: 0;
+                transform: none;
+            }
+            
+            .language-switch {
+                top: 10px;
+                right: 10px;
+                padding: 5px 10px;
+            }
+            
+            /* 改进移动端导航体验 */
+            .nav-sidebar {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.5rem;
+                justify-content: center;
+            }
+            
+            .nav-link {
+                margin: 0.2rem;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
+            }
+            
+            /* 调整详情按钮和成就项在移动端的显示 */
+            .details-button {
+                margin-top: 0.5rem;
+                width: 100%;
+                justify-content: center;
+            }
+            
+            .achievement-details-container.active {
+                padding: 0.8rem;
+            }
+            
+            /* 优化移动端时间线项目显示 */
+            .timeline-company {
+                padding: 1rem;
+            }
+            
+            .company-name {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .timeline-period {
+                margin-left: 0;
+                margin-top: 0.5rem;
+            }
+            
+            /* 调整技能标签在移动端的显示 */
+            .skill-tags-cloud {
+                justify-content: center;
+            }
+            
+            .skill-badge {
+                margin: 0.2rem;
+                padding: 0.2rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            
+            /* 调整成就统计在移动端的显示 */
+            .achievements-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .stat-number {
+                font-size: 1.5rem;
+            }
+            
+            /* 优化移动端粒子效果 */
+            #particleCanvas {
+                opacity: 0.5; /* 降低移动端粒子效果的不透明度，减轻视觉负担 */
+            }
+            
+            /* 调整移动端卡片内边距 */
+            .achievement-card,
+            .info-card,
+            .innovation-item,
+            .publication-item {
+                padding: 1rem;
+            }
+            
+            /* 优化移动端字体大小 */
+            h2 {
+                font-size: 1.3rem;
+            }
+            
+            h3 {
+                font-size: 1.1rem;
+            }
+            
+            h4 {
+                font-size: 1rem;
+            }
+            
+            p, li {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* 针对超小屏幕的额外优化 */
+        @media (max-width: 480px) {
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .profile-contact {
+                font-size: 0.8rem;
+            }
+            
+            .nav-link {
+                padding: 0.4rem 0.6rem;
+                font-size: 0.8rem;
+            }
+            
+            .timeline-skill-tag,
+            .tech-tag {
+                font-size: 0.75rem;
+            }
+            
+            .achievement-item {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+            
+            /* 调整语言切换按钮位置，避免遮挡 */
+            .language-switch {
+                top: auto;
+                bottom: 10px;
+                right: 10px;
+            }
+        }
+
+        /* 修改粒子画布在移动端的不透明度 */
+        @media (max-width: 768px) {
+            #particleCanvas {
+                opacity: 0.8; /* 提高不透明度，从0.5改为0.8 */
+            }
+            
+            /* 确保背景色在移动端也足够深 */
+            body::before {
+                background: linear-gradient(45deg, #2b2d42, #4299e1);
+                opacity: 0.9; /* 增加背景层的不透明度 */
+            }
+        }
     </style>
 </head>
 <body>
-    <canvas id="particleCanvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1;"></canvas>
+    <canvas id="particleCanvas"></canvas>
     
     <!-- 将个人信息栏移到导航栏上方 -->
     <div class="nav-sidebar">
