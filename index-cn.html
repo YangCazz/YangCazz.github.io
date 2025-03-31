@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>杨钱俊 - 算法工程师</title>
+    <title>CN - YangCazz</title>
     <script>
     // 导航激活状态管理
     function updateActiveNav() {
@@ -316,650 +316,49 @@
         animate();
     });
     
-    // 完整的语言切换解决方案
+    // 禁止网页文字复制
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('初始化语言切换功能');
+        // 使用CSS禁止整个页面的文本选择
+        document.body.style.userSelect = 'none';
         
-        // 定义全局翻译对象
-        window.globalTranslations = {
-            // 导航链接
-            'nav-about': {
-                zh: '👤 自我总结',
-                en: '👤 About Me'
-            },
-            'nav-achievements': {
-                zh: '🏆 成果总结',
-                en: '🏆 Achievements'
-            },
-            'nav-skills': {
-                zh: '🛠️ 技术能力',
-                en: '🛠️ Skills'
-            },
-            'nav-experience': {
-                zh: '💼 工作经历',
-                en: '💼 Experience'
-            },
-            'nav-education': {
-                zh: '🎓 教育背景',
-                en: '🎓 Education'
-            },
-            'nav-innovation': {
-                zh: '💡 创新创业',
-                en: '💡 Innovation'
-            },
-            'nav-publications': {
-                zh: '📚 学术成果',
-                en: '📚 Publications'
-            },
-            
-            // 标题
-            'title-about': {
-                zh: '👤 自我总结',
-                en: '👤 About Me'
-            },
-            'title-achievements': {
-                zh: '🏆 成果总结',
-                en: '🏆 Achievements'
-            },
-            'title-skills': {
-                zh: '🛠️ 技术能力',
-                en: '🛠️ Skills'
-            },
-            'title-experience': {
-                zh: '💼 工作经历',
-                en: '💼 Experience'
-            },
-            'title-education': {
-                zh: '🎓 教育背景',
-                en: '🎓 Education'
-            },
-            'title-innovation': {
-                zh: '💡 创新创业',
-                en: '💡 Innovation'
-            },
-            'title-publications': {
-                zh: '📚 学术成果',
-                en: '📚 Publications'
-            },
-            'projects-section-title': {
-                zh: '🚀 科研项目',
-                en: '🚀 Research Projects'
-            },
-            
-            // 按钮
-            'details-button': {
-                zh: '详细信息',
-                en: 'Details'
-            },
-            'details-button-active': {
-                zh: '收起详情',
-                en: 'Hide Details'
-            },
-            
-            // 项目状态
-            'status-ongoing': {
-                zh: '● 进行中',
-                en: '● Ongoing'
-            },
-            'status-completed': {
-                zh: '● 已完成',
-                en: '● Completed'
-            },
-            'status-launched': {
-                zh: '● 已上市',
-                en: '● Launched'
-            },
-            
-            // 自我总结部分
-            'about-content': {
-                zh: '医疗机器人算法工程师，专注于医学影像处理与手术导航系统研发。拥有扎实的计算机视觉与机器学习理论基础，以及丰富的医疗器械研发经验。主导开发多款三类医疗器械产品，申请发明/实用新型专利8项。擅长将前沿AI技术应用于临床医疗场景，解决实际问题。',
-                en: 'Medical robotics algorithm engineer, focusing on medical image processing and surgical navigation system development. Possessing solid theoretical foundation in computer vision and machine learning, as well as extensive experience in medical device R&D. Led the development of multiple Class III medical devices and applied for 8 invention/utility model patents. Skilled at applying cutting-edge AI technologies to clinical medical scenarios to solve practical problems.'
-            },
-            
-            // 成果总结部分
-            'achievement-patents': {
-                zh: '发明/实用新型专利',
-                en: 'Invention/Utility Model Patents'
-            },
-            'achievement-papers': {
-                zh: '主导/参与三类医疗器械注册',
-                en: 'Lead/Participate in Class III Medical Device Registrations'
-            },
-            'achievement-devices': {
-                zh: '临床试验通过',
-                en: 'Clinical Trial Passed'
-            },
-            'achievement-awards': {
-                zh: '创新大赛奖项',
-                en: 'Innovation Competition Awards'
-            },
-            
-            // 技术能力部分
-            'skill-category-title-核心专业领域': {
-                zh: '核心专业领域',
-                en: 'Core Professional Areas'
-            },
-            'skill-category-title-编程语言': {
-                zh: '编程语言',
-                en: 'Programming Languages'
-            },
-            'skill-category-title-开发框架': {
-                zh: '开发框架',
-                en: 'Development Frameworks'
-            },
-            'skill-category-title-开发工具': {
-                zh: '开发工具',
-                en: 'Development Tools'
-            },
-            
-            // 技能级别
-            'skill-level-专家': {
-                zh: '专家',
-                en: 'Expert'
-            },
-            'skill-level-高级': {
-                zh: '高级',
-                en: 'Advanced'
-            },
-            'skill-level-中级': {
-                zh: '中级',
-                en: 'Intermediate'
-            },
-            
-            // 技能名称
-            'skill-name-医学影像处理': {
-                zh: '医学影像处理',
-                en: 'Medical Image Processing'
-            },
-            'skill-name-计算机视觉': {
-                zh: '计算机视觉',
-                en: 'Computer Vision'
-            },
-            'skill-name-3d重建': {
-                zh: '3D重建',
-                en: '3D Reconstruction'
-            },
-            'skill-name-深度学习': {
-                zh: '深度学习',
-                en: 'Deep Learning'
-            },
-            'skill-name-手术导航': {
-                zh: '手术导航',
-                en: 'Surgical Navigation'
-            },
-            'skill-name-点云处理': {
-                zh: '点云处理',
-                en: 'Point Cloud Processing'
-            },
-            
-            // 项目标签
-            'skill-tag-c++': {
-                zh: 'C++',
-                en: 'C++'
-            },
-            'skill-tag-mitk': {
-                zh: 'MITK',
-                en: 'MITK'
-            },
-            'skill-tag-医学导航': {
-                zh: '医学导航',
-                en: 'Medical Navigation'
-            },
-            'skill-tag-精度测试': {
-                zh: '精度测试',
-                en: 'Precision Testing'
-            },
-            'skill-tag-3d重建': {
-                zh: '3D重建',
-                en: '3D Reconstruction'
-            },
-            'skill-tag-点云处理': {
-                zh: '点云处理',
-                en: 'Point Cloud Processing'
-            },
-            'skill-tag-医学图像': {
-                zh: '医学图像',
-                en: 'Medical Imaging'
-            },
-            'skill-tag-ct图像处理': {
-                zh: 'CT图像处理',
-                en: 'CT Image Processing'
-            },
-            'skill-tag-机器人控制': {
-                zh: '机器人控制',
-                en: 'Robot Control'
-            },
-            'skill-tag-手术规划': {
-                zh: '手术规划',
-                en: 'Surgical Planning'
-            },
-            
-            // 工作经历部分
-            'company-name1': {
-                zh: '杭州柳叶刀机器人有限公司',
-                en: 'Hangzhou Lancet Robotics Co., Ltd.'
-            },
-            'company-name2': {
-                zh: '广州医科大学附属第一医院',
-                en: 'The First Affiliated Hospital of Guangzhou Medical University'
-            },
-            'company-position': {
-                zh: '算法部门主管',
-                en: 'Algorithm Department Manager'
-            },
-            'company-position2': {
-                zh: '算法工程师',
-                en: 'Algorithm Engineer'
-            },
-            'position-description1': {
-                zh: '负责团队管理与技术决策，带领10人团队开发医疗机器人核心算法',
-                en: 'Responsible for team management and technical decisions, leading a team of 10 to develop core algorithms for medical robots'
-            },
-            'position-description2': {
-                zh: '负责医疗机器人视觉感知与导航算法研发',
-                en: 'Responsible for medical robot visual perception and navigation algorithm development'
-            },
-            
-            // 项目标题
-            'project-title1': {
-                zh: '神经外科手术机器人 Lancet Neuro-Surgery Robot',
-                en: 'Neurosurgical Robot Lancet Neuro-Surgery Robot'
-            },
-            'project-title2': {
-                zh: '口腔种植手术机器人系统',
-                en: 'Oral Implant Surgical Robot System'
-            },
-            'project-title3': {
-                zh: '穿刺手术机器人项目',
-                en: 'Puncture Surgery Robot Project'
-            },
-            'project-title4': {
-                zh: '下肢高位胫骨截骨手术(HTO)导航系统',
-                en: 'High Tibial Osteotomy (HTO) Navigation System'
-            },
-            
-            // 项目描述
-            'project-neuro-desc': {
-                zh: '开发国内首款神经外科手术机器人系统，实现亚毫米级精度的手术导航与规划',
-                en: 'Developed China\'s first neurosurgical robot system, achieving sub-millimeter precision in surgical navigation and planning'
-            },
-            'project-oral-desc': {
-                zh: '开发国内首款口腔种植手术机器人系统，实现微米级精度的种植体植入',
-                en: 'Developed China\'s first oral implant surgical robot system, achieving micron-level precision in implant placement'
-            },
-            'project-puncture-desc': {
-                zh: '研发高精度穿刺手术导航系统，提高微创手术的安全性与精确性',
-                en: 'Developed high-precision puncture surgery navigation system to improve the safety and accuracy of minimally invasive surgery'
-            },
-            'project-hto-desc': {
-                zh: '开发骨科手术精准导航系统，提高截骨手术的精度与手术效率',
-                en: 'Developed orthopedic surgery precision navigation system to improve the accuracy and efficiency of osteotomy surgery'
-            },
-            
-            // 科研项目
-            'research-project-title1': {
-                zh: '国家重点研发计划（2019YFB1404801）',
-                en: 'National Key R&D Program of China (2019YFB1404801)'
-            },
-            'research-project-desc1': {
-                zh: '2019-12至2022-11 | 314万元 | 结题',
-                en: '2019-12 to 2022-11 | 3.14 Million RMB | Completed'
-            },
-            'research-project-title2': {
-                zh: '广东省自然科学面上项目（2024A1515010851）',
-                en: 'Guangdong Natural Science Foundation (2024A1515010851)'
-            },
-            'research-project-desc2': {
-                zh: '2024-01至2026-12 | 15万元 | 进行中',
-                en: '2024-01 to 2026-12 | 150,000 RMB | Ongoing'
-            },
-            
-            // 创新创业
-            'innovation-title1': {
-                zh: '便携式脉冲振荡肺功能仪（国家级银奖）',
-                en: 'Portable Pulse Oscillation Pulmonary Function Meter (National Silver Award)'
-            },
-            'innovation-title2': {
-                zh: '血涂片智能分析系统（省赛铜奖）',
-                en: 'Intelligent Blood Smear Analysis System (Provincial Bronze Award)'
-            },
-            'innovation-title3': {
-                zh: 'HE染色预测系统（省赛银奖）',
-                en: 'HE Staining Prediction System (Provincial Silver Award)'
-            },
-            'innovation-intro1': {
-                zh: '打造国内首款便携式脉冲振荡肺功能检测设备，解决基层医疗机构肺功能检测难题。',
-                en: 'Created China\'s first portable pulse oscillation pulmonary function detection device, solving pulmonary function testing challenges in primary healthcare institutions.'
-            },
-            'innovation-intro2': {
-                zh: '革新传统血液检测流程，将人工分析时间从30分钟缩短至3分钟，大幅提升检验效率。',
-                en: 'Revolutionized traditional blood testing process, reducing manual analysis time from 30 minutes to 3 minutes, significantly improving testing efficiency.'
-            },
-            'innovation-intro3': {
-                zh: '突破性实现从基因组数据直接预测HE染色图像，为精准医疗提供全新技术路径。',
-                en: 'Breakthrough achievement in directly predicting HE staining images from genomic data, providing a new technical pathway for precision medicine.'
-            },
-            
-            // 教育背景
-            'education-joint': {
-                zh: '联合培养 | 医学影像算法研究',
-                en: 'Joint Training | Medical Imaging Algorithm Research'
-            },
-            'education-master': {
-                zh: '生物医学工程 硕士 | 专业排名 1/25(前1%)',
-                en: 'Biomedical Engineering Master | Rank 1/25 (Top 1%)'
-            },
-            'education-bachelor': {
-                zh: '信息与计算科学 本科 | 专业排名 9/60(前15%)',
-                en: 'Information and Computational Science Bachelor | Rank 9/60 (Top 15%)'
-            },
-            'achievements-note': {
-                zh: '作为核心研发人员，参与多个医疗器械项目从0到1的全流程开发，涵盖神经外科、骨科、口腔科等多个领域',
-                en: 'As a core R&D member, participated in the full-process development of multiple medical device projects from 0 to 1, covering neurosurgery, orthopedics, stomatology and other fields'
-            },
-            // 在翻译对象中添加核心专业领域的标签翻译
-            'skill-highlight-title': {
-                zh: '核心专业领域',
-                en: 'Core Professional Areas'
-            },
-            'skill-badge-医学影像': {
-                zh: '医学影像',
-                en: 'Medical Imaging'
-            },
-            'skill-badge-手术机器人': {
-                zh: '手术机器人',
-                en: 'Surgical Robotics'
-            },
-            'skill-badge-人工智能': {
-                zh: '人工智能',
-                en: 'Artificial Intelligence'
-            },
-            'skill-badge-医学信息学': {
-                zh: '医学信息学',
-                en: 'Medical Informatics'
-            },
-            'skill-badge-数据分析': {
-                zh: '数据分析',
-                en: 'Data Analysis'
-            },
-            'skill-badge-计算图形学': {
-                zh: '计算图形学',
-                en: 'Computer Graphics'
-            },
-            'skill-badge-医疗器械': {
-                zh: '医疗器械',
-                en: 'Medical Devices'
-            }
-        };
-        
-        // 定义全局翻译函数
-        window.translatePage = function(lang) {
-            console.log('翻译页面到:', lang);
-            const translations = window.globalTranslations;
-            
-            // 更新导航链接
-            document.querySelectorAll('.nav-link').forEach(link => {
-                const href = link.getAttribute('href');
-                if (href) {
-                    const key = `nav-${href.substring(1)}`;
-                    if (translations[key] && translations[key][lang]) {
-                        link.textContent = translations[key][lang];
-                    }
-                }
-            });
-            
-            // 更新标题
-            document.querySelectorAll('section h2').forEach(heading => {
-                const sectionId = heading.parentElement.id;
-                const key = `title-${sectionId}`;
-                if (translations[key] && translations[key][lang]) {
-                    heading.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新自我总结内容
-            const aboutContent = document.querySelector('#about p');
-            if (aboutContent && translations['about-content']) {
-                aboutContent.textContent = translations['about-content'][lang];
-            }
-            
-            // 更新成果总结标签
-            document.querySelectorAll('.stat-label').forEach(label => {
-                const text = label.textContent.trim();
-                if (text === '发明/实用新型专利' && translations['achievement-patents']) {
-                    label.textContent = translations['achievement-patents'][lang];
-                } else if (text === '主导/参与三类医疗器械注册' && translations['achievement-papers']) {
-                    label.textContent = translations['achievement-papers'][lang];
-                } else if (text === '临床试验通过' && translations['achievement-devices']) {
-                    label.textContent = translations['achievement-devices'][lang];
-                } else if (text === '创新大赛奖项' && translations['achievement-awards']) {
-                    label.textContent = translations['achievement-awards'][lang];
-                }
-            });
-            
-            // 更新技术能力部分的标题
-            document.querySelectorAll('.skill-category h3').forEach(title => {
-                const text = title.textContent.trim();
-                const key = `skill-category-title-${text.toLowerCase()}`;
-                if (translations[key] && translations[key][lang]) {
-                    title.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新技能级别
-            document.querySelectorAll('.skill-level').forEach(level => {
-                const text = level.textContent.trim();
-                const key = `skill-level-${text}`;
-                if (translations[key] && translations[key][lang]) {
-                    level.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新技能名称
-            document.querySelectorAll('.skill-name').forEach(name => {
-                const text = name.textContent.trim();
-                const key = `skill-name-${text.toLowerCase().replace(/\s+/g, '-')}`;
-                if (translations[key] && translations[key][lang]) {
-                    name.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新技能标签
-            document.querySelectorAll('.skill-tag').forEach(tag => {
-                const text = tag.textContent.trim();
-                const key = `skill-name-${text.toLowerCase().replace(/\s+/g, '-')}`;
-                if (translations[key] && translations[key][lang]) {
-                    tag.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新项目技能标签
-            document.querySelectorAll('.timeline-skill-tag').forEach(tag => {
-                const text = tag.textContent.trim();
-                const key = `skill-tag-${text.toLowerCase().replace(/\s+/g, '-')}`;
-                if (translations[key] && translations[key][lang]) {
-                    tag.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新公司名称
-            document.querySelectorAll('.company-name').forEach((company, index) => {
-                const key = `company-name${index + 1}`;
-                if (translations[key] && translations[key][lang]) {
-                    company.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新职位名称
-            document.querySelectorAll('.position-title').forEach((position, index) => {
-                const key = `company-position${index === 0 ? '' : (index + 1)}`;
-                if (translations[key] && translations[key][lang]) {
-                    position.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新职位描述
-            document.querySelectorAll('.position-description').forEach((desc, index) => {
-                const key = `position-description${index + 1}`;
-                if (translations[key] && translations[key][lang]) {
-                    desc.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新项目标题
-            document.querySelectorAll('.timeline-project h4').forEach((title, index) => {
-                const key = `project-title${index + 1}`;
-                if (translations[key] && translations[key][lang]) {
-                    title.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新项目描述
-            document.querySelectorAll('.project-description').forEach(desc => {
-                const projectHeader = desc.closest('.timeline-project').querySelector('h4').textContent;
-                
-                if (projectHeader.includes('神经外科手术机器人') && translations['project-neuro-desc']) {
-                    desc.textContent = translations['project-neuro-desc'][lang];
-                } else if (projectHeader.includes('口腔种植手术机器人') && translations['project-oral-desc']) {
-                    desc.textContent = translations['project-oral-desc'][lang];
-                } else if (projectHeader.includes('穿刺手术机器人') && translations['project-puncture-desc']) {
-                    desc.textContent = translations['project-puncture-desc'][lang];
-                } else if (projectHeader.includes('下肢高位胫骨截骨手术') && translations['project-hto-desc']) {
-                    desc.textContent = translations['project-hto-desc'][lang];
-                }
-            });
-            
-            // 更新项目状态
-            document.querySelectorAll('.project-status').forEach(status => {
-                if (status.classList.contains('status-ongoing')) {
-                    status.textContent = translations['status-ongoing'][lang];
-                } else if (status.classList.contains('status-completed')) {
-                    status.textContent = translations['status-completed'][lang];
-                } else if (status.classList.contains('status-launched')) {
-                    status.textContent = translations['status-launched'][lang];
-                }
-            });
-            
-            // 更新详细信息按钮
-            document.querySelectorAll('.details-button').forEach(button => {
-                const key = button.classList.contains('active') ? 'details-button-active' : 'details-button';
-                if (translations[key] && translations[key][lang]) {
-                    button.textContent = translations[key][lang];
-                }
-            });
-            
-            // 更新科研项目
-            const researchProjects = document.querySelectorAll('#projects .info-card');
-            if (researchProjects.length >= 1) {
-                const project1 = researchProjects[0];
-                const title1 = project1.querySelector('h3');
-                const desc1 = project1.querySelector('p');
-                
-                if (title1 && translations['research-project-title1']) {
-                    title1.textContent = translations['research-project-title1'][lang];
-                }
-                
-                if (desc1 && translations['research-project-desc1']) {
-                    desc1.textContent = translations['research-project-desc1'][lang];
-                }
-            }
-            
-            if (researchProjects.length >= 2) {
-                const project2 = researchProjects[1];
-                const title2 = project2.querySelector('h3');
-                const desc2 = project2.querySelector('p');
-                
-                if (title2 && translations['research-project-title2']) {
-                    title2.textContent = translations['research-project-title2'][lang];
-                }
-                
-                if (desc2 && translations['research-project-desc2']) {
-                    desc2.textContent = translations['research-project-desc2'][lang];
-                }
-            }
-            
-            // 更新创新创业标题和介绍
-            document.querySelectorAll('.innovation-item h3').forEach(title => {
-                const text = title.textContent.trim();
-                
-                if (text.includes('便携式脉冲振荡肺功能仪') && translations['innovation-title1']) {
-                    title.textContent = translations['innovation-title1'][lang];
-                } else if (text.includes('血涂片智能分析系统') && translations['innovation-title2']) {
-                    title.textContent = translations['innovation-title2'][lang];
-                } else if (text.includes('HE染色预测系统') && translations['innovation-title3']) {
-                    title.textContent = translations['innovation-title3'][lang];
-                }
-            });
-            
-            document.querySelectorAll('.project-intro').forEach(intro => {
-                const itemTitle = intro.closest('.innovation-item').querySelector('h3').textContent;
-                
-                if (itemTitle.includes('便携式脉冲振荡肺功能仪') && translations['innovation-intro1']) {
-                    intro.textContent = translations['innovation-intro1'][lang];
-                } else if (itemTitle.includes('血涂片智能分析系统') && translations['innovation-intro2']) {
-                    intro.textContent = translations['innovation-intro2'][lang];
-                } else if (itemTitle.includes('HE染色预测系统') && translations['innovation-intro3']) {
-                    intro.textContent = translations['innovation-intro3'][lang];
-                }
-            });
-            
-            // 更新教育背景
-            document.querySelectorAll('.info-card p').forEach(p => {
-                const text = p.textContent.trim();
-                
-                if (text.includes('联合培养') && translations['education-joint']) {
-                    p.textContent = translations['education-joint'][lang];
-                } else if (text.includes('生物医学工程 硕士') && translations['education-master']) {
-                    p.textContent = translations['education-master'][lang];
-                } else if (text.includes('信息与计算科学 本科') && translations['education-bachelor']) {
-                    p.textContent = translations['education-bachelor'][lang];
-                }
-            });
-            
-            // 更新科研项目标题
-            const projectsTitle = document.querySelector('#projects-section-title');
-            if (projectsTitle && translations['projects-section-title']) {
-                projectsTitle.textContent = translations['projects-section-title'][lang];
-            }
-            
-            // 更新成果总结标题
-            const achievementsTitle = document.querySelector('#achievements h2');
-            if (achievementsTitle && translations['title-achievements']) {
-                achievementsTitle.textContent = translations['title-achievements'][lang];
-            }
-            
-            // 更新成果总结描述文本
-            const achievementsNote = document.querySelector('.achievements-note');
-            if (achievementsNote && translations['achievements-note']) {
-                achievementsNote.textContent = translations['achievements-note'][lang];
-            }
-        };
-        
-        // 为语言切换按钮添加事件监听器
-        document.querySelectorAll('.language-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // 如果已经是激活状态，不做任何操作
-                if (this.classList.contains('active')) return;
-                
-                // 更新激活状态
-                document.querySelector('.language-option.active').classList.remove('active');
-                this.classList.add('active');
-                
-                // 获取选择的语言
-                const lang = this.getAttribute('data-lang');
-                
-                // 翻译页面
-                window.translatePage(lang);
-            });
+        // 禁用右键菜单，防止通过右键菜单复制
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
         });
         
-        // 初始化页面语言
-        const initialLang = document.querySelector('.language-option.active').getAttribute('data-lang');
-        setTimeout(() => {
-            window.translatePage(initialLang);
-        }, 500);
+        // 禁用复制、剪切和拖拽功能
+        document.addEventListener('copy', function(e) {
+            e.preventDefault();
+        });
+        document.addEventListener('cut', function(e) {
+            e.preventDefault();
+        });
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+        });
+        
+        // 阻止文本选择操作
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+        });
     });
-    </script>
+    
+    // 鼠标点击效果
+    document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('click', function(e) {
+            const ripple = document.createElement('div');
+            ripple.className = 'ripple';
+            ripple.style.left = `${e.clientX}px`;
+            ripple.style.top = `${e.clientY}px`;
+            document.body.appendChild(ripple);
+            
+            setTimeout(() => {
+                ripple.remove();
+            }, 1000);
+        });
+    });
+
+</script>
     <style>
         :root {
             --primary-color: #2b2d42;
@@ -3271,7 +2670,7 @@
                     <div class="achievement-stat">
                         <span class="stat-icon">📜</span>
                         <span class="stat-number">10+</span>
-                        <span class="stat-label">发明/实用新型专利</span>
+                        <span class="stat-label">发明/使用新型专利</span>
                     </div>
                     <div class="achievement-stat">
                         <span class="stat-icon">🏥</span>
@@ -3818,7 +3217,7 @@
                                 <span class="timeline-skill-tag">精度验证</span>
                             </div>
                         </div>
-                        
+
                         <div class="timeline-project">
                             <div class="project-header">
                                 <div class="project-title-area">
@@ -3880,7 +3279,7 @@
                                     </div>
                                 </span>
                                 <button class="details-button">详细信息</button>
-                                        </div>
+                            </div>
                             
                             <!-- 添加详细信息容器 -->
                             <div class="achievement-details-container">
@@ -3953,7 +3352,7 @@
                                 <li>使用C++/MITK/VTK/ITK开发，集成NDI双目相机</li>
                             </ul>
                             
-                                <div class="achievement-list">
+                            <div class="achievement-list">
                                 <!-- 恢复下肢高位胫骨截骨手术导航系统项目的发明专利悬浮窗 -->
                                 <span class="achievement-item achievement-patent">
                                     发明专利1项
@@ -4119,10 +3518,10 @@
                     <div class="pub-details">
                         <p class="project-intro">打造国内首款便携式脉冲振荡肺功能检测设备，解决基层医疗机构肺功能检测难题。</p>
                         <ul>
-                            <li><strong>产业合作:</strong> 与浙江亿联康医疗科技有限公司（A轮）深度合作，实现技术转化</li>
-                            <li><strong>核心技术:</strong> 自主研发高精度气流传感器系统，测量精度提升40%</li>
-                            <li><strong>AI赋能:</strong> 开发基于深度学习的呼吸疾病辅助诊断算法，准确率达92.3%</li>
-                            <li><strong>成果转化:</strong> 获得6项发明专利，设备方案已进入临床试验阶段</li>
+                            <li><strong>产业合作：</strong>与浙江亿联康医疗科技有限公司（A轮）深度合作，实现技术转化</li>
+                            <li><strong>核心技术：</strong>自主研发高精度气流传感器系统，测量精度提升40%</li>
+                            <li><strong>AI赋能：</strong>开发基于深度学习的呼吸疾病辅助诊断算法，准确率达92.3%</li>
+                            <li><strong>成果转化：</strong>获得6项发明专利，设备方案已进入临床试验阶段</li>
                         </ul>
                         <div class="tech-stack">
                             <span class="tech-tag">STM32嵌入式开发</span>
@@ -4142,10 +3541,10 @@
                     <div class="pub-details">
                         <p class="project-intro">革新传统血液检测流程，将人工分析时间从30分钟缩短至3分钟，大幅提升检验效率。</p>
                         <ul>
-                            <li><strong>企业对接:</strong> 与深圳帝迈生物（B轮）合作，打造临床级血液分析解决方案</li>
-                            <li><strong>算法突破:</strong> 开发多尺度细胞分类CNN模型，mAP达0.87，超越行业平均水平</li>
-                            <li><strong>系统集成:</strong> 构建一站式Web端报告生成系统，支持远程会诊</li>
-                            <li><strong>临床验证:</strong> 在番禺中心医院完成1000+样本临床验证，准确率超95%</li>
+                            <li><strong>企业对接：</strong>与深圳帝迈生物（B轮）合作，打造临床级血液分析解决方案</li>
+                            <li><strong>算法突破：</strong>开发多尺度细胞分类CNN模型，mAP达0.87，超越行业平均水平</li>
+                            <li><strong>系统集成：</strong>构建一站式Web端报告生成系统，支持远程会诊</li>
+                            <li><strong>临床验证：</strong>在番禺中心医院完成1000+样本临床验证，准确率超95%</li>
                         </ul>
                         <div class="tech-stack">
                             <span class="tech-tag">PyTorch</span>
@@ -4165,10 +3564,10 @@
                     <div class="pub-details">
                         <p class="project-intro">突破性实现从基因组数据直接预测HE染色图像，为精准医疗提供全新技术路径。</p>
                         <ul>
-                            <li><strong>行业合作:</strong> 与金域医学集团（上市公司）共同开发，填补行业技术空白</li>
-                            <li><strong>创新模型:</strong> 设计多组学数据融合架构，实现跨模态信息整合</li>
-                            <li><strong>流程优化:</strong> 构建端到端病理图像分析pipeline，处理时间缩短80%</li>
-                            <li><strong>临床应用:</strong> 在广州医科大学附属医院完成验证，助力病理诊断提速</li>
+                            <li><strong>行业合作：</strong>与金域医学集团（上市公司）共同开发，填补行业技术空白</li>
+                            <li><strong>创新模型：</strong>设计多组学数据融合架构，实现跨模态信息整合</li>
+                            <li><strong>流程优化：</strong>构建端到端病理图像分析pipeline，处理时间缩短80%</li>
+                            <li><strong>临床应用：</strong>在广州医科大学附属医院完成验证，助力病理诊断提速</li>
                         </ul>
                         <div class="tech-stack">
                             <span class="tech-tag">PyTorch</span>
@@ -4621,5 +4020,39 @@
         <span class="language-option active" data-lang="zh">中文</span>
         <span class="language-option" data-lang="en">English</span>
     </div>
+
+    <!-- 添加语言切换功能 -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const languageOptions = document.querySelectorAll('.language-option');
+            
+            languageOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const lang = this.getAttribute('data-lang');
+                    const currentPath = window.location.pathname;
+                    const currentHash = window.location.hash;
+                    const currentScrollPosition = window.scrollY;
+                    
+                    // 保存当前滚动位置到 sessionStorage
+                    sessionStorage.setItem('scrollPosition', currentScrollPosition);
+                    
+                    // 根据选择的语言切换页面
+                    if (lang === 'zh') {
+                        window.location.href = 'index-cn.html' + currentHash;
+                    } else {
+                        window.location.href = 'index-en.html' + currentHash;
+                    }
+                });
+            });
+            
+            // 页面加载时恢复滚动位置
+            const savedScrollPosition = sessionStorage.getItem('scrollPosition');
+            if (savedScrollPosition) {
+                window.scrollTo(0, parseInt(savedScrollPosition));
+                // 清除存储的位置，避免影响其他页面加载
+                sessionStorage.removeItem('scrollPosition');
+            }
+        });
+    </script>
 </body>
 </html>
