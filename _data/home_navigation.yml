@@ -1,0 +1,15 @@
+- id: hero
+  name: 欢迎
+  icon: ⌂
+
+- id: blog
+  name: 最新博客
+  icon: ◆
+
+- id: tech
+  name: 技术专长
+  icon: ◬
+
+- id: projects
+  name: 精选项目
+  icon: ▸

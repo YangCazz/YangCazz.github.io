@@ -1,0 +1,27 @@
+- id: about
+  name: 自我总结
+  icon: ◎
+
+- id: achievements
+  name: 成果总结
+  icon: ✦
+
+- id: skills
+  name: 技术能力
+  icon: ◬
+
+- id: experience
+  name: 工作经历
+  icon: ◫
+
+- id: education
+  name: 教育背景
+  icon: ◭
+
+- id: innovation
+  name: 创新创业
+  icon: ◮
+
+- id: publications
+  name: 学术成果
+  icon: ◉

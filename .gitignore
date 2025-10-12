@@ -1,0 +1,40 @@
+# Jekyll 生成文件
+*.gem
+.bundle
+.sass-cache
+_site/
+Gemfile.lock
+**/.ruby-version
+
+# IDE 和编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# 操作系统文件
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 日志文件
+*.log
+
+# 临时文件
+tmp/
+temp/
+*.tmp
+
+# 环境变量
+.env
+.env.local
+
+# Node.js (如果使用)
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# 备份文件
+*.bak
+*.backup

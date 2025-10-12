@@ -1,0 +1,25 @@
+# 首页导航
+- id: hero
+  name: 首页
+  icon: ⌂
+  url: /
+
+- id: blog
+  name: 博客
+  icon: ◆
+  url: /blog
+
+- id: resume
+  name: 简历
+  icon: ◈
+  url: /resume
+
+- id: about
+  name: 关于
+  icon: ◉
+  url: /about
+
+- id: contact
+  name: 联系
+  icon: ◐
+  url: /contact

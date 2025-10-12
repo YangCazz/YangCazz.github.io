@@ -1,0 +1,136 @@
+---
+layout: default
+title: YangCazz - 技术博客
+description: 医疗机器人算法工程师的技术博客，分享医学图像处理、深度学习、机器人控制等技术心得
+navigation: blog_navigation
+---
+
+<!-- 关键词网络图 -->
+<section id="tag-network" class="tag-network-section">
+    <div class="tag-network-container">
+        <h2 class="section-title">🔗 关键词网络</h2>
+        <p class="section-subtitle">点击关键词查看相关文章，拖动节点探索连接关系</p>
+        <div class="tag-network-canvas-wrapper">
+            <canvas id="tagNetworkCanvas"></canvas>
+            <div id="tagTooltip" class="tag-tooltip"></div>
+        </div>
+        <div class="tag-network-legend">
+            <div class="legend-item">
+                <div class="legend-circle" style="width: 20px; height: 20px; background: #60A5FA;"></div>
+                <span>1篇</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle" style="width: 28px; height: 28px; background: #3B82F6;"></div>
+                <span>2-3篇</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle" style="width: 36px; height: 36px; background: #2563EB;"></div>
+                <span>4-6篇</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle" style="width: 44px; height: 44px; background: #7C3AED;"></div>
+                <span>7-9篇</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-circle" style="width: 50px; height: 50px; background: #DC2626;"></div>
+                <span>10+篇</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 收集所有标签数据 -->
+{% assign all_tags = "" | split: "" %}
+{% assign tag_posts = "" | split: "" %}
+{% for post in site.posts %}
+    {% for tag in post.tags %}
+        {% unless all_tags contains tag %}
+            {% assign all_tags = all_tags | push: tag %}
+        {% endunless %}
+    {% endfor %}
+{% endfor %}
+
+<script id="tagNetworkData" type="application/json">
+{
+    "tags": [
+        {% for tag in all_tags %}
+        {
+            "name": "{{ tag }}",
+            "count": {{ site.tags[tag].size }},
+            "posts": [
+                {% for post in site.tags[tag] %}
+                {
+                    "title": "{{ post.title | escape }}",
+                    "url": "{{ post.url }}",
+                    "date": "{{ post.date | date: '%Y-%m-%d' }}"
+                }{% unless forloop.last %},{% endunless %}
+                {% endfor %}
+            ]
+        }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+    ],
+    "connections": [
+        {% assign connection_index = 0 %}
+        {% for post in site.posts %}
+            {% assign post_tags = post.tags %}
+            {% for tag1 in post_tags %}
+                {% for tag2 in post_tags %}
+                    {% if tag1 < tag2 %}
+                        {% if connection_index > 0 %},{% endif %}
+                        {
+                            "source": "{{ tag1 }}",
+                            "target": "{{ tag2 }}"
+                        }
+                        {% assign connection_index = connection_index | plus: 1 %}
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+    ]
+}
+</script>
+
+<!-- 博客文章列表 -->
+<section id="blog-list" class="blog-list">
+    {% for post in site.posts %}
+    <article class="blog-post-card">
+        <div class="blog-post-header">
+            <h2 class="blog-post-title">
+                <a href="{{ post.url }}">{{ post.title }}</a>
+            </h2>
+            <div class="blog-post-meta">
+                <time class="blog-post-date">{{ post.date | date: "%Y年%m月%d日" }}</time>
+                <div class="blog-post-categories">
+                    {% for category in post.categories %}
+                    <span class="category-tag">{{ category }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="blog-post-excerpt">
+            <p>{{ post.excerpt | default: post.content | strip_html | truncate: 200 }}</p>
+        </div>
+        
+        <div class="blog-post-footer">
+            <div class="blog-post-tags">
+                {% for tag in post.tags %}
+                <span class="tag">{{ tag }}</span>
+                {% endfor %}
+            </div>
+            <a href="{{ post.url }}" class="read-more-btn">阅读全文 →</a>
+        </div>
+    </article>
+    {% endfor %}
+</section>
+
+<!-- 如果没有文章，显示提示 -->
+{% if site.posts.size == 0 %}
+<section id="blog-footer" class="no-posts">
+    <div class="no-posts-content">
+        <h2>📝 暂无博客文章</h2>
+        <p>正在准备精彩的技术分享，敬请期待！</p>
+        <a href="/" class="btn btn-primary">返回首页</a>
+    </div>
+</section>
+{% endif %}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    
+    <!-- 粒子背景画布 -->
+    <canvas id="particleCanvas"></canvas>
+    
+    <!-- 样式表 -->
+    <link href="{{ '/assets/styles.css' | relative_url }}" rel="stylesheet" type="text/css">
+    
+    <script>
+    // 导航激活状态管理
+    function updateActiveNav() {
+        const currentHash = window.location.hash || '#about';
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === currentHash);
+        });
+    }
+    
+    // 添加滚动监听，根据可见部分更新导航状态
+    function updateNavOnScroll() {
+        const sections = document.querySelectorAll('section[id]');
+        
+        // 检查是否滚动到页面底部
+        const isAtBottom = (window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50;
+        
+        // 如果在页面底部，激活最后一个导航项
+        if (isAtBottom && sections.length > 0) {
+            const lastSectionId = '#' + sections[sections.length - 1].getAttribute('id');
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === lastSectionId);
+            });
+            return;
+        }
+        
+        // 正常滚动逻辑
+        let currentSection = '';
+        let minDistance = Infinity;
+        
+        sections.forEach(section => {
+            const sectionTop = section.getBoundingClientRect().top;
+            const offset = 100; 
+            if (sectionTop < offset && Math.abs(sectionTop) < minDistance) {
+                minDistance = Math.abs(sectionTop);
+                currentSection = '#' + section.getAttribute('id');
+            }
+        });
+        
+        // 如果没有找到合适的部分（页面顶部），使用第一个部分
+        if (!currentSection && sections.length > 0) {
+            currentSection = '#' + sections[0].getAttribute('id');
+        }
+        
+        if (currentSection) {
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.toggle('active', link.getAttribute('href') === currentSection);
+            });
+        }
+    }
+    
+    // 粒子系统
+    class ParticleSystem {
+        constructor() {
+            this.canvas = document.getElementById('particleCanvas');
+            this.ctx = this.canvas.getContext('2d');
+            this.particles = [];
+            this.mouse = { x: 0, y: 0 };
+            this.init();
+        }
+        
+        init() {
+            this.resizeCanvas();
+            this.createParticles();
+            this.animate();
+            
+            window.addEventListener('resize', () => this.resizeCanvas());
+            window.addEventListener('mousemove', (e) => {
+                this.mouse.x = e.clientX;
+                this.mouse.y = e.clientY;
+            });
+        }
+        
+        resizeCanvas() {
+            this.canvas.width = window.innerWidth;
+            this.canvas.height = window.innerHeight;
+        }
+        
+        createParticles() {
+            const particleCount = Math.floor((this.canvas.width * this.canvas.height) / 15000);
+            this.particles = [];
+            
+            for (let i = 0; i < particleCount; i++) {
+                this.particles.push({
+                    x: Math.random() * this.canvas.width,
+                    y: Math.random() * this.canvas.height,
+                    vx: (Math.random() - 0.5) * 0.5,
+                    vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1,
+                    opacity: Math.random() * 0.5 + 0.1
+                });
+            }
+        }
+        
+        animate() {
+            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+            
+            this.particles.forEach((particle, index) => {
+                // 更新位置
+                particle.x += particle.vx;
+                particle.y += particle.vy;
+                
+                // 边界检查
+                if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
+                if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
+                
+                // 鼠标交互
+                const dx = this.mouse.x - particle.x;
+                const dy = this.mouse.y - particle.y;
+                const distance = Math.sqrt(dx * dx + dy * dy);
+                
+                if (distance < 100) {
+                    const force = (100 - distance) / 100;
+                    particle.vx += dx * force * 0.001;
+                    particle.vy += dy * force * 0.001;
+                }
+                
+                // 绘制粒子
+                this.ctx.beginPath();
+                this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                this.ctx.fillStyle = `rgba(66, 153, 225, ${particle.opacity})`;
+                this.ctx.fill();
+                
+                // 连接线
+                for (let j = index + 1; j < this.particles.length; j++) {
+                    const other = this.particles[j];
+                    const dx = particle.x - other.x;
+                    const dy = particle.y - other.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < 100) {
+                        this.ctx.beginPath();
+                        this.ctx.moveTo(particle.x, particle.y);
+                        this.ctx.lineTo(other.x, other.y);
+                        this.ctx.strokeStyle = `rgba(66, 153, 225, ${0.1 * (1 - distance / 100)})`;
+                        this.ctx.lineWidth = 1;
+                        this.ctx.stroke();
+                    }
+                }
+            });
+            
+            requestAnimationFrame(() => this.animate());
+        }
+    }
+    
+    // 页面加载完成后初始化
+    document.addEventListener('DOMContentLoaded', function() {
+        // 初始化粒子系统
+        new ParticleSystem();
+        
+        // 初始化导航
+        updateActiveNav();
+        window.addEventListener('scroll', updateNavOnScroll);
+        window.addEventListener('hashchange', updateActiveNav);
+        
+        // 平滑滚动
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    });
+    </script>
+</head>
+<body>
+    <!-- 导航侧边栏 -->
+    <nav class="nav-sidebar">
+        {% for item in site.data.navigation %}
+        <a href="#{{ item.id }}" class="nav-link">{{ item.icon }} {{ item.name }}</a>
+        {% endfor %}
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main>
+        {{ content }}
+    </main>
+</body>
+</html>

@@ -1,0 +1,11 @@
+- id: blog-header
+  name: 博客标题
+  icon: ◆
+
+- id: blog-list
+  name: 文章列表
+  icon: ◉
+
+- id: blog-footer
+  name: 页面底部
+  icon: ◈
