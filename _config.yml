@@ -1,5 +1,7 @@
 layout: sidebar
 style: light
+sass:
+  style: compressed
 
 plugins:
   - jekyll-octicons
