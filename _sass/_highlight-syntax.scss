@@ -1,65 +1,470 @@
-.highlight  { width: 100%; overflow: auto; background: #ffffff; }
-.highlight .c { color: #999988; font-style: italic } /* Comment */
-.highlight .err { color: #a61717; background-color: #e3d2d2 } /* Error */
-.highlight .k { font-weight: bold } /* Keyword */
-.highlight .o { font-weight: bold } /* Operator */
-.highlight .cm { color: #999988; font-style: italic } /* Comment.Multiline */
-.highlight .cp { color: #999999; font-weight: bold } /* Comment.Preproc */
-.highlight .c1 { color: #999988; font-style: italic } /* Comment.Single */
-.highlight .cs { color: #999999; font-weight: bold; font-style: italic } /* Comment.Special */
-.highlight .gd { color: #000000; background-color: #ffdddd } /* Generic.Deleted */
-.highlight .gd .x { color: #000000; background-color: #ffaaaa } /* Generic.Deleted.Specific */
-.highlight .ge { font-style: italic } /* Generic.Emph */
-.highlight .gr { color: #aa0000 } /* Generic.Error */
-.highlight .gh { color: #999999 } /* Generic.Heading */
-.highlight .gi { color: #000000; background-color: #ddffdd } /* Generic.Inserted */
-.highlight .gi .x { color: #000000; background-color: #aaffaa } /* Generic.Inserted.Specific */
-.highlight .go { color: #888888 } /* Generic.Output */
-.highlight .gp { color: #555555 } /* Generic.Prompt */
-.highlight .gs { font-weight: bold } /* Generic.Strong */
-.highlight .gu { color: #aaaaaa } /* Generic.Subheading */
-.highlight .gt { color: #aa0000 } /* Generic.Traceback */
-.highlight .kc { font-weight: bold } /* Keyword.Constant */
-.highlight .kd { font-weight: bold } /* Keyword.Declaration */
-.highlight .kp { font-weight: bold } /* Keyword.Pseudo */
-.highlight .kr { font-weight: bold } /* Keyword.Reserved */
-.highlight .kt { color: #445588; font-weight: bold } /* Keyword.Type */
-.highlight .m { color: #009999 } /* Literal.Number */
-.highlight .s { color: #d14 } /* Literal.String */
-.highlight .na { color: #008080 } /* Name.Attribute */
-.highlight .nb { color: #0086B3 } /* Name.Builtin */
-.highlight .nc { color: #445588; font-weight: bold } /* Name.Class */
-.highlight .no { color: #008080 } /* Name.Constant */
-.highlight .ni { color: #800080 } /* Name.Entity */
-.highlight .ne { color: #990000; font-weight: bold } /* Name.Exception */
-.highlight .nf { color: #990000; font-weight: bold } /* Name.Function */
-.highlight .nn { color: #555555 } /* Name.Namespace */
-.highlight .nt { color: #000080 } /* Name.Tag */
-.highlight .nv { color: #008080 } /* Name.Variable */
-.highlight .ow { font-weight: bold } /* Operator.Word */
-.highlight .w { color: #bbbbbb } /* Text.Whitespace */
-.highlight .mf { color: #009999 } /* Literal.Number.Float */
-.highlight .mh { color: #009999 } /* Literal.Number.Hex */
-.highlight .mi { color: #009999 } /* Literal.Number.Integer */
-.highlight .mo { color: #009999 } /* Literal.Number.Oct */
-.highlight .sb { color: #d14 } /* Literal.String.Backtick */
-.highlight .sc { color: #d14 } /* Literal.String.Char */
-.highlight .sd { color: #d14 } /* Literal.String.Doc */
-.highlight .s2 { color: #d14 } /* Literal.String.Double */
-.highlight .se { color: #d14 } /* Literal.String.Escape */
-.highlight .sh { color: #d14 } /* Literal.String.Heredoc */
-.highlight .si { color: #d14 } /* Literal.String.Interpol */
-.highlight .sx { color: #d14 } /* Literal.String.Other */
-.highlight .sr { color: #009926 } /* Literal.String.Regex */
-.highlight .s1 { color: #d14 } /* Literal.String.Single */
-.highlight .ss { color: #990073 } /* Literal.String.Symbol */
-.highlight .bp { color: #999999 } /* Name.Builtin.Pseudo */
-.highlight .vc { color: #008080 } /* Name.Variable.Class */
-.highlight .vg { color: #008080 } /* Name.Variable.Global */
-.highlight .vi { color: #008080 } /* Name.Variable.Instance */
-.highlight .il { color: #009999 } /* Literal.Number.Integer.Long */
+/* ========================================
+   代码语法高亮 - VS Code Dark+ 主题
+   ======================================== */
 
-/* Make line numbers unselectable: excludes line numbers from copy-paste user ops */
-.highlight .lineno {-webkit-user-select: none;-moz-user-select: none; -o-user-select: none;}
-.lineno::-moz-selection {background-color: transparent;} /* Mozilla specific */
-.lineno::selection {background-color: transparent;} /* Other major browsers */
+.highlight {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2rem 0;
+    position: relative;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+    
+    pre {
+        margin: 0;
+        padding: 1.5rem;
+        overflow-x: auto;
+        background: transparent;
+        border: none !important;  /* 强制移除任何可能的边框 */
+        box-shadow: none !important;  /* 强制移除任何可能的阴影 */
+        
+        code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+    }
+    
+    /* 通用语法元素 */
+    .c,     /* Comment */
+    .cm,    /* Comment.Multiline */
+    .cp,    /* Comment.Preproc */
+    .c1,    /* Comment.Single */
+    .cs {   /* Comment.Special */
+        color: #6a9955;
+        font-style: italic;
+    }
+    
+    .err {  /* Error */
+        color: #f48771;
+        background-color: rgba(244, 135, 113, 0.1);
+    }
+    
+    .k,     /* Keyword */
+    .kc,    /* Keyword.Constant */
+    .kd,    /* Keyword.Declaration */
+    .kn,    /* Keyword.Namespace */
+    .kp,    /* Keyword.Pseudo */
+    .kr,    /* Keyword.Reserved */
+    .kt {   /* Keyword.Type */
+        color: #569cd6;
+        font-weight: 600;
+    }
+    
+    .o,     /* Operator */
+    .ow {   /* Operator.Word */
+        color: #d4d4d4;
+    }
+    
+    .m,     /* Number */
+    .mb,    /* Number.Bin */
+    .mf,    /* Number.Float */
+    .mh,    /* Number.Hex */
+    .mi,    /* Number.Integer */
+    .mo,    /* Number.Oct */
+    .il {   /* Number.Integer.Long */
+        color: #b5cea8;
+    }
+    
+    .s,     /* String */
+    .sb,    /* String.Backtick */
+    .sc,    /* String.Char */
+    .sd,    /* String.Doc */
+    .s2,    /* String.Double */
+    .se,    /* String.Escape */
+    .sh,    /* String.Heredoc */
+    .si,    /* String.Interpol */
+    .sx,    /* String.Other */
+    .sr,    /* String.Regex */
+    .s1,    /* String.Single */
+    .ss {   /* String.Symbol */
+        color: #ce9178;
+    }
+    
+    .n,     /* Name */
+    .na,    /* Name.Attribute */
+    .nb,    /* Name.Builtin */
+    .nc,    /* Name.Class */
+    .no,    /* Name.Constant */
+    .nd,    /* Name.Decorator */
+    .ni,    /* Name.Entity */
+    .ne,    /* Name.Exception */
+    .nf,    /* Name.Function */
+    .nl,    /* Name.Label */
+    .nn,    /* Name.Namespace */
+    .nx,    /* Name.Other */
+    .py,    /* Name.Property */
+    .nt,    /* Name.Tag */
+    .nv,    /* Name.Variable */
+    .bp,    /* Name.Builtin.Pseudo */
+    .vc,    /* Name.Variable.Class */
+    .vg,    /* Name.Variable.Global */
+    .vi {   /* Name.Variable.Instance */
+        color: #9cdcfe;
+    }
+    
+    /* 特殊类名和函数名 */
+    .nc {   /* Name.Class */
+        color: #4ec9b0;
+        font-weight: 600;
+    }
+    
+    .nf {   /* Name.Function */
+        color: #dcdcaa;
+    }
+    
+    /* Python特定 */
+    .nd {   /* Name.Decorator */
+        color: #dcdcaa;
+    }
+    
+    /* 内置函数 */
+    .nb {   /* Name.Builtin */
+        color: #4ec9b0;
+    }
+    
+    /* 变量 */
+    .nv,
+    .vc,
+    .vg,
+    .vi {
+        color: #9cdcfe;
+    }
+    
+    /* HTML/XML 标签 */
+    .nt {   /* Name.Tag */
+        color: #569cd6;
+    }
+    
+    /* HTML/XML 属性 */
+    .na {   /* Name.Attribute */
+        color: #9cdcfe;
+    }
+    
+    /* 常量 */
+    .kc,
+    .no {
+        color: #569cd6;
+        font-weight: 600;
+    }
+    
+    /* 布尔值 */
+    .kc {
+        color: #569cd6;
+    }
+    
+    /* 注释 */
+    .c,
+    .cm,
+    .c1,
+    .cs {
+        color: #6a9955;
+        font-style: italic;
+    }
+    
+    /* Docstring */
+    .sd {
+        color: #6a9955;
+        font-style: italic;
+    }
+    
+    /* 正则表达式 */
+    .sr {
+        color: #d16969;
+    }
+    
+    /* 转义字符 */
+    .se {
+        color: #d7ba7d;
+    }
+    
+    /* 占位符 */
+    .si {
+        color: #d7ba7d;
+    }
+    
+    /* 通用删除 */
+    .gd {   /* Generic.Deleted */
+        color: #f48771;
+        background-color: rgba(244, 135, 113, 0.15);
+    }
+    
+    /* 通用插入 */
+    .gi {   /* Generic.Inserted */
+        color: #b5cea8;
+        background-color: rgba(181, 206, 168, 0.15);
+    }
+    
+    /* 通用标题 */
+    .gh {   /* Generic.Heading */
+        color: #569cd6;
+        font-weight: 700;
+    }
+    
+    /* 通用子标题 */
+    .gu {   /* Generic.Subheading */
+        color: #4ec9b0;
+        font-weight: 700;
+    }
+    
+    /* 通用提示 */
+    .gp {   /* Generic.Prompt */
+        color: #858585;
+        font-weight: 700;
+    }
+    
+    /* 通用输出 */
+    .go {   /* Generic.Output */
+        color: #d4d4d4;
+    }
+    
+    /* 通用追踪 */
+    .gt {   /* Generic.Traceback */
+        color: #f48771;
+    }
+    
+    /* YAML/JSON 特殊处理 */
+    .p {    /* Punctuation */
+        color: #d4d4d4;
+    }
+    
+    /* 属性值（YAML/JSON） */
+    .s2,
+    .s1 {
+        color: #ce9178;
+    }
+    
+    /* Shell/Bash 特殊处理 */
+    .nb {
+        color: #4ec9b0;
+    }
+    
+    /* 终端提示符 */
+    .gp {
+        color: #858585;
+        user-select: none;
+    }
+    
+    /* 代码块语言标签 */
+    &::before {
+        content: attr(data-lang);
+        display: none; /* 先隐藏，通过JavaScript动态添加 */
+    }
+}
+
+/* Python 代码高亮增强 */
+.language-python {
+    .k {
+        color: #569cd6; /* 关键字: def, class, import, etc. */
+    }
+    
+    .nf {
+        color: #dcdcaa; /* 函数名 */
+    }
+    
+    .nc {
+        color: #4ec9b0; /* 类名 */
+    }
+    
+    .nd {
+        color: #dcdcaa; /* 装饰器 @decorator */
+    }
+    
+    .nb {
+        color: #4ec9b0; /* 内置函数 print, len, etc. */
+    }
+    
+    .bp {
+        color: #569cd6; /* self, cls */
+        font-style: italic;
+    }
+    
+    .kc {
+        color: #569cd6; /* True, False, None */
+    }
+}
+
+/* JavaScript 代码高亮增强 */
+.language-javascript,
+.language-js {
+    .k,
+    .kd {
+        color: #569cd6; /* var, let, const, function */
+    }
+    
+    .nx {
+        color: #9cdcfe; /* 变量名 */
+    }
+    
+    .nf {
+        color: #dcdcaa; /* 函数名 */
+    }
+    
+    .s2,
+    .s1 {
+        color: #ce9178; /* 字符串 */
+    }
+    
+    .k {
+        color: #c586c0; /* this, new, return */
+    }
+}
+
+/* HTML 代码高亮增强 */
+.language-html {
+    .nt {
+        color: #569cd6; /* 标签名 */
+    }
+    
+    .na {
+        color: #9cdcfe; /* 属性名 */
+    }
+    
+    .s {
+        color: #ce9178; /* 属性值 */
+    }
+}
+
+/* CSS 代码高亮增强 */
+.language-css,
+.language-scss {
+    .nc,
+    .nf {
+        color: #d7ba7d; /* 选择器 */
+    }
+    
+    .k {
+        color: #569cd6; /* 属性名 */
+    }
+    
+    .s2,
+    .s1 {
+        color: #ce9178; /* 属性值 */
+    }
+    
+    .m,
+    .mf {
+        color: #b5cea8; /* 数值 */
+    }
+}
+
+/* Bash/Shell 代码高亮增强 */
+.language-bash,
+.language-shell {
+    .nb {
+        color: #4ec9b0; /* 命令 */
+    }
+    
+    .nv {
+        color: #9cdcfe; /* 变量 */
+    }
+    
+    .s2,
+    .s1 {
+        color: #ce9178; /* 字符串 */
+    }
+}
+
+/* YAML 代码高亮增强 */
+.language-yaml,
+.language-yml {
+    .na {
+        color: #9cdcfe; /* 键 */
+    }
+    
+    .s,
+    .s1,
+    .s2 {
+        color: #ce9178; /* 值 */
+    }
+    
+    .no {
+        color: #569cd6; /* true, false, null */
+    }
+}
+
+/* JSON 代码高亮增强 */
+.language-json {
+    .na {
+        color: #9cdcfe; /* 键 */
+    }
+    
+    .s2 {
+        color: #ce9178; /* 字符串值 */
+    }
+    
+    .mi,
+    .mf {
+        color: #b5cea8; /* 数字 */
+    }
+    
+    .kc {
+        color: #569cd6; /* true, false, null */
+    }
+}
+
+/* Markdown 代码高亮增强 */
+.language-markdown {
+    .gh {
+        color: #569cd6; /* 标题 */
+        font-weight: 700;
+    }
+    
+    .gu {
+        color: #4ec9b0; /* 子标题 */
+    }
+    
+    .s {
+        color: #ce9178; /* 链接 */
+    }
+    
+    .ge {
+        font-style: italic; /* 斜体 */
+    }
+    
+    .gs {
+        font-weight: 700; /* 粗体 */
+    }
+}
+
+/* 行号支持（可选） */
+.highlight .lineno {
+    color: #858585;
+    user-select: none;
+    padding-right: 1em;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    margin-right: 1em;
+}
+
+/* 滚动条样式 */
+.highlight pre::-webkit-scrollbar {
+    height: 8px;
+}
+
+.highlight pre::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.highlight pre::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.highlight pre::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .highlight pre code {
+        font-size: 0.85rem;
+        line-height: 1.6;
+    }
+}

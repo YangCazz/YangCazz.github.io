@@ -2,6 +2,13 @@
 ---
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+/* 导入语法高亮样式 */
+@import "highlight-syntax";
+
+/* 导入紧凑布局优化 */
+@import "compact-layout";
 
 :root {
     --primary-color: #2b2d42;
@@ -1409,26 +1416,7 @@ body {
     margin-bottom: 1.5rem;
 }
 
-.post-content code {
-    background: rgba(66, 153, 225, 0.1);
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-family: 'Courier New', monospace;
-    font-size: 0.9em;
-}
-
-.post-content pre {
-    background: rgba(45, 55, 72, 0.1);
-    padding: 1.5rem;
-    border-radius: 8px;
-    overflow-x: auto;
-    margin: 1.5rem 0;
-}
-
-.post-content pre code {
-    background: none;
-    padding: 0;
-}
+/* 旧版代码块样式已移除，现在使用highlight-syntax.scss和博客文章增强样式 */
 
 .post-content blockquote {
     border-left: 4px solid var(--accent-color);
@@ -2468,39 +2456,11 @@ body {
     color: var(--secondary-color);
 }
 
-.blog-post .post-content code {
-    background: rgba(66, 153, 225, 0.1);
-    color: var(--accent-color);
-    padding: 0.2rem 0.4rem;
-    border-radius: 4px;
-    font-family: 'Fira Code', 'Consolas', monospace;
-    font-size: 0.9rem;
-}
+/* 行内代码样式已在博客文章增强样式部分定义 */
 
-.blog-post .post-content pre {
-    background: rgba(30, 30, 30, 0.9);
-    color: #f8f8f2;
-    padding: 1.5rem;
-    border-radius: 8px;
-    overflow-x: auto;
-    margin: 1.5rem 0;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
+/* 旧版代码块样式已移除，现在使用highlight-syntax.scss中的语法高亮样式 */
 
-.blog-post .post-content pre code {
-    background: none;
-    color: inherit;
-    padding: 0;
-    border-radius: 0;
-}
-
-.blog-post .post-content img {
-    max-width: 100%;
-  height: auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    margin: 1.5rem 0;
-}
+/* 图片样式已在博客文章增强样式部分统一定义 */
 
 .blog-post .post-content table {
     width: 100%;
@@ -3816,5 +3776,365 @@ body {
     .app-link {
         justify-content: center;
         width: 100%;
+    }
+}
+
+/* ========================================
+   博客文章增强样式 - 代码块和图片优化
+   ======================================== */
+
+/* 博客文章容器的代码块和图片样式 */
+.post-content,
+.blog-post .post-content {
+    
+    /* 行内代码优化（非代码块中的代码） */
+    code:not(.highlight code):not(pre code) {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: #fff;
+        padding: 0.2em 0.5em;
+        border-radius: 4px;
+        font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+        font-size: 0.88em;
+        font-weight: 500;
+        letter-spacing: -0.02em;
+        white-space: nowrap;
+        box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+    }
+    
+    /* 
+       注意：代码块样式完全由 _sass/_highlight-syntax.scss 处理
+       这里不再定义pre样式，避免与.highlight冲突
+    */
+    
+    /* 图片样式 - 简洁融入式设计 */
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+        margin: 2rem auto;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 4px;
+        background: #fff;
+        padding: 0.5rem;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+        transition: all 0.2s ease;
+    }
+    
+    img:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+        border-color: rgba(102, 126, 234, 0.3);
+    }
+    
+    /* 表格样式优化 */
+    table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        margin: 2rem 0;
+        background: rgba(255, 255, 255, 0.9);
+        -webkit-backdrop-filter: blur(10px);
+        backdrop-filter: blur(10px);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 
+            0 10px 40px rgba(0, 0, 0, 0.1),
+            0 0 0 1px rgba(0, 0, 0, 0.05);
+    }
+    
+    thead {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    
+    thead th {
+        color: #fff;
+        font-weight: 600;
+        text-align: left;
+        padding: 1rem 1.5rem;
+        font-size: 0.9rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        border: none;
+    }
+    
+    tbody tr {
+        transition: all 0.2s ease;
+    }
+    
+    tbody tr:nth-child(even) {
+        background: rgba(0, 0, 0, 0.02);
+    }
+    
+    tbody tr:hover {
+        background: rgba(102, 126, 234, 0.08);
+        transform: scale(1.01);
+    }
+    
+    tbody td {
+        padding: 1rem 1.5rem;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    tbody tr:last-child td {
+        border-bottom: none;
+    }
+    
+    /* 引用块样式优化 */
+    blockquote {
+        border-left: 4px solid;
+        border-image: linear-gradient(180deg, #667eea 0%, #764ba2 100%) 1;
+        padding: 1.5rem 2rem;
+        margin: 2rem 0;
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+        border-radius: 0 12px 12px 0;
+        position: relative;
+        font-style: italic;
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+    }
+    
+    blockquote::before {
+        content: '"';
+        position: absolute;
+        top: -10px;
+        left: 10px;
+        font-size: 4rem;
+        color: rgba(102, 126, 234, 0.2);
+        font-family: Georgia, serif;
+        line-height: 1;
+    }
+    
+    blockquote p {
+        margin: 0;
+        color: rgba(45, 55, 72, 0.9);
+    }
+    
+    blockquote code {
+        background: rgba(255, 255, 255, 0.8);
+        color: #667eea;
+    }
+    
+    /* 列表样式优化 */
+    ul, ol {
+        padding-left: 2rem;
+        margin: 1.5rem 0;
+    }
+    
+    li {
+        margin: 0.8rem 0;
+        line-height: 1.8;
+    }
+    
+    li::marker {
+        color: #667eea;
+        font-weight: 600;
+    }
+    
+    /* 水平分割线 */
+    hr {
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+        margin: 3rem 0;
+    }
+}
+
+/* ========================================
+   代码块复制按钮
+   ======================================== */
+
+.copy-code-button {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(255, 255, 255, 0.1);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #d4d4d4;
+    font-size: 0.75rem;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 10;
+    opacity: 0;
+    transform: translateY(-4px);
+    font-family: 'Inter', sans-serif;
+}
+
+/* 代码块悬停时显示按钮 */
+pre:hover .copy-code-button,
+.highlight:hover .copy-code-button {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 按钮悬停效果 */
+.copy-code-button:hover {
+    background: rgba(102, 126, 234, 0.3);
+    border-color: rgba(102, 126, 234, 0.5);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* 按钮点击效果 */
+.copy-code-button:active {
+    transform: translateY(0);
+}
+
+/* 复制成功状态 */
+.copy-code-button.copied {
+    background: rgba(76, 175, 80, 0.3);
+    border-color: rgba(76, 175, 80, 0.5);
+    color: #4caf50;
+}
+
+/* 复制错误状态 */
+.copy-code-button.copy-error {
+    background: rgba(244, 67, 54, 0.3);
+    border-color: rgba(244, 67, 54, 0.5);
+    color: #f44336;
+}
+
+/* 图标样式 */
+.copy-code-button svg {
+    flex-shrink: 0;
+    transition: all 0.2s ease;
+}
+
+.copy-code-button:hover svg {
+    transform: scale(1.1);
+}
+
+/* 文字样式 */
+.copy-code-button .copy-text {
+    white-space: nowrap;
+    letter-spacing: 0.02em;
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .copy-code-button {
+        opacity: 1; /* 移动端始终显示 */
+        padding: 0.4rem 0.6rem;
+        font-size: 0.7rem;
+        top: 0.4rem;
+        right: 0.4rem;
+    }
+    
+    .copy-code-button .copy-text {
+        display: none; /* 移动端只显示图标 */
+    }
+    
+    .copy-code-button svg {
+        width: 14px;
+        height: 14px;
+    }
+}
+
+/* 触摸设备优化 */
+@media (hover: none) and (pointer: coarse) {
+    .copy-code-button {
+        opacity: 1; /* 触摸设备始终显示 */
+    }
+}
+
+/* ========================================
+   数学公式样式优化
+   ======================================== */
+
+/* 块级公式（$$...$$） */
+.post-content mjx-container[display="true"],
+.blog-post .post-content mjx-container[display="true"] {
+    margin: 1.5rem 0 !important;
+    padding: 1rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+/* 行内公式 (\(...\)) */
+.post-content mjx-container[display="false"],
+.blog-post .post-content mjx-container[display="false"] {
+    margin: 0 0.2em !important;
+}
+
+/* 公式容器滚动条样式 */
+.post-content mjx-container[display="true"]::-webkit-scrollbar,
+.blog-post .post-content mjx-container[display="true"]::-webkit-scrollbar {
+    height: 6px;
+}
+
+.post-content mjx-container[display="true"]::-webkit-scrollbar-track,
+.blog-post .post-content mjx-container[display="true"]::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+    border-radius: 3px;
+}
+
+.post-content mjx-container[display="true"]::-webkit-scrollbar-thumb,
+.blog-post .post-content mjx-container[display="true"]::-webkit-scrollbar-thumb {
+    background: rgba(102, 126, 234, 0.3);
+    border-radius: 3px;
+}
+
+.post-content mjx-container[display="true"]::-webkit-scrollbar-thumb:hover,
+.blog-post .post-content mjx-container[display="true"]::-webkit-scrollbar-thumb:hover {
+    background: rgba(102, 126, 234, 0.5);
+}
+
+/* 公式文字选择样式 */
+.post-content mjx-math,
+.blog-post .post-content mjx-math {
+    user-select: text;
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+}
+
+/* 公式颜色微调（可选） */
+.post-content mjx-math,
+.blog-post .post-content mjx-math {
+    color: #2d3748;
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .post-content pre code,
+    .blog-post .post-content pre code {
+        font-size: 0.85rem;
+        padding: 1rem;
+        padding-top: 2.5rem; /* 为复制按钮留空间 */
+    }
+    
+    /* 移动端公式缩小 */
+    .post-content mjx-container[display="true"],
+    .blog-post .post-content mjx-container[display="true"] {
+        font-size: 0.9em;
+    }
+    
+    .post-content img,
+    .blog-post .post-content img {
+        margin: 1.5rem auto;
+        padding: 0.4rem;
+    }
+    
+    .post-content table,
+    .blog-post .post-content table {
+        font-size: 0.85rem;
+    }
+    
+    .post-content thead th,
+    .post-content tbody td,
+    .blog-post .post-content thead th,
+    .blog-post .post-content tbody td {
+        padding: 0.75rem 1rem;
+    }
+    
+    .post-content blockquote,
+    .blog-post .post-content blockquote {
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
     }
 }

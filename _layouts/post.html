@@ -35,3 +35,36 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
         </div>
     </footer>
 </article>
+
+<!-- 代码复制功能 -->
+<script src="{{ '/assets/js/code-copy.js' | relative_url }}"></script>
+
+<!-- 数学公式渲染 - MathJax 3 -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams',
+    packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+  },
+  svg: {
+    fontCache: 'global'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  startup: {
+    pageReady: () => {
+      return MathJax.startup.defaultPageReady().then(() => {
+        console.log('MathJax 渲染完成');
+      });
+    }
+  }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>

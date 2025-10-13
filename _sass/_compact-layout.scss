@@ -1,0 +1,248 @@
+/* ========================================
+   紧凑布局优化
+   减少空白，让内容更充实
+   ======================================== */
+
+/* 顶部导航容器 - 增加宽度 */
+.nav-container {
+    max-width: 1600px !important;  /* 1200px -> 1600px */
+    padding: 0 1.5rem !important;  /* 减少左右padding */
+}
+
+/* 主内容区域 - 减少padding */
+.main-content {
+    padding: 1.5rem 1rem !important;  /* 2rem -> 1.5rem 1rem */
+}
+
+/* 内容包装器 - 增加最大宽度，减少间距 */
+.content-wrapper {
+    max-width: 1600px !important;  /* 1400px -> 1600px */
+    gap: 2rem !important;  /* 3rem -> 2rem */
+    padding: 0 !important;
+}
+
+/* 侧边导航栏 - 调整宽度和位置 */
+.sidebar-nav {
+    width: 240px !important;  /* 260px -> 240px，稍微紧凑 */
+    padding: 0.8rem !important;  /* 1rem -> 0.8rem */
+}
+
+.sidebar-nav .nav-link {
+    padding: 0.8rem 1rem !important;  /* 0.9rem 1.1rem -> 0.8rem 1rem */
+    margin: 0.4rem 0 !important;  /* 0.5rem -> 0.4rem */
+}
+
+/* 页脚导航卡片 - 减少间距 */
+.footer-nav {
+    gap: 1.5rem !important;  /* 2rem -> 1.5rem */
+    padding: 1.5rem 1rem !important;  /* 减少padding */
+}
+
+/* 应用页面 - 优化布局 */
+.apps-header-section {
+    padding: 3rem 1rem 2rem !important;  /* 减少垂直padding */
+    max-width: 1600px !important;
+    margin: 0 auto !important;
+}
+
+.apps-header-content {
+    max-width: 1400px !important;  /* 1200px -> 1400px */
+}
+
+.apps-section {
+    padding: 2rem 1rem !important;  /* 优化padding */
+    max-width: 1600px !important;  /* 1400px -> 1600px */
+}
+
+.section-header {
+    margin-bottom: 1.5rem !important;  /* 2rem -> 1.5rem */
+}
+
+/* 应用网格 - 优化以利用更宽空间 */
+.apps-grid {
+    gap: 1.8rem !important;  /* 保持舒适的间距 */
+    /* 使用auto-fill配合合理的最小宽度，让浏览器自动决定列数 */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+}
+
+/* 大屏幕优化 - 确保最多显示4列 */
+@media (min-width: 1600px) {
+    .apps-grid {
+        /* 计算：(1600px - 2*1rem padding - 3*1.8rem gap) / 4 ≈ 390px per card */
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)) !important;
+    }
+}
+
+/* 中大屏幕 - 优化3列显示 */
+@media (min-width: 1200px) and (max-width: 1599px) {
+    .apps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)) !important;
+    }
+}
+
+/* 平板 - 优化2列显示 */
+@media (min-width: 768px) and (max-width: 1199px) {
+    .apps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+        gap: 1.5rem !important;
+    }
+}
+
+/* 手机 - 单列显示 */
+@media (max-width: 767px) {
+    .apps-grid {
+        grid-template-columns: 1fr !important;
+        gap: 1.2rem !important;
+    }
+}
+
+/* 移除对博客文章的单独宽度设置，让它跟随主布局 */
+
+/* 响应式断点调整 */
+@media (max-width: 1680px) {
+    .content-wrapper {
+        max-width: 1400px !important;
+        padding: 0 1rem !important;
+    }
+    
+    .nav-container {
+        max-width: 1400px !important;
+    }
+}
+
+@media (max-width: 1440px) {
+    .content-wrapper {
+        max-width: 1200px !important;
+    }
+    
+    .nav-container {
+        max-width: 1200px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .content-wrapper {
+        grid-template-columns: 1fr !important;  /* 单列布局 */
+        gap: 1.5rem !important;
+    }
+    
+    .sidebar-nav {
+        position: static !important;
+        width: 100% !important;
+        margin-bottom: 1.5rem !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .main-content {
+        padding: 1rem 0.5rem !important;
+    }
+    
+    .nav-container {
+        padding: 0 1rem !important;
+    }
+    
+    .content-wrapper {
+        gap: 1rem !important;
+        padding: 0 0.5rem !important;
+    }
+}
+
+/* 首页特殊调整 */
+body.home {
+    .content-wrapper {
+        max-width: 1800px !important;  /* 首页可以更宽 */
+    }
+}
+
+/* 博客页面特殊调整 */
+body.blog {
+    .content-wrapper {
+        max-width: 1600px !important;
+    }
+}
+
+/* 应用页面特殊调整 */
+body.apps {
+    .content-wrapper {
+        max-width: 1800px !important;  /* 应用页面需要更多空间 */
+    }
+    
+    .apps-grid {
+        max-width: 1600px !important;
+        margin: 0 auto !important;
+    }
+}
+
+/* 优化卡片布局 - 仅移除外边距，保持内部间距 */
+.app-card,
+.repo-card,
+.post-card {
+    margin: 0 !important;  /* 移除额外边距，间距由grid gap控制 */
+}
+
+/* 移动端优化 - 减小卡片内边距 */
+@media (max-width: 768px) {
+    .app-card {
+        padding: 1.5rem !important;  /* 移动端适当减小 */
+    }
+}
+
+/* 统计信息 - 更紧凑且充分利用空间 */
+.apps-stats {
+    gap: 1.2rem !important;  /* 减少间距 */
+    margin: 1.5rem auto !important;
+    max-width: 900px !important;  /* 800px -> 900px */
+    grid-template-columns: repeat(4, 1fr) !important;  /* 固定4列 */
+}
+
+.stat-item {
+    padding: 1.2rem 1.5rem !important;
+    min-width: 140px !important;  /* 确保最小宽度 */
+}
+
+.stat-number {
+    font-size: 2rem !important;  /* 稍微减小 */
+}
+
+.stat-label {
+    font-size: 0.85rem !important;  /* 稍微减小 */
+}
+
+/* 筛选按钮 - 更紧凑 */
+.apps-filter {
+    gap: 0.8rem !important;
+    margin-bottom: 2rem !important;
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    max-width: 1000px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.filter-btn {
+    padding: 0.6rem 1.2rem !important;
+    font-size: 0.9rem !important;  /* 稍微减小 */
+}
+
+/* 移动端优化 */
+@media (max-width: 768px) {
+    .apps-stats {
+        grid-template-columns: repeat(2, 1fr) !important;  /* 2列 */
+        gap: 1rem !important;
+    }
+    
+    .stat-item {
+        padding: 1rem !important;
+        min-width: 120px !important;
+    }
+    
+    .stat-number {
+        font-size: 1.5rem !important;
+    }
+    
+    .filter-btn {
+        padding: 0.5rem 1rem !important;
+        font-size: 0.85rem !important;
+    }
+}

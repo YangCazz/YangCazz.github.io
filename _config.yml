@@ -3,9 +3,42 @@ style: light
 sass:
   style: compressed
 
+# 显示所有文章（包括未来日期）
+future: true
+show_drafts: false
+
+# 代码语法高亮配置
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+  math_engine: mathjax
+  math_engine_opts:
+    preview: true
+    preview_as_code: false
+
+# 排除不需要处理的目录和文件
+exclude:
+  - ref/
+  - docs/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+
+# GitHub Pages相关（本地开发可选）
+github: [metadata]
+
 plugins:
   - jekyll-octicons
-  - jekyll-github-metadata
+  # - jekyll-github-metadata  # 本地开发时注释掉，避免网络问题
   - jemoji
 
 permalink: /:year/:month/:day/:title/
