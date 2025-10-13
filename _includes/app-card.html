@@ -1,0 +1,72 @@
+<!-- 应用卡片组件 -->
+<div class="app-card {% if include.app.highlight %}app-card-highlight{% endif %}" data-category="{{ include.app.category }}">
+    <div class="app-card-header">
+        <div class="app-card-title-row">
+            <h3 class="app-card-title">{{ include.app.name }}</h3>
+            {% if include.app.highlight %}
+            <span class="app-badge app-badge-highlight">精选</span>
+            {% endif %}
+            <span class="app-badge app-badge-{{ include.app.status | slugify }}">{{ include.app.status }}</span>
+        </div>
+        <p class="app-card-category">{{ include.app.category }}</p>
+    </div>
+    
+    <div class="app-card-body">
+        <p class="app-card-description">{{ include.app.description }}</p>
+        
+        {% if include.app.features %}
+        <div class="app-card-features">
+            <h4>✨ 主要特性</h4>
+            <ul>
+                {% for feature in include.app.features %}
+                <li>{{ feature }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+        
+        <div class="app-card-tech">
+            <h4>🛠️ 技术栈</h4>
+            <div class="tech-stack-tags">
+                {% for tech in include.app.tech_stack %}
+                <span class="tech-stack-tag">{{ tech }}</span>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="app-card-footer">
+        <div class="app-card-links">
+            {% if include.app.link and include.app.link != "" %}
+            <a href="{{ include.app.link }}" class="app-link" target="_blank" rel="noopener noreferrer">
+                <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                </svg>
+                访问项目
+            </a>
+            {% endif %}
+            
+            {% if include.app.github and include.app.github != "" %}
+            <a href="{{ include.app.github }}" class="app-link" target="_blank" rel="noopener noreferrer">
+                <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+                </svg>
+                查看源码
+            </a>
+            {% endif %}
+            
+            {% if include.app.demo and include.app.demo != "" %}
+            <a href="{{ include.app.demo }}" class="app-link" target="_blank" rel="noopener noreferrer">
+                <svg class="link-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                </svg>
+                在线演示
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+

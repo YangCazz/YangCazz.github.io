@@ -19,7 +19,7 @@
   icon: ◉
   url: /about
 
-- id: contact
-  name: 联系
+- id: apps
+  name: 应用
   icon: ◐
-  url: /contact
+  url: /apps

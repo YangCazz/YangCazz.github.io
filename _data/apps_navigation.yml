@@ -1,0 +1,22 @@
+# 应用页面侧边导航配置
+
+- id: apps-header
+  name: 应用总览
+  icon: ◆
+
+- id: professional
+  name: 专业项目
+  icon: ◈
+
+- id: opensource
+  name: 开源项目
+  icon: ◉
+
+- id: tools
+  name: 实用工具
+  icon: ◐
+
+- id: research
+  name: 研究项目
+  icon: ◬
+

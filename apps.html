@@ -1,0 +1,157 @@
+---
+layout: default
+title: YangCazz - 应用与项目
+description: 展示我开发的应用程序、项目和工具
+navigation: apps_navigation
+---
+
+<!-- 页面头部 -->
+<section id="apps-header" class="apps-header-section">
+    <div class="apps-header-content">
+        <h1 class="apps-main-title">🚀 应用与项目</h1>
+        <p class="apps-subtitle">展示我在医疗机器人、医学图像处理、深度学习等领域开发的应用程序和项目</p>
+        
+        <!-- 统计信息 -->
+        <div class="apps-stats">
+            <div class="stat-item">
+                <span class="stat-number">{{ site.data.applications.professional.size }}</span>
+                <span class="stat-label">专业项目</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ site.data.applications.opensource.size }}</span>
+                <span class="stat-label">开源项目</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ site.data.applications.tools.size }}</span>
+                <span class="stat-label">实用工具</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ site.data.applications.research.size }}</span>
+                <span class="stat-label">研究项目</span>
+            </div>
+        </div>
+        
+        <!-- 筛选器 -->
+        <div class="apps-filter">
+            <button class="filter-btn active" data-filter="all">全部</button>
+            <button class="filter-btn" data-filter="医疗机器人">医疗机器人</button>
+            <button class="filter-btn" data-filter="医学图像处理">医学图像处理</button>
+            <button class="filter-btn" data-filter="3D视觉">3D视觉</button>
+            <button class="filter-btn" data-filter="Web开发">Web开发</button>
+            <button class="filter-btn" data-filter="工具库">工具库</button>
+            <button class="filter-btn" data-filter="学术研究">学术研究</button>
+        </div>
+    </div>
+</section>
+
+<!-- 专业项目 -->
+<section id="professional" class="apps-section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="section-icon">◈</span>
+            专业项目
+        </h2>
+        <p class="section-description">在医疗机器人和医学图像处理领域的专业级项目</p>
+    </div>
+    
+    <div class="apps-grid">
+        {% for app in site.data.applications.professional %}
+            {% include app-card.html app=app %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- 开源项目 -->
+<section id="opensource" class="apps-section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="section-icon">◉</span>
+            开源项目
+        </h2>
+        <p class="section-description">开源贡献和个人项目</p>
+    </div>
+    
+    <div class="apps-grid">
+        {% for app in site.data.applications.opensource %}
+            {% include app-card.html app=app %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- 实用工具 -->
+<section id="tools" class="apps-section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="section-icon">◐</span>
+            实用工具
+        </h2>
+        <p class="section-description">提升开发效率的实用工具和脚本</p>
+    </div>
+    
+    <div class="apps-grid">
+        {% for app in site.data.applications.tools %}
+            {% include app-card.html app=app %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- 研究项目 -->
+<section id="research" class="apps-section">
+    <div class="section-header">
+        <h2 class="section-title">
+            <span class="section-icon">◬</span>
+            研究项目
+        </h2>
+        <p class="section-description">正在进行的学术研究和探索性项目</p>
+    </div>
+    
+    <div class="apps-grid">
+        {% for app in site.data.applications.research %}
+            {% include app-card.html app=app %}
+        {% endfor %}
+    </div>
+</section>
+
+<!-- 筛选脚本 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const appCards = document.querySelectorAll('.app-card');
+    
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // 更新按钮状态
+            filterBtns.forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            
+            const filter = this.dataset.filter;
+            
+            // 筛选卡片
+            appCards.forEach(card => {
+                if (filter === 'all' || card.dataset.category === filter) {
+                    card.style.display = 'block';
+                    // 添加动画
+                    card.style.animation = 'fadeInUp 0.5s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+});
+</script>
+
+<!-- 动画样式 -->
+<style>
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+</style>
+
