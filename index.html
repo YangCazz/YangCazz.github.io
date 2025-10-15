@@ -8,11 +8,33 @@ navigation: home_navigation
 <!-- 欢迎区域 -->
 <section id="hero" class="hero-section">
     <div class="hero-content">
-        <h1 class="hero-title">欢迎来到我的技术博客</h1>
-        <p class="hero-subtitle">医疗机器人算法工程师 | 医学图像处理专家 | 深度学习研究者</p>
-        <div class="hero-actions">
-            <a href="/resume" class="btn btn-primary">查看简历</a>
-            <a href="/blog" class="btn btn-secondary">阅读博客</a>
+        <div class="hero-left">
+            <h1 class="hero-title">欢迎来到我的技术博客</h1>
+            <p class="hero-subtitle">医疗机器人算法工程师 | 医学图像处理专家 | 深度学习研究者</p>
+            <div class="hero-actions">
+                <a href="/resume" class="btn btn-primary">查看简历</a>
+                <a href="/blog" class="btn btn-secondary">阅读博客</a>
+            </div>
+        </div>
+        
+        <div class="hero-right">
+            <div class="blog-stats">
+                <h3 class="stats-title">📚 博客统计</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ site.posts.size }}</span>
+                        <span class="stat-label">技术文章</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ site.tags.size }}</span>
+                        <span class="stat-label">技术标签</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ site.categories.size }}</span>
+                        <span class="stat-label">技术分类</span>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>

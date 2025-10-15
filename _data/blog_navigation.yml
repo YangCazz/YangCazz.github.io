@@ -1,6 +1,6 @@
-- id: blog-header
-  name: 博客标题
-  icon: ◆
+- id: tag-network
+  name: 关键词网络
+  icon: 🔗
 
 - id: blog-list
   name: 文章列表

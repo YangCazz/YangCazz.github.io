@@ -124,9 +124,35 @@ navigation: blog_navigation
     {% endfor %}
 </section>
 
+<!-- 页面底部 -->
+<section id="blog-footer" class="blog-footer">
+    <div class="blog-footer-content">
+        <h2>📚 技术分享</h2>
+        <p>持续更新深度学习、医学图像处理、机器人控制等前沿技术内容</p>
+        <div class="footer-stats">
+            <div class="stat-item">
+                <span class="stat-number">{{ site.posts.size }}</span>
+                <span class="stat-label">技术文章</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ site.tags.size }}</span>
+                <span class="stat-label">技术标签</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number">{{ site.categories.size }}</span>
+                <span class="stat-label">技术分类</span>
+            </div>
+        </div>
+        <div class="footer-actions">
+            <a href="/" class="btn btn-primary">返回首页</a>
+            <a href="/apps" class="btn btn-secondary">查看应用</a>
+        </div>
+    </div>
+</section>
+
 <!-- 如果没有文章，显示提示 -->
 {% if site.posts.size == 0 %}
-<section id="blog-footer" class="no-posts">
+<section id="no-posts" class="no-posts">
     <div class="no-posts-content">
         <h2>📝 暂无博客文章</h2>
         <p>正在准备精彩的技术分享，敬请期待！</p>
