@@ -3,7 +3,7 @@ layout: post
 title: "YOLO实战：从训练到部署"
 date: 2023-05-15 10:00:00 +0800
 categories: [计算机视觉, 目标检测]
-tags: [深度学习, YOLO, 实战, 训练, 部署, 目标检测, 工程实践]
+tags: [YOLO, 目标检测, 工程实践]
 excerpt: "深入解析YOLO系列的实际应用，从模型训练到生产部署的完整流程。涵盖数据准备、模型训练、性能优化、模型部署等关键环节，提供完整的工程实践指南。"
 author: YangCazz
 math: true

@@ -2343,6 +2343,170 @@ body {
     transform: scale(1.05);
 }
 
+/* 有博客文章的日期样式 */
+.calendar-day.has-posts {
+    position: relative;
+    cursor: pointer;
+}
+
+.calendar-day.has-posts::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 2px;
+    background: var(--accent-color);
+    border-radius: 1px;
+}
+
+.calendar-day.has-posts:hover {
+    background: rgba(66, 153, 225, 0.15);
+    color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.calendar-day.has-posts:hover::after {
+    background: white;
+    width: 6px;
+    height: 3px;
+}
+
+/* 工具提示样式 */
+.calendar-tooltip {
+    position: fixed;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    box-shadow: 
+        0 10px 40px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    padding: 0;
+    max-width: 320px;
+    min-width: 280px;
+    font-family: 'Inter', sans-serif;
+    animation: tooltipFadeIn 0.2s ease-out;
+    pointer-events: none;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tooltip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.tooltip-date {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.tooltip-count {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.tooltip-content {
+    padding: 1rem;
+}
+
+.tooltip-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+}
+
+.tooltip-excerpt {
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+    line-height: 1.5;
+    margin: 0 0 0.8rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tooltip-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.tooltip-tag {
+    font-size: 0.75rem;
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.tooltip-footer {
+    padding: 0.5rem 1rem 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tooltip-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.tooltip-link:hover {
+    color: #2563eb;
+    transform: translateX(2px);
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .calendar-tooltip {
+        max-width: 280px;
+        min-width: 240px;
+    }
+    
+    .tooltip-content {
+        padding: 0.8rem;
+    }
+    
+    .tooltip-title {
+        font-size: 0.9rem;
+    }
+    
+    .tooltip-excerpt {
+        font-size: 0.8rem;
+    }
+}
+
 /* 博客目录样式 */
 .blog-toc-widget {
     background: var(--glass-bg);

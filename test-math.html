@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>数学公式测试</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .math-test {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .math-test h3 {
+            color: #333;
+            margin-top: 0;
+        }
+        .formula {
+            background: #f5f5f5;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 3px;
+            font-family: monospace;
+        }
+    </style>
+</head>
+<body>
+    <h1>数学公式渲染测试</h1>
+    
+    <div class="math-test">
+        <h3>基础符号测试</h3>
+        <div class="formula">$\times$ (乘号)</div>
+        <div class="formula">$\sigma$ (sigma)</div>
+        <div class="formula">$\alpha$ (alpha)</div>
+        <div class="formula">$\beta$ (beta)</div>
+        <div class="formula">$\gamma$ (gamma)</div>
+        <div class="formula">$\delta$ (delta)</div>
+        <div class="formula">$\epsilon$ (epsilon)</div>
+        <div class="formula">$\theta$ (theta)</div>
+        <div class="formula">$\lambda$ (lambda)</div>
+        <div class="formula">$\mu$ (mu)</div>
+        <div class="formula">$\pi$ (pi)</div>
+        <div class="formula">$\rho$ (rho)</div>
+        <div class="formula">$\tau$ (tau)</div>
+        <div class="formula">$\phi$ (phi)</div>
+        <div class="formula">$\chi$ (chi)</div>
+        <div class="formula">$\psi$ (psi)</div>
+        <div class="formula">$\omega$ (omega)</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>复杂公式测试</h3>
+        <div class="formula">$$H^{(l+1)} = \sigma(\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} H^{(l)} W^{(l)})$$</div>
+        <div class="formula">$$\alpha_{ij}^{(l)} = \frac{\exp(\text{LeakyReLU}(a^T [W^{(l)} h_i^{(l)} \| W^{(l)} h_j^{(l)}]))}{\sum_{k \in \mathcal{N}(i)} \exp(\text{LeakyReLU}(a^T [W^{(l)} h_i^{(l)} \| W^{(l)} h_k^{(l)}]))}$$</div>
+        <div class="formula">$$g_\theta(\Lambda) \approx \sum_{k=0}^{K-1} \theta_k T_k(\tilde{\Lambda})$$</div>
+        <div class="formula">$$(f * g)(t) = \int f(\tau) g(t - \tau) d\tau$$</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>矩阵和向量测试</h3>
+        <div class="formula">$$\begin{pmatrix} a & b \\ c & d \end{pmatrix}$$</div>
+        <div class="formula">$$\begin{bmatrix} 1 & 2 \\ 3 & 4 \end{bmatrix}$$</div>
+        <div class="formula">$$\vec{v}, \mathbf{v}, \hat{v}$$</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>集合符号测试</h3>
+        <div class="formula">$\mathbb{N}, \mathbb{Z}, \mathbb{Q}, \mathbb{R}, \mathbb{C}$</div>
+        <div class="formula">$\mathcal{A}, \mathcal{B}, \mathcal{C}, \mathcal{D}, \mathcal{E}$</div>
+        <div class="formula">$\mathfrak{A}, \mathfrak{B}, \mathfrak{C}, \mathfrak{D}, \mathfrak{E}$</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>运算符测试</h3>
+        <div class="formula">$\times, \div, \pm, \mp, \cdot, \ast, \star, \circ$</div>
+        <div class="formula">$\leq, \geq, \neq, \approx, \equiv, \sim, \simeq, \propto$</div>
+        <div class="formula">$\in, \notin, \subset, \supset, \subseteq, \supseteq, \cap, \cup$</div>
+        <div class="formula">$\forall, \exists, \nexists, \emptyset, \varnothing$</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>箭头符号测试</h3>
+        <div class="formula">$\rightarrow, \leftarrow, \leftrightarrow, \Rightarrow, \Leftarrow, \Leftrightarrow$</div>
+        <div class="formula">$\uparrow, \downarrow, \updownarrow, \nearrow, \searrow, \swarrow, \nwarrow$</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>函数测试</h3>
+        <div class="formula">$\sin, \cos, \tan, \cot, \sec, \csc$</div>
+        <div class="formula">$\arcsin, \arccos, \arctan, \sinh, \cosh, \tanh$</div>
+        <div class="formula">$\log, \ln, \exp, \lim, \max, \min, \sup, \inf$</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>积分和求和测试</h3>
+        <div class="formula">$\int, \iint, \iiint, \oint, \sum, \prod$</div>
+        <div class="formula">$\int_0^1 f(x) dx, \sum_{i=1}^n x_i, \prod_{i=1}^n x_i$</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>分数和根号测试</h3>
+        <div class="formula">$\frac{1}{2}, \frac{a}{b}, \frac{x^2}{y^3}$</div>
+        <div class="formula">$\sqrt{x}, \sqrt[n]{x}, \sqrt{x^2 + y^2}$</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>概率和统计测试</h3>
+        <div class="formula">$\mathbb{P}, \mathbb{E}, \mathbb{V}, \mathbb{Cov}$</div>
+        <div class="formula">$\mathcal{N}(\mu, \sigma^2), \mathcal{U}(a, b), \mathcal{B}(n, p)$</div>
+    </div>
+    
+    <div class="math-test">
+        <h3>测试结果</h3>
+        <p>如果以上所有符号和公式都能正确显示，说明MathJax配置正常。</p>
+        <p>如果有符号显示不出来，请检查：</p>
+        <ul>
+            <li>MathJax是否正确加载</li>
+            <li>浏览器控制台是否有错误</li>
+            <li>网络连接是否正常</li>
+            <li>字体是否支持这些符号</li>
+        </ul>
+    </div>
+
+    <!-- MathJax 配置 -->
+    <script>
+    MathJax = {
+      tex: {
+        inlineMath: [['\\(', '\\)'], ['$', '$']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        processEscapes: true,
+        processEnvironments: true,
+        processRefs: true,
+        tags: 'ams',
+        packages: {
+          '[+]': [
+            'ams', 'newcommand', 'configmacros', 'autoload', 'require',
+            'boldsymbol', 'mathtools', 'physics', 'mhchem'
+          ]
+        },
+        macros: {
+          // 常用符号宏定义
+          times: '\\times',
+          sigma: '\\sigma',
+          alpha: '\\alpha',
+          beta: '\\beta',
+          gamma: '\\gamma',
+          delta: '\\delta',
+          epsilon: '\\epsilon',
+          theta: '\\theta',
+          lambda: '\\lambda',
+          mu: '\\mu',
+          pi: '\\pi',
+          rho: '\\rho',
+          tau: '\\tau',
+          phi: '\\phi',
+          chi: '\\chi',
+          psi: '\\psi',
+          omega: '\\omega',
+          // 大写希腊字母
+          Alpha: '\\Alpha',
+          Beta: '\\Beta',
+          Gamma: '\\Gamma',
+          Delta: '\\Delta',
+          Epsilon: '\\Epsilon',
+          Zeta: '\\Zeta',
+          Eta: '\\Eta',
+          Theta: '\\Theta',
+          Iota: '\\Iota',
+          Kappa: '\\Kappa',
+          Lambda: '\\Lambda',
+          Mu: '\\Mu',
+          Nu: '\\Nu',
+          Xi: '\\Xi',
+          Omicron: '\\Omicron',
+          Pi: '\\Pi',
+          Rho: '\\Rho',
+          Sigma: '\\Sigma',
+          Tau: '\\Tau',
+          Upsilon: '\\Upsilon',
+          Phi: '\\Phi',
+          Chi: '\\Chi',
+          Psi: '\\Psi',
+          Omega: '\\Omega',
+          // 数学运算符
+          div: '\\div',
+          pm: '\\pm',
+          mp: '\\mp',
+          cdot: '\\cdot',
+          ast: '\\ast',
+          star: '\\star',
+          circ: '\\circ',
+          leq: '\\leq',
+          geq: '\\geq',
+          neq: '\\neq',
+          approx: '\\approx',
+          equiv: '\\equiv',
+          sim: '\\sim',
+          simeq: '\\simeq',
+          propto: '\\propto',
+          // 集合符号
+          in: '\\in',
+          notin: '\\notin',
+          subset: '\\subset',
+          supset: '\\supset',
+          subseteq: '\\subseteq',
+          supseteq: '\\supseteq',
+          cap: '\\cap',
+          cup: '\\cup',
+          forall: '\\forall',
+          exists: '\\exists',
+          nexists: '\\nexists',
+          emptyset: '\\emptyset',
+          varnothing: '\\varnothing',
+          // 箭头符号
+          rightarrow: '\\rightarrow',
+          leftarrow: '\\leftarrow',
+          leftrightarrow: '\\leftrightarrow',
+          Rightarrow: '\\Rightarrow',
+          Leftarrow: '\\Leftarrow',
+          Leftrightarrow: '\\Leftrightarrow',
+          uparrow: '\\uparrow',
+          downarrow: '\\downarrow',
+          updownarrow: '\\updownarrow',
+          nearrow: '\\nearrow',
+          searrow: '\\searrow',
+          swarrow: '\\swarrow',
+          nwarrow: '\\nwarrow',
+          // 分数和根号
+          frac: '\\frac',
+          sqrt: '\\sqrt',
+          // 积分和求和
+          int: '\\int',
+          iint: '\\iint',
+          iiint: '\\iiint',
+          oint: '\\oint',
+          sum: '\\sum',
+          prod: '\\prod',
+          // 函数
+          sin: '\\sin',
+          cos: '\\cos',
+          tan: '\\tan',
+          cot: '\\cot',
+          sec: '\\sec',
+          csc: '\\csc',
+          arcsin: '\\arcsin',
+          arccos: '\\arccos',
+          arctan: '\\arctan',
+          sinh: '\\sinh',
+          cosh: '\\cosh',
+          tanh: '\\tanh',
+          log: '\\log',
+          ln: '\\ln',
+          exp: '\\exp',
+          lim: '\\lim',
+          max: '\\max',
+          min: '\\min',
+          sup: '\\sup',
+          inf: '\\inf',
+          argmax: '\\arg\\max',
+          argmin: '\\arg\\min',
+          // 向量和矩阵
+          vec: '\\vec',
+          hat: '\\hat',
+          tilde: '\\tilde',
+          bar: '\\bar',
+          // 集合字体
+          mathbb: '\\mathbb',
+          mathcal: '\\mathcal',
+          mathfrak: '\\mathfrak',
+          // 概率和统计
+          P: '\\mathbb{P}',
+          E: '\\mathbb{E}',
+          V: '\\mathbb{V}',
+          Cov: '\\mathbb{Cov}',
+          // 其他常用符号
+          partial: '\\partial',
+          nabla: '\\nabla',
+          infty: '\\infty',
+          oplus: '\\oplus',
+          otimes: '\\otimes',
+          odot: '\\odot'
+        }
+      },
+      svg: {
+        fontCache: 'global'
+      },
+      options: {
+        skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+        ignoreHtmlClass: 'tex2jax_ignore',
+        processHtmlClass: 'tex2jax_process'
+      },
+      startup: {
+        pageReady: () => {
+          return MathJax.startup.defaultPageReady().then(() => {
+            console.log('MathJax 渲染完成');
+          });
+        }
+      }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+</body>
+</html>

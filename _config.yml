@@ -27,6 +27,7 @@ kramdown:
 # 排除不需要处理的目录和文件
 exclude:
   - ref/
+  - ref/MarkDown_notebook/
   - docs/
   - Gemfile
   - Gemfile.lock
