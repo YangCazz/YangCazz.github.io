@@ -41,3 +41,6 @@ yarn-error.log
 
 # 参考资料目录
 ref/
+
+# 编辑器本地历史记录
+.history/
