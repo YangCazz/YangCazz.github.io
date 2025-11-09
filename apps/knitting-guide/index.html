@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>像素织梦 (PixelKnit) - YangCazz</title>
+    <title>PixelKnit - 像素织梦 - YangCazz</title>
     <link rel="stylesheet" href="style.css">
     
     <!-- 粒子背景画布 -->
@@ -156,33 +156,77 @@
             <div class="app-container">
                 <!-- 页面头部 -->
                 <header class="app-header">
-                    <h1 class="app-title">🧶 像素织梦</h1>
-                    <p class="app-subtitle">PixelKnit - 可视化网格地图，帮助您跟踪编织进度</p>
+                    <div class="app-header-content">
+                        <img src="/assets/images/knitting-guide/logo/PixelKnit_logo.png" alt="PixelKnit Logo" class="app-logo">
+                        <div class="app-header-text">
+                            <h1 class="app-title">PixelKnit 像素织梦</h1>
+                            <p class="app-subtitle">网格编织的自定义和可视化工具</p>
+                        </div>
+                    </div>
                 </header>
 
         <!-- 主内容区域 -->
         <div class="main-container">
             <!-- 左侧：地图列表 -->
             <aside class="maps-sidebar">
-                <h2 class="sidebar-title">地图列表</h2>
+                <div class="sidebar-header">
+                    <h2 class="sidebar-title">地图列表</h2>
+                </div>
                 <div id="maps-list-container" class="maps-list-container">
                     <!-- 地图列表将动态生成 -->
                 </div>
             </aside>
 
-            <!-- 中间：主网格编织图 -->
+            <!-- 中间：主网格编织图 / 编辑界面 -->
             <main class="main-grid-section">
-                <h2 class="section-title">网格编织图</h2>
-                <div class="canvas-wrapper">
-                    <canvas id="main-grid-canvas"></canvas>
+                <!-- 主网格区域（浏览和编辑共用） -->
+                <div id="browse-mode-container" class="mode-container">
+                    <div class="section-header">
+                        <h2 class="section-title" id="section-title-text">网格编织图</h2>
+                        <div class="section-actions" id="section-actions" style="display: none;">
+                            <button id="exit-edit-mode-btn" class="btn btn-exit-edit">退出编辑</button>
+                        </div>
+                    </div>
+                    
+                    <!-- 编辑工具栏（仅在编辑模式显示） -->
+                    <div class="edit-toolbar" id="edit-toolbar" style="display: none;">
+                        <div class="toolbar-group">
+                            <label class="toolbar-label">宽度:</label>
+                            <input type="number" id="edit-width-input" class="toolbar-input" value="100" min="10" max="500">
+                            <label class="toolbar-label">高度:</label>
+                            <input type="number" id="edit-height-input" class="toolbar-input" value="100" min="10" max="500">
+                            <button id="apply-size-btn" class="btn btn-toolbar">应用尺寸</button>
+                        </div>
+                        <div class="toolbar-group">
+                            <button id="save-map-btn" class="btn btn-toolbar btn-primary" title="保存地图">保存地图</button>
+                            <button id="clear-map-btn" class="btn btn-toolbar" title="清空地图">清空</button>
+                            <button id="undo-btn" class="btn btn-toolbar" title="撤销 (Ctrl+Z)" disabled>撤销</button>
+                            <button id="redo-btn" class="btn btn-toolbar" title="重做 (Ctrl+Y)" disabled>重做</button>
+                        </div>
+                        <div class="toolbar-group">
+                            <button id="import-image-btn" class="btn btn-toolbar" title="导入图片">导入图片</button>
+                            <input type="file" id="image-input" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <!-- 主画布（浏览和编辑共用） -->
+                    <div class="canvas-wrapper">
+                        <canvas id="main-grid-canvas"></canvas>
+                    </div>
+                    
+                    <!-- 浏览模式按钮（仅在浏览模式显示） -->
+                    <div id="browse-mode-actions" style="display: flex; justify-content: center; margin-top: 1.5rem;">
+                        <button id="mark-completed-btn" class="btn btn-primary">标记为已完成</button>
+                    </div>
                 </div>
-                <button id="mark-completed-btn" class="btn btn-primary">标记为已完成</button>
             </main>
         </div>
 
         <!-- 右侧：浮动控制面板 -->
         <aside class="floating-controls">
-            <h3 class="controls-title">对角编织模式</h3>
+            <!-- 浏览模式：对角编织模式 -->
+            <div id="browse-controls" class="mode-controls">
+                <h3 class="controls-title">对角编织模式</h3>
             <div id="current-path-status" class="path-status" style="display: none;">
                 <p class="path-info">总方块数: <span id="path-total-squares">0</span></p>
                 <div id="path-color-breakdown" class="color-breakdown-container"></div>
@@ -198,6 +242,26 @@
                 <div class="progress-bar-container">
                     <div class="progress-bar-fill" id="progress-bar-fill"></div>
                     <span class="progress-text" id="progress-text">0%</span>
+                </div>
+            </div>
+            </div>
+            
+            <!-- 编辑模式：调色板 -->
+            <div id="edit-controls" class="mode-controls hidden">
+                <h3 class="controls-title">调色板</h3>
+                <div class="current-color-display">
+                    <div id="current-color-preview" class="color-preview-large"></div>
+                    <div class="color-info">
+                        <span id="current-color-text" class="color-text">当前颜色</span>
+                        <span id="current-color-rgb" class="color-rgb">RGB(255, 255, 255)</span>
+                    </div>
+                </div>
+                <div id="color-palette" class="color-palette-grid">
+                    <!-- 颜色将通过 JavaScript 动态生成 -->
+                </div>
+                <div class="color-picker-actions">
+                    <input type="color" id="custom-color-input" class="custom-color-input" value="#ffffff">
+                    <button id="add-color-btn" class="btn btn-small">添加到调色板</button>
                 </div>
             </div>
         </aside>

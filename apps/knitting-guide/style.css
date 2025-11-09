@@ -274,6 +274,33 @@ body {
     overflow: hidden;
 }
 
+.app-header-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.app-logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+    transition: var(--transition);
+}
+
+.app-logo:hover {
+    transform: scale(1.05);
+    filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.2));
+}
+
+.app-header-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+}
+
 .app-header::before {
     content: '';
     position: absolute;
@@ -318,13 +345,17 @@ body {
     background: var(--glass-bg);
     border: 1px solid var(--glass-border);
     border-radius: var(--border-radius-lg);
-    padding: 1.5rem;
+    padding: 0; /* 移除padding，让内部元素自己控制 */
     box-shadow: var(--shadow);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
-    max-height: calc(100vh - 280px);
-    overflow-y: auto;
+    /* 确保至少能显示3个地图项（每个约280-300px）+ 标题和按钮区域（约150px） */
+    min-height: calc(3 * 300px + 150px);
+    max-height: calc(100vh - 200px);
     transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* 防止整个侧边栏滚动 */
 }
 
 .maps-sidebar:hover {
@@ -333,22 +364,83 @@ body {
 }
 
 
+/* 侧边栏头部（固定区域） */
+.sidebar-header {
+    padding: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    background: var(--glass-bg);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    flex-shrink: 0;
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
 .maps-list-container {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: 1.5rem;
+    padding-top: 1rem;
+    flex: 1;
+    min-height: calc(3 * 300px); /* 至少能显示3个地图项 */
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.sidebar-actions {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.btn-edit-mode {
+    width: 100%;
+    background: linear-gradient(135deg, var(--accent-color), #8B5CF6);
+    color: white;
+    border: none;
+    padding: 0.75rem 1rem;
+    border-radius: var(--border-radius);
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.btn-edit-mode:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+}
+
+.btn-edit-mode.active {
+    background: linear-gradient(135deg, #16a34a, #22c55e);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+.btn-text {
+    font-size: 0.95rem;
 }
 
 /* 地图卡片 - 优化样式 */
 .map-item {
     border: 1.5px solid rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius);
-    padding: 1rem;
+    padding: 0.75rem; /* 减少padding，使地图项更紧凑 */
     cursor: pointer;
     transition: var(--transition);
     background: rgba(255, 255, 255, 0.8);
     position: relative;
     overflow: hidden;
+    flex-shrink: 0; /* 防止地图项被压缩 */
 }
 
 .map-item::before {
@@ -384,12 +476,72 @@ body {
     height: 100%;
 }
 
+.map-item-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
 .map-item-name {
     font-weight: 600;
-    margin-bottom: 0.5rem;
     color: var(--primary-color);
-    text-align: center;
     font-size: 0.9rem;
+    flex: 1;
+}
+
+.map-type-badge {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    font-weight: 500;
+    flex-shrink: 0;
+}
+
+.badge-example {
+    background: rgba(139, 92, 246, 0.15);
+    color: #8B5CF6;
+    border: 1px solid rgba(139, 92, 246, 0.3);
+}
+
+.badge-user {
+    background: rgba(34, 197, 94, 0.15);
+    color: #22c55e;
+    border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.map-item-actions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    justify-content: center;
+}
+
+.btn-map-action {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    padding: 0.4rem 0.6rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-map-action:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 6px rgba(66, 153, 225, 0.3);
+}
+
+.btn-map-action.btn-delete:hover {
+    background: #ef4444;
+    color: white;
 }
 
 .map-item-canvas {
@@ -399,6 +551,8 @@ body {
     border-radius: 8px;
     max-width: 100%;
     height: auto;
+    max-height: 120px; /* 限制小地图高度，使地图项更紧凑 */
+    width: auto;
 }
 
 /* 地图统计信息 */
@@ -406,9 +560,11 @@ body {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    margin-top: 0.75rem;
-    padding-top: 0.75rem;
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
     border-top: 1px solid rgba(0, 0, 0, 0.08);
+    max-height: 80px; /* 限制统计信息高度，使地图项更紧凑 */
+    overflow-y: auto;
 }
 
 .map-stat-primary,
@@ -547,11 +703,277 @@ body {
     border-radius: 2px;
 }
 
+/* 区域头部（标题和操作按钮） */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+}
+
+.section-actions {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+/* 模式容器 */
+.mode-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    min-height: calc(100vh - 200px); /* 确保容器有足够高度 */
+}
+
+.mode-container.hidden {
+    display: none;
+}
+
+/* 编辑模式容器特殊处理 */
+#edit-mode-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.mode-controls {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem; /* 确保模式控制内部元素也有间距 */
+}
+
+.mode-controls.hidden {
+    display: none;
+}
+
+/* 编辑模式相关样式 */
+.edit-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0; /* 防止头部被压缩 */
+}
+
+.btn-exit-edit {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-exit-edit:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.3);
+}
+
+/* 编辑工具栏 */
+.edit-toolbar {
+    display: flex;
+    gap: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    flex-shrink: 0; /* 防止工具栏被压缩 */
+}
+
+.toolbar-label {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+    margin-right: 0.5rem;
+}
+
+.toolbar-input {
+    width: 80px;
+    padding: 0.5rem;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+.toolbar-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.2);
+}
+
+.toolbar-group {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.btn-toolbar {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-toolbar:hover:not(:disabled) {
+    background: var(--accent-color);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.3);
+}
+
+.btn-toolbar:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.btn-toolbar.btn-danger:hover:not(:disabled) {
+    background: #ef4444;
+    color: white;
+}
+
+/* 编辑画布容器 */
+.edit-canvas-wrapper {
+    background: white;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    overflow: visible; /* 移除滚动条，允许画布完整显示 */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: calc(100vh - 300px); /* 增加最小高度，充分利用视口空间 */
+    flex: 1; /* 占据可用空间 */
+}
+
+#edit-grid-canvas {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    cursor: crosshair;
+    display: block;
+    margin: 0 auto;
+    /* 不设置固定尺寸，由JavaScript动态计算 */
+}
+
+/* 调色板样式 */
+.current-color-display {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.color-preview-large {
+    width: 60px;
+    height: 60px;
+    border-radius: 8px;
+    border: 3px solid rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    background: #ffffff;
+    flex-shrink: 0;
+}
+
+.color-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.color-text {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+.color-rgb {
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+    font-family: 'Fira Code', monospace;
+}
+
+.color-palette-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+    padding: 0.75rem;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 8px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.color-palette-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: var(--transition);
+    position: relative;
+}
+
+.color-palette-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+}
+
+.color-palette-item.active {
+    border-color: var(--accent-color);
+    border-width: 3px;
+    box-shadow: 0 0 0 2px rgba(66, 153, 225, 0.3);
+}
+
+.color-picker-actions {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.custom-color-input {
+    width: 50px;
+    height: 40px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-small {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    background: var(--accent-color);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.btn-small:hover {
+    background: #2563eb;
+    transform: translateY(-1px);
+}
+
 .sidebar-title {
     font-size: 1.3rem;
     font-weight: 600;
     color: var(--primary-color);
-    margin-bottom: 1rem;
+    margin-bottom: 0;
     text-align: center;
     position: relative;
     padding-bottom: 0.75rem;
@@ -704,7 +1126,7 @@ body {
     backdrop-filter: blur(10px);
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 2rem; /* 增加按钮间距，从 0.75rem 增加到 1rem */
     align-items: stretch;
     z-index: 1000;
     width: 220px;
@@ -719,7 +1141,7 @@ body {
 }
 
 .controls-title {
-    margin: 0 0 0.75rem 0;
+    margin: 0 0 1rem 0; /* 增加标题下方间距，从 0.75rem 增加到 1rem */
     color: var(--primary-color);
     font-size: 1.1rem;
     font-weight: 600;
@@ -741,7 +1163,7 @@ body {
 }
 
 .path-status {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0; /* 移除底部 margin，由父容器的 gap 控制间距 */
     padding: 1rem;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: var(--border-radius);
@@ -807,6 +1229,7 @@ body {
     padding: 0.625rem 1rem;
     font-size: 0.9rem;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0; /* 确保按钮本身没有 margin，由父容器 gap 控制 */
 }
 
 .btn-mode {
@@ -896,7 +1319,7 @@ body {
 .divider {
     height: 1px;
     background: linear-gradient(90deg, transparent, rgba(0, 0, 0, 0.15), transparent);
-    margin: 0.75rem 0;
+    margin: 0; /* 完全移除 margin，由父容器 gap 控制间距 */
     position: relative;
 }
 
@@ -915,7 +1338,7 @@ body {
 
 /* 进度条 */
 .progress-section {
-    margin-top: 0.5rem;
+    margin-top: 0; /* 移除顶部 margin，由父容器的 gap 控制间距 */
 }
 
 .progress-bar-container {
@@ -1242,7 +1665,28 @@ body {
     }
 
     .maps-sidebar {
-        max-height: 300px;
+        min-height: auto;
+        max-height: 400px; /* 移动端至少显示2个地图项 */
+    }
+    
+    .app-logo {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .app-title {
+        font-size: 2rem;
+    }
+    
+    .sidebar-header {
+        padding: 1rem;
+        padding-bottom: 0.75rem;
+    }
+    
+    .maps-list-container {
+        padding: 1rem;
+        padding-top: 0.75rem;
+        min-height: calc(2 * 280px); /* 移动端至少显示2个地图项 */
     }
 
     .floating-controls {

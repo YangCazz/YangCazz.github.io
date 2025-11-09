@@ -52,9 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastMouseY = null;
 
     let pixelMapData = null;
-    let mapsList = []; // 存储所有地图列表
+    let mapsList = []; // 存储所有地图列表（包含示例地图和用户地图）
+    let exampleMapsList = []; // 示例地图列表（只读，不可编辑/删除）
+    let userMapsList = []; // 用户创建的地图列表（可编辑/删除）
     let currentMapName = null; // 当前选中的地图名称
+    let currentMapType = null; // 当前地图类型：'example' 或 'user'
     let mapsDataCache = {}; // 缓存已加载的地图数据 {mapName: data}
+    let nextMapId = 1; // 下一个地图ID（用于生成5位数字ID）
     
     // 性能优化：缓存DOM元素引用，避免频繁查询
     const mapItemCache = new Map(); // 缓存地图项的DOM引用 {mapName: {mapItem, canvas}}
@@ -66,7 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const SQUARE_SIZE_MINI = 5; // 小地图每个方块的尺寸 (增大)
 
-    const SQUARE_SIZE_MAIN = 10; // 主网格每个方块的尺寸 (减小)
+    const SQUARE_SIZE_MAIN = 6; // 主网格每个方块的尺寸 (减小)
     const BORDER_WIDTH_MAIN = 1; // 主网格方块边框宽度
     const BORDER_COLOR_MAIN = '#808080'; // 未完成方块边框颜色 (灰色)
     const COMPLETED_BORDER_COLOR = '#000000'; // 已完成方块边框颜色 (黑色)
@@ -98,6 +102,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const prevDiagonalBtn = document.getElementById('prev-diagonal-btn');
     const nextDiagonalBtn = document.getElementById('next-diagonal-btn');
     const progressBarFill = document.getElementById('progress-bar-fill');
+    
+    // 编辑模式相关元素
+    const exitEditModeBtn = document.getElementById('exit-edit-mode-btn');
+    const browseModeContainer = document.getElementById('browse-mode-container');
+    const browseControls = document.getElementById('browse-controls');
+    const editControls = document.getElementById('edit-controls');
+    const sectionTitleText = document.getElementById('section-title-text');
+    const sectionActions = document.getElementById('section-actions');
+    const editToolbar = document.getElementById('edit-toolbar');
+    const browseModeActions = document.getElementById('browse-mode-actions');
+    const editWidthInput = document.getElementById('edit-width-input');
+    const editHeightInput = document.getElementById('edit-height-input');
+    const applySizeBtn = document.getElementById('apply-size-btn');
+    const saveMapBtn = document.getElementById('save-map-btn');
+    const clearMapBtn = document.getElementById('clear-map-btn');
+    const undoBtn = document.getElementById('undo-btn');
+    const redoBtn = document.getElementById('redo-btn');
+    const importImageBtn = document.getElementById('import-image-btn');
+    const imageInput = document.getElementById('image-input');
+    const colorPalette = document.getElementById('color-palette');
+    const currentColorPreview = document.getElementById('current-color-preview');
+    const currentColorText = document.getElementById('current-color-text');
+    const currentColorRgb = document.getElementById('current-color-rgb');
+    const customColorInput = document.getElementById('custom-color-input');
+    const addColorBtn = document.getElementById('add-color-btn');
+    
+    // 编辑模式状态
+    let isEditMode = false;
+    let editingMapName = null; // 正在编辑的地图名称（用于判断是编辑还是新建）
+    let editingMapType = null; // 正在编辑的地图类型（'user' 或 'example'）
+    let currentEditColor = null; // 当前编辑颜色 {index: number, rgb: [r, g, b]}
+    let editHistory = []; // 编辑历史记录 [{gridData, colorMap}]
+    let editHistoryIndex = -1; // 当前历史记录索引
+    let isDrawingEdit = false; // 是否正在绘制编辑
+    let editGridData = null; // 编辑模式下的网格数据副本
+    let editColorMap = null; // 编辑模式下的颜色映射副本
+    let editWidth = 100; // 编辑画布宽度
+    let editHeight = 100; // 编辑画布高度
+    // 编辑模式使用与浏览模式相同的方块尺寸
+    const EDIT_SQUARE_SIZE = SQUARE_SIZE_MAIN; // 10px，与浏览模式一致
+    const EDIT_BORDER_WIDTH = BORDER_WIDTH_MAIN; // 1px，与浏览模式一致
     const progressText = document.getElementById('progress-text');
 
     const saveProgressBtn = document.getElementById('save-progress-btn');
@@ -126,6 +171,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 启用/禁用手动路径选择
     function toggleManualPathSelection(enable) {
+        // 编辑模式下禁用手动路径选择
+        if (isEditMode) return;
+        
         if (enable) {
             mainGridCanvas.addEventListener('mousedown', onMouseDown);
             mainGridCanvas.addEventListener('mousemove', onMouseMove);
@@ -139,6 +187,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 将之前的事件处理函数提取出来，方便添加和移除
     function onMouseDown(event) {
+        // 编辑模式下使用编辑模式的事件处理
+        if (isEditMode) {
+            handleEditMouseDown(event);
+            return;
+        }
+        
         if (isDiagonalMode) return; // 对角模式下禁用手动选择
         const coords = getGridCoords(event);
         if (coords) {
@@ -158,6 +212,12 @@ document.addEventListener('DOMContentLoaded', () => {
     let mouseMoveUpdateScheduled = false;
     
     function onMouseMove(event) {
+        // 编辑模式下使用编辑模式的事件处理
+        if (isEditMode) {
+            handleEditMouseMove(event);
+            return;
+        }
+        
         if (isDiagonalMode) return; // 对角模式下禁用手动选择
         if (!isDrawing || !startPoint) return;
         
@@ -181,7 +241,13 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    function onMouseUp() {
+    function onMouseUp(event) {
+        // 编辑模式下使用编辑模式的事件处理
+        if (isEditMode) {
+            handleEditMouseUp(event);
+            return;
+        }
+        
         if (isDiagonalMode) return; // 对角模式下禁用手动选择
         isDrawing = false;
         if (startPoint && endPoint) {
@@ -210,7 +276,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 从鼠标事件获取网格坐标
     function getGridCoords(event) {
-        if (!pixelMapData) return null;
+        // 编辑模式下使用编辑数据，浏览模式下使用原始数据
+        let gridData;
+        if (isEditMode && editGridData) {
+            gridData = editGridData;
+        } else if (pixelMapData) {
+            gridData = pixelMapData.grid_data;
+        } else {
+            return null;
+        }
 
         const rect = mainGridCanvas.getBoundingClientRect();
         const scaleX = mainGridCanvas.width / rect.width;
@@ -225,8 +299,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const row = Math.floor((y - BORDER_WIDTH_MAIN) / (SQUARE_SIZE_MAIN + BORDER_WIDTH_MAIN));
 
         // 检查坐标是否在有效范围内
-        const height = pixelMapData.grid_data.length;
-        const width = pixelMapData.grid_data[0].length;
+        const height = gridData.length;
+        const width = gridData[0].length;
 
         if (row >= 0 && row < height && col >= 0 && col < width) {
             return { row: row, col: col };
@@ -285,10 +359,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 加载地图列表
     function loadMapsList() {
+        // 加载示例地图列表
         fetch('data/json/maps_list.json')
             .then(response => response.json())
             .then(data => {
-                mapsList = data.maps || [];
+                exampleMapsList = (data.maps || []).map(map => ({
+                    ...map,
+                    type: 'example',
+                    id: map.name // 使用name作为示例地图的ID
+                }));
+                
+                // 加载用户创建的地图列表（从localStorage）
+                loadUserMapsList();
+                
+                // 合并地图列表（示例地图在前，用户地图在后）
+                mapsList = [...exampleMapsList, ...userMapsList];
+                
+                // 计算下一个地图ID
+                calculateNextMapId();
+                
                 console.log("加载的地图列表:", mapsList);
                 
                 // 创建地图列表 UI
@@ -296,7 +385,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // 默认加载第一张图
                 if (mapsList.length > 0) {
-                    switchMap(mapsList[0].name, mapsList[0].file);
+                    const firstMap = mapsList[0];
+                    switchMap(firstMap.name, firstMap.file, firstMap.type);
                 }
             })
             .catch(error => {
@@ -304,6 +394,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 // 如果列表文件不存在，尝试加载默认地图
                 loadDefaultMap();
             });
+    }
+    
+    // 加载用户创建的地图列表
+    function loadUserMapsList() {
+        const userMapsData = localStorage.getItem('userMapsList');
+        if (userMapsData) {
+            try {
+                const parsed = JSON.parse(userMapsData);
+                userMapsList = parsed.map(map => ({
+                    ...map,
+                    type: 'user'
+                }));
+            } catch (e) {
+                console.error('加载用户地图列表失败:', e);
+                userMapsList = [];
+            }
+        } else {
+            userMapsList = [];
+        }
+    }
+    
+    // 保存用户地图列表到localStorage
+    function saveUserMapsList() {
+        const mapsToSave = userMapsList.map(({ type, ...map }) => map); // 移除type字段
+        localStorage.setItem('userMapsList', JSON.stringify(mapsToSave));
+    }
+    
+    // 计算下一个地图ID（5位数字）
+    function calculateNextMapId() {
+        if (userMapsList.length === 0) {
+            nextMapId = 1;
+            return;
+        }
+        
+        // 从用户地图列表中提取所有ID，找出最大值
+        const ids = userMapsList
+            .map(map => {
+                // 从name中提取ID（格式：map_00001）
+                const match = map.name.match(/^map_(\d+)$/);
+                return match ? parseInt(match[1]) : 0;
+            })
+            .filter(id => id > 0);
+        
+        nextMapId = ids.length > 0 ? Math.max(...ids) + 1 : 1;
+    }
+    
+    // 生成新的地图ID（5位数字）
+    function generateMapId() {
+        const idStr = String(nextMapId).padStart(5, '0');
+        nextMapId++;
+        return `map_${idStr}`;
     }
 
     // 加载默认地图（向后兼容）
@@ -321,16 +462,30 @@ document.addEventListener('DOMContentLoaded', () => {
     // 创建地图列表 UI
     function createMapsListUI() {
         mapsListContainer.innerHTML = '';
+        mapItemCache.clear(); // 清空缓存
         
         mapsList.forEach((map, index) => {
             const mapItem = document.createElement('div');
             mapItem.className = 'map-item';
             mapItem.dataset.mapName = map.name;
             mapItem.dataset.mapFile = map.file;
+            mapItem.dataset.mapType = map.type || 'example';
+            
+            // 地图名称和类型标签
+            const mapHeader = document.createElement('div');
+            mapHeader.className = 'map-item-header';
             
             const mapName = document.createElement('div');
             mapName.className = 'map-item-name';
             mapName.textContent = map.displayName || map.name;
+            
+            // 类型标签
+            const mapTypeBadge = document.createElement('span');
+            mapTypeBadge.className = `map-type-badge ${map.type === 'example' ? 'badge-example' : 'badge-user'}`;
+            mapTypeBadge.textContent = map.type === 'example' ? '示例' : '用户';
+            
+            mapHeader.appendChild(mapName);
+            mapHeader.appendChild(mapTypeBadge);
             
             const mapCanvas = document.createElement('canvas');
             mapCanvas.className = 'map-item-canvas';
@@ -341,16 +496,69 @@ document.addEventListener('DOMContentLoaded', () => {
             statsContainer.className = 'map-item-stats';
             statsContainer.dataset.mapName = map.name;
             
-            mapItem.appendChild(mapName);
+            // 操作按钮区域
+            const mapActions = document.createElement('div');
+            mapActions.className = 'map-item-actions';
+            
+            // 复制按钮（所有地图都可以复制）
+            const copyBtn = document.createElement('button');
+            copyBtn.className = 'btn-map-action btn-copy';
+            copyBtn.title = '复制地图';
+            copyBtn.innerHTML = '📋';
+            copyBtn.addEventListener('click', (e) => {
+                e.stopPropagation(); // 阻止触发地图切换
+                e.preventDefault(); // 阻止默认行为
+                console.log('[copyBtn] 点击复制按钮，地图:', map.name);
+                copyMapForEdit(map);
+            });
+            
+            mapActions.appendChild(copyBtn);
+            
+            // 编辑按钮（仅用户地图可以编辑，示例地图不可编辑）
+            if (map.type === 'user') {
+                const editBtn = document.createElement('button');
+                editBtn.className = 'btn-map-action btn-edit';
+                editBtn.title = '编辑地图';
+                editBtn.innerHTML = '✏️';
+                editBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault(); // 阻止默认行为
+                    console.log('[editBtn] 点击编辑按钮，地图:', map.name);
+                    editMap(map);
+                });
+                mapActions.appendChild(editBtn);
+            }
+            
+            // 删除按钮（仅用户地图可以删除）
+            if (map.type === 'user') {
+                const deleteBtn = document.createElement('button');
+                deleteBtn.className = 'btn-map-action btn-delete';
+                deleteBtn.title = '删除地图';
+                deleteBtn.innerHTML = '🗑️';
+                deleteBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    e.preventDefault(); // 阻止默认行为
+                    deleteUserMap(map.name);
+                });
+                mapActions.appendChild(deleteBtn);
+            }
+            
+            mapItem.appendChild(mapHeader);
             mapItem.appendChild(mapCanvas);
             mapItem.appendChild(statsContainer);
+            mapItem.appendChild(mapActions);
             
             // 性能优化：缓存DOM元素引用
             mapItemCache.set(map.name, { mapItem, canvas: mapCanvas, statsContainer });
             
             // 点击切换地图（添加防抖，防止双击误触）
             let clickTimer = null;
-            mapItem.addEventListener('click', () => {
+            mapItem.addEventListener('click', (e) => {
+                // 如果点击的是操作按钮，不切换地图
+                if (e.target.closest('.map-item-actions')) {
+                    return;
+                }
+                
                 // 清除之前的定时器
                 if (clickTimer) {
                     clearTimeout(clickTimer);
@@ -358,7 +566,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // 设置新的定时器，延迟执行切换（防抖）
                 clickTimer = setTimeout(() => {
-                    switchMap(map.name, map.file);
+                    switchMap(map.name, map.file, map.type);
                     clickTimer = null;
                 }, 200); // 200ms 防抖延迟，防止双击误触
             });
@@ -366,8 +574,140 @@ document.addEventListener('DOMContentLoaded', () => {
             mapsListContainer.appendChild(mapItem);
             
             // 异步加载并绘制小地图
-            loadMapDataForMiniMap(map.name, map.file, mapCanvas);
+            loadMapDataForMiniMap(map.name, map.file, mapCanvas, map.type);
         });
+    }
+    
+    // 复制地图（直接创建新地图，不进入编辑模式）
+    function copyMapForEdit(sourceMap) {
+        console.log('[copyMapForEdit] 开始复制地图:', sourceMap.name, sourceMap.type);
+        
+        // 加载源地图数据
+        const mapFile = sourceMap.file || `${sourceMap.name}.json`;
+        const isUserMap = sourceMap.type === 'user';
+        
+        // 如果是用户地图，从localStorage加载；否则从文件加载
+        let loadPromise;
+        if (isUserMap) {
+            const storageKey = `pixelMap_${sourceMap.name}`;
+            const savedData = localStorage.getItem(storageKey);
+            if (savedData) {
+                loadPromise = Promise.resolve(JSON.parse(savedData));
+            } else {
+                loadPromise = fetch(`data/json/${mapFile}`).then(r => r.json());
+            }
+        } else {
+            loadPromise = fetch(`data/json/${mapFile}`).then(r => r.json());
+        }
+        
+        loadPromise
+            .then(data => {
+                console.log('[copyMapForEdit] 地图数据加载成功');
+                
+                // 深拷贝地图数据
+                const copiedGridData = JSON.parse(JSON.stringify(data.grid_data));
+                const copiedColorMap = JSON.parse(JSON.stringify(data.color_map));
+                
+                // 生成默认地图ID（5位数字）
+                const newMapId = generateMapId();
+                const defaultMapName = newMapId;
+                const defaultDisplayName = `${sourceMap.displayName || sourceMap.name} (副本)`;
+                
+                // 直接显示保存弹窗，创建新地图
+                showSaveMapDialog(defaultMapName, defaultDisplayName, (mapName, displayName) => {
+                    if (!mapName) return;
+                    
+                    const mapData = {
+                        grid_data: copiedGridData,
+                        color_map: copiedColorMap
+                    };
+                    
+                    // 创建新的用户地图对象
+                    const newUserMap = {
+                        name: mapName,
+                        file: `${mapName}.json`,
+                        displayName: displayName || mapName
+                    };
+                    
+                    // 检查是否已存在同名地图
+                    const existingIndex = userMapsList.findIndex(map => map.name === mapName);
+                    if (existingIndex >= 0) {
+                        // 更新现有地图
+                        userMapsList[existingIndex] = { ...newUserMap, type: 'user' };
+                    } else {
+                        // 添加新地图
+                        userMapsList.push({ ...newUserMap, type: 'user' });
+                    }
+                    
+                    // 保存到 localStorage
+                    const storageKey = `pixelMap_${mapName}`;
+                    localStorage.setItem(storageKey, JSON.stringify(mapData));
+                    
+                    // 保存用户地图列表
+                    saveUserMapsList();
+                    
+                    // 更新地图列表
+                    mapsList = [...exampleMapsList, ...userMapsList];
+                    
+                    // 重新创建UI
+                    createMapsListUI();
+                    
+                    // 切换到新复制的地图
+                    switchMap(mapName, newUserMap.file, 'user');
+                    
+                    // 下载为 JSON 文件
+                    const blob = new Blob([JSON.stringify(mapData, null, 2)], { type: 'application/json' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `${mapName}.json`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                    
+                    alert(`地图 "${displayName || mapName}" 已复制并保存！`);
+                });
+            })
+            .catch(error => {
+                console.error('[copyMapForEdit] 复制地图失败:', error);
+                alert('复制地图失败，请重试');
+            });
+    }
+    
+    // 删除用户地图
+    function deleteUserMap(mapName) {
+        const confirmDelete = confirm(`确定要删除地图 "${mapName}" 吗？`);
+        if (!confirmDelete) return;
+        
+        // 从用户地图列表移除
+        userMapsList = userMapsList.filter(map => map.name !== mapName);
+        
+        // 从localStorage删除地图数据
+        const storageKey = `pixelMap_${mapName}`;
+        localStorage.removeItem(storageKey);
+        
+        // 保存更新后的用户地图列表
+        saveUserMapsList();
+        
+        // 重新合并地图列表
+        mapsList = [...exampleMapsList, ...userMapsList];
+        
+        // 重新创建UI
+        createMapsListUI();
+        
+        // 如果删除的是当前地图，切换到第一个地图
+        if (currentMapName === mapName) {
+            if (mapsList.length > 0) {
+                const firstMap = mapsList[0];
+                switchMap(firstMap.name, firstMap.file, firstMap.type);
+            } else {
+                pixelMapData = null;
+                currentMapName = null;
+                currentMapType = null;
+                drawMainGrid();
+            }
+        }
+        
+        alert('地图已删除');
     }
 
     // 为地图卡片加载数据并绘制小地图
@@ -395,9 +735,27 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        // 否则加载数据
-        fetch(`data/json/${mapFile}`)
-            .then(response => response.json())
+        // 否则加载数据（需要知道地图类型）
+        // 注意：这个函数在 createMapsListUI 中调用时已经传入了 map.type
+        // 但为了向后兼容，如果没有传入类型，默认从文件加载
+        const mapType = arguments[3] || 'example';
+        let loadPromise;
+        
+        if (mapType === 'user') {
+            // 用户地图从localStorage加载
+            const storageKey = `pixelMap_${mapName}`;
+            const savedData = localStorage.getItem(storageKey);
+            if (savedData) {
+                loadPromise = Promise.resolve(JSON.parse(savedData));
+            } else {
+                loadPromise = fetch(`data/json/${mapFile}`).then(r => r.json());
+            }
+        } else {
+            // 示例地图从文件加载
+            loadPromise = fetch(`data/json/${mapFile}`).then(r => r.json());
+        }
+        
+        loadPromise
             .then(data => {
                 mapsDataCache[mapName] = data;
                 drawMiniMapForItem(canvas, data, completedSet);
@@ -552,9 +910,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 切换地图
-    function switchMap(mapName, mapFile) {
+    function switchMap(mapName, mapFile, mapType = 'example') {
         // 如果切换到相同的地图，直接返回，避免重置进度
-        if (currentMapName === mapName) {
+        if (currentMapName === mapName && currentMapType === mapType) {
             console.log(`地图 ${mapName} 已经是当前地图，无需切换`);
             return;
         }
@@ -564,8 +922,9 @@ document.addEventListener('DOMContentLoaded', () => {
             saveProgressForMap(currentMapName);
         }
         
-        // 更新当前地图名称
+        // 更新当前地图名称和类型
         currentMapName = mapName;
+        currentMapType = mapType;
         
         // 性能优化：使用缓存更新UI，减少DOM查询
         mapItemCache.forEach((data, cachedMapName) => {
@@ -581,17 +940,91 @@ document.addEventListener('DOMContentLoaded', () => {
             // 使用缓存
             pixelMapData = mapsDataCache[mapName];
             initializeMapData();
+            
+            // 如果当前处于编辑模式，更新编辑数据
+            if (isEditMode) {
+                editGridData = JSON.parse(JSON.stringify(pixelMapData.grid_data));
+                editColorMap = JSON.parse(JSON.stringify(pixelMapData.color_map));
+                editWidth = editGridData[0].length;
+                editHeight = editGridData.length;
+                
+                if (editWidthInput) editWidthInput.value = editWidth;
+                if (editHeightInput) editHeightInput.value = editHeight;
+                
+                // 重新初始化颜色选择器
+                initializeColorPalette();
+                
+                // 设置默认颜色
+                if (Object.keys(editColorMap).length > 0) {
+                    const firstColorKey = Object.keys(editColorMap)[0];
+                    currentEditColor = {
+                        index: parseInt(firstColorKey),
+                        rgb: editColorMap[firstColorKey]
+                    };
+                    updateCurrentColorDisplay();
+                }
+                
+                // 重新绘制主画布
+                requestAnimationFrame(() => {
+                    drawMainGrid(); // 使用主画布绘制
+                });
+            }
+            
             // 切换地图后，更新所有小地图显示和统计信息
             updateAllMapItemsMiniMap();
             updateMapItemStats(mapName, mapsDataCache[mapName]);
         } else {
-            // 加载新数据
-            fetch(`data/json/${mapFile}`)
-                .then(response => response.json())
+            // 加载新数据（区分用户地图和示例地图）
+            let loadPromise;
+            if (mapType === 'user') {
+                // 用户地图从localStorage加载
+                const storageKey = `pixelMap_${mapName}`;
+                const savedData = localStorage.getItem(storageKey);
+                if (savedData) {
+                    loadPromise = Promise.resolve(JSON.parse(savedData));
+                } else {
+                    loadPromise = fetch(`data/json/${mapFile}`).then(r => r.json());
+                }
+            } else {
+                // 示例地图从文件加载
+                loadPromise = fetch(`data/json/${mapFile}`).then(r => r.json());
+            }
+            
+            loadPromise
                 .then(data => {
                     mapsDataCache[mapName] = data;
                     pixelMapData = data;
                     initializeMapData();
+                    
+                    // 如果当前处于编辑模式，更新编辑数据
+                    if (isEditMode) {
+                        editGridData = JSON.parse(JSON.stringify(data.grid_data));
+                        editColorMap = JSON.parse(JSON.stringify(data.color_map));
+                        editWidth = editGridData[0].length;
+                        editHeight = editGridData.length;
+                        
+                        if (editWidthInput) editWidthInput.value = editWidth;
+                        if (editHeightInput) editHeightInput.value = editHeight;
+                        
+                        // 重新初始化颜色选择器
+                        initializeColorPalette();
+                        
+                        // 设置默认颜色
+                        if (Object.keys(editColorMap).length > 0) {
+                            const firstColorKey = Object.keys(editColorMap)[0];
+                            currentEditColor = {
+                                index: parseInt(firstColorKey),
+                                rgb: editColorMap[firstColorKey]
+                            };
+                            updateCurrentColorDisplay();
+                        }
+                        
+                        // 重新绘制主画布
+                        requestAnimationFrame(() => {
+                            drawMainGrid(); // 使用主画布绘制
+                        });
+                    }
+                    
                     // 切换地图后，更新所有小地图显示和统计信息
                     updateAllMapItemsMiniMap();
                     updateMapItemStats(mapName, data);
@@ -1756,10 +2189,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function drawMainGrid() {
-        if (!pixelMapData) return;
+        // 编辑模式下需要 pixelMapData 或 editGridData，浏览模式下需要 pixelMapData
+        if (isEditMode) {
+            if (!editGridData || !editColorMap) return;
+        } else {
+            if (!pixelMapData) return;
+        }
 
-        const gridData = pixelMapData.grid_data;
-        const colorMap = pixelMapData.color_map;
+        // 编辑模式使用编辑数据，否则使用原始数据
+        const gridData = isEditMode && editGridData ? editGridData : pixelMapData.grid_data;
+        const colorMap = isEditMode && editColorMap ? editColorMap : pixelMapData.color_map;
 
         const height = gridData.length;
         const width = gridData[0].length;
@@ -1768,6 +2207,53 @@ document.addEventListener('DOMContentLoaded', () => {
         mainGridCanvas.width = width * (SQUARE_SIZE_MAIN + BORDER_WIDTH_MAIN) + BORDER_WIDTH_MAIN;
         mainGridCanvas.height = height * (SQUARE_SIZE_MAIN + BORDER_WIDTH_MAIN) + BORDER_WIDTH_MAIN;
         
+        // 清空画布
+        mainGridCtx.clearRect(0, 0, mainGridCanvas.width, mainGridCanvas.height);
+        mainGridCtx.fillStyle = 'white';
+        mainGridCtx.fillRect(0, 0, mainGridCanvas.width, mainGridCanvas.height);
+        
+        // 编辑模式：直接绘制所有方块，使用完整颜色，不显示浏览模式效果
+        if (isEditMode) {
+            for (let row = 0; row < height; row++) {
+                for (let col = 0; col < width; col++) {
+                    const pixelValue = gridData[row][col];
+                    const rgb = colorMap[String(pixelValue)];
+                    
+                    if (!rgb) continue;
+                    
+                    const x = col * (SQUARE_SIZE_MAIN + BORDER_WIDTH_MAIN) + BORDER_WIDTH_MAIN;
+                    const y = row * (SQUARE_SIZE_MAIN + BORDER_WIDTH_MAIN) + BORDER_WIDTH_MAIN;
+                    
+                    // 绘制方块（完整颜色，不半透明）
+                    mainGridCtx.fillStyle = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+                    mainGridCtx.fillRect(x, y, SQUARE_SIZE_MAIN, SQUARE_SIZE_MAIN);
+                    
+                    // 绘制边框
+                    mainGridCtx.strokeStyle = BORDER_COLOR_MAIN;
+                    mainGridCtx.lineWidth = BORDER_WIDTH_MAIN;
+                    mainGridCtx.strokeRect(x, y, SQUARE_SIZE_MAIN, SQUARE_SIZE_MAIN);
+                }
+            }
+            
+            // 编辑模式下绘制悬停高亮（如果有）
+            if (hoveredSquare !== null) {
+                const hoverRow = hoveredSquare.row;
+                const hoverCol = hoveredSquare.col;
+                if (hoverRow >= 0 && hoverRow < height && hoverCol >= 0 && hoverCol < width) {
+                    const hoverStartX = hoverCol * (SQUARE_SIZE_MAIN + BORDER_WIDTH_MAIN) + BORDER_WIDTH_MAIN;
+                    const hoverStartY = hoverRow * (SQUARE_SIZE_MAIN + BORDER_WIDTH_MAIN) + BORDER_WIDTH_MAIN;
+                    
+                    // 绘制悬停高亮边框
+                    mainGridCtx.strokeStyle = HOVER_HIGHLIGHT_COLOR;
+                    mainGridCtx.lineWidth = HOVER_HIGHLIGHT_WIDTH;
+                    mainGridCtx.strokeRect(hoverStartX, hoverStartY, SQUARE_SIZE_MAIN, SQUARE_SIZE_MAIN);
+                }
+            }
+            
+            return; // 编辑模式绘制完成，直接返回
+        }
+        
+        // 浏览模式：使用性能优化的绘制方式
         // 性能优化：如果离屏Canvas尺寸不匹配，重新初始化
         if (!staticGridCanvas || staticGridCanvas.width !== mainGridCanvas.width || staticGridCanvas.height !== mainGridCanvas.height) {
             initStaticGridCanvas();
@@ -1775,7 +2261,6 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 性能优化：先绘制静态网格（从离屏Canvas复制）
         drawStaticGrid();
-        mainGridCtx.clearRect(0, 0, mainGridCanvas.width, mainGridCanvas.height);
         mainGridCtx.drawImage(staticGridCanvas, 0, 0);
         
         // 性能优化：只绘制动态部分（已完成方块和路径高亮）
@@ -2239,6 +2724,750 @@ document.addEventListener('DOMContentLoaded', () => {
             });
             mainGridCanvas.dispatchEvent(event);
         }
+        
+        // 如果处于编辑模式，重新绘制编辑画布
+        if (isEditMode && editGridData) {
+            // 防抖处理
+            if (resizeTimer) {
+                clearTimeout(resizeTimer);
+            }
+            
+            resizeTimer = setTimeout(() => {
+                if (isEditMode && editGridData) {
+                    drawMainGrid(); // 使用主画布绘制
+                }
+            }, 200);
+        }
     });
+    
+    // ==================== 编辑模式功能 ====================
+    
+    // 编辑指定地图
+    function editMap(map) {
+        console.log('[editMap] 开始编辑地图:', map.name, map.type);
+        
+        // 记录正在编辑的地图信息（只有用户地图可以编辑）
+        if (map.type === 'user') {
+            editingMapName = map.name;
+            editingMapType = map.type;
+            console.log('[editMap] 设置编辑地图信息:', editingMapName, editingMapType);
+        } else {
+            // 示例地图不能直接编辑，应该提示用户
+            alert('示例地图不能直接编辑，请使用复制功能创建副本后再编辑');
+            return;
+        }
+        
+        // 如果当前地图不是要编辑的地图，先切换地图
+        if (currentMapName !== map.name || currentMapType !== map.type) {
+            console.log('[editMap] 需要切换地图，当前:', currentMapName, currentMapType, '目标:', map.name, map.type);
+            switchMap(map.name, map.file, map.type);
+            // 等待地图加载完成后再进入编辑模式
+            setTimeout(() => {
+                console.log('[editMap] 地图切换完成，进入编辑模式');
+                enterEditMode();
+            }, 100);
+        } else {
+            // 直接进入编辑模式
+            console.log('[editMap] 直接进入编辑模式');
+            enterEditMode();
+        }
+    }
+    
+    // 进入编辑模式
+    function enterEditMode() {
+        console.log('[enterEditMode] 开始进入编辑模式');
+        
+        // 如果当前有地图数据，使用它来初始化编辑数据；否则创建新的空白数据
+        if (pixelMapData && pixelMapData.grid_data && pixelMapData.color_map) {
+            // 使用当前地图数据
+            editGridData = JSON.parse(JSON.stringify(pixelMapData.grid_data));
+            editColorMap = JSON.parse(JSON.stringify(pixelMapData.color_map));
+            editWidth = editGridData[0].length;
+            editHeight = editGridData.length;
+            console.log('[enterEditMode] 使用当前地图数据，尺寸:', editWidth, 'x', editHeight);
+            
+            // 如果还没有设置编辑地图信息，且当前地图是用户地图，则设置
+            if (!editingMapName && currentMapName && currentMapType === 'user') {
+                editingMapName = currentMapName;
+                editingMapType = currentMapType;
+                console.log('[enterEditMode] 自动设置编辑地图信息:', editingMapName, editingMapType);
+            }
+        } else {
+            // 创建新的空白编辑数据（默认100x100）
+            editWidth = 100;
+            editHeight = 100;
+            editGridData = Array(editHeight).fill(null).map(() => Array(editWidth).fill(1));
+            editColorMap = { "1": [255, 255, 255] }; // 默认白色
+            console.log('[enterEditMode] 创建空白编辑数据');
+            
+            // 新建地图时，清空编辑地图信息（表示这是新建，不是编辑现有地图）
+            editingMapName = null;
+            editingMapType = null;
+        }
+        
+        // 设置编辑模式标志
+        isEditMode = true;
+        console.log('[enterEditMode] isEditMode 设置为:', isEditMode);
+        
+        // 更新输入框
+        if (editWidthInput) editWidthInput.value = editWidth;
+        if (editHeightInput) editHeightInput.value = editHeight;
+        
+        // 初始化历史记录
+        saveEditHistory();
+        
+        // 初始化颜色选择器
+        initializeColorPalette();
+        
+        // 设置默认颜色（第一个颜色）
+        if (Object.keys(editColorMap).length > 0) {
+            const firstColorKey = Object.keys(editColorMap)[0];
+            currentEditColor = {
+                index: parseInt(firstColorKey),
+                rgb: editColorMap[firstColorKey]
+            };
+            updateCurrentColorDisplay();
+        }
+        
+        // 更新UI
+        console.log('[enterEditMode] 更新UI，editToolbar:', editToolbar, 'sectionActions:', sectionActions);
+        updateEditModeUI();
+        
+        // 延迟绘制，确保容器尺寸已计算
+        requestAnimationFrame(() => {
+            console.log('[enterEditMode] 绘制主网格');
+            drawMainGrid(); // 使用主画布绘制
+        });
+    }
+    
+    // 退出编辑模式
+    function exitEditMode() {
+        // 如果有未保存的更改，提示用户
+        if (hasEditChanges()) {
+            const confirmExit = confirm('您有未保存的更改，是否保存？');
+            if (confirmExit) {
+                saveMapToFile();
+            }
+        }
+        
+        // 清空编辑数据
+        editGridData = null;
+        editColorMap = null;
+        editHistory = [];
+        editHistoryIndex = -1;
+        currentEditColor = null;
+        isEditMode = false;
+        editingMapName = null; // 清空正在编辑的地图信息
+        editingMapType = null;
+        
+        // 更新UI
+        updateEditModeUI();
+        
+        // 重新绘制主网格（使用原始数据）
+        requestAnimationFrame(() => {
+            drawMainGrid();
+        });
+    }
+    
+    // 更新编辑模式UI
+    function updateEditModeUI() {
+        console.log('[updateEditModeUI] 更新UI，isEditMode:', isEditMode);
+        console.log('[updateEditModeUI] UI元素状态 - editToolbar:', editToolbar, 'sectionActions:', sectionActions, 'browseModeActions:', browseModeActions);
+        
+        if (isEditMode) {
+            // 显示编辑工具栏和退出按钮，隐藏浏览模式按钮
+            if (editToolbar) {
+                editToolbar.style.display = 'flex';
+                console.log('[updateEditModeUI] 显示编辑工具栏');
+            }
+            if (sectionActions) {
+                sectionActions.style.display = 'flex';
+                console.log('[updateEditModeUI] 显示退出按钮');
+            }
+            if (browseModeActions) {
+                browseModeActions.style.display = 'none';
+                console.log('[updateEditModeUI] 隐藏浏览模式按钮');
+            }
+            if (sectionTitleText) {
+                sectionTitleText.textContent = '像素地图编辑器';
+                console.log('[updateEditModeUI] 更新标题为: 像素地图编辑器');
+            }
+            if (browseControls) browseControls.classList.add('hidden');
+            if (editControls) editControls.classList.remove('hidden');
+        } else {
+            // 隐藏编辑工具栏和退出按钮，显示浏览模式按钮
+            if (editToolbar) {
+                editToolbar.style.display = 'none';
+                console.log('[updateEditModeUI] 隐藏编辑工具栏');
+            }
+            if (sectionActions) {
+                sectionActions.style.display = 'none';
+                console.log('[updateEditModeUI] 隐藏退出按钮');
+            }
+            if (browseModeActions) {
+                browseModeActions.style.display = 'flex';
+                console.log('[updateEditModeUI] 显示浏览模式按钮');
+            }
+            if (sectionTitleText) {
+                sectionTitleText.textContent = '网格编织图';
+                console.log('[updateEditModeUI] 更新标题为: 网格编织图');
+            }
+            if (browseControls) browseControls.classList.remove('hidden');
+            if (editControls) editControls.classList.add('hidden');
+        }
+    }
+    
+    // 初始化颜色选择器
+    function initializeColorPalette() {
+        colorPalette.innerHTML = '';
+        
+        if (!editColorMap) return;
+        
+        Object.keys(editColorMap).forEach(colorKey => {
+            const rgb = editColorMap[colorKey];
+            const colorItem = document.createElement('div');
+            colorItem.className = 'color-palette-item';
+            colorItem.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+            colorItem.dataset.colorIndex = colorKey;
+            
+            colorItem.addEventListener('click', () => {
+                selectEditColor(parseInt(colorKey), rgb);
+            });
+            
+            colorPalette.appendChild(colorItem);
+        });
+        
+        // 更新当前颜色显示
+        if (currentEditColor) {
+            updateColorPaletteSelection();
+        }
+    }
+    
+    // 选择编辑颜色
+    function selectEditColor(index, rgb) {
+        currentEditColor = { index, rgb };
+        updateCurrentColorDisplay();
+        updateColorPaletteSelection();
+    }
+    
+    // 更新当前颜色显示
+    function updateCurrentColorDisplay() {
+        if (!currentEditColor || !currentColorPreview) return;
+        
+        const { rgb } = currentEditColor;
+        currentColorPreview.style.backgroundColor = `rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+        if (currentColorText) currentColorText.textContent = '当前颜色';
+        if (currentColorRgb) currentColorRgb.textContent = `RGB(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`;
+    }
+    
+    // 更新颜色选择器选中状态
+    function updateColorPaletteSelection() {
+        const items = colorPalette.querySelectorAll('.color-palette-item');
+        items.forEach(item => {
+            if (parseInt(item.dataset.colorIndex) === currentEditColor?.index) {
+                item.classList.add('active');
+            } else {
+                item.classList.remove('active');
+            }
+        });
+    }
+    
+    // 保存编辑历史
+    function saveEditHistory() {
+        if (!editGridData || !editColorMap) return;
+        
+        // 移除当前位置之后的历史记录
+        editHistory = editHistory.slice(0, editHistoryIndex + 1);
+        
+        // 添加新的历史记录
+        editHistory.push({
+            gridData: JSON.parse(JSON.stringify(editGridData)),
+            colorMap: JSON.parse(JSON.stringify(editColorMap))
+        });
+        
+        // 限制历史记录数量（最多50条）
+        if (editHistory.length > 50) {
+            editHistory.shift();
+        } else {
+            editHistoryIndex++;
+        }
+        
+        updateUndoRedoButtons();
+    }
+    
+    // 更新撤销/重做按钮状态
+    function updateUndoRedoButtons() {
+        undoBtn.disabled = editHistoryIndex <= 0;
+        redoBtn.disabled = editHistoryIndex >= editHistory.length - 1;
+    }
+    
+    // 撤销
+    function undoEdit() {
+        if (editHistoryIndex > 0) {
+            editHistoryIndex--;
+            const history = editHistory[editHistoryIndex];
+            editGridData = JSON.parse(JSON.stringify(history.gridData));
+            editColorMap = JSON.parse(JSON.stringify(history.colorMap));
+            editWidth = editGridData[0].length;
+            editHeight = editGridData.length;
+            if (editWidthInput) editWidthInput.value = editWidth;
+            if (editHeightInput) editHeightInput.value = editHeight;
+            requestAnimationFrame(() => {
+                drawMainGrid(); // 使用主画布绘制
+            });
+            updateUndoRedoButtons();
+        }
+    }
+    
+    // 重做
+    function redoEdit() {
+        if (editHistoryIndex < editHistory.length - 1) {
+            editHistoryIndex++;
+            const history = editHistory[editHistoryIndex];
+            editGridData = JSON.parse(JSON.stringify(history.gridData));
+            editColorMap = JSON.parse(JSON.stringify(history.colorMap));
+            editWidth = editGridData[0].length;
+            editHeight = editGridData.length;
+            if (editWidthInput) editWidthInput.value = editWidth;
+            if (editHeightInput) editHeightInput.value = editHeight;
+            requestAnimationFrame(() => {
+                drawMainGrid(); // 使用主画布绘制
+            });
+            updateUndoRedoButtons();
+        }
+    }
+    
+    // 在编辑模式下绘制像素（使用主画布）
+    function drawOnEditGrid(row, col) {
+        if (!isEditMode || !editGridData || !currentEditColor) {
+            console.log('[drawOnEditGrid] 条件不满足 - isEditMode:', isEditMode, 'editGridData:', !!editGridData, 'currentEditColor:', !!currentEditColor);
+            return;
+        }
+        
+        if (row >= 0 && row < editGridData.length && col >= 0 && col < editGridData[0].length) {
+            console.log('[drawOnEditGrid] 绘制像素 - row:', row, 'col:', col, 'colorIndex:', currentEditColor.index);
+            editGridData[row][col] = currentEditColor.index;
+            // 使用主画布重新绘制
+            drawMainGrid();
+        } else {
+            console.log('[drawOnEditGrid] 坐标超出范围 - row:', row, 'col:', col, 'gridSize:', editGridData.length, 'x', editGridData[0].length);
+        }
+    }
+    
+    // 检查是否有未保存的编辑更改
+    function hasEditChanges() {
+        if (!isEditMode || !editGridData || !pixelMapData) return false;
+        
+        // 简单比较：检查编辑数据是否与原始数据不同
+        const originalData = JSON.stringify(pixelMapData.grid_data);
+        const editData = JSON.stringify(editGridData);
+        return originalData !== editData;
+    }
+    
+    // 修改 drawMainGrid 函数以支持编辑模式
+    // 注意：需要在原有的 drawMainGrid 函数中添加编辑模式的判断
+    // 这里我们将在原有函数中添加编辑模式支持
+    
+    // 事件监听器
+    if (exitEditModeBtn) {
+        exitEditModeBtn.addEventListener('click', exitEditMode);
+    }
+    if (undoBtn) undoBtn.addEventListener('click', undoEdit);
+    if (redoBtn) redoBtn.addEventListener('click', redoEdit);
+    if (applySizeBtn) applySizeBtn.addEventListener('click', applyEditSize);
+    
+    // 键盘快捷键
+    document.addEventListener('keydown', (e) => {
+        if (!isEditMode) return;
+        
+        if (e.ctrlKey || e.metaKey) {
+            if (e.key === 'z' && !e.shiftKey) {
+                e.preventDefault();
+                undoEdit();
+            } else if (e.key === 'y' || (e.key === 'z' && e.shiftKey)) {
+                e.preventDefault();
+                redoEdit();
+            }
+        }
+    });
+    
+    // 编辑模式鼠标事件处理（使用主画布）
+    function handleEditMouseDown(e) {
+        if (!isEditMode || !currentEditColor) {
+            console.log('[handleEditMouseDown] 条件不满足 - isEditMode:', isEditMode, 'currentEditColor:', currentEditColor);
+            return;
+        }
+        
+        console.log('[handleEditMouseDown] 开始编辑绘制');
+        
+        isDrawingEdit = true;
+        const coords = getGridCoords(e);
+        console.log('[handleEditMouseDown] 获取坐标:', coords);
+        if (coords) {
+            drawOnEditGrid(coords.row, coords.col);
+        } else {
+            console.log('[handleEditMouseDown] 无法获取有效坐标');
+        }
+    }
+    
+    function handleEditMouseMove(e) {
+        if (!isEditMode || !isDrawingEdit || !currentEditColor) return;
+        
+        const coords = getGridCoords(e);
+        if (coords) {
+            drawOnEditGrid(coords.row, coords.col);
+        }
+    }
+    
+    function handleEditMouseUp(e) {
+        if (isEditMode && isDrawingEdit) {
+            isDrawingEdit = false;
+            // 保存编辑历史
+            saveEditHistory();
+            console.log('[handleEditMouseUp] 编辑绘制结束，保存历史');
+        }
+    }
+    
+    // 应用尺寸设置
+    function applyEditSize() {
+        const newWidth = parseInt(editWidthInput.value);
+        const newHeight = parseInt(editHeightInput.value);
+        
+        if (isNaN(newWidth) || isNaN(newHeight) || newWidth < 10 || newWidth > 500 || newHeight < 10 || newHeight > 500) {
+            alert('请输入有效的尺寸（10-500）');
+            return;
+        }
+        
+        // 创建新尺寸的网格
+        const newGridData = Array(newHeight).fill(null).map(() => Array(newWidth).fill(1));
+        
+        // 如果已有数据，尝试保留（裁剪或填充）
+        if (editGridData) {
+            const oldHeight = editGridData.length;
+            const oldWidth = editGridData[0].length;
+            
+            for (let row = 0; row < newHeight; row++) {
+                for (let col = 0; col < newWidth; col++) {
+                    if (row < oldHeight && col < oldWidth) {
+                        newGridData[row][col] = editGridData[row][col];
+                    }
+                }
+            }
+        }
+        
+        editWidth = newWidth;
+        editHeight = newHeight;
+        editGridData = newGridData;
+        
+        // 保存历史
+        saveEditHistory();
+        
+        // 重新绘制（使用主画布）
+        requestAnimationFrame(() => {
+            drawMainGrid();
+        });
+    }
+    
+    
+    function saveMapToFile() {
+        if (!editGridData || !editColorMap) {
+            alert('没有可保存的地图数据');
+            return;
+        }
+        
+        const mapData = {
+            grid_data: editGridData,
+            color_map: editColorMap
+        };
+        
+        // 如果正在编辑用户地图，直接更新原图
+        if (editingMapName && editingMapType === 'user') {
+            console.log('[saveMapToFile] 更新现有用户地图:', editingMapName);
+            
+            // 保存到 localStorage
+            const storageKey = `pixelMap_${editingMapName}`;
+            localStorage.setItem(storageKey, JSON.stringify(mapData));
+            
+            // 更新用户地图列表中的显示名称（如果有变化）
+            const existingIndex = userMapsList.findIndex(map => map.name === editingMapName);
+            if (existingIndex >= 0) {
+                // 保持原有的显示名称，只更新数据
+                userMapsList[existingIndex] = {
+                    ...userMapsList[existingIndex],
+                    file: `${editingMapName}.json`
+                };
+            }
+            
+            // 保存用户地图列表
+            saveUserMapsList();
+            
+            // 更新地图列表
+            mapsList = [...exampleMapsList, ...userMapsList];
+            
+            // 更新缓存
+            mapsDataCache[editingMapName] = mapData;
+            pixelMapData = mapData;
+            
+            // 重新创建UI
+            createMapsListUI();
+            
+            // 切换到更新的地图
+            switchMap(editingMapName, `${editingMapName}.json`, 'user');
+            
+            // 下载为 JSON 文件
+            const blob = new Blob([JSON.stringify(mapData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${editingMapName}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            // 获取显示名称
+            const existingMap = userMapsList.find(map => map.name === editingMapName);
+            const displayName = existingMap ? existingMap.displayName : editingMapName;
+            
+            alert(`地图 "${displayName || editingMapName}" 已更新！`);
+            
+            // 退出编辑模式
+            exitEditMode();
+            
+            return;
+        }
+        
+        // 否则，另存为新地图（新建或从示例地图复制）
+        console.log('[saveMapToFile] 另存为新地图');
+        
+        // 生成默认地图ID（5位数字）
+        const newMapId = generateMapId();
+        const defaultMapName = newMapId;
+        const defaultDisplayName = `用户地图 ${newMapId.replace('map_', '')}`;
+        
+        // 显示保存弹窗
+        showSaveMapDialog(defaultMapName, defaultDisplayName, (mapName, displayName) => {
+            if (!mapName) return;
+            
+            // 创建新的用户地图对象
+            const newUserMap = {
+                name: mapName,
+                file: `${mapName}.json`,
+                displayName: displayName || mapName
+            };
+            
+            // 检查是否已存在同名地图
+            const existingIndex = userMapsList.findIndex(map => map.name === mapName);
+            if (existingIndex >= 0) {
+                // 更新现有地图
+                userMapsList[existingIndex] = { ...newUserMap, type: 'user' };
+            } else {
+                // 添加新地图
+                userMapsList.push({ ...newUserMap, type: 'user' });
+            }
+            
+            // 保存到 localStorage
+            const storageKey = `pixelMap_${mapName}`;
+            localStorage.setItem(storageKey, JSON.stringify(mapData));
+            
+            // 保存用户地图列表
+            saveUserMapsList();
+            
+            // 更新地图列表
+            mapsList = [...exampleMapsList, ...userMapsList];
+            
+            // 重新创建UI
+            createMapsListUI();
+            
+            // 切换到新保存的地图
+            switchMap(mapName, newUserMap.file, 'user');
+            
+            // 下载为 JSON 文件
+            const blob = new Blob([JSON.stringify(mapData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `${mapName}.json`;
+            a.click();
+            URL.revokeObjectURL(url);
+            
+            alert(`地图 "${displayName || mapName}" 已保存！`);
+            
+            // 退出编辑模式
+            exitEditMode();
+        });
+    }
+    
+    // 显示保存地图弹窗
+    function showSaveMapDialog(defaultName, defaultDisplayName, callback) {
+        // 创建弹窗
+        const dialog = document.createElement('div');
+        dialog.className = 'save-map-dialog';
+        dialog.innerHTML = `
+            <div class="dialog-overlay"></div>
+            <div class="dialog-content">
+                <h3 class="dialog-title">保存地图</h3>
+                <div class="dialog-form">
+                    <div class="form-group">
+                        <label for="save-map-id">地图ID:</label>
+                        <input type="text" id="save-map-id" class="form-input" value="${defaultName}" readonly>
+                        <span class="form-hint">（自动生成，不可修改）</span>
+                    </div>
+                    <div class="form-group">
+                        <label for="save-map-display">显示名称:</label>
+                        <input type="text" id="save-map-display" class="form-input" value="${defaultDisplayName}" placeholder="请输入地图显示名称">
+                    </div>
+                </div>
+                <div class="dialog-actions">
+                    <button class="btn btn-cancel" id="save-dialog-cancel">取消</button>
+                    <button class="btn btn-primary" id="save-dialog-confirm">保存</button>
+                </div>
+            </div>
+        `;
+        
+        document.body.appendChild(dialog);
+        
+        // 事件处理
+        const cancelBtn = dialog.querySelector('#save-dialog-cancel');
+        const confirmBtn = dialog.querySelector('#save-dialog-confirm');
+        const mapIdInput = dialog.querySelector('#save-map-id');
+        const mapDisplayInput = dialog.querySelector('#save-map-display');
+        
+        const closeDialog = () => {
+            document.body.removeChild(dialog);
+        };
+        
+        cancelBtn.addEventListener('click', () => {
+            closeDialog();
+            callback(null, null);
+        });
+        
+        confirmBtn.addEventListener('click', () => {
+            const mapName = mapIdInput.value.trim();
+            const displayName = mapDisplayInput.value.trim() || mapName;
+            
+            if (!mapName) {
+                alert('地图ID不能为空');
+                return;
+            }
+            
+            // 检查是否与现有地图重名（仅检查用户地图）
+            const existingMap = userMapsList.find(map => map.name === mapName);
+            if (existingMap && existingMap.name !== currentMapName) {
+                const overwrite = confirm(`地图ID "${mapName}" 已存在，是否覆盖？`);
+                if (!overwrite) return;
+            }
+            
+            closeDialog();
+            callback(mapName, displayName);
+        });
+        
+        // 点击遮罩层关闭
+        dialog.querySelector('.dialog-overlay').addEventListener('click', () => {
+            closeDialog();
+            callback(null, null);
+        });
+        
+        // 回车键确认
+        mapDisplayInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                confirmBtn.click();
+            }
+        });
+        
+        // 自动聚焦到显示名称输入框
+        mapDisplayInput.focus();
+        mapDisplayInput.select();
+    }
+    
+    // 注意：deleteCurrentMap 函数已移除
+    // 示例地图不可删除，用户地图通过 deleteUserMap 函数删除
+    // 这个函数保留是为了向后兼容，但实际不会在UI中调用
+    
+    function clearMap() {
+        if (!editGridData) return;
+        
+        const confirmClear = confirm('确定要清空整个地图吗？');
+        if (!confirmClear) return;
+        
+        // 获取当前默认颜色索引
+        const defaultColorIndex = currentEditColor ? currentEditColor.index : 1;
+        
+        // 清空所有像素为默认颜色
+        editGridData = editGridData.map(row => row.map(() => defaultColorIndex));
+        
+        saveEditHistory();
+        
+        requestAnimationFrame(() => {
+            drawMainGrid(); // 使用主画布绘制
+        });
+    }
+    
+    // 添加颜色
+    function addColorToPalette() {
+        const colorValue = customColorInput.value;
+        const rgb = hexToRgb(colorValue);
+        
+        if (!rgb) {
+            alert('无效的颜色值');
+            return;
+        }
+        
+        // 查找下一个可用的颜色索引
+        let newIndex = 1;
+        if (editColorMap) {
+            const existingIndices = Object.keys(editColorMap).map(k => parseInt(k));
+            newIndex = Math.max(...existingIndices, 0) + 1;
+        }
+        
+        // 添加到颜色映射
+        if (!editColorMap) {
+            editColorMap = {};
+        }
+        editColorMap[String(newIndex)] = [rgb.r, rgb.g, rgb.b];
+        
+        // 更新颜色选择器
+        initializeColorPalette();
+        
+        // 选择新添加的颜色
+        selectEditColor(newIndex, [rgb.r, rgb.g, rgb.b]);
+    }
+    
+    function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+    
+    // 事件监听器
+    if (saveMapBtn) saveMapBtn.addEventListener('click', saveMapToFile);
+    if (clearMapBtn) clearMapBtn.addEventListener('click', clearMap);
+    if (addColorBtn) addColorBtn.addEventListener('click', addColorToPalette);
+    
+    // 图片导入功能（占位，后续实现）
+    if (importImageBtn) {
+        importImageBtn.addEventListener('click', () => {
+            if (imageInput) imageInput.click();
+        });
+    }
+    
+    if (imageInput) {
+        imageInput.addEventListener('change', (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                const img = new Image();
+                img.onload = () => {
+                    // TODO: 实现图片转换为像素地图
+                    alert('图片导入功能开发中...');
+                };
+                img.src = event.target.result;
+            };
+            reader.readAsDataURL(file);
+        });
+    }
 });
 

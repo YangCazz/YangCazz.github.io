@@ -3962,6 +3962,25 @@ body {
     margin-bottom: 1.25rem;
 }
 
+.app-card-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.app-card-logo {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
+    transition: var(--transition);
+}
+
+.app-card-logo:hover {
+    transform: scale(1.1);
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+}
+
 .app-card-title-row {
     display: flex;
     align-items: center;
@@ -4183,6 +4202,11 @@ body {
     
     .app-card {
         padding: 1.5rem;
+    }
+    
+    .app-card-logo {
+        width: 60px;
+        height: 60px;
     }
     
     .app-card-title {
