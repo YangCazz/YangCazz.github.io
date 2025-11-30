@@ -1,0 +1,10 @@
+{
+  "maps": [
+    {
+      "name": "pixel_map_data",
+      "file": "pixel_map_data.json",
+      "displayName": "像素地图 1"
+    }
+  ]
+}
+
