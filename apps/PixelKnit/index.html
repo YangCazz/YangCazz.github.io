@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixelKnit - 像素织梦 - YangCazz</title>
+    <link rel="stylesheet" href="assets/css/main.css">
+    
+    <!-- 粒子背景画布 -->
+    <canvas id="particleCanvas"></canvas>
+</head>
+<body>
+    <!-- 顶部导航栏 -->
+    <nav class="top-nav">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <a href="/">
+                    <span class="brand-text">YangCazz</span>
+                    <span class="brand-dot">.</span>
+                </a>
+            </div>
+            <div class="nav-menu">
+                <a href="/" class="nav-link">
+                    <span class="nav-icon">⌂</span>
+                    <span class="nav-text">首页</span>
+                </a>
+                <a href="/blog" class="nav-link">
+                    <span class="nav-icon">◆</span>
+                    <span class="nav-text">博客</span>
+                </a>
+                <a href="/resume" class="nav-link">
+                    <span class="nav-icon">◈</span>
+                    <span class="nav-text">简历</span>
+                </a>
+                <a href="/about" class="nav-link">
+                    <span class="nav-icon">◉</span>
+                    <span class="nav-text">关于</span>
+                </a>
+                <a href="/apps" class="nav-link">
+                    <span class="nav-icon">◐</span>
+                    <span class="nav-text">应用</span>
+                </a>
+            </div>
+            <div class="nav-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 主内容区域 -->
+    <main class="main-content">
+        <div class="content-wrapper">
+            <div class="app-container">
+                <!-- 页面头部 -->
+                <header class="app-header">
+                    <div class="app-header-content">
+                        <img src="/assets/images/knitting-guide/logo/PixelKnit_logo.png" alt="PixelKnit Logo" class="app-logo">
+                        <div class="app-header-text">
+                            <h1 class="app-title">PixelKnit 像素织梦</h1>
+                            <p class="app-subtitle">网格编织的自定义和可视化工具</p>
+                        </div>
+                    </div>
+                </header>
+
+        <!-- 主内容区域 -->
+        <div class="main-container">
+            <!-- 左侧：地图列表 -->
+            <aside class="maps-sidebar" id="left-sidebar">
+                <div class="sidebar-header">
+                    <h2 class="sidebar-title">地图列表</h2>
+                </div>
+                <div id="maps-list-container" class="maps-list-container">
+                    <!-- 地图列表将动态生成 -->
+                </div>
+            </aside>
+
+            <!-- 中间：主网格编织图 / 编辑界面 -->
+            <main class="main-grid-section">
+                <!-- 主网格区域（浏览和编辑共用） -->
+                <div id="browse-mode-container" class="mode-container">
+                    <div class="section-header">
+                        <div class="section-header-left">
+                            <button id="toggle-left-sidebar-btn" class="btn-toggle-sidebar" title="显示/隐藏地图列表">
+                                <span class="toggle-icon">◀</span>
+                            </button>
+                            <h2 class="section-title" id="section-title-text">网格编织图</h2>
+                        </div>
+                        <div class="section-header-right">
+                            <div class="section-actions" id="section-actions" style="display: none;">
+                                <button id="exit-edit-mode-btn" class="btn btn-exit-edit">退出编辑</button>
+                            </div>
+                            <button id="toggle-right-sidebar-btn" class="btn-toggle-sidebar" title="显示/隐藏控制面板">
+                                <span class="toggle-icon">▶</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- 编辑工具栏（仅在编辑模式显示） -->
+                    <div class="edit-toolbar" id="edit-toolbar" style="display: none;">
+                        <div class="toolbar-group">
+                            <label class="toolbar-label">宽度:</label>
+                            <input type="number" id="edit-width-input" class="toolbar-input" value="100" min="10" max="500">
+                            <label class="toolbar-label">高度:</label>
+                            <input type="number" id="edit-height-input" class="toolbar-input" value="100" min="10" max="500">
+                            <button id="apply-size-btn" class="btn btn-toolbar">应用尺寸</button>
+                        </div>
+                        <div class="toolbar-group">
+                            <button id="save-map-btn" class="btn btn-toolbar btn-primary" title="保存地图">保存地图</button>
+                            <button id="clear-map-btn" class="btn btn-toolbar" title="清空地图">清空</button>
+                            <button id="undo-btn" class="btn btn-toolbar" title="撤销 (Ctrl+Z)" disabled>撤销</button>
+                            <button id="redo-btn" class="btn btn-toolbar" title="重做 (Ctrl+Y)" disabled>重做</button>
+                        </div>
+                        <div class="toolbar-group">
+                            <button id="import-image-btn" class="btn btn-toolbar" title="导入图片">导入图片</button>
+                            <input type="file" id="image-input" accept="image/*" style="display: none;">
+                        </div>
+                    </div>
+                    
+                    <!-- 主画布（浏览和编辑共用） -->
+                    <div class="canvas-wrapper">
+                        <canvas id="main-grid-canvas"></canvas>
+                    </div>
+                    
+                    <!-- 浏览模式按钮（仅在浏览模式显示） -->
+                    <div id="browse-mode-actions" style="display: flex; justify-content: center; margin-top: 1.5rem;">
+                        <button id="mark-completed-btn" class="btn btn-primary">标记为已完成</button>
+                    </div>
+                </div>
+            </main>
+
+            <!-- 右侧：控制面板 -->
+            <aside class="floating-controls" id="right-sidebar">
+            <!-- 浏览模式：对角编织模式 -->
+            <div id="browse-controls" class="mode-controls">
+                <h3 class="controls-title">对角编织模式</h3>
+            <div id="current-path-status" class="path-status" style="display: none;">
+                <p class="path-info">总方块数: <span id="path-total-squares">0</span></p>
+                <div id="path-color-breakdown" class="color-breakdown-container"></div>
+            </div>
+            <button id="enter-diagonal-mode-btn" class="btn btn-mode">进入对角预设模式</button>
+            <button id="prev-diagonal-btn" class="btn btn-nav" disabled>上一条</button>
+            <button id="next-diagonal-btn" class="btn btn-nav" disabled>下一条</button>
+            <div class="divider"></div>
+            <button id="save-progress-btn" class="btn btn-save">保存当前进度</button>
+            <button id="load-progress-btn" class="btn btn-load" disabled>加载上次进度</button>
+            <button id="reset-progress-btn" class="btn btn-reset">重置当前进度</button>
+            <div class="progress-section">
+                <div class="progress-bar-container">
+                    <div class="progress-bar-fill" id="progress-bar-fill"></div>
+                    <span class="progress-text" id="progress-text">0%</span>
+                </div>
+            </div>
+            </div>
+            
+            <!-- 编辑模式：调色板 -->
+            <div id="edit-controls" class="mode-controls hidden">
+                <h3 class="controls-title">调色板</h3>
+                <div class="current-color-display">
+                    <div id="current-color-preview" class="color-preview-large"></div>
+                    <div class="color-info">
+                        <span id="current-color-text" class="color-text">当前颜色</span>
+                        <span id="current-color-rgb" class="color-rgb">RGB(255, 255, 255)</span>
+                    </div>
+                </div>
+                <div id="color-palette" class="color-palette-grid">
+                    <!-- 颜色将通过 JavaScript 动态生成 -->
+                </div>
+                <div class="color-picker-actions">
+                    <input type="color" id="custom-color-input" class="custom-color-input" value="#ffffff">
+                    <button id="add-color-btn" class="btn btn-small">添加到调色板</button>
+                </div>
+            </div>
+        </aside>
+        </div>
+
+        <!-- 底部：编织顺序横条 -->
+        <div id="path-color-sequence-container" class="color-sequence-container hidden">
+            <p class="sequence-label">当前编织顺序:</p>
+            <div id="path-color-sequence" class="color-sequence"></div>
+        </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Mini悬浮菜单栏（当右侧栏隐藏时显示） -->
+    <div id="mini-controls-menu" class="mini-controls-menu hidden">
+        <div class="mini-menu-header">
+            <span class="mini-menu-title">快捷操作</span>
+            <button id="mini-menu-toggle-btn" class="mini-menu-toggle" title="展开/收起">
+                <span class="toggle-icon">▼</span>
+            </button>
+        </div>
+        <div class="mini-menu-content">
+            <!-- 浏览模式按钮 -->
+            <div id="mini-browse-controls" class="mini-controls-group">
+                <button id="mini-enter-diagonal-btn" class="mini-btn mini-btn-mode" title="进入对角预设模式">对角</button>
+                <button id="mini-prev-diagonal-btn" class="mini-btn mini-btn-nav" disabled title="上一条">◀</button>
+                <button id="mini-next-diagonal-btn" class="mini-btn mini-btn-nav" disabled title="下一条">▶</button>
+                <button id="mini-save-progress-btn" class="mini-btn mini-btn-save" title="保存当前进度">保存</button>
+                <button id="mini-load-progress-btn" class="mini-btn mini-btn-load" disabled title="加载上次进度">加载</button>
+                <button id="mini-reset-progress-btn" class="mini-btn mini-btn-reset" title="重置当前进度">重置</button>
+                <div class="mini-progress-bar">
+                    <div class="mini-progress-fill" id="mini-progress-fill"></div>
+                    <span class="mini-progress-text" id="mini-progress-text">0%</span>
+                </div>
+            </div>
+            <!-- 编辑模式按钮 -->
+            <div id="mini-edit-controls" class="mini-controls-group hidden">
+                <div class="mini-color-preview" id="mini-color-preview"></div>
+                <button id="mini-undo-btn" class="mini-btn" disabled title="撤销">↶</button>
+                <button id="mini-redo-btn" class="mini-btn" disabled title="重做">↷</button>
+                <button id="mini-save-map-btn" class="mini-btn mini-btn-primary" title="保存地图">保存</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 模块化 JavaScript -->
+    <script type="module" src="assets/js/main.js"></script>
+    <!-- 应用主逻辑（临时，待模块化迁移完成） -->
+    <script src="assets/js/app.js"></script>
+</body>
+</html>
+
