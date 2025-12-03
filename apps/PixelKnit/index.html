@@ -14,29 +14,29 @@
     <nav class="top-nav">
         <div class="nav-container">
             <div class="nav-brand">
-                <a href="/">
+                <a href="../../" id="nav-home-link">
                     <span class="brand-text">YangCazz</span>
                     <span class="brand-dot">.</span>
                 </a>
             </div>
             <div class="nav-menu">
-                <a href="/" class="nav-link">
+                <a href="../../" class="nav-link" id="nav-link-home">
                     <span class="nav-icon">⌂</span>
                     <span class="nav-text">首页</span>
                 </a>
-                <a href="/blog" class="nav-link">
+                <a href="../../blog" class="nav-link" id="nav-link-blog">
                     <span class="nav-icon">◆</span>
                     <span class="nav-text">博客</span>
                 </a>
-                <a href="/resume" class="nav-link">
+                <a href="../../resume" class="nav-link" id="nav-link-resume">
                     <span class="nav-icon">◈</span>
                     <span class="nav-text">简历</span>
                 </a>
-                <a href="/about" class="nav-link">
+                <a href="../../about" class="nav-link" id="nav-link-about">
                     <span class="nav-icon">◉</span>
                     <span class="nav-text">关于</span>
                 </a>
-                <a href="/apps" class="nav-link">
+                <a href="../../apps" class="nav-link" id="nav-link-apps">
                     <span class="nav-icon">◐</span>
                     <span class="nav-text">应用</span>
                 </a>
@@ -216,6 +216,50 @@
         </div>
     </div>
 
+    <!-- 导航链接修复脚本 -->
+    <script>
+    // 修复导航链接，确保在 GitHub Pages 和本地都能正常工作
+    (function() {
+        // 检测当前环境
+        const isGitHubPages = window.location.hostname.includes('github.io') || 
+                             window.location.hostname === 'yangcazz.github.io';
+        const isLocal = window.location.protocol === 'file:';
+        
+        // 获取基础路径
+        let basePath = '';
+        if (isLocal) {
+            // 本地文件：使用相对路径
+            basePath = '../../';
+        } else if (isGitHubPages) {
+            // GitHub Pages：使用绝对路径（相对于站点根目录）
+            basePath = '/';
+        } else {
+            // 其他环境：尝试检测基础路径
+            const pathParts = window.location.pathname.split('/');
+            // 移除 'apps/PixelKnit/index.html' 部分
+            basePath = pathParts.slice(0, -3).join('/') + '/';
+            if (basePath === '/') basePath = '/';
+        }
+        
+        // 更新所有导航链接
+        const navLinks = {
+            'nav-home-link': basePath,
+            'nav-link-home': basePath,
+            'nav-link-blog': basePath + 'blog',
+            'nav-link-resume': basePath + 'resume',
+            'nav-link-about': basePath + 'about',
+            'nav-link-apps': basePath + 'apps'
+        };
+        
+        Object.keys(navLinks).forEach(id => {
+            const link = document.getElementById(id);
+            if (link) {
+                link.href = navLinks[id];
+            }
+        });
+    })();
+    </script>
+    
     <!-- 模块化 JavaScript -->
     <script type="module" src="assets/js/main.js"></script>
     <!-- 应用主逻辑（临时，待模块化迁移完成） -->

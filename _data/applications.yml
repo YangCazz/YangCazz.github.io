@@ -82,9 +82,9 @@ opensource:
 # 实用工具
 tools:
   - name: "PixelKnit 像素织梦"
-    description: "功能完整的Web编织引导应用，通过可视化网格地图帮助用户跟踪编织进度。支持双地图显示、智能路径规划、实时进度跟踪和性能优化。"
+    description: "功能完整的Web编织引导应用，通过可视化网格地图帮助用户跟踪编织进度。支持双地图显示、智能路径规划、实时进度跟踪和性能优化。采用模块化架构设计，支持侧边栏显示/隐藏和悬浮mini菜单。"
     category: "Web开发"
-    tech_stack: ["JavaScript", "Canvas API", "localStorage", "Bresenham算法"]
+    tech_stack: ["JavaScript", "Canvas API", "localStorage", "Bresenham算法", "ES6模块化"]
     status: "活跃维护"
     highlight: true
     features:
@@ -94,9 +94,12 @@ tools:
       - "性能优化（离屏Canvas+事件节流）"
       - "数据持久化（保存/加载/重置）"
       - "交互功能（放大镜+工具提示）"
-    link: "/apps/knitting-guide/index.html"
-    github: "https://github.com/YangCazz/YangCazz.github.io/tree/main/apps/knitting-guide"
-    demo: "/apps/knitting-guide/index.html"
+      - "模块化架构（可维护、可扩展）"
+      - "侧边栏显示/隐藏（专注模式）"
+      - "悬浮mini菜单（可拖动）"
+    link: "/apps/PixelKnit/index.html"
+    github: "https://github.com/YangCazz/YangCazz.github.io/tree/main/apps/PixelKnit"
+    demo: "/apps/PixelKnit/index.html"
     
   - name: "博客文章创建助手"
     description: "快速创建Jekyll博客文章的批处理脚本，自动生成Front Matter"

@@ -403,9 +403,9 @@ v1.1 版本不仅保持了 v1.0 的所有编织引导功能，还增加了强大
 
 ---
 
-**项目地址**：[GitHub Repository](https://github.com/YangCazz/YangCazz.github.io/tree/main/apps/knitting-guide)
+**项目地址**：[GitHub Repository](https://github.com/YangCazz/YangCazz.github.io/tree/main/apps/PixelKnit)
 
-**在线体验**：[像素织梦 (PixelKnit)](/apps/knitting-guide/)
+**在线体验**：[像素织梦 (PixelKnit)](/apps/PixelKnit/)
 
 **技术栈**：HTML5, CSS3, JavaScript, Canvas API, localStorage
 
