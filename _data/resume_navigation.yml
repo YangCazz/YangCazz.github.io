@@ -4,7 +4,7 @@
 
 - id: achievements
   name: 成果总结
-  icon: trophy
+  icon: rocket
 
 - id: skills
   name: 技术能力
