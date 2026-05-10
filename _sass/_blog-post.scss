@@ -1,0 +1,378 @@
+/* 博客文章页面 */
+.blog-post {
+    position: relative;
+    z-index: 1;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.page-content .blog-post {
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: none;
+    padding: 0;
+}
+
+.blog-post .post-header {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.blog-post .post-title {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    line-height: 1.3;
+}
+
+.blog-post .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.blog-post .post-date {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.blog-post .post-categories {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.blog-post .category-tag {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(66, 153, 225, 0.3);
+}
+
+.blog-post .post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.blog-post .tag {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 0.2rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.blog-post .post-content {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    line-height: 1.8;
+}
+
+/* 文章标题样式 */
+.blog-post .post-content h1,
+.blog-post .post-content h2,
+.blog-post .post-content h3,
+.blog-post .post-content h4,
+.blog-post .post-content h5,
+.blog-post .post-content h6 {
+    color: var(--primary-color);
+    margin: 2rem 0 1rem 0;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.blog-post .post-content h1 {
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+.blog-post .post-content h2 {
+    font-size: 1.5rem;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 1rem;
+}
+
+.blog-post .post-content h3 {
+    font-size: 1.3rem;
+}
+
+.blog-post .post-content h4 {
+    font-size: 1.1rem;
+}
+
+.blog-post .post-content p {
+    margin: 1.2rem 0;
+    text-align: justify;
+}
+
+.blog-post .post-content ul,
+.blog-post .post-content ol {
+    margin: 1.2rem 0;
+    padding-left: 2rem;
+}
+
+.blog-post .post-content li {
+    margin: 0.5rem 0;
+}
+
+/* 引用块 */
+.blog-post .post-content blockquote {
+    background: rgba(66, 153, 225, 0.05);
+    border-left: 4px solid var(--accent-color);
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: 0 8px 8px 0;
+    font-style: italic;
+    color: var(--secondary-color);
+}
+
+/* 表格 */
+.blog-post .post-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.blog-post .post-content th,
+.blog-post .post-content td {
+    padding: 0.8rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.blog-post .post-content th {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    font-weight: 600;
+}
+
+.blog-post .post-content tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* 行内代码 */
+.blog-post .post-content code:not(.highlight code):not(pre code) {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.88em;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+/* 图片 */
+.blog-post .post-content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 2rem auto;
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    background: #fff;
+    padding: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+}
+
+.blog-post .post-content img:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+/* 增强表格 */
+.blog-post .post-content table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2rem 0;
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.blog-post .post-content thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.blog-post .post-content thead th {
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: none;
+}
+
+.blog-post .post-content tbody tr {
+    transition: all 0.2s ease;
+}
+
+.blog-post .post-content tbody tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.blog-post .post-content tbody tr:hover {
+    background: rgba(102, 126, 234, 0.08);
+    transform: scale(1.01);
+}
+
+.blog-post .post-content tbody td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.blog-post .post-content tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* 增强引用块 */
+.blog-post .post-content blockquote {
+    border-left: 4px solid;
+    border-image: linear-gradient(180deg, #667eea 0%, #764ba2 100%) 1;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-radius: 0 12px 12px 0;
+    position: relative;
+    font-style: italic;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.blog-post .post-content blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-size: 4rem;
+    color: rgba(102, 126, 234, 0.2);
+    font-family: Georgia, serif;
+    line-height: 1;
+}
+
+.blog-post .post-content blockquote p {
+    margin: 0;
+    color: rgba(45, 55, 72, 0.9);
+}
+
+.blog-post .post-content blockquote code {
+    background: rgba(255, 255, 255, 0.8);
+    color: #667eea;
+}
+
+/* 列表 */
+.blog-post .post-content ul, .blog-post .post-content ol {
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+}
+
+.blog-post .post-content li {
+    margin: 0.8rem 0;
+    line-height: 1.8;
+}
+
+.blog-post .post-content li::marker {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* 分割线 */
+.blog-post .post-content hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+    margin: 3rem 0;
+}
+
+.post-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.post-navigation {
+    text-align: center;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .blog-post {
+        padding: 2rem 1.5rem;
+    }
+
+    .blog-post .post-title {
+        font-size: 2rem;
+    }
+
+    .blog-post .post-content {
+        padding: 1.5rem;
+    }
+
+    .blog-post .post-content pre code {
+        font-size: 0.85rem;
+        padding: 1rem;
+        padding-top: 2.5rem;
+    }
+
+    .blog-post .post-content img {
+        margin: 1.5rem auto;
+        padding: 0.4rem;
+    }
+
+    .blog-post .post-content table {
+        font-size: 0.85rem;
+    }
+
+    .blog-post .post-content thead th,
+    .blog-post .post-content tbody td {
+        padding: 0.75rem 1rem;
+    }
+
+    .blog-post .post-content blockquote {
+        padding: 1rem 1.5rem;
+        margin: 1.5rem 0;
+    }
+}

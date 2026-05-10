@@ -1,0 +1,815 @@
+/* ========================================
+   简历页面专用样式
+   ======================================== */
+
+.resume-section {
+    margin-bottom: 2rem;
+}
+
+/* 成就卡片 */
+.achievement-card {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: var(--transition);
+}
+
+.achievement-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+}
+
+.achievement-card h2 {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.achievement-card h3 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+
+.achievement-card h4 {
+    color: var(--accent-color);
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+}
+
+.achievement-card p {
+    color: var(--secondary-color);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.achievement-card ul {
+    margin: 1rem 0;
+    padding-left: 1.5rem;
+}
+
+.achievement-card li {
+    color: var(--secondary-color);
+    margin: 0.5rem 0;
+    line-height: 1.5;
+}
+
+/* 成果统计 */
+.achievements-summary {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent-color);
+    position: relative;
+    overflow: hidden;
+}
+
+.achievements-summary h3 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+}
+
+.achievement-stat {
+    text-align: center;
+    padding: 1.5rem;
+    background: var(--glass-bg);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.achievement-stat:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+}
+
+.stat-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+    line-height: 1.4;
+}
+
+.achievements-note {
+    margin-top: 1.5rem;
+    padding: 1rem;
+    background: rgba(66, 153, 225, 0.1);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-color);
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+/* 技能卡片 */
+.skill-overview {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.5rem;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.skill-categories {
+    position: relative;
+    padding-top: 0;
+    margin-top: 0;
+}
+
+.skill-category {
+    margin-bottom: 2rem;
+}
+
+.skill-category-title {
+    color: var(--accent-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.skill-matrix-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.skill-card {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.skill-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+}
+
+.skill-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.skill-icon {
+    font-size: 2rem;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(66, 153, 225, 0.1);
+    border-radius: 12px;
+}
+
+.skill-name {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+}
+
+.skill-level-bar {
+    width: 100%;
+    height: 8px;
+    background: rgba(66, 153, 225, 0.1);
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.skill-level-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent-color), #667eea);
+    border-radius: 4px;
+    transition: width 1s ease-out;
+}
+
+.skill-meta {
+    display: flex;
+    gap: 1rem;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.skill-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.skill-tag {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(66, 153, 225, 0.3);
+    transition: var(--transition);
+}
+
+.skill-tag:hover {
+    background: rgba(66, 153, 225, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 技能高亮 */
+.skill-highlight {
+    margin-bottom: 1.5rem;
+}
+
+.skill-highlight-title {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.skill-badge-icon {
+    font-size: 1.2rem;
+}
+
+.skill-tags-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.skill-badge {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    border: 1px solid rgba(66, 153, 225, 0.3);
+    transition: var(--transition);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.skill-badge:hover {
+    background: rgba(66, 153, 225, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 时间线 */
+.timeline {
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: rgba(66, 153, 225, 0.2);
+}
+
+.timeline-company {
+    position: relative;
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    background: var(--glass-bg);
+    border-radius: 12px;
+    border-left: 4px solid var(--accent-color);
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    overflow: hidden;
+}
+
+.timeline-company:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 16px rgba(66, 153, 225, 0.15);
+}
+
+.timeline-company::before {
+    display: none;
+}
+
+.company-name {
+    margin-top: 0;
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.timeline-period {
+    color: var(--accent-color);
+    font-weight: 500;
+    font-size: 0.9rem;
+    background: rgba(66, 153, 225, 0.1);
+    padding: 0.3rem 0.8rem;
+    border-radius: 16px;
+    border: 1px solid rgba(66, 153, 225, 0.3);
+}
+
+.company-positions {
+    margin-bottom: 1.5rem;
+}
+
+.company-position {
+    margin-bottom: 1rem;
+    padding: 1rem;
+    background: rgba(66, 153, 225, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.position-title {
+    font-weight: 600;
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    display: block;
+    margin-bottom: 0.5rem;
+}
+
+.position-period {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    background: rgba(66, 153, 225, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+    display: inline-block;
+    margin-bottom: 0.5rem;
+}
+
+.position-description {
+    color: var(--secondary-color);
+    margin: 0;
+    line-height: 1.5;
+}
+
+.company-projects {
+    margin-top: 1.5rem;
+}
+
+.timeline-project {
+    background: rgba(66, 153, 225, 0.05);
+    border-radius: 12px;
+    padding: 1.2rem 1.5rem 1.5rem 1.5rem;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid var(--accent-color);
+    transition: var(--transition);
+}
+
+.timeline-project:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(66, 153, 225, 0.1);
+}
+
+.project-header {
+    margin-bottom: 0.8rem;
+}
+
+.project-title-area h4 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.3rem;
+    margin-top: 0;
+}
+
+.project-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.3rem;
+    flex-wrap: wrap;
+}
+
+.project-period {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    background: rgba(66, 153, 225, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+}
+
+.project-role {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    background: rgba(74, 85, 104, 0.1);
+    padding: 0.2rem 0.6rem;
+    border-radius: 12px;
+}
+
+.project-status {
+    font-size: 0.9rem;
+    font-weight: 500;
+    padding: 0.3rem 0.8rem;
+    border-radius: 16px;
+    display: inline-block;
+}
+
+.status-ongoing {
+    background: rgba(255, 193, 7, 0.1);
+    color: #FFC107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.status-launched {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.status-completed {
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+    border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
+.project-description {
+    color: var(--secondary-color);
+    margin-bottom: 0.8rem;
+    line-height: 1.6;
+    font-style: italic;
+}
+
+.achievement-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin: 1rem 0;
+}
+
+.achievement-item {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(66, 153, 225, 0.3);
+    transition: var(--transition);
+    cursor: pointer;
+}
+
+.achievement-item:hover {
+    background: rgba(66, 153, 225, 0.2);
+    transform: translateY(-2px);
+}
+
+.achievement-patent {
+    background: rgba(255, 193, 7, 0.1);
+    color: #FFC107;
+    border-color: rgba(255, 193, 7, 0.3);
+}
+
+.achievement-certification {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border-color: rgba(40, 167, 69, 0.3);
+}
+
+.achievement-award {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border-color: rgba(220, 53, 69, 0.3);
+}
+
+.timeline-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.timeline-skill-tag {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(66, 153, 225, 0.3);
+    transition: var(--transition);
+}
+
+.timeline-skill-tag:hover {
+    background: rgba(66, 153, 225, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 教育背景 / 卡片布局 */
+.card-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.info-card {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.info-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+}
+
+.info-card h3 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 0.8rem;
+    font-weight: 600;
+}
+
+.info-card p {
+    color: var(--accent-color);
+    font-weight: 500;
+    margin-bottom: 1rem;
+    font-size: 0.95rem;
+}
+
+.info-card ul {
+    margin: 0;
+    padding-left: 1.2rem;
+}
+
+.info-card li {
+    color: var(--secondary-color);
+    margin: 0.4rem 0;
+    line-height: 1.5;
+    font-size: 0.9rem;
+}
+
+/* 学术成果 / 出版物墙 */
+.publication-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+.innovation-item,
+.publication-item {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-left: 4px solid var(--accent-color);
+}
+
+.innovation-item:hover,
+.publication-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+}
+
+.pub-type {
+    display: inline-block;
+    padding: 0.3rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.pub-medical {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+}
+
+.pub-ai {
+    background: rgba(220, 53, 69, 0.1);
+    color: #dc3545;
+    border: 1px solid rgba(220, 53, 69, 0.3);
+}
+
+.pub-patent {
+    background: rgba(255, 193, 7, 0.1);
+    color: #FFC107;
+    border: 1px solid rgba(255, 193, 7, 0.3);
+}
+
+.pub-paper {
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+    border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
+.pub-conference {
+    background: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+    border: 1px solid rgba(108, 117, 125, 0.3);
+}
+
+.innovation-item h3,
+.publication-item h4 {
+    color: var(--primary-color);
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.pub-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.pub-meta time {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+}
+
+.pub-awards {
+    color: var(--accent-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.pub-details {
+    color: var(--secondary-color);
+    line-height: 1.6;
+}
+
+.project-intro {
+    font-style: italic;
+    color: var(--accent-color);
+    margin-bottom: 1rem;
+    padding: 0.8rem;
+    background: rgba(66, 153, 225, 0.05);
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-color);
+}
+
+.pub-highlight {
+    font-weight: 500;
+    color: var(--primary-color);
+    margin-bottom: 0.8rem;
+}
+
+.pub-metrics {
+    color: var(--accent-color);
+    font-weight: 500;
+    margin-bottom: 0.8rem;
+}
+
+.pub-authors {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.tech-tag {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(66, 153, 225, 0.3);
+    transition: var(--transition);
+}
+
+.tech-tag:hover {
+    background: rgba(66, 153, 225, 0.2);
+    transform: translateY(-2px);
+}
+
+.pub-impact {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.impact-tag {
+    background: rgba(40, 167, 69, 0.1);
+    color: #28a745;
+    padding: 0.3rem 0.8rem;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    border: 1px solid rgba(40, 167, 69, 0.3);
+    transition: var(--transition);
+}
+
+.impact-tag:hover {
+    background: rgba(40, 167, 69, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .achievement-card {
+        padding: 1.5rem;
+    }
+
+    .achievements-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+    }
+
+    .achievement-stat {
+        padding: 1rem;
+    }
+
+    .stat-icon {
+        font-size: 1.5rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .skill-matrix-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .skill-overview {
+        flex-direction: column;
+    }
+
+    .card-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .publication-wall {
+        grid-template-columns: 1fr;
+    }
+
+    .company-name {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .project-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .achievement-list {
+        flex-direction: column;
+    }
+}

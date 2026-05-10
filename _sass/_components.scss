@@ -1,0 +1,694 @@
+/* 按钮 */
+.btn {
+    padding: 0.8rem 2rem;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.btn-primary {
+    background: var(--accent-color);
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #3182ce;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+}
+
+.btn-secondary:hover {
+    background: var(--accent-color);
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.btn-outline:hover {
+    background: var(--primary-color);
+    color: white;
+}
+
+/* 鼠标点击波纹效果 */
+.click-effect {
+    position: fixed;
+    border-radius: 50%;
+    background-color: rgba(66, 153, 225, 0.6);
+    width: 5px;
+    height: 5px;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    animation: clickEffect 0.8s ease-out forwards;
+    z-index: 9999;
+}
+
+@keyframes clickEffect {
+    0% {
+        opacity: 1;
+        width: 5px;
+        height: 5px;
+    }
+    100% {
+        opacity: 0;
+        width: 70px;
+        height: 70px;
+    }
+}
+
+/* 回到顶部按钮 */
+.back-to-top {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 50px;
+    height: 50px;
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+}
+
+.back-to-top.show {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.back-to-top:hover {
+    background: rgba(66, 153, 225, 0.9);
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.3);
+}
+
+.back-to-top:hover .back-to-top-icon {
+    color: white;
+    transform: translateY(-2px);
+}
+
+.back-to-top-icon {
+    font-size: 20px;
+    color: var(--accent-color);
+    transition: all 0.3s ease;
+    font-weight: bold;
+}
+
+@media (max-width: 768px) {
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+        width: 45px;
+        height: 45px;
+    }
+
+    .back-to-top-icon {
+        font-size: 18px;
+    }
+}
+
+/* 个人信息栏 */
+.profile-sidebar {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--accent-color);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 3px solid var(--accent-color);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
+}
+
+.profile-name {
+    color: var(--primary-color);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0 0 0.5rem 0;
+}
+
+.profile-title {
+    color: var(--accent-color);
+    font-size: 1rem;
+    font-weight: 500;
+    margin: 0 0 1.5rem 0;
+}
+
+.profile-contact {
+    text-align: left;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
+}
+
+.contact-icon {
+    margin-right: 0.8rem;
+    font-size: 1rem;
+    width: 20px;
+    text-align: center;
+}
+
+.contact-link {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.contact-link:hover {
+    color: var(--primary-color);
+    text-decoration: underline;
+}
+
+/* 日历面板 */
+.calendar-widget {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--accent-color);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar-title {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.calendar-nav {
+    background: rgba(66, 153, 225, 0.1);
+    border: 1px solid rgba(66, 153, 225, 0.3);
+    color: var(--accent-color);
+    border-radius: 6px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+.calendar-nav:hover {
+    background: rgba(66, 153, 225, 0.2);
+    transform: scale(1.1);
+}
+
+.calendar-weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+    margin-bottom: 0.5rem;
+}
+
+.weekday {
+    text-align: center;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    padding: 0.3rem 0;
+}
+
+.calendar-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 2px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--secondary-color);
+    cursor: pointer;
+    border-radius: 6px;
+    transition: var(--transition);
+    position: relative;
+}
+
+.calendar-day:hover {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+}
+
+.calendar-day.other-month {
+    color: rgba(74, 85, 104, 0.4);
+}
+
+.calendar-day.today {
+    background: var(--accent-color);
+    color: white;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.3);
+}
+
+.calendar-day.today:hover {
+    background: var(--accent-color);
+    color: white;
+    transform: scale(1.05);
+}
+
+.calendar-day.has-posts {
+    position: relative;
+    cursor: pointer;
+}
+
+.calendar-day.has-posts::after {
+    content: '';
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 2px;
+    background: var(--accent-color);
+    border-radius: 1px;
+}
+
+.calendar-day.has-posts:hover {
+    background: rgba(66, 153, 225, 0.15);
+    color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.calendar-day.has-posts:hover::after {
+    background: white;
+    width: 6px;
+    height: 3px;
+}
+
+/* 日历工具提示 */
+.calendar-tooltip {
+    position: fixed;
+    z-index: 1000;
+    background: rgba(255, 255, 255, 0.95);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 12px;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.15),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+    padding: 0;
+    max-width: 320px;
+    min-width: 280px;
+    font-family: 'Inter', sans-serif;
+    animation: tooltipFadeIn 0.2s ease-out;
+    pointer-events: none;
+}
+
+@keyframes tooltipFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.tooltip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.8rem 1rem 0.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 12px 12px 0 0;
+}
+
+.tooltip-date {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.tooltip-count {
+    font-size: 0.8rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.2rem 0.5rem;
+    border-radius: 10px;
+    font-weight: 500;
+}
+
+.tooltip-content {
+    padding: 1rem;
+}
+
+.tooltip-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0 0 0.5rem 0;
+    line-height: 1.4;
+}
+
+.tooltip-excerpt {
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+    line-height: 1.5;
+    margin: 0 0 0.8rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.tooltip-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3rem;
+    margin-bottom: 0.8rem;
+}
+
+.tooltip-tag {
+    font-size: 0.75rem;
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    padding: 0.2rem 0.5rem;
+    border-radius: 8px;
+    font-weight: 500;
+}
+
+.tooltip-footer {
+    padding: 0.5rem 1rem 1rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+.tooltip-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.tooltip-link:hover {
+    color: #2563eb;
+    transform: translateX(2px);
+}
+
+@media (max-width: 768px) {
+    .calendar-tooltip {
+        max-width: 280px;
+        min-width: 240px;
+    }
+
+    .tooltip-content {
+        padding: 0.8rem;
+    }
+
+    .tooltip-title {
+        font-size: 0.9rem;
+    }
+
+    .tooltip-excerpt {
+        font-size: 0.8rem;
+    }
+}
+
+/* 博客目录 */
+.blog-toc-widget {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 1.2rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--accent-color);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.toc-content {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.toc-item {
+    display: block;
+    padding: 0.5rem 0.8rem;
+    margin: 0.2rem 0;
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: var(--transition);
+    border-left: 2px solid transparent;
+}
+
+.toc-item:hover {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    border-left-color: var(--accent-color);
+    transform: translateX(4px);
+}
+
+.toc-item.active {
+    background: rgba(66, 153, 225, 0.15);
+    color: var(--accent-color);
+    border-left-color: var(--accent-color);
+    font-weight: 500;
+}
+
+.toc-item.h1 {
+    font-weight: 600;
+    font-size: 0.95rem;
+    padding-left: 0.8rem;
+}
+
+.toc-item.h2 {
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding-left: 1.6rem;
+}
+
+.toc-item.h3 {
+    font-weight: 400;
+    font-size: 0.85rem;
+    padding-left: 2.4rem;
+}
+
+.toc-item.h4 {
+    font-weight: 400;
+    font-size: 0.8rem;
+    padding-left: 3.2rem;
+}
+
+/* 博客文章导航 */
+.blog-post-navigation {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 1rem;
+    box-shadow: var(--shadow);
+    margin-bottom: 1.5rem;
+    border-left: 4px solid var(--accent-color);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+.post-nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem;
+    border-radius: 8px;
+    text-decoration: none;
+    background: rgba(66, 153, 225, 0.05);
+    border: 1px solid rgba(66, 153, 225, 0.1);
+    transition: var(--transition);
+    gap: 0.8rem;
+}
+
+.post-nav-link:not(.post-nav-disabled):hover {
+    background: rgba(66, 153, 225, 0.15);
+    transform: translateX(4px);
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.2);
+    border-color: rgba(66, 153, 225, 0.3);
+}
+
+.post-nav-prev:not(.post-nav-disabled):hover {
+    transform: translateX(-4px);
+}
+
+.post-nav-disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    background: rgba(74, 85, 104, 0.05);
+    border-color: rgba(74, 85, 104, 0.1);
+}
+
+.nav-arrow {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--accent-color);
+    flex-shrink: 0;
+}
+
+.post-nav-disabled .nav-arrow {
+    color: var(--secondary-color);
+}
+
+.nav-content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    flex: 1;
+    min-width: 0;
+}
+
+.post-nav-prev .nav-content {
+    align-items: flex-start;
+}
+
+.post-nav-next .nav-content {
+    align-items: flex-end;
+}
+
+.nav-label {
+    font-size: 0.75rem;
+    color: var(--secondary-color);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.nav-title {
+    font-size: 0.9rem;
+    color: var(--primary-color);
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.nav-date {
+    font-size: 0.75rem;
+    color: var(--accent-color);
+    font-weight: 400;
+    opacity: 0.8;
+}
+
+.post-nav-disabled .nav-title {
+    color: var(--secondary-color);
+    font-style: italic;
+}
+
+@media (max-width: 768px) {
+    .blog-post-navigation {
+        padding: 0.8rem;
+        gap: 0.6rem;
+    }
+
+    .post-nav-link {
+        padding: 0.6rem;
+        gap: 0.6rem;
+    }
+
+    .nav-arrow {
+        font-size: 1rem;
+    }
+
+    .nav-label {
+        font-size: 0.7rem;
+    }
+
+    .nav-title {
+        font-size: 0.85rem;
+    }
+
+    .nav-date {
+        font-size: 0.7rem;
+    }
+}
+
+/* 个人信息栏响应式 */
+@media (max-width: 768px) {
+    .profile-sidebar {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .profile-avatar {
+        width: 60px;
+        height: 60px;
+    }
+
+    .profile-name {
+        font-size: 1.1rem;
+    }
+
+    .profile-title {
+        font-size: 0.9rem;
+    }
+
+    .contact-item {
+        font-size: 0.8rem;
+        margin-bottom: 0.6rem;
+    }
+
+    .contact-icon {
+        margin-right: 0.6rem;
+        width: 16px;
+    }
+}
