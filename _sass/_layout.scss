@@ -18,16 +18,17 @@ body {
 /* 主内容区域 */
 .main-content {
     margin-top: 60px;
-    padding: 2rem;
+    padding: 1.5rem 1rem;
     flex: 1;
 }
 
 .content-wrapper {
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: 260px 1fr;
-    gap: 3rem;
+    gap: 2rem;
+    padding: 0;
 }
 
 /* 页面内容区域 */
@@ -54,9 +55,49 @@ body {
     .content-wrapper {
         grid-template-columns: 1fr;
         gap: 1rem;
+        padding: 0 0.5rem;
     }
 
     .page-content {
         order: 1;
     }
+
+    .main-content {
+        padding: 1rem 0.5rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 1440px) {
+    .content-wrapper {
+        max-width: 1200px;
+    }
+}
+
+@media (max-width: 1680px) {
+    .content-wrapper {
+        max-width: 1400px;
+        padding: 0 1rem;
+    }
+}
+
+/* 首页特殊调整 */
+body.home .content-wrapper {
+    max-width: 1800px;
+}
+
+/* 博客页面特殊调整 */
+body.blog .content-wrapper {
+    max-width: 1600px;
+}
+
+/* 应用页面特殊调整 */
+body.apps .content-wrapper {
+    max-width: 1800px;
 }

@@ -103,7 +103,7 @@ tools:
     
   - name: "博客文章创建助手"
     description: "快速创建Jekyll博客文章的批处理脚本，自动生成Front Matter"
-    category: "开发工具"
+    category: "工具库"
     tech_stack: ["Batch", "Shell", "Node.js"]
     status: "稳定"
     highlight: false
@@ -118,7 +118,7 @@ tools:
     
   - name: "DICOM图像查看器"
     description: "轻量级DICOM医学图像查看工具，支持窗宽窗位调整和多平面重建"
-    category: "医学工具"
+    category: "医学图像处理"
     tech_stack: ["Python", "PyQt5", "pydicom", "VTK"]
     status: "开发中"
     highlight: false
@@ -150,7 +150,7 @@ research:
     
   - name: "机器人路径规划算法"
     description: "研究医疗机器人在复杂环境下的自主导航和路径规划"
-    category: "机器人学"
+    category: "医疗机器人"
     tech_stack: ["C++", "ROS", "路径规划", "运动控制"]
     status: "研究中"
     highlight: false

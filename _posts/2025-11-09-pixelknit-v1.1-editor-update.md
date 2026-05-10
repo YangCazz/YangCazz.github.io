@@ -409,7 +409,7 @@ v1.1 版本不仅保持了 v1.0 的所有编织引导功能，还增加了强大
 
 **技术栈**：HTML5, CSS3, JavaScript, Canvas API, localStorage
 
-**相关文章**：[像素织梦 v1.0 介绍](/blog/2025/11/09/knitting-guide-web-app.html)
+**相关文章**：[像素织梦 v1.0 介绍](/2025/11/09/knitting-guide-web-app/)
 
 ---
 

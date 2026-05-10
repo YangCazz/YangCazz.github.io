@@ -175,13 +175,12 @@
     margin-bottom: 0.8rem;
     font-size: 0.9rem;
     color: var(--secondary-color);
+    gap: 0.7rem;
 }
 
-.contact-icon {
-    margin-right: 0.8rem;
-    font-size: 1rem;
-    width: 20px;
-    text-align: center;
+.contact-octicon {
+    flex-shrink: 0;
+    color: var(--accent-color);
 }
 
 .contact-link {
@@ -687,8 +686,8 @@
         margin-bottom: 0.6rem;
     }
 
-    .contact-icon {
-        margin-right: 0.6rem;
-        width: 16px;
+    .contact-octicon {
+        width: 14px;
+        height: 14px;
     }
 }

@@ -7,38 +7,38 @@ navigation: resume_navigation
 
 <!-- 页面标题 -->
 <section class="page-header">
-    <h1 class="page-title">📄 个人简历</h1>
+    <h2 class="page-title">{% octicon note height:24 %} 个人简历</h2>
     <p class="page-subtitle">医疗机器人算法工程师 | 医学图像处理专家 | 深度学习研究者</p>
 </section>
 
 <!-- 自我总结 -->
-<section id="about" class="achievement-card">
-    <h2>👤 自我总结</h2>
+<section id="about" class="resume-section resume-section--flat">
+    <h2>{% octicon person height:22 %} 自我总结</h2>
     <p>医疗机器人算法工程师，专注于医学图像处理、手术导航与机器人控制系统开发。拥有多项医疗器械注册证和发明专利，主导多个三类医疗器械从0到1的研发过程。擅长C++/Python开发，熟悉医学图像处理、点云配准、深度学习等技术，具备丰富的医疗器械产品落地经验。</p>
 </section>
 
 <!-- 成果总结 -->
-<section id="achievements" class="achievement-card">
-    <h2>🏆 成果总结</h2>
+<section id="achievements" class="resume-section resume-section--highlight">
+    <h2>{% octicon trophy height:22 %} 成果总结</h2>
     <div class="achievements-summary">
         <div class="achievements-grid">
             <div class="achievement-stat">
-                <span class="stat-icon">📜</span>
+                <span class="stat-icon">{% octicon key height:24 %}</span>
                 <span class="stat-number">10+</span>
                 <span class="stat-label">发明/使用新型专利</span>
             </div>
             <div class="achievement-stat">
-                <span class="stat-icon">🏥</span>
+                <span class="stat-icon">{% octicon shield-check height:24 %}</span>
                 <span class="stat-number">3</span>
                 <span class="stat-label">主导/参与三类医疗器械注册</span>
             </div>
             <div class="achievement-stat">
-                <span class="stat-icon">🔬</span>
+                <span class="stat-icon">{% octicon beaker height:24 %}</span>
                 <span class="stat-number">4</span>
                 <span class="stat-label">临床试验通过</span>
             </div>
             <div class="achievement-stat">
-                <span class="stat-icon">🥇</span>
+                <span class="stat-icon">{% octicon star-fill height:24 %}</span>
                 <span class="stat-number">3</span>
                 <span class="stat-label">创新大赛奖项</span>
             </div>
@@ -48,26 +48,22 @@ navigation: resume_navigation
 </section>
 
 <!-- 技术能力 -->
-<section id="skills" class="achievement-card">
-    <h2>🛠️ 技术能力</h2>
-    
-    <div class="skill-overview">
-        <div class="skill-summary">
-            <div class="skill-highlight">
-                <h3 class="skill-highlight-title">
-                    <span class="skill-badge-icon">🎯</span>
-                    核心专业领域
-                </h3>
-                <div class="skill-tags-cloud">
-                    <span class="skill-badge"><span class="skill-badge-icon">📷</span>医学影像</span>
-                    <span class="skill-badge"><span class="skill-badge-icon">🔧</span>手术机器人</span>
-                    <span class="skill-badge"><span class="skill-badge-icon">🧠</span>人工智能</span>
-                    <span class="skill-badge"><span class="skill-badge-icon">🔬</span>医学信息学</span>
-                    <span class="skill-badge"><span class="skill-badge-icon">📊</span>数据分析</span>
-                    <span class="skill-badge"><span class="skill-badge-icon">🖥️</span>计算图形学</span>
-                    <span class="skill-badge"><span class="skill-badge-icon">🩺</span>医疗器械</span>
-                </div>
-            </div>
+<section id="skills" class="resume-section resume-section--flat">
+    <h2>{% octicon tools height:22 %} 技术能力</h2>
+
+    <div class="skill-highlight">
+        <h3 class="skill-highlight-title">
+            {% octicon cross-reference height:18 %}
+            核心专业领域
+        </h3>
+        <div class="skill-tags-cloud">
+            <span class="skill-badge">医学影像</span>
+            <span class="skill-badge">手术机器人</span>
+            <span class="skill-badge">人工智能</span>
+            <span class="skill-badge">医学信息学</span>
+            <span class="skill-badge">数据分析</span>
+            <span class="skill-badge">计算图形学</span>
+            <span class="skill-badge">医疗器械</span>
         </div>
     </div>
     
@@ -78,11 +74,11 @@ navigation: resume_navigation
             <div class="skill-matrix-grid">
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">🩺</div>
+                        <div class="skill-icon">{% octicon apps height:28 %}</div>
                         <div>
                             <div class="skill-name">MITK/VTK/ITK</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" data-percent="95%"></div>
+                                <div class="skill-level-fill" style="--fill-width:"95%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>专家级</span>
@@ -99,11 +95,11 @@ navigation: resume_navigation
 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">📊</div>
+                        <div class="skill-icon">{% octicon graph height:28 %}</div>
                         <div>
                             <div class="skill-name">DICOM处理</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" data-percent="90%"></div>
+                                <div class="skill-level-fill" style="--fill-width:"90%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>高级</span>
@@ -126,11 +122,11 @@ navigation: resume_navigation
             <div class="skill-matrix-grid">
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">🧠</div>
+                        <div class="skill-icon">{% octicon cpu height:28 %}</div>
                         <div>
                             <div class="skill-name">深度学习</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" data-percent="88%"></div>
+                                <div class="skill-level-fill" style="--fill-width:"88%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>高级</span>
@@ -147,11 +143,11 @@ navigation: resume_navigation
                 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">🔍</div>
+                        <div class="skill-icon">{% octicon search height:28 %}</div>
                         <div>
                             <div class="skill-name">多模态医学人工智能</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" data-percent="75%"></div>
+                                <div class="skill-level-fill" style="--fill-width:"75%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>高级</span>
@@ -175,11 +171,11 @@ navigation: resume_navigation
             <div class="skill-matrix-grid">
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">💻</div>
+                        <div class="skill-icon">{% octicon code height:28 %}</div>
                         <div>
                             <div class="skill-name">Python</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" data-percent="92%"></div>
+                                <div class="skill-level-fill" style="--fill-width:"92%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>高级</span>
@@ -196,11 +192,11 @@ navigation: resume_navigation
                 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">⚙️</div>
+                        <div class="skill-icon">{% octicon gear height:28 %}</div>
                         <div>
                             <div class="skill-name">C++</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" data-percent="85%"></div>
+                                <div class="skill-level-fill" style="--fill-width:"85%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>高级</span>
@@ -220,8 +216,8 @@ navigation: resume_navigation
 </section>
 
 <!-- 工作经历 -->
-<section id="experience" class="achievement-card">
-    <h2>💼 工作经历</h2>
+<section id="experience" class="resume-section resume-section--highlight">
+    <h2>{% octicon briefcase height:22 %} 工作经历</h2>
     <div class="timeline">
         <div class="timeline-company">
             <h3 class="company-name">
@@ -475,8 +471,8 @@ navigation: resume_navigation
 </section>
 
 <!-- 教育背景 -->
-<section id="education" class="achievement-card">
-    <h2>🎓 教育背景</h2>
+<section id="education" class="resume-section resume-section--flat">
+    <h2>{% octicon mortar-board height:22 %} 教育背景</h2>
     <div class="card-layout">
         <div class="info-card">
             <h3>广州国家实验室 (2023.06-2024.06)</h3>
@@ -510,15 +506,15 @@ navigation: resume_navigation
 </section>
 
 <!-- 创新创业 -->
-<section id="innovation" class="achievement-card">
-    <h2>💡 创新创业</h2>
+<section id="innovation" class="resume-section resume-section--flat">
+    <h2>{% octicon light-bulb height:22 %} 创新创业</h2>
     <div class="publication-wall">
         <div class="innovation-item">
-            <span class="pub-type pub-medical">🏥 医疗器械</span>
+            <span class="pub-type pub-medical">医疗器械</span>
             <h3>便携式脉冲振荡肺功能仪（国家级银奖）</h3>
             <div class="pub-meta">
                 <time>2024</time>
-                <span class="pub-awards">🏆 国家互联网+大赛产业赛道银奖</span>
+                <span class="pub-awards">国家互联网+大赛产业赛道银奖</span>
             </div>
             <div class="pub-details">
                 <p class="project-intro">打造国内首款便携式脉冲振荡肺功能检测设备，解决基层医疗机构肺功能检测难题。</p>
@@ -537,11 +533,11 @@ navigation: resume_navigation
         </div>
 
         <div class="innovation-item">
-            <span class="pub-type pub-ai">🧠 AI算法</span>
+            <span class="pub-type pub-ai">AI算法</span>
             <h3>血涂片智能分析系统（省赛铜奖）</h3>
             <div class="pub-meta">
                 <time>2023</time>
-                <span class="pub-awards">🥉 省互联网+大赛产业赛道铜奖</span>
+                <span class="pub-awards">省互联网+大赛产业赛道铜奖</span>
             </div>
             <div class="pub-details">
                 <p class="project-intro">革新传统血液检测流程，将人工分析时间从30分钟缩短至3分钟，大幅提升检验效率。</p>
@@ -560,11 +556,11 @@ navigation: resume_navigation
         </div>
 
         <div class="innovation-item">
-            <span class="pub-type pub-ai">🧠 AI算法</span>
+            <span class="pub-type pub-ai">AI算法</span>
             <h3>HE染色预测系统（省赛银奖）</h3>
             <div class="pub-meta">
                 <time>2022</time>
-                <span class="pub-awards">🥈 省互联网+大赛产业赛道银奖</span>
+                <span class="pub-awards">省互联网+大赛产业赛道银奖</span>
             </div>
             <div class="pub-details">
                 <p class="project-intro">突破性实现从基因组数据直接预测HE染色图像，为精准医疗提供全新技术路径。</p>
@@ -585,11 +581,11 @@ navigation: resume_navigation
 </section>
 
 <!-- 学术成果 -->
-<section id="publications" class="achievement-card">
-    <h2>📚 学术成果</h2>
+<section id="publications" class="resume-section resume-section--flat">
+    <h2>{% octicon book height:22 %} 学术成果</h2>
     <div class="publication-wall">
         <div class="publication-item">
-            <span class="pub-type pub-patent">💡 发明专利</span>
+            <span class="pub-type pub-patent">发明专利</span>
             <h4>多模态医学数据分类方法</h4>
             <div class="pub-details">
                 <p class="pub-highlight">提出一种新型多模态医学数据融合方法，解决了传统方法在异构数据整合中的瓶颈问题。</p>
@@ -605,7 +601,7 @@ navigation: resume_navigation
         </div>
         
         <div class="publication-item">
-            <span class="pub-type pub-paper">📄 SCI论文</span>
+            <span class="pub-type pub-paper">SCI论文</span>
             <h4>MM-GNE: 多模态疾病诊断模型</h4>
             <div class="pub-details">
                 <p class="pub-highlight">首次提出解耦图神经网络架构处理多模态医学数据，在三个国际公开数据集上达到领先水平。</p>
@@ -621,7 +617,7 @@ navigation: resume_navigation
         </div>
 
         <div class="publication-item">
-            <span class="pub-type pub-conference">🎤 学术会议</span>
+            <span class="pub-type pub-conference">学术会议</span>
             <h4>医学人工智能前沿进展</h4>
             <div class="pub-details">
                 <p class="pub-highlight">受邀在国际医学人工智能会议上作主旨报告，分享手术机器人多模态感知技术的突破性进展。</p>

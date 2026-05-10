@@ -2,76 +2,38 @@
    简历页面专用样式
    ======================================== */
 
+/* ---- Section containers ---- */
 .resume-section {
     margin-bottom: 2rem;
-}
-
-/* 成就卡片 */
-.achievement-card {
-    background: var(--glass-bg);
-    border-radius: 12px;
+    @include glass-card;
     padding: 2rem;
-    margin-bottom: 2rem;
-    box-shadow: var(--shadow);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: var(--transition);
 }
 
-.achievement-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+.resume-section h2 {
+    @include section-heading;
+    .octicon { margin-right: 0.25rem; }
 }
 
-.achievement-card h2 {
-    color: var(--primary-color);
-    font-size: 1.5rem;
-    margin-bottom: 1.5rem;
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
+.resume-section--highlight {
+    border-left: 4px solid var(--accent-color);
 }
 
-.achievement-card h3 {
-    color: var(--primary-color);
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+.resume-section--flat {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
 }
 
-.achievement-card h4 {
-    color: var(--accent-color);
-    font-size: 1.1rem;
-    margin-bottom: 0.8rem;
-}
-
-.achievement-card p {
-    color: var(--secondary-color);
-    line-height: 1.6;
-    margin-bottom: 1rem;
-}
-
-.achievement-card ul {
-    margin: 1rem 0;
-    padding-left: 1.5rem;
-}
-
-.achievement-card li {
-    color: var(--secondary-color);
-    margin: 0.5rem 0;
-    line-height: 1.5;
-}
-
-/* 成果统计 */
+/* ---- Achievement stats ---- */
 .achievements-summary {
     background: var(--glass-bg);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     padding: 1.5rem;
     margin-bottom: 2rem;
     box-shadow: var(--shadow);
     border-left: 4px solid var(--accent-color);
-    position: relative;
-    overflow: hidden;
 }
 
 .achievements-summary h3 {
@@ -93,24 +55,13 @@
 .achievement-stat {
     text-align: center;
     padding: 1.5rem;
-    background: var(--glass-bg);
-    border-radius: 12px;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.achievement-stat:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+    @include glass-card;
 }
 
 .stat-icon {
-    font-size: 2rem;
     display: block;
     margin-bottom: 0.5rem;
+    color: var(--accent-color);
 }
 
 .stat-number {
@@ -130,26 +81,15 @@
 .achievements-note {
     margin-top: 1.5rem;
     padding: 1rem;
-    background: rgba(66, 153, 225, 0.1);
-    border-radius: 8px;
+    background: var(--tag-bg);
+    border-radius: var(--radius-sm);
     border-left: 3px solid var(--accent-color);
     color: var(--secondary-color);
     font-style: italic;
 }
 
-/* 技能卡片 */
-.skill-overview {
-    display: flex;
-    gap: 1rem;
-    margin-bottom: 0.5rem;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    justify-content: space-between;
-}
-
+/* ---- Skills ---- */
 .skill-categories {
-    position: relative;
-    padding-top: 0;
     margin-top: 0;
 }
 
@@ -171,19 +111,9 @@
 }
 
 .skill-card {
-    background: var(--glass-bg);
-    border-radius: 12px;
+    @include glass-card;
     padding: 1.5rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.skill-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+    @include hover-lift;
 }
 
 .skill-header {
@@ -200,8 +130,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(66, 153, 225, 0.1);
-    border-radius: 12px;
+    background: var(--tag-bg);
+    border-radius: var(--radius-md);
 }
 
 .skill-name {
@@ -214,7 +144,7 @@
 .skill-level-bar {
     width: 100%;
     height: 8px;
-    background: rgba(66, 153, 225, 0.1);
+    background: var(--progress-bg);
     border-radius: 4px;
     overflow: hidden;
     margin-bottom: 0.5rem;
@@ -222,6 +152,7 @@
 
 .skill-level-fill {
     height: 100%;
+    width: var(--fill-width, 0%);
     background: linear-gradient(90deg, var(--accent-color), #667eea);
     border-radius: 4px;
     transition: width 1s ease-out;
@@ -242,21 +173,14 @@
 }
 
 .skill-tag {
-    background: rgba(66, 153, 225, 0.1);
-    color: var(--accent-color);
-    padding: 0.3rem 0.8rem;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    border: 1px solid rgba(66, 153, 225, 0.3);
-    transition: var(--transition);
+    @include tag-pill;
+    &:hover {
+        background: rgba(66, 153, 225, 0.2);
+        transform: translateY(-2px);
+    }
 }
 
-.skill-tag:hover {
-    background: rgba(66, 153, 225, 0.2);
-    transform: translateY(-2px);
-}
-
-/* 技能高亮 */
+/* ---- Skill highlight / cloud ---- */
 .skill-highlight {
     margin-bottom: 1.5rem;
 }
@@ -281,24 +205,20 @@
 }
 
 .skill-badge {
-    background: rgba(66, 153, 225, 0.1);
-    color: var(--accent-color);
+    @include tag-pill;
     padding: 0.5rem 1rem;
     border-radius: 20px;
     font-size: 0.9rem;
-    border: 1px solid rgba(66, 153, 225, 0.3);
-    transition: var(--transition);
     display: flex;
     align-items: center;
     gap: 0.3rem;
+    &:hover {
+        background: rgba(66, 153, 225, 0.2);
+        transform: translateY(-2px);
+    }
 }
 
-.skill-badge:hover {
-    background: rgba(66, 153, 225, 0.2);
-    transform: translateY(-2px);
-}
-
-/* 时间线 */
+/* ---- Timeline ---- */
 .timeline {
     position: relative;
 }
@@ -317,21 +237,22 @@
     position: relative;
     padding: 1.5rem;
     margin-bottom: 1.5rem;
-    background: var(--glass-bg);
-    border-radius: 12px;
+    @include glass-card;
     border-left: 4px solid var(--accent-color);
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    overflow: hidden;
+    @include hover-lift;
 }
 
-.timeline-company:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(66, 153, 225, 0.15);
-}
-
-.timeline-company::before {
-    display: none;
+.timeline-company::after {
+    content: '';
+    position: absolute;
+    left: -9px;
+    top: 2rem;
+    width: 12px;
+    height: 12px;
+    background: var(--accent-color);
+    border: 2px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 0 2px var(--accent-color);
 }
 
 .company-name {
@@ -351,10 +272,10 @@
     color: var(--accent-color);
     font-weight: 500;
     font-size: 0.9rem;
-    background: rgba(66, 153, 225, 0.1);
+    background: var(--tag-bg);
     padding: 0.3rem 0.8rem;
-    border-radius: 16px;
-    border: 1px solid rgba(66, 153, 225, 0.3);
+    border-radius: var(--radius-pill);
+    border: 1px solid var(--border-light);
 }
 
 .company-positions {
@@ -364,8 +285,8 @@
 .company-position {
     margin-bottom: 1rem;
     padding: 1rem;
-    background: rgba(66, 153, 225, 0.05);
-    border-radius: 8px;
+    background: var(--tag-bg);
+    border-radius: var(--radius-sm);
     border-left: 3px solid var(--accent-color);
 }
 
@@ -380,9 +301,9 @@
 .position-period {
     color: var(--accent-color);
     font-size: 0.9rem;
-    background: rgba(66, 153, 225, 0.1);
+    background: var(--tag-bg);
     padding: 0.2rem 0.6rem;
-    border-radius: 12px;
+    border-radius: var(--radius-pill);
     display: inline-block;
     margin-bottom: 0.5rem;
 }
@@ -393,22 +314,18 @@
     line-height: 1.5;
 }
 
+/* ---- Timeline projects ---- */
 .company-projects {
     margin-top: 1.5rem;
 }
 
 .timeline-project {
-    background: rgba(66, 153, 225, 0.05);
-    border-radius: 12px;
-    padding: 1.2rem 1.5rem 1.5rem 1.5rem;
+    background: var(--tag-bg);
+    border-radius: var(--radius-md);
+    padding: 1.2rem 1.5rem 1.5rem;
     margin-bottom: 1.5rem;
     border-left: 3px solid var(--accent-color);
-    transition: var(--transition);
-}
-
-.timeline-project:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 15px rgba(66, 153, 225, 0.1);
+    @include hover-lift;
 }
 
 .project-header {
@@ -432,9 +349,9 @@
 .project-period {
     color: var(--accent-color);
     font-size: 0.9rem;
-    background: rgba(66, 153, 225, 0.1);
+    background: var(--tag-bg);
     padding: 0.2rem 0.6rem;
-    border-radius: 12px;
+    border-radius: var(--radius-pill);
 }
 
 .project-role {
@@ -442,32 +359,26 @@
     font-size: 0.9rem;
     background: rgba(74, 85, 104, 0.1);
     padding: 0.2rem 0.6rem;
-    border-radius: 12px;
+    border-radius: var(--radius-pill);
 }
 
 .project-status {
     font-size: 0.9rem;
     font-weight: 500;
     padding: 0.3rem 0.8rem;
-    border-radius: 16px;
+    border-radius: var(--radius-pill);
     display: inline-block;
 }
 
 .status-ongoing {
-    background: rgba(255, 193, 7, 0.1);
-    color: #FFC107;
-    border: 1px solid rgba(255, 193, 7, 0.3);
-}
-
-.status-launched {
-    background: rgba(40, 167, 69, 0.1);
-    color: #28a745;
-    border: 1px solid rgba(40, 167, 69, 0.3);
+    background: rgba(230, 126, 34, 0.1);
+    color: var(--status-ongoing);
+    border: 1px solid rgba(230, 126, 34, 0.3);
 }
 
 .status-completed {
     background: rgba(0, 123, 255, 0.1);
-    color: #007bff;
+    color: var(--status-completed);
     border: 1px solid rgba(0, 123, 255, 0.3);
 }
 
@@ -478,6 +389,7 @@
     font-style: italic;
 }
 
+/* ---- Achievement badges ---- */
 .achievement-list {
     display: flex;
     flex-wrap: wrap;
@@ -486,39 +398,35 @@
 }
 
 .achievement-item {
-    background: rgba(66, 153, 225, 0.1);
-    color: var(--accent-color);
     padding: 0.4rem 0.8rem;
-    border-radius: 16px;
+    border-radius: var(--radius-pill);
     font-size: 0.85rem;
-    border: 1px solid rgba(66, 153, 225, 0.3);
     transition: var(--transition);
     cursor: pointer;
-}
-
-.achievement-item:hover {
-    background: rgba(66, 153, 225, 0.2);
-    transform: translateY(-2px);
+    &:hover {
+        transform: translateY(-2px);
+    }
 }
 
 .achievement-patent {
-    background: rgba(255, 193, 7, 0.1);
-    color: #FFC107;
-    border-color: rgba(255, 193, 7, 0.3);
+    background: var(--badge-patent-bg);
+    color: var(--badge-patent-color);
+    border: 1px solid rgba(184, 134, 11, 0.3);
 }
 
 .achievement-certification {
-    background: rgba(40, 167, 69, 0.1);
-    color: #28a745;
-    border-color: rgba(40, 167, 69, 0.3);
+    background: var(--badge-cert-bg);
+    color: var(--badge-cert-color);
+    border: 1px solid rgba(30, 126, 52, 0.3);
 }
 
 .achievement-award {
-    background: rgba(220, 53, 69, 0.1);
-    color: #dc3545;
-    border-color: rgba(220, 53, 69, 0.3);
+    background: var(--badge-award-bg);
+    color: var(--badge-award-color);
+    border: 1px solid rgba(167, 29, 42, 0.3);
 }
 
+/* ---- Timeline skill tags ---- */
 .timeline-skills {
     display: flex;
     flex-wrap: wrap;
@@ -527,21 +435,14 @@
 }
 
 .timeline-skill-tag {
-    background: rgba(66, 153, 225, 0.1);
-    color: var(--accent-color);
-    padding: 0.3rem 0.8rem;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    border: 1px solid rgba(66, 153, 225, 0.3);
-    transition: var(--transition);
+    @include tag-pill;
+    &:hover {
+        background: rgba(66, 153, 225, 0.2);
+        transform: translateY(-2px);
+    }
 }
 
-.timeline-skill-tag:hover {
-    background: rgba(66, 153, 225, 0.2);
-    transform: translateY(-2px);
-}
-
-/* 教育背景 / 卡片布局 */
+/* ---- Education cards ---- */
 .card-layout {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -549,19 +450,8 @@
 }
 
 .info-card {
-    background: var(--glass-bg);
-    border-radius: 12px;
+    @include glass-card;
     padding: 1.5rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.info-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
 }
 
 .info-card h3 {
@@ -590,7 +480,7 @@
     font-size: 0.9rem;
 }
 
-/* 学术成果 / 出版物墙 */
+/* ---- Publications ---- */
 .publication-wall {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
@@ -599,48 +489,37 @@
 
 .innovation-item,
 .publication-item {
-    background: var(--glass-bg);
-    border-radius: 12px;
+    @include glass-card;
     padding: 1.5rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
     border-left: 4px solid var(--accent-color);
-}
-
-.innovation-item:hover,
-.publication-item:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+    @include hover-lift;
 }
 
 .pub-type {
     display: inline-block;
     padding: 0.3rem 0.8rem;
-    border-radius: 16px;
+    border-radius: var(--radius-pill);
     font-size: 0.85rem;
     font-weight: 500;
     margin-bottom: 1rem;
 }
 
 .pub-medical {
-    background: rgba(40, 167, 69, 0.1);
-    color: #28a745;
-    border: 1px solid rgba(40, 167, 69, 0.3);
+    background: var(--badge-cert-bg);
+    color: var(--badge-cert-color);
+    border: 1px solid rgba(30, 126, 52, 0.3);
 }
 
 .pub-ai {
-    background: rgba(220, 53, 69, 0.1);
-    color: #dc3545;
-    border: 1px solid rgba(220, 53, 69, 0.3);
+    background: var(--badge-award-bg);
+    color: var(--badge-award-color);
+    border: 1px solid rgba(167, 29, 42, 0.3);
 }
 
 .pub-patent {
-    background: rgba(255, 193, 7, 0.1);
-    color: #FFC107;
-    border: 1px solid rgba(255, 193, 7, 0.3);
+    background: var(--badge-patent-bg);
+    color: var(--badge-patent-color);
+    border: 1px solid rgba(184, 134, 11, 0.3);
 }
 
 .pub-paper {
@@ -655,8 +534,8 @@
     border: 1px solid rgba(108, 117, 125, 0.3);
 }
 
-.innovation-item h3,
-.publication-item h4 {
+.publication-item h4,
+.innovation-item h3 {
     color: var(--primary-color);
     font-size: 1.2rem;
     margin-bottom: 1rem;
@@ -693,8 +572,8 @@
     color: var(--accent-color);
     margin-bottom: 1rem;
     padding: 0.8rem;
-    background: rgba(66, 153, 225, 0.05);
-    border-radius: 8px;
+    background: var(--tag-bg);
+    border-radius: var(--radius-sm);
     border-left: 3px solid var(--accent-color);
 }
 
@@ -716,6 +595,7 @@
     margin-bottom: 1rem;
 }
 
+/* ---- Tech tags ---- */
 .tech-stack {
     display: flex;
     flex-wrap: wrap;
@@ -724,18 +604,25 @@
 }
 
 .tech-tag {
-    background: rgba(66, 153, 225, 0.1);
-    color: var(--accent-color);
-    padding: 0.3rem 0.8rem;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    border: 1px solid rgba(66, 153, 225, 0.3);
-    transition: var(--transition);
+    @include tag-pill;
+    &:hover {
+        background: rgba(66, 153, 225, 0.2);
+        transform: translateY(-2px);
+    }
 }
 
-.tech-tag:hover {
-    background: rgba(66, 153, 225, 0.2);
-    transform: translateY(-2px);
+.impact-tag {
+    background: var(--badge-cert-bg);
+    color: var(--badge-cert-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    border: 1px solid rgba(30, 126, 52, 0.3);
+    transition: var(--transition);
+    &:hover {
+        background: rgba(40, 167, 69, 0.2);
+        transform: translateY(-2px);
+    }
 }
 
 .pub-impact {
@@ -745,24 +632,11 @@
     margin-top: 1rem;
 }
 
-.impact-tag {
-    background: rgba(40, 167, 69, 0.1);
-    color: #28a745;
-    padding: 0.3rem 0.8rem;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    border: 1px solid rgba(40, 167, 69, 0.3);
-    transition: var(--transition);
-}
-
-.impact-tag:hover {
-    background: rgba(40, 167, 69, 0.2);
-    transform: translateY(-2px);
-}
-
-/* 响应式 */
+/* ========================================
+   响应式
+   ======================================== */
 @media (max-width: 768px) {
-    .achievement-card {
+    .resume-section {
         padding: 1.5rem;
     }
 
@@ -787,10 +661,6 @@
         grid-template-columns: 1fr;
     }
 
-    .skill-overview {
-        flex-direction: column;
-    }
-
     .card-layout {
         grid-template-columns: 1fr;
     }
@@ -811,5 +681,72 @@
 
     .achievement-list {
         flex-direction: column;
+    }
+
+    .timeline::before {
+        display: none;
+    }
+
+    .timeline-company::after {
+        display: none;
+    }
+}
+
+/* ========================================
+   打印样式
+   ======================================== */
+@media print {
+    #particleCanvas,
+    .top-nav,
+    .sidebar-nav,
+    .site-footer,
+    .back-to-top {
+        display: none !important;
+    }
+
+    .main-content {
+        margin-top: 0;
+        padding: 0;
+    }
+
+    .content-wrapper {
+        display: block;
+        max-width: 100%;
+        padding: 0;
+    }
+
+    .page-content {
+        width: 100%;
+    }
+
+    body {
+        background: white;
+        color: black;
+        font-size: 12pt;
+        line-height: 1.5;
+    }
+
+    a {
+        color: black;
+        text-decoration: underline;
+    }
+
+    .profile-sidebar {
+        break-inside: avoid;
+        margin-bottom: 1rem;
+    }
+
+    .card-layout {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .publication-wall {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .resume-section,
+    .card-layout,
+    .publication-wall {
+        break-inside: avoid;
     }
 }

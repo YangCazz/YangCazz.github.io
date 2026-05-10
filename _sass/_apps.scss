@@ -3,13 +3,15 @@
    ========================================== */
 
 .apps-header-section {
-    padding: 4.5rem 2rem 2rem;
+    padding: 3rem 1rem 2rem;
     text-align: center;
     position: relative;
+    max-width: 1600px;
+    margin: 0 auto;
 }
 
 .apps-header-content {
-    max-width: 1200px;
+    max-width: 1400px;
     margin: 0 auto;
 }
 
@@ -35,15 +37,16 @@
 /* 统计信息 */
 .apps-stats {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem auto;
-    max-width: 800px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.2rem;
+    margin: 1.5rem auto;
+    max-width: 900px;
 }
 
 .apps-stats .stat-item {
     text-align: center;
-    padding: 1.5rem;
+    padding: 1.2rem 1.5rem;
+    min-width: 140px;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
@@ -58,7 +61,7 @@
 
 .apps-stats .stat-number {
     display: block;
-    font-size: 2.5rem;
+    font-size: 2rem;
     font-weight: 700;
     background: linear-gradient(135deg, #3B82F6, #8B5CF6);
     -webkit-background-clip: text;
@@ -69,7 +72,7 @@
 
 .apps-stats .stat-label {
     display: block;
-    font-size: 0.95rem;
+    font-size: 0.85rem;
     color: #64748b;
     font-weight: 700;
 }
@@ -78,17 +81,18 @@
 .apps-filter {
     display: flex;
     flex-wrap: wrap;
-    gap: 1rem;
+    gap: 0.8rem;
     justify-content: center;
-    margin: 2rem 0;
+    margin: 2rem auto;
+    max-width: 1000px;
 }
 
 .filter-btn {
-    padding: 0.75rem 1.5rem;
+    padding: 0.6rem 1.2rem;
     background: #ffffff;
     border: 2px solid rgba(0, 0, 0, 0.1);
     border-radius: 50px;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 500;
     color: var(--primary-color);
     cursor: pointer;
@@ -111,14 +115,14 @@
 
 /* 应用区域 */
 .apps-section {
-    padding: 2rem 2rem;
-    max-width: 1400px;
+    padding: 2rem 1rem;
+    max-width: 1600px;
     margin: 0 auto;
 }
 
 .section-header {
     text-align: center;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
 }
 
 .section-title {
@@ -151,9 +155,35 @@
 /* 应用网格 */
 .apps-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-    gap: 2rem;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.8rem;
     margin-top: 2rem;
+}
+
+@media (min-width: 1600px) {
+    .apps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+    .apps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1199px) {
+    .apps-grid {
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 767px) {
+    .apps-grid {
+        grid-template-columns: 1fr;
+        gap: 1.2rem;
+    }
 }
 
 /* 应用卡片 */
@@ -396,6 +426,18 @@
     flex-shrink: 0;
 }
 
+/* 紧凑卡片 */
+.app-card,
+.repo-card,
+.post-card {
+    margin: 0;
+}
+
+body.apps .apps-grid {
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
 /* 响应式 */
 @media (max-width: 768px) {
     .apps-header-section {
@@ -415,8 +457,13 @@
         gap: 1rem;
     }
 
+    .apps-stats .stat-item {
+        padding: 1rem;
+        min-width: 120px;
+    }
+
     .apps-stats .stat-number {
-        font-size: 2rem;
+        font-size: 1.5rem;
     }
 
     .apps-filter {
@@ -424,7 +471,7 @@
     }
 
     .filter-btn {
-        padding: 0.6rem 1.2rem;
+        padding: 0.5rem 1rem;
         font-size: 0.85rem;
     }
 
