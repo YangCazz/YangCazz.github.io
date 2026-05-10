@@ -5,994 +5,97 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ page.title | default: site.title }}</title>
     <meta name="description" content="{{ page.description | default: site.description }}">
-    
+
+    <!-- Favicon & PWA -->
+    <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ '/assets/images/favicon.svg' | relative_url }}">
+    <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
+    <meta name="theme-color" content="#4299e1">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="{{ page.url | absolute_url }}">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+    <meta property="og:title" content="{{ page.title | default: site.title }}">
+    <meta property="og:description" content="{{ page.description | default: site.description }}">
+    <meta property="og:url" content="{{ page.url | absolute_url }}">
+    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:locale" content="zh_CN">
+    {% assign og_image = page.image | default: site.default_image %}
+    {% if og_image %}<meta property="og:image" content="{{ og_image | absolute_url }}">{% endif %}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="{% if og_image %}summary_large_image{% else %}summary{% endif %}">
+    <meta name="twitter:title" content="{{ page.title | default: site.title }}">
+    <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+    {% if og_image %}<meta name="twitter:image" content="{{ og_image | absolute_url }}">{% endif %}
+
     <!-- 粒子背景画布 -->
     <canvas id="particleCanvas"></canvas>
-    
+
+    <!-- 字体预连接 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fira+Code:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
     <!-- 样式表 -->
     <link href="{{ '/assets/styles.css' | relative_url }}" rel="stylesheet" type="text/css">
-    
+
+    <!-- 外部脚本 -->
+    <script src="{{ '/assets/js/particle-system.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/click-effect.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/back-to-top.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/calendar.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/blog-toc.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/tag-network.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/code-copy.js' | relative_url }}"></script>
+
     <script>
-    // 粒子系统
-    class ParticleSystem {
-        constructor() {
-            this.canvas = document.getElementById('particleCanvas');
-            this.ctx = this.canvas.getContext('2d');
-            this.particles = [];
-            this.mouse = { x: 0, y: 0 };
-            this.init();
-        }
-        
-        init() {
-            this.resizeCanvas();
-            this.createParticles();
-            this.animate();
-            
-            window.addEventListener('resize', () => this.resizeCanvas());
-            window.addEventListener('mousemove', (e) => {
-                this.mouse.x = e.clientX;
-                this.mouse.y = e.clientY;
-            });
-        }
-        
-        resizeCanvas() {
-            this.canvas.width = window.innerWidth;
-            this.canvas.height = window.innerHeight;
-        }
-        
-        createParticles() {
-            const particleCount = Math.floor((this.canvas.width * this.canvas.height) / 15000);
-            this.particles = [];
-            
-            for (let i = 0; i < particleCount; i++) {
-                this.particles.push({
-                    x: Math.random() * this.canvas.width,
-                    y: Math.random() * this.canvas.height,
-                    vx: (Math.random() - 0.5) * 0.5,
-                    vy: (Math.random() - 0.5) * 0.5,
-                    size: Math.random() * 2 + 1,
-                    opacity: Math.random() * 0.5 + 0.1
-                });
-            }
-        }
-        
-        animate() {
-            this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-            
-            this.particles.forEach((particle, index) => {
-                // 更新位置
-                particle.x += particle.vx;
-                particle.y += particle.vy;
-                
-                // 边界检查
-                if (particle.x < 0 || particle.x > this.canvas.width) particle.vx *= -1;
-                if (particle.y < 0 || particle.y > this.canvas.height) particle.vy *= -1;
-                
-                // 鼠标交互
-                const dx = this.mouse.x - particle.x;
-                const dy = this.mouse.y - particle.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                
-                if (distance < 100) {
-                    const force = (100 - distance) / 100;
-                    particle.vx += dx * force * 0.001;
-                    particle.vy += dy * force * 0.001;
-                }
-                
-                // 绘制粒子
-                this.ctx.beginPath();
-                this.ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
-                this.ctx.fillStyle = `rgba(66, 153, 225, ${particle.opacity})`;
-                this.ctx.fill();
-                
-                // 连接线
-                for (let j = index + 1; j < this.particles.length; j++) {
-                    const other = this.particles[j];
-                    const dx = particle.x - other.x;
-                    const dy = particle.y - other.y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-                    
-                    if (distance < 100) {
-                        this.ctx.beginPath();
-                        this.ctx.moveTo(particle.x, particle.y);
-                        this.ctx.lineTo(other.x, other.y);
-                        this.ctx.strokeStyle = `rgba(66, 153, 225, ${0.1 * (1 - distance / 100)})`;
-                        this.ctx.lineWidth = 1;
-                        this.ctx.stroke();
-                    }
-                }
-            });
-            
-            requestAnimationFrame(() => this.animate());
-        }
-    }
-    
-    // 页面加载完成后初始化
+    // 应用初始化
     document.addEventListener('DOMContentLoaded', function() {
         new ParticleSystem();
-        
-        // 侧边栏导航高亮
-        function updateSidebarActive() {
-            const currentPath = window.location.pathname;
-            const currentHash = window.location.hash;
-            const sidebarLinks = document.querySelectorAll('.sidebar-nav .nav-link');
-            
-            // 清除所有活动状态
-            sidebarLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // 检查是否有页面内导航链接
-            const hasPageNavigation = document.querySelectorAll('.sidebar-nav .nav-link[href^="#"]').length > 0;
-            
-            if (hasPageNavigation) {
-                // 如果有页面内导航，使用滚动逻辑
-                updateNavOnScroll();
-            } else {
-                // 如果没有页面内导航，检查页面间导航
-                sidebarLinks.forEach(link => {
-                    if (link.href && link.href.includes('http')) {
-                        const linkPath = new URL(link.href).pathname;
-                        if (linkPath === currentPath || (currentPath === '/' && linkPath === '/')) {
-                            link.classList.add('active');
-                        }
-                    }
-                });
-            }
-        }
-        
-        // 页面内滚动导航
-        function updateNavOnScroll() {
-            const sections = document.querySelectorAll('section[id]');
-            let currentSection = '';
-            let minDistance = Infinity;
-            
-            // 检查是否在页面顶部
-            const isAtTop = window.scrollY < 100;
-            
-            if (isAtTop && sections.length > 0) {
-                // 在页面顶部时，高亮第一个模块
-                currentSection = '#' + sections[0].getAttribute('id');
-            } else {
-                // 正常滚动逻辑
-                sections.forEach(section => {
-                    const sectionTop = section.getBoundingClientRect().top;
-                    const offset = 100;
-                    if (sectionTop < offset && Math.abs(sectionTop) < minDistance) {
-                        minDistance = Math.abs(sectionTop);
-                        currentSection = '#' + section.getAttribute('id');
-                    }
-                });
-            }
-            
-            if (currentSection) {
-                const sidebarLinks = document.querySelectorAll('.sidebar-nav .nav-link[href^="#"]');
-                sidebarLinks.forEach(link => {
-                    link.classList.remove('active');
-                    if (link.getAttribute('href') === currentSection) {
-                        link.classList.add('active');
-                    }
-                });
-            }
-        }
-        
-        // 平滑滚动
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-        
-        // 初始化导航状态
-        function initializeNavigation() {
-            // 清除所有活动状态
-            const sidebarLinks = document.querySelectorAll('.sidebar-nav .nav-link');
-            sidebarLinks.forEach(link => {
-                link.classList.remove('active');
-            });
-            
-            // 检查是否有页面内导航
-            const hasPageNavigation = document.querySelectorAll('.sidebar-nav .nav-link[href^="#"]').length > 0;
-            
-            if (hasPageNavigation) {
-                // 如果有页面内导航，高亮第一个模块
-                const firstSection = document.querySelector('section[id]');
-                if (firstSection) {
-                    const firstLink = document.querySelector('.sidebar-nav .nav-link[href="#' + firstSection.getAttribute('id') + '"]');
-                    if (firstLink) {
-                        firstLink.classList.add('active');
-                    }
-                }
-            } else {
-                // 如果没有页面内导航，使用页面间导航逻辑
-                updateSidebarActive();
-            }
-        }
-        
-        // 页面加载时初始化
         initializeNavigation();
-        
-        // 监听滚动事件
-        window.addEventListener('scroll', updateNavOnScroll);
-        window.addEventListener('hashchange', updateSidebarActive);
-        
-        // 监听页面切换（用于SPA或AJAX导航）
-        window.addEventListener('popstate', initializeNavigation);
-        
-        // 监听页面可见性变化（处理浏览器前进后退）
-        document.addEventListener('visibilitychange', function() {
-            if (!document.hidden) {
-                // 页面重新可见时，重新初始化导航
-                setTimeout(initializeNavigation, 100);
-            }
-        });
-        
-        // 鼠标点击波纹效果
-        document.addEventListener('click', function(e) {
-            // 创建点击效果元素
-            const clickEffect = document.createElement('div');
-            clickEffect.className = 'click-effect';
-            
-            // 设置位置 - 使用clientX和clientY获取相对于视口的位置
-            clickEffect.style.left = e.clientX + 'px';
-            clickEffect.style.top = e.clientY + 'px';
-            
-            // 添加到文档
-            document.body.appendChild(clickEffect);
-            
-            // 动画结束后移除元素
-            setTimeout(function() {
-                if (document.body.contains(clickEffect)) {
-                    document.body.removeChild(clickEffect);
-                }
-            }, 800);
-        });
-        
-        // 回到顶部按钮功能
-        function initBackToTop() {
-            const backToTopBtn = document.getElementById('backToTop');
-            
-            // 监听滚动事件
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 300) {
-                    backToTopBtn.classList.add('show');
-                } else {
-                    backToTopBtn.classList.remove('show');
-                }
-            });
-            
-            // 点击回到顶部
-            backToTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-        }
-        
-        // 初始化回到顶部按钮
         initBackToTop();
-        
-        // 日历面板功能
-        function initCalendar() {
-            const calendarTitle = document.getElementById('calendarTitle');
-            const calendarDays = document.getElementById('calendarDays');
-            const prevMonthBtn = document.getElementById('prevMonth');
-            const nextMonthBtn = document.getElementById('nextMonth');
-            
-            if (!calendarTitle || !calendarDays || !prevMonthBtn || !nextMonthBtn) {
-                return; // 如果不在博客页面，直接返回
-            }
-            
-            let currentDate = new Date();
-            
-            // 博客数据 - 从Jekyll数据中获取
-            const blogPosts = [
-                {% for post in site.posts %}
-                {
-                    date: new Date('{{ post.date | date: "%Y-%m-%d" }}'),
-                    title: '{{ post.title | escape }}',
-                    url: '{{ post.url }}',
-                    excerpt: '{{ post.excerpt | default: post.content | strip_html | truncate: 100 | escape }}',
-                    categories: [{% for category in post.categories %}'{{ category }}'{% unless forloop.last %},{% endunless %}{% endfor %}],
-                    tags: [{% for tag in post.tags %}'{{ tag }}'{% unless forloop.last %},{% endunless %}{% endfor %}]
-                }{% unless forloop.last %},{% endunless %}
-                {% endfor %}
-            ];
-            
-            // 创建工具提示元素
-            function createTooltip() {
-                const tooltip = document.createElement('div');
-                tooltip.className = 'calendar-tooltip';
-                tooltip.style.display = 'none';
-                document.body.appendChild(tooltip);
-                return tooltip;
-            }
-            
-            const tooltip = createTooltip();
-            
-            // 显示工具提示
-            function showTooltip(event, posts) {
-                if (posts.length === 0) return;
-                
-                const post = posts[0]; // 显示第一篇博客
-                const multiplePosts = posts.length > 1;
-                
-                tooltip.innerHTML = `
-                    <div class="tooltip-header">
-                        <span class="tooltip-date">${event.target.dataset.date}</span>
-                        ${multiplePosts ? `<span class="tooltip-count">+${posts.length - 1}篇</span>` : ''}
-                    </div>
-                    <div class="tooltip-content">
-                        <h4 class="tooltip-title">${post.title}</h4>
-                        <p class="tooltip-excerpt">${post.excerpt}</p>
-                        <div class="tooltip-tags">
-                            ${post.tags.slice(0, 3).map(tag => `<span class="tooltip-tag">${tag}</span>`).join('')}
-                        </div>
-                    </div>
-                    <div class="tooltip-footer">
-                        <a href="${post.url}" class="tooltip-link">阅读全文 →</a>
-                    </div>
-                `;
-                
-                tooltip.style.display = 'block';
-                
-                // 定位工具提示
-                const rect = event.target.getBoundingClientRect();
-                const tooltipRect = tooltip.getBoundingClientRect();
-                
-                let left = rect.left + rect.width / 2 - tooltipRect.width / 2;
-                let top = rect.bottom + 10;
-                
-                // 防止超出屏幕边界
-                if (left < 10) left = 10;
-                if (left + tooltipRect.width > window.innerWidth - 10) {
-                    left = window.innerWidth - tooltipRect.width - 10;
-                }
-                if (top + tooltipRect.height > window.innerHeight - 10) {
-                    top = rect.top - tooltipRect.height - 10;
-                }
-                
-                tooltip.style.left = left + 'px';
-                tooltip.style.top = top + 'px';
-            }
-            
-            // 隐藏工具提示
-            function hideTooltip() {
-                tooltip.style.display = 'none';
-            }
-            
-            // 获取某日期的博客文章
-            function getPostsForDate(date) {
-                return blogPosts.filter(post => {
-                    const postDate = new Date(post.date);
-                    return postDate.getFullYear() === date.getFullYear() &&
-                           postDate.getMonth() === date.getMonth() &&
-                           postDate.getDate() === date.getDate();
-                });
-            }
-            
-            function renderCalendar() {
-                const year = currentDate.getFullYear();
-                const month = currentDate.getMonth();
-                
-                // 更新标题
-                const monthNames = ['一月', '二月', '三月', '四月', '五月', '六月',
-                                  '七月', '八月', '九月', '十月', '十一月', '十二月'];
-                calendarTitle.textContent = `${year}年 ${monthNames[month]}`;
-                
-                // 清空日期
-                calendarDays.innerHTML = '';
-                
-                // 获取当月第一天和最后一天
-                const firstDay = new Date(year, month, 1);
-                const lastDay = new Date(year, month + 1, 0);
-                const startDate = new Date(firstDay);
-                startDate.setDate(startDate.getDate() - firstDay.getDay());
-                
-                // 生成42个日期（6周）
-                for (let i = 0; i < 42; i++) {
-                    const date = new Date(startDate);
-                    date.setDate(startDate.getDate() + i);
-                    
-                    const dayElement = document.createElement('div');
-                    dayElement.className = 'calendar-day';
-                    dayElement.textContent = date.getDate();
-                    dayElement.dataset.date = date.toISOString().split('T')[0];
-                    
-                    // 判断是否为其他月份
-                    if (date.getMonth() !== month) {
-                        dayElement.classList.add('other-month');
-                    }
-                    
-                    // 判断是否为今天
-                    const today = new Date();
-                    if (date.toDateString() === today.toDateString()) {
-                        dayElement.classList.add('today');
-                    }
-                    
-                    // 检查该日期是否有博客文章
-                    const postsForDate = getPostsForDate(date);
-                    if (postsForDate.length > 0) {
-                        dayElement.classList.add('has-posts');
-                        
-                        // 添加悬停事件
-                        dayElement.addEventListener('mouseenter', (e) => {
-                            showTooltip(e, postsForDate);
-                        });
-                        
-                        dayElement.addEventListener('mouseleave', hideTooltip);
-                        
-                        // 添加点击事件
-                        dayElement.addEventListener('click', () => {
-                            if (postsForDate.length === 1) {
-                                window.location.href = postsForDate[0].url;
-                            } else {
-                                // 如果有多篇博客，可以显示列表或跳转到博客页面
-                                window.location.href = '/blog/';
-                            }
-                        });
-                    }
-                    
-                    calendarDays.appendChild(dayElement);
-                }
-            }
-            
-            // 上一个月
-            prevMonthBtn.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                renderCalendar();
-            });
-            
-            // 下一个月
-            nextMonthBtn.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                renderCalendar();
-            });
-            
-            // 初始化日历
-            renderCalendar();
-        }
-        
-        // 初始化日历
         initCalendar();
-        
-        // 初始化博客目录
         if (document.getElementById('blogToc')) {
             initBlogToc();
         }
-        
-        // 初始化关键词网络图
         if (document.getElementById('tagNetworkCanvas')) {
             initTagNetwork();
         }
     });
-    
-    // 博客目录功能
-    function initBlogToc() {
-        const tocContainer = document.getElementById('blogToc');
-        if (!tocContainer) return;
-        
-        // 获取所有标题，排除文章标题
-        const headings = document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6');
-        if (headings.length === 0) {
-            tocContainer.innerHTML = '<p style="color: var(--secondary-color); font-size: 0.9rem; text-align: center; margin: 1rem 0;">暂无目录</p>';
-            return;
-        }
-        
-        // 生成目录HTML
-        let tocHtml = '';
-        headings.forEach((heading, index) => {
-            const level = parseInt(heading.tagName.charAt(1));
-            const text = heading.textContent.trim();
-            const id = `heading-${index}`;
-            
-            // 为标题添加ID
-            heading.id = id;
-            
-            // 生成目录项
-            tocHtml += `<a href="#${id}" class="toc-item h${level}" data-level="${level}">${text}</a>`;
-        });
-        
-        tocContainer.innerHTML = tocHtml;
-        
-        // 添加滚动监听
-        const tocItems = tocContainer.querySelectorAll('.toc-item');
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // 清除所有active状态
-                    tocItems.forEach(item => item.classList.remove('active'));
-                    
-                    // 找到对应的目录项并激活
-                    const targetId = entry.target.id;
-                    const correspondingTocItem = tocContainer.querySelector(`a[href="#${targetId}"]`);
-                    if (correspondingTocItem) {
-                        correspondingTocItem.classList.add('active');
-                        
-                        // 自动滚动导航栏，使当前激活项可见
-                        scrollToActiveItem(correspondingTocItem, tocContainer);
-                    }
-                }
-            });
-        }, {
-            rootMargin: '-20% 0px -70% 0px'
-        });
-        
-        // 观察所有标题
-        headings.forEach(heading => observer.observe(heading));
-        
-        // 添加平滑滚动
-        tocItems.forEach(item => {
-            item.addEventListener('click', (e) => {
-                e.preventDefault();
-                const targetId = item.getAttribute('href').substring(1);
-                const targetElement = document.getElementById(targetId);
-                if (targetElement) {
-                    targetElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-        
-        // 自动滚动导航栏到当前激活项
-        function scrollToActiveItem(activeItem, container) {
-            const containerRect = container.getBoundingClientRect();
-            const itemRect = activeItem.getBoundingClientRect();
-            
-            // 检查当前激活项是否在容器可见区域内
-            const isVisible = itemRect.top >= containerRect.top && 
-                             itemRect.bottom <= containerRect.bottom;
-            
-            if (!isVisible) {
-                // 计算需要滚动的距离
-                const scrollTop = container.scrollTop;
-                const itemOffsetTop = activeItem.offsetTop;
-                const containerHeight = container.clientHeight;
-                const itemHeight = activeItem.offsetHeight;
-                
-                // 计算目标滚动位置，使激活项居中显示
-                const targetScrollTop = itemOffsetTop - (containerHeight / 2) + (itemHeight / 2);
-                
-                // 平滑滚动到目标位置
-                container.scrollTo({
-                    top: targetScrollTop,
-                    behavior: 'smooth'
-                });
-            }
+    </script>
+
+    <!-- JSON-LD 结构化数据 -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "name": "{{ site.title }}",
+        "description": "{{ site.description }}",
+        "url": "{{ site.url }}",
+        "potentialAction": {
+            "@type": "SearchAction",
+            "target": "{{ site.url }}/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
         }
     }
-    
-    // 关键词网络图功能
-    function initTagNetwork() {
-        const canvas = document.getElementById('tagNetworkCanvas');
-        const tooltip = document.getElementById('tagTooltip');
-        const dataScript = document.getElementById('tagNetworkData');
-        
-        if (!canvas || !dataScript) return;
-        
-        const ctx = canvas.getContext('2d');
-        const data = JSON.parse(dataScript.textContent);
-        
-        // 设置canvas尺寸
-        function resizeCanvas() {
-            const rect = canvas.getBoundingClientRect();
-            canvas.width = rect.width * window.devicePixelRatio;
-            canvas.height = rect.height * window.devicePixelRatio;
-            ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
-        }
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-        
-        // 归一化和颜色系统
-        const maxCount = Math.max(...data.tags.map(t => t.count));
-        
-        // 计算归一化的半径（使用平方根函数压缩范围）
-        function getNormalizedRadius(count, maxCount) {
-            const minRadius = 18;
-            const maxRadius = 55;
-            const growthThreshold = 10; // 超过10篇后增长变慢
-            
-            if (count <= growthThreshold) {
-                // 10篇以内：线性增长
-                const ratio = count / growthThreshold;
-                return minRadius + (maxRadius - minRadius) * 0.7 * ratio;
-            } else {
-                // 10篇以上：对数增长（增长变慢）
-                const baseSize = minRadius + (maxRadius - minRadius) * 0.7;
-                const extraGrowth = Math.log(1 + (count - growthThreshold)) * 3;
-                return Math.min(maxRadius, baseSize + extraGrowth);
-            }
-        }
-        
-        // 颜色渐变系统：根据文章数量返回颜色
-        function getColorByCount(count) {
-            if (count === 1) {
-                return { r: 96, g: 165, b: 250 }; // 浅蓝 #60A5FA
-            } else if (count <= 3) {
-                return { r: 59, g: 130, b: 246 }; // 标准蓝 #3B82F6
-            } else if (count <= 6) {
-                return { r: 37, g: 99, b: 235 }; // 深蓝 #2563EB
-            } else if (count <= 9) {
-                return { r: 124, g: 58, b: 237 }; // 紫蓝 #7C3AED
-            } else {
-                // 10+篇：渐变到深红
-                const intensity = Math.min((count - 10) / 5, 1);
-                const r = 124 + (220 - 124) * intensity;
-                const g = 58 + (38 - 58) * intensity;
-                const b = 237 + (38 - 237) * intensity;
-                return { r: Math.round(r), g: Math.round(g), b: Math.round(b) };
-            }
-        }
-        
-        // 创建节点
-        const nodes = data.tags.map(tag => {
-            const color = getColorByCount(tag.count);
-            return {
-                name: tag.name,
-                count: tag.count,
-                posts: tag.posts,
-                x: Math.random() * canvas.width / window.devicePixelRatio,
-                y: Math.random() * canvas.height / window.devicePixelRatio,
-                vx: 0,
-                vy: 0,
-                radius: getNormalizedRadius(tag.count, maxCount),
-                color: color
-            };
-        });
-        
-        // 创建连接
-        const links = [];
-        const connectionCount = {};
-        
-        data.connections.forEach(conn => {
-            const source = nodes.find(n => n.name === conn.source);
-            const target = nodes.find(n => n.name === conn.target);
-            if (source && target) {
-                const key = [conn.source, conn.target].sort().join('-');
-                connectionCount[key] = (connectionCount[key] || 0) + 1;
-                if (!links.find(l => 
-                    (l.source === source && l.target === target) ||
-                    (l.source === target && l.target === source)
-                )) {
-                    links.push({ source, target, weight: 1 });
-                }
-            }
-        });
-        
-        // 更新连接权重
-        links.forEach(link => {
-            const key = [link.source.name, link.target.name].sort().join('-');
-            link.weight = connectionCount[key] || 1;
-        });
-        
-        // 力导向算法
-        let dragNode = null;
-        let offsetX = 0, offsetY = 0;
-        let pinnedNode = null; // 固定显示tooltip的节点
-        let isPinned = false; // tooltip是否处于固定状态
-        
-        function applyForces() {
-            const width = canvas.width / window.devicePixelRatio;
-            const height = canvas.height / window.devicePixelRatio;
-            const centerX = width / 2;
-            const centerY = height / 2;
-            
-            // 重置速度
-            nodes.forEach(node => {
-                node.vx = 0;
-                node.vy = 0;
-            });
-            
-            // 中心引力
-            nodes.forEach(node => {
-                if (node !== dragNode) {
-                    const dx = centerX - node.x;
-                    const dy = centerY - node.y;
-                    node.vx += dx * 0.001;
-                    node.vy += dy * 0.001;
-                }
-            });
-            
-            // 节点间排斥力 - 增加碰撞体积
-            for (let i = 0; i < nodes.length; i++) {
-                for (let j = i + 1; j < nodes.length; j++) {
-                    const dx = nodes[j].x - nodes[i].x;
-                    const dy = nodes[j].y - nodes[i].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    
-                    // 计算最小距离：两个节点半径之和 + 额外缓冲空间
-                    const minDistance = nodes[i].radius + nodes[j].radius + 30; // 增加30px缓冲
-                    
-                    if (dist < minDistance && dist > 0) {
-                        const force = 800 / (dist * dist); // 增强排斥力
-                        const fx = (dx / dist) * force;
-                        const fy = (dy / dist) * force;
-                        if (nodes[i] !== dragNode) {
-                            nodes[i].vx -= fx;
-                            nodes[i].vy -= fy;
-                        }
-                        if (nodes[j] !== dragNode) {
-                            nodes[j].vx += fx;
-                            nodes[j].vy += fy;
-                        }
-                    }
-                }
-            }
-            
-            // 连接吸引力 - 调整理想距离
-            links.forEach(link => {
-                const dx = link.target.x - link.source.x;
-                const dy = link.target.y - link.source.y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                
-                // 理想距离：两个节点半径之和 + 连接缓冲空间
-                const idealDistance = link.source.radius + link.target.radius + 50;
-                const force = (dist - idealDistance) * 0.01 * link.weight;
-                const fx = (dx / dist) * force;
-                const fy = (dy / dist) * force;
-                
-                if (link.source !== dragNode) {
-                    link.source.vx += fx;
-                    link.source.vy += fy;
-                }
-                if (link.target !== dragNode) {
-                    link.target.vx -= fx;
-                    link.target.vy -= fy;
-                }
-            });
-            
-            // 应用速度
-            nodes.forEach(node => {
-                if (node !== dragNode) {
-                    node.x += node.vx;
-                    node.y += node.vy;
-                    
-                    // 边界限制
-                    node.x = Math.max(node.radius, Math.min(width - node.radius, node.x));
-                    node.y = Math.max(node.radius, Math.min(height - node.radius, node.y));
-                }
-            });
-        }
-        
-        // 渲染
-        function render() {
-            const width = canvas.width / window.devicePixelRatio;
-            const height = canvas.height / window.devicePixelRatio;
-            
-            ctx.clearRect(0, 0, width, height);
-            
-            // 归一化连接权重
-            const maxWeight = Math.max(...links.map(l => l.weight), 1);
-            
-            // 绘制连接
-            links.forEach(link => {
-                // 计算连接的颜色（取两个节点颜色的平均值）
-                const avgColor = {
-                    r: Math.round((link.source.color.r + link.target.color.r) / 2),
-                    g: Math.round((link.source.color.g + link.target.color.g) / 2),
-                    b: Math.round((link.source.color.b + link.target.color.b) / 2)
-                };
-                
-                // 归一化权重 (0-1)
-                const normalizedWeight = link.weight / maxWeight;
-                
-                // 线条粗细：0.5px - 3.5px
-                const lineWidth = 0.5 + normalizedWeight * 3;
-                
-                // 透明度：0.15 - 0.45
-                const alpha = 0.15 + normalizedWeight * 0.3;
-                
-                ctx.beginPath();
-                ctx.moveTo(link.source.x, link.source.y);
-                ctx.lineTo(link.target.x, link.target.y);
-                ctx.strokeStyle = `rgba(${avgColor.r}, ${avgColor.g}, ${avgColor.b}, ${alpha})`;
-                ctx.lineWidth = lineWidth;
-                ctx.stroke();
-            });
-            
-            // 绘制节点
-            nodes.forEach(node => {
-                // 使用节点的颜色创建渐变
-                const gradient = ctx.createRadialGradient(
-                    node.x, node.y, 0,
-                    node.x, node.y, node.radius
-                );
-                
-                // 中心更亮
-                gradient.addColorStop(0, `rgba(${node.color.r + 30}, ${node.color.g + 30}, ${node.color.b + 30}, 1)`);
-                // 边缘使用原色
-                gradient.addColorStop(1, `rgb(${node.color.r}, ${node.color.g}, ${node.color.b})`);
-                
-                ctx.beginPath();
-                ctx.arc(node.x, node.y, node.radius, 0, Math.PI * 2);
-                ctx.fillStyle = gradient;
-                ctx.fill();
-                
-                // 边框 - 颜色随文章数量变化
-                const borderBrightness = node.count > 6 ? 0.3 : 0.5;
-                ctx.strokeStyle = `rgba(255, 255, 255, ${borderBrightness})`;
-                ctx.lineWidth = 2.5;
-                ctx.stroke();
-                
-                // 文字阴影（增强可读性）
-                ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-                ctx.shadowBlur = 5;
-                ctx.shadowOffsetX = 1;
-                ctx.shadowOffsetY = 1;
-                
-                // 文字 - 始终使用白色以确保可读性
-                ctx.fillStyle = '#ffffff';
-                ctx.font = 'bold 12px Inter, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.textBaseline = 'middle';
-                
-                const text = node.name.length > 8 ? node.name.substring(0, 7) + '...' : node.name;
-                ctx.fillText(text, node.x, node.y);
-                
-                // 重置阴影
-                ctx.shadowColor = 'transparent';
-                ctx.shadowBlur = 0;
-                ctx.shadowOffsetX = 0;
-                ctx.shadowOffsetY = 0;
-            });
-        }
-        
-        // 显示tooltip内容
-        function showTooltip(node, x, y, pinned = false) {
-            tooltip.innerHTML = `
-                <button class="tag-tooltip-close" onclick="closeTooltip()">×</button>
-                <h4>${node.name}</h4>
-                <p>文章数量: ${node.count}</p>
-                <p>相关文章:</p>
-                <ul>
-                    ${node.posts.slice(0, 3).map(post => 
-                        `<li><a href="${post.url}" target="_blank">${post.title}</a></li>`
-                    ).join('')}
-                    ${node.posts.length > 3 ? '<li>...</li>' : ''}
-                </ul>
-            `;
-            
-            // 计算位置，确保不超出边界
-            const wrapperWidth = canvas.width / window.devicePixelRatio;
-            const wrapperHeight = canvas.height / window.devicePixelRatio;
-            
-            const tooltipX = Math.min(x + 15, wrapperWidth - 250);
-            const tooltipY = Math.min(y + 15, wrapperHeight - 150);
-            
-            tooltip.style.left = tooltipX + 'px';
-            tooltip.style.top = tooltipY + 'px';
-            
-            if (pinned) {
-                tooltip.classList.add('show', 'pinned');
-                isPinned = true;
-            } else {
-                tooltip.classList.add('show');
-                tooltip.classList.remove('pinned');
-            }
-        }
-        
-        // 关闭固定的tooltip
-        window.closeTooltip = function() {
-            tooltip.classList.remove('show', 'pinned');
-            isPinned = false;
-            pinnedNode = null;
-        };
-        
-        // 鼠标交互
-        function getMousePos(e) {
-            const rect = canvas.getBoundingClientRect();
-            return {
-                x: e.clientX - rect.left,
-                y: e.clientY - rect.top
-            };
-        }
-        
-        function findNodeAtPos(x, y) {
-            return nodes.find(node => {
-                const dx = node.x - x;
-                const dy = node.y - y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                // 增加点击检测半径，提供更好的用户体验
-                const clickRadius = node.radius + 8;
-                return distance < clickRadius;
-            });
-        }
-        
-        // 左键点击 - 拖动节点
-        canvas.addEventListener('mousedown', (e) => {
-            if (e.button !== 0) return; // 只处理左键
-            const pos = getMousePos(e);
-            dragNode = findNodeAtPos(pos.x, pos.y);
-            if (dragNode) {
-                offsetX = pos.x - dragNode.x;
-                offsetY = pos.y - dragNode.y;
-            }
-        });
-        
-        // 右键点击 - 固定tooltip
-        canvas.addEventListener('contextmenu', (e) => {
-            e.preventDefault(); // 阻止默认右键菜单
-            const pos = getMousePos(e);
-            const clickedNode = findNodeAtPos(pos.x, pos.y);
-            
-            if (clickedNode) {
-                pinnedNode = clickedNode;
-                showTooltip(clickedNode, pos.x, pos.y, true);
-            }
-        });
-        
-        // 鼠标移动 - 显示临时tooltip或拖动节点
-        canvas.addEventListener('mousemove', (e) => {
-            const pos = getMousePos(e);
-            
-            // 拖动节点
-            if (dragNode) {
-                dragNode.x = pos.x - offsetX;
-                dragNode.y = pos.y - offsetY;
-            }
-            
-            // 如果没有固定tooltip，显示临时tooltip
-            if (!isPinned) {
-                const hoverNode = findNodeAtPos(pos.x, pos.y);
-                if (hoverNode) {
-                    showTooltip(hoverNode, pos.x, pos.y, false);
-                } else {
-                    tooltip.classList.remove('show');
-                }
-            }
-        });
-        
-        // 左键释放 - 停止拖动
-        canvas.addEventListener('mouseup', (e) => {
-            if (e.button === 0) {
-                dragNode = null;
-            }
-        });
-        
-        // 鼠标离开canvas - 停止拖动，隐藏临时tooltip
-        canvas.addEventListener('mouseleave', () => {
-            dragNode = null;
-            if (!isPinned) {
-                tooltip.classList.remove('show');
-            }
-        });
-        
-        // 点击canvas空白处 - 关闭固定tooltip
-        canvas.addEventListener('click', (e) => {
-            const pos = getMousePos(e);
-            const clickedNode = findNodeAtPos(pos.x, pos.y);
-            
-            // 如果点击的不是节点，且有固定tooltip，则关闭
-            if (!clickedNode && isPinned) {
-                closeTooltip();
-            }
-        });
-        
-        // ESC键 - 关闭固定tooltip
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && isPinned) {
-                closeTooltip();
-            }
-        });
-        
-        // 动画循环
-        function animate() {
-            applyForces();
-            render();
-            requestAnimationFrame(animate);
-        }
-        
-        animate();
+    </script>
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "杨钱俊",
+        "alternateName": "YangCazz",
+        "jobTitle": "医疗机器人算法工程师",
+        "url": "{{ site.url }}",
+        "sameAs": [
+            "https://github.com/YangCazz",
+            "https://linkedin.com/in/YangCazz",
+            "https://twitter.com/YangCazz"
+        ]
     }
     </script>
 </head>
@@ -1050,22 +153,22 @@
                     
                     <div class="profile-contact">
                         <div class="contact-item">
-                            <span class="contact-icon">📧</span>
+                            {% octicon mail height:16 class:"contact-octicon" %}
                             <a href="mailto:yangcraz@qq.com" class="contact-link">yangcraz@qq.com</a>
-    </div>
+                        </div>
                         <div class="contact-item">
-                            <span class="contact-icon">📱</span>
+                            {% octicon device-mobile height:16 class:"contact-octicon" %}
                             <span>153-0657-1803</span>
-          </div>
+                        </div>
                         <div class="contact-item">
-                            <span class="contact-icon">📍</span>
+                            {% octicon location height:16 class:"contact-octicon" %}
                             <span>杭州市余杭区</span>
-        </div>
+                        </div>
                         <div class="contact-item">
-                            <span class="contact-icon">💻</span>
-                            <a href="https://github.com/yangcazz" target="_blank" class="contact-link">github.com/yangcazz</a>
-      </div>
-    </div>
+                            {% octicon mark-github height:16 class:"contact-octicon" %}
+                            <a href="https://github.com/yangcazz" target="_blank" rel="noopener noreferrer" class="contact-link">github.com/yangcazz</a>
+                        </div>
+                    </div>
   </div>
 {% endif %}
 
@@ -1147,15 +250,23 @@
                 {% for item in nav_data %}
                     {% if item.url %}
                         <a href="{{ item.url | relative_url }}" class="nav-link">
-                            <span class="nav-icon">{{ item.icon }}</span>
-                            <span class="nav-text">{{ item.name }}</span>
-                        </a>
                     {% else %}
                         <a href="#{{ item.id }}" class="nav-link">
-                            <span class="nav-icon">{{ item.icon }}</span>
+                    {% endif %}
+                            <span class="nav-icon">
+                            {% case item.icon %}
+                            {% when 'person' %}{% octicon person height:18 %}
+                            {% when 'trophy' %}{% octicon trophy height:18 %}
+                            {% when 'tools' %}{% octicon tools height:18 %}
+                            {% when 'briefcase' %}{% octicon briefcase height:18 %}
+                            {% when 'mortar-board' %}{% octicon mortar-board height:18 %}
+                            {% when 'light-bulb' %}{% octicon light-bulb height:18 %}
+                            {% when 'book' %}{% octicon book height:18 %}
+                            {% else %}{{ item.icon }}
+                            {% endcase %}
+                            </span>
                             <span class="nav-text">{{ item.name }}</span>
                         </a>
-                    {% endif %}
                 {% endfor %}
                 {% endif %}
             </nav>
@@ -1255,19 +366,19 @@
                     <span>联系方式</span>
                 </h3>
                 <div class="social-links-modern">
-                    <a href="https://github.com/YangCazz" target="_blank" class="social-link-item" title="GitHub">
+                    <a href="https://github.com/YangCazz" target="_blank" rel="noopener noreferrer" class="social-link-item" title="GitHub">
                         <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
                         </svg>
                         <span>GitHub</span>
                     </a>
-                    <a href="https://linkedin.com/in/YangCazz" target="_blank" class="social-link-item" title="LinkedIn">
+                    <a href="https://linkedin.com/in/YangCazz" target="_blank" rel="noopener noreferrer" class="social-link-item" title="LinkedIn">
                         <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
                         </svg>
                         <span>LinkedIn</span>
                     </a>
-                    <a href="https://twitter.com/YangCazz" target="_blank" class="social-link-item" title="Twitter">
+                    <a href="https://twitter.com/YangCazz" target="_blank" rel="noopener noreferrer" class="social-link-item" title="Twitter">
                         <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor">
                             <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
                         </svg>

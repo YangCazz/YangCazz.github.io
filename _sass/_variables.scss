@@ -1,0 +1,56 @@
+:root {
+    --primary-color: #2b2d42;
+    --secondary-color: #4a5568;
+    --accent-color: #4299e1;
+    --background: linear-gradient(45deg, #f8fafc 0%, #e2e8f0 100%);
+    --glass-bg: rgba(255, 255, 255, 0.95);
+    --progress-bg: rgba(66, 153, 225, 0.15);
+    --progress-fill: #4299e1;
+    --timeline-dot: 12px;
+    --timeline-width: 4px;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    /* New design tokens */
+    --border-light: rgba(255, 255, 255, 0.3);
+    --tag-bg: rgba(66, 153, 225, 0.1);
+    --tag-color: #4299e1;
+    --font-mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 12px;
+    --radius-pill: 16px;
+
+    /* Status badges */
+    --badge-patent-bg: rgba(255, 193, 7, 0.1);
+    --badge-patent-color: #b8860b;
+    --badge-cert-bg: rgba(40, 167, 69, 0.1);
+    --badge-cert-color: #1e7e34;
+    --badge-award-bg: rgba(220, 53, 69, 0.1);
+    --badge-award-color: #a71d2a;
+
+    /* Project status */
+    --status-ongoing: #e67e22;
+    --status-completed: #007bff;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+    from { transform: scale(0.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes gradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(0.9); }
+}

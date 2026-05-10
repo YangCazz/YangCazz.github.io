@@ -1,0 +1,388 @@
+/* 页脚 */
+.site-footer {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.95));
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border-top: 2px solid transparent;
+    border-image: linear-gradient(90deg, transparent, rgba(66, 153, 225, 0.3), transparent) 1;
+    padding: 3rem 0 0;
+    margin-top: 4rem;
+    position: relative;
+}
+
+.site-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+        transparent,
+        rgba(66, 153, 225, 0.5) 30%,
+        rgba(139, 92, 246, 0.5) 70%,
+        transparent
+    );
+}
+
+.footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 3rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+}
+
+.footer-section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+}
+
+.footer-title {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: var(--primary-color);
+    font-size: 1.15rem;
+    font-weight: 600;
+    margin: 0 0 0.3rem 0;
+    letter-spacing: 0.3px;
+}
+
+.footer-icon-svg {
+    width: 22px;
+    height: 22px;
+    color: var(--accent-color);
+    transition: var(--transition);
+}
+
+.footer-title:hover .footer-icon-svg {
+    transform: scale(1.1);
+    color: #8B5CF6;
+}
+
+.footer-desc {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    margin: 0.3rem 0;
+}
+
+.tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.tech-badge {
+    padding: 0.3rem 0.8rem;
+    background: linear-gradient(135deg, rgba(66, 153, 225, 0.1), rgba(139, 92, 246, 0.1));
+    border: 1px solid rgba(66, 153, 225, 0.3);
+    border-radius: 16px;
+    font-size: 0.8rem;
+    color: var(--accent-color);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.tech-badge:hover {
+    background: linear-gradient(135deg, rgba(66, 153, 225, 0.2), rgba(139, 92, 246, 0.2));
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(66, 153, 225, 0.2);
+}
+
+/* 快速导航 - 网格卡片布局 */
+.footer-nav-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.7rem;
+}
+
+.footer-nav-card {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.7rem 1rem;
+    background: rgba(66, 153, 225, 0.04);
+    border: 1.5px solid rgba(66, 153, 225, 0.2);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.footer-nav-card::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, var(--accent-color), #8B5CF6);
+    transform: scaleY(0);
+    transition: var(--transition);
+}
+
+.footer-nav-card:hover::before {
+    transform: scaleY(1);
+}
+
+.footer-nav-card svg {
+    width: 18px;
+    height: 18px;
+    color: var(--accent-color);
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+.footer-nav-card:hover {
+    background: linear-gradient(135deg, rgba(66, 153, 225, 0.1), rgba(139, 92, 246, 0.08));
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+    transform: translateX(3px);
+    box-shadow: 0 4px 10px rgba(66, 153, 225, 0.15);
+}
+
+.footer-nav-card:hover svg {
+    transform: scale(1.15);
+    color: #8B5CF6;
+}
+
+/* 社交媒体链接 */
+.social-links-modern {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+    margin-bottom: 1rem;
+}
+
+.social-link-item {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.7rem 1rem;
+    background: rgba(66, 153, 225, 0.04);
+    border: 1.5px solid rgba(66, 153, 225, 0.2);
+    border-radius: 10px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: var(--transition);
+    position: relative;
+    overflow: hidden;
+}
+
+.social-link-item::after {
+    content: '→';
+    position: absolute;
+    right: 1rem;
+    opacity: 0;
+    color: var(--accent-color);
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.social-link-item:hover::after {
+    opacity: 1;
+    right: 0.8rem;
+}
+
+.social-svg {
+    width: 20px;
+    height: 20px;
+    transition: var(--transition);
+    flex-shrink: 0;
+}
+
+/* GitHub品牌色 */
+.social-link-item:nth-child(1) .social-svg {
+    color: #333;
+}
+
+.social-link-item:nth-child(1):hover {
+    background: rgba(51, 51, 51, 0.05);
+    border-color: #333;
+    color: #333;
+}
+
+/* LinkedIn品牌色 */
+.social-link-item:nth-child(2) .social-svg {
+    color: #0077B5;
+}
+
+.social-link-item:nth-child(2):hover {
+    background: rgba(0, 119, 181, 0.05);
+    border-color: #0077B5;
+    color: #0077B5;
+}
+
+/* Twitter品牌色 */
+.social-link-item:nth-child(3) .social-svg {
+    color: #1DA1F2;
+}
+
+.social-link-item:nth-child(3):hover {
+    background: rgba(29, 161, 242, 0.05);
+    border-color: #1DA1F2;
+    color: #1DA1F2;
+}
+
+.social-link-item:hover {
+    transform: translateX(5px);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15);
+}
+
+.social-link-item:hover .social-svg {
+    transform: scale(1.15) rotate(5deg);
+}
+
+/* 联系信息 */
+.contact-info-modern {
+    display: flex;
+    flex-direction: column;
+    gap: 0.7rem;
+}
+
+.contact-item-modern {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.6rem 0.8rem;
+    background: rgba(66, 153, 225, 0.03);
+    border-left: 3px solid rgba(66, 153, 225, 0.3);
+    border-radius: 6px;
+    color: var(--secondary-color);
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.contact-item-modern:hover {
+    background: rgba(66, 153, 225, 0.08);
+    border-left-color: var(--accent-color);
+    transform: translateX(3px);
+}
+
+.contact-svg {
+    width: 18px;
+    height: 18px;
+    color: var(--accent-color);
+    flex-shrink: 0;
+    transition: var(--transition);
+}
+
+.contact-item-modern:hover .contact-svg {
+    transform: scale(1.1);
+    color: #8B5CF6;
+}
+
+.footer-bottom {
+    background: rgba(66, 153, 225, 0.03);
+    padding: 1.5rem 2rem;
+    text-align: center;
+}
+
+.footer-divider {
+    width: 60%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(66, 153, 225, 0.3), transparent);
+    margin: 0 auto 1.5rem;
+}
+
+.copyright {
+    color: var(--secondary-color);
+    font-size: 0.85rem;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.dot {
+    color: var(--accent-color);
+    font-weight: bold;
+}
+
+.footer-motto {
+    color: var(--accent-color);
+    font-weight: 500;
+    font-style: italic;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+        padding: 0 1.5rem 2rem;
+    }
+
+    .site-footer {
+        padding: 2rem 0 0;
+        margin-top: 2rem;
+    }
+
+    .footer-nav-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
+    }
+
+    .footer-nav-card {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.85rem;
+    }
+
+    .footer-nav-card svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .social-links-modern {
+        gap: 0.5rem;
+    }
+
+    .social-link-item {
+        padding: 0.6rem 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    .social-svg {
+        width: 18px;
+        height: 18px;
+    }
+
+    .contact-item-modern {
+        font-size: 0.8rem;
+        padding: 0.5rem 0.7rem;
+    }
+
+    .contact-svg {
+        width: 16px;
+        height: 16px;
+    }
+
+    .footer-bottom {
+        padding: 1rem 1.5rem;
+    }
+
+    .copyright {
+        font-size: 0.8rem;
+        flex-direction: column;
+        gap: 0.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-nav-grid {
+        grid-template-columns: 1fr;
+    }
+}

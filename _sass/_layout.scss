@@ -1,0 +1,103 @@
+body {
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    color: var(--primary-color);
+    background: transparent;
+    position: relative;
+    animation: fadeIn 0.8s ease-out;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 主内容区域 */
+.main-content {
+    margin-top: 60px;
+    padding: 1.5rem 1rem;
+    flex: 1;
+}
+
+.content-wrapper {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 2rem;
+    padding: 0;
+}
+
+/* 页面内容区域 */
+.page-content {
+    min-height: 600px;
+}
+
+/* 粒子背景画布 */
+#particleCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(45deg, #2b2d42, #4299e1);
+}
+
+@media (max-width: 768px) {
+    #particleCanvas {
+        opacity: 0.5;
+    }
+
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 0 0.5rem;
+    }
+
+    .page-content {
+        order: 1;
+    }
+
+    .main-content {
+        padding: 1rem 0.5rem;
+    }
+}
+
+@media (max-width: 1024px) {
+    .content-wrapper {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 1440px) {
+    .content-wrapper {
+        max-width: 1200px;
+    }
+}
+
+@media (max-width: 1680px) {
+    .content-wrapper {
+        max-width: 1400px;
+        padding: 0 1rem;
+    }
+}
+
+/* 首页特殊调整 */
+body.home .content-wrapper {
+    max-width: 1800px;
+}
+
+/* 博客页面特殊调整 */
+body.blog .content-wrapper {
+    max-width: 1600px;
+}
+
+/* 应用页面特殊调整 */
+body.apps .content-wrapper {
+    max-width: 1800px;
+}

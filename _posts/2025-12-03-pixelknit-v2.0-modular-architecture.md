@@ -383,8 +383,8 @@ window.PixelKnit = {
 **技术栈**：HTML5, CSS3, JavaScript (ES6+), ES6 Modules, Canvas API, localStorage
 
 **相关文章**：
-- [像素织梦 v1.0 介绍](/blog/2025/11/09/knitting-guide-web-app.html)
-- [像素织梦 v1.1 编辑器更新](/blog/2025/11/09/pixelknit-v1.1-editor-update.html)
+- [像素织梦 v1.0 介绍](/2025/11/09/knitting-guide-web-app/)
+- [像素织梦 v1.1 编辑器更新](/2025/11/09/pixelknit-v1.1-editor-update/)
 
 ---
 
