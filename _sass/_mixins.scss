@@ -1,0 +1,39 @@
+/* ========================================
+   Shared SCSS Mixins
+   ======================================== */
+
+@mixin glass-card {
+    background: var(--glass-bg);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--border-light);
+}
+
+@mixin hover-lift {
+    transition: var(--transition);
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 20px rgba(66, 153, 225, 0.15);
+    }
+}
+
+@mixin section-heading {
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+@mixin tag-pill {
+    background: var(--tag-bg);
+    color: var(--tag-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    border: 1px solid var(--border-light);
+    transition: var(--transition);
+}
