@@ -1,762 +1,203 @@
-# YangCazz 个人网站
+# YangCazz.github.io
 
 <div align="center">
 
-![Jekyll](https://img.shields.io/badge/Jekyll-4.3.2-red?style=flat-square)
+![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-v232-blue?style=flat-square)
 ![Ruby](https://img.shields.io/badge/Ruby-3.0+-red?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
 
-一个基于 Jekyll 构建的现代化、交互式个人网站，展示技术博客、项目经历和专业技能。
+基于 Jekyll + GitHub Pages 构建的个人技术网站，包含博客、简历、应用展示等模块。
 
-[在线预览](https://yangcazz.github.io) | [功能特性](#功能特性) | [本地开发](#本地开发指南)
+[在线预览](https://yangcazz.github.io)
 
 </div>
 
 ---
 
-## 📋 目录
+## 功能特性
 
-- [功能特性](#功能特性)
-- [技术栈](#技术栈)
-- [本地开发指南](#本地开发指南)
-- [项目结构](#项目结构)
-- [内容管理](#内容管理)
-- [自定义配置](#自定义配置)
-- [开发指南](#开发指南)
-- [部署](#部署)
-- [常见问题](#常见问题)
-- [许可证](#许可证)
-
----
-
-## ✨ 功能特性
-
-### 🎨 视觉设计
-- **粒子背景动画** - 动态交互式粒子系统，鼠标响应
-- **玻璃拟态设计** - 现代化的毛玻璃效果和渐变色彩
-- **丰富的交互动效** - 导航栏、按钮、图标的精美动画效果
-- **响应式布局** - 完美适配桌面、平板、手机
-
-### 📝 博客系统
-- **文章管理** - 支持 Markdown 写作，语法高亮
-- **目录导航** - 自动生成文章目录，点击跳转
-- **标签系统** - 文章分类和标签过滤
-- **关键词网络** - 可视化关键词关联图，力导向布局
-- **日历视图** - 按日期浏览文章的日历面板
-- **文章导航** - 上一篇/下一篇快速切换
-
-### 🎯 导航系统
-- **顶部导航** - 主要页面快速访问，带动态效果
-- **侧边导航** - 智能显示，支持锚点跳转
-- **页脚导航** - 三栏布局，包含关于、快速导航、联系方式
-
-### 🔧 交互功能
-- **关键词网络可视化**
-  - 力导向图算法
-  - 节点大小表示文章数量
-  - 连接强度表示共现频率
-  - 支持拖拽、右键固定、ESC 关闭
-- **动态图标系统**
-  - SVG 矢量图标
-  - 悬停缩放、旋转、发光效果
-  - 品牌色系统（社交媒体）
-
-### 📱 页面
-- **首页** - 个人简介、技术栈展示
-- **博客** - 文章列表、日历视图、关键词网络
-- **简历** - 个人信息、工作经历、技能展示
-- **关于** - 详细个人介绍
-- **联系** - 社交媒体链接
+- **粒子背景** — 动态交互式粒子系统，响应鼠标移动
+- **玻璃拟态设计** — 毛玻璃卡片、渐变色彩、微交互
+- **Octicon 图标** — 全站使用 GitHub Octicons SVG 矢量图标
+- **博客系统** — Markdown 写作、代码高亮、标签分类、关键词网络可视化、日历浏览
+- **简历页面** — 工作经历时间线、技能矩阵、学术成果展示
+- **应用展示** — PixelKnit 等个人项目介绍
+- **PWA 支持** — manifest.json + favicon.svg
+- **SEO 优化** — JSON-LD 结构化数据、OG/Twitter 卡片、jekyll-feed、jekyll-sitemap
+- **响应式布局** — 适配桌面、平板、手机
 
 ---
 
-## 🛠️ 技术栈
+## 技术栈
 
-- **静态站点生成器**: [Jekyll](https://jekyllrb.com/) 4.3.2
-- **编程语言**: Ruby 3.0+
-- **样式**: SCSS/CSS3 (玻璃拟态、动画、渐变)
-- **JavaScript**: 原生 ES6+ (粒子系统、力导向图、交互)
-- **前端框架**: 无框架，纯原生实现
-- **图标**: 内联 SVG（Feather Icons 风格）
+- **静态站点**: Jekyll (GitHub Pages v232)
+- **样式**: SCSS 模块化 (14 个 partial，`_sass/` 目录管理)
+- **JavaScript**: 原生 ES6+ (8 个独立模块，`assets/js/`)
+- **图标**: [jekyll-octicons](https://github.com/primer/octicons) SVG 图标
+- **插件**: jekyll-feed, jekyll-sitemap, jemoji, jekyll-github-metadata
 - **部署**: GitHub Pages
 
 ---
 
-## 🚀 本地开发指南
+## 本地开发
 
 ### 前置要求
 
-- **Ruby**: 3.0 或更高版本
-- **RubyGems**: Ruby 的包管理器
-- **GCC 和 Make**: 用于编译原生扩展
+- Ruby 3.0+
+- Bundler
 
-### 环境安装
-
-#### Windows 系统
-
-1. **安装 Ruby**
-   - 下载 [RubyInstaller for Windows](https://rubyinstaller.org/)
-   - 选择 Ruby+Devkit 3.0 或更高版本
-   - 安装时勾选 "Add Ruby executables to your PATH"
-   - 安装完成后运行 `ridk install` 选择选项 3
-
-2. **验证安装**
-   ```bash
-   ruby -v
-   gem -v
-   ```
-
-#### macOS 系统
+### 安装与运行
 
 ```bash
-# 使用 Homebrew 安装 Ruby
-brew install ruby
-
-# 添加到 PATH（在 ~/.zshrc 或 ~/.bash_profile）
-echo 'export PATH="/usr/local/opt/ruby/bin:$PATH"' >> ~/.zshrc
-source ~/.zshrc
-
-# 验证
-ruby -v
-gem -v
-```
-
-#### Linux 系统
-
-```bash
-# Ubuntu/Debian
-sudo apt-get install ruby-full build-essential zlib1g-dev
-
-# Fedora
-sudo dnf install ruby ruby-devel @development-tools
-
-# 验证
-ruby -v
-gem -v
-```
-
-### 项目安装
-
-1. **克隆项目**
-   ```bash
-   git clone https://github.com/YangCazz/personal-website.git
-cd personal-website
-```
-
-2. **安装 Jekyll 和 Bundler**
-   ```bash
-   gem install jekyll bundler
-```
-
-3. **安装项目依赖**
-   ```bash
+git clone https://github.com/YangCazz/YangCazz.github.io.git
+cd YangCazz.github.io
 bundle install
-```
-   
-   如果遇到权限问题：
-   ```bash
-   bundle install --path vendor/bundle
-```
-
-### 运行开发服务器
-
-#### 基础运行
-```bash
 bundle exec jekyll serve
 ```
 
-#### 常用运行选项
-```bash
-# 开发模式（自动重新生成）
-bundle exec jekyll serve --livereload
+访问 http://localhost:4000
 
-# 指定端口
-bundle exec jekyll serve --port 4001
-
-# 显示草稿文章
-bundle exec jekyll serve --drafts
-
-# 显示未来日期的文章
-bundle exec jekyll serve --future
-
-# 增量构建（更快）
-bundle exec jekyll serve --incremental
-
-# 组合使用
-bundle exec jekyll serve --livereload --drafts --future
-```
-
-### 访问网站
-
-启动成功后，访问：
-- **本地地址**: http://localhost:4000
-- **网络地址**: http://127.0.0.1:4000
-
-看到以下输出表示成功：
-```
-Configuration file: D:/Projects/personal-website/_config.yml
-            Source: D:/Projects/personal-website
-       Destination: D:/Projects/personal-website/_site
- Incremental build: disabled. Enable with --incremental
-      Generating...
-                    done in 2.5 seconds.
- Auto-regeneration: enabled for 'D:/Projects/personal-website'
-    Server address: http://127.0.0.1:4000
-  Server running... press ctrl-c to stop.
-```
-
-### 停止服务器
-
-按 <kbd>Ctrl</kbd> + <kbd>C</kbd> 停止服务器
-
-### 构建生产版本
+### 构建
 
 ```bash
-# 构建静态文件到 _site 目录
-bundle exec jekyll build
-
-# 构建并输出到指定目录
-bundle exec jekyll build --destination /path/to/output
+bundle exec jekyll build   # 输出到 _site/
+bundle exec jekyll clean   # 清理缓存
 ```
 
 ---
 
-## 📁 项目结构
+## 项目结构
 
 ```
-personal-website/
-├── 📋 配置文件
-│   ├── _config.yml          # Jekyll 主配置文件
-│   ├── Gemfile              # Ruby 依赖管理
-│   ├── Gemfile.lock         # 依赖版本锁定
-│   └── .gitignore           # Git 忽略规则
+YangCazz.github.io/
+├── _config.yml              # Jekyll 配置
+├── Gemfile                  # Ruby 依赖
 │
-├── 📚 Jekyll 核心目录
-│   ├── _data/               # 数据文件（YAML/JSON）
-│   │   ├── navigation.yml       # 通用导航配置
-│   │   ├── blog_navigation.yml  # 博客导航配置
-│   │   ├── home_navigation.yml  # 首页导航配置
-│   │   ├── resume_navigation.yml# 简历导航配置
-│   │   ├── social_media.yml     # 社交媒体配置
-│   │   └── colors.json          # 颜色主题配置
-│   │
-│   ├── _includes/           # 可复用的 HTML 组件
-│   │   ├── header.html          # 网站头部
-│   │   ├── footer.html          # 网站页脚
-│   │   ├── interests.html       # 兴趣展示
-│   │   ├── masthead.html        # 页面标题栏
-│   │   ├── post-card.html       # 文章卡片
-│   │   ├── projects.html        # 项目展示
-│   │   ├── repo-card.html       # 仓库卡片
-│   │   ├── thoughts.html        # 思考展示
-│   │   └── topic-card.html      # 主题卡片
-│   │
-│   ├── _layouts/            # 页面布局模板
-│   │   ├── default.html         # 默认布局（核心文件，包含所有导航和动效）
-│   │   ├── home.html            # 首页专用布局
-│   │   ├── post.html            # 博客文章布局
-│   │   └── personal.html        # 个人页面布局
-│   │
-│   ├── _posts/              # 博客文章（Markdown 格式）
-│   │   └── YYYY-MM-DD-title.md  # 文章命名格式
-│   │
-│   ├── _sass/               # Sass 样式片段
-│   │   └── _highlight-syntax.scss  # 代码高亮样式
-│   │
-│   └── _site/               # 生成的静态网站（.gitignore 忽略）
+├── _data/                   # 数据文件
+│   ├── navigation.yml           # 全局导航
+│   ├── home_navigation.yml      # 首页导航
+│   ├── blog_navigation.yml      # 博客页导航
+│   ├── resume_navigation.yml    # 简历页导航
+│   ├── apps_navigation.yml      # 应用页导航
+│   ├── about_navigation.yml     # 关于页导航
+│   └── applications.yml         # 应用列表数据
 │
-├── 🎨 静态资源
-│   └── assets/
-│       ├── images/          # 图片资源
-│       │   ├── avatar.png       # 个人头像（主要）
-│       │   └── avatar-alt.jpg   # 个人头像（备用）
-│       └── styles.scss          # 主样式文件（3000+ 行）
+├── _includes/
+│   └── app-card.html            # 应用卡片组件
 │
-├── 🔧 工具脚本
-│   └── _scripts/
-│       ├── blog-helper.bat      # Windows 博客管理脚本
-│       ├── blog-helper.sh       # Unix/Linux 博客管理脚本
-│       ├── create-blog.js       # Node.js 博客创建工具
-│       └── create-blog-simple.bat  # 简化版博客创建脚本
+├── _layouts/
+│   ├── default.html             # 默认布局（导航、页脚、粒子背景）
+│   └── post.html                # 博客文章布局（MathJax、结构化数据）
 │
-├── 📄 文档和测试
-│   └── docs/
-│       ├── BLOG_MANAGEMENT.md   # 博客管理指南
-│       └── test-layout.html     # 布局测试文件
+├── _posts/                  # 博客文章 (Markdown)
 │
-├── 📂 参考资料
-│   └── ref/                 # 旧版本参考和备份
-│       └── YangCazz.github.io/  # 之前版本的网站文件
+├── _sass/                   # SCSS 模块化样式
+│   ├── _variables.scss          # CSS 变量 & 全局动画
+│   ├── _mixins.scss             # 可复用 mixin
+│   ├── _layout.scss             # 主布局
+│   ├── _navigation.scss         # 顶部导航 & 侧边栏
+│   ├── _footer.scss             # 页脚
+│   ├── _components.scss         # 通用组件（按钮、头像、日历、TOC）
+│   ├── _home.scss               # 首页
+│   ├── _blog-list.scss          # 博客列表
+│   ├── _blog-post.scss          # 博客文章
+│   ├── _tag-network.scss        # 关键词网络图
+│   ├── _resume.scss             # 简历页
+│   ├── _apps.scss               # 应用展示页
+│   ├── _enhancements.scss       # 代码复制、公式样式
+│   └── _highlight-syntax.scss   # 代码高亮
 │
-├── 🌐 页面文件
-│   ├── index.html           # 网站首页
-│   ├── blog.html            # 博客列表页
-│   ├── resume.html          # 个人简历页
-│   └── favicon.ico          # 网站图标
+├── assets/
+│   ├── styles.scss              # SCSS 入口 (仅 @import)
+│   ├── js/                      # JavaScript 模块
+│   │   ├── particle-system.js   #   粒子背景
+│   │   ├── navigation.js        #   导航系统（滚动监听、锚点激活）
+│   │   ├── tag-network.js       #   关键词力导向图
+│   │   ├── calendar.js          #   博客日历面板
+│   │   ├── blog-toc.js          #   文章目录生成
+│   │   ├── code-copy.js         #   代码块复制按钮
+│   │   ├── click-effect.js      #   鼠标波纹效果
+│   │   └── back-to-top.js       #   回到顶部
+│   └── images/                  # 图片资源
 │
-└── 📖 项目文档
-    ├── README.md            # 项目说明文档（本文件）
-    └── LICENSE.txt          # 开源许可证
-```
-
-### 📌 核心文件说明
-
-#### `_layouts/default.html` (1192 行)
-项目的**核心布局文件**，包含：
-- 粒子背景系统
-- 顶部导航栏（带动效）
-- 侧边导航系统（智能显示）
-- 关键词网络可视化（力导向图）
-- 博客目录（TOC）
-- 文章导航（上一篇/下一篇）
-- 页脚（三栏布局）
-- 回到顶部按钮
-- 所有 JavaScript 交互逻辑
-
-#### `assets/styles.scss` (3339 行)
-**主样式文件**，包含：
-- 全局变量和主题配置
-- 玻璃拟态效果
-- 导航栏样式（顶部/侧边/页脚）
-- 博客样式（列表/文章/目录）
-- 交互动效（悬停/点击/过渡）
-- 响应式布局
-- 组件样式（按钮/卡片/表单）
-
-#### `_data/*.yml`
-**数据驱动配置**，用于：
-- 导航菜单配置
-- 社交媒体链接
-- 主题颜色设置
-- 便于维护和更新
-
-#### `_scripts/`
-**开发辅助工具**：
-- 快速创建博客文章
-- 自动生成 Front Matter
-- 跨平台支持（Windows/Unix）
-
-### 🗂️ 目录作用
-
-| 目录/文件 | 作用 | 是否提交到 Git |
-|-----------|------|----------------|
-| `_site/` | Jekyll 生成的静态网站 | ❌ 否（.gitignore） |
-| `_data/` | 数据配置文件 | ✅ 是 |
-| `_includes/` | 可复用 HTML 组件 | ✅ 是 |
-| `_layouts/` | 页面布局模板 | ✅ 是 |
-| `_posts/` | 博客文章 Markdown | ✅ 是 |
-| `_sass/` | Sass 样式片段 | ✅ 是 |
-| `_scripts/` | 开发工具脚本 | ✅ 是 |
-| `assets/` | 静态资源（样式/图片） | ✅ 是 |
-| `docs/` | 项目文档和测试文件 | ✅ 是 |
-| `ref/` | 参考资料和旧版本 | ⚠️ 可选 |
-| `.sass-cache/` | Sass 编译缓存 | ❌ 否（.gitignore） |
-| `node_modules/` | Node.js 依赖 | ❌ 否（.gitignore） |
+├── apps/                    # 子应用
+│   └── PixelKnit/               # 像素编织编辑器
+│
+├── index.html               # 首页
+├── blog.html                # 博客列表
+├── resume.html              # 简历
+├── apps.html                # 应用展示
+├── about.html               # 关于
+├── manifest.json            # PWA 配置
+└── favicon.ico              # 网站图标
 ```
 
 ---
 
-## 📝 内容管理
+## 内容管理
 
-### 创建新博客文章
+### 创建博客文章
 
-#### 方法一：使用脚本（推荐）
+在 `_posts/` 下创建 `YYYY-MM-DD-title.md`：
 
-**Windows:**
-```bash
-cd _scripts
-create-blog-simple.bat
-# 按提示输入标题、标签等信息
-```
-
-**Unix/Linux/macOS:**
-```bash
-cd _scripts
-chmod +x blog-helper.sh
-./blog-helper.sh
-```
-
-**Node.js:**
-```bash
-cd _scripts
-node create-blog.js
-```
-
-#### 方法二：手动创建
-
-1. 在 `_posts/` 目录创建文件，命名格式：`YYYY-MM-DD-title.md`
-
-2. 添加 Front Matter（文件头部）：
-   ```yaml
-   ---
-   layout: post
-   title: "文章标题"
-   date: 2024-01-15 14:30:00 +0800
-   categories: [技术, 深度学习]
-   tags: [Python, PyTorch, 优化]
-   description: "文章简短描述"
-   ---
-   
-   正文内容使用 Markdown 格式...
-   ```
-
-3. 使用 Markdown 语法编写内容
-
-#### 博客文章示例
-
-```markdown
+```yaml
 ---
 layout: post
-title: "深度学习模型优化技巧"
-date: 2024-01-05 10:00:00 +0800
-categories: [深度学习, 技术分享]
-tags: [PyTorch, 优化, GPU]
-description: "介绍常用的深度学习模型优化方法"
+title: "文章标题"
+date: 2024-01-15 10:00:00 +0800
+categories: [深度学习]
+tags: [PyTorch, CNN]
 ---
-
-## 引言
-
-本文介绍深度学习模型的优化技巧...
-
-## 方法一：混合精度训练
-
-混合精度训练可以有效提升训练速度...
-
-```python
-# 示例代码
-import torch
-...
 ```
 
-## 总结
+### 配置导航
 
-通过这些优化方法...
-```
+编辑 `_data/xxx_navigation.yml`，支持两种图标模式：
 
-### 配置导航菜单
-
-编辑 `_data/*.yml` 文件：
-
-**navigation.yml** - 通用导航
 ```yaml
-- id: section-id
-  name: 显示名称
-  icon: ◆
-  url: /page-url
+# Octicon SVG 图标（推荐）
+- id: about
+  name: 自我总结
+  icon: person
+
+# Unicode 字符
+- id: home
+  name: 首页
+  icon: ⌂
 ```
 
-**blog_navigation.yml** - 博客页侧边导航
+可用的 octicon 名称参考 [octicons v14.2.2](https://github.com/primer/octicons/tree/v14.2.2)（GitHub Pages 当前版本）。
+
+### 添加应用
+
+编辑 `_data/applications.yml`：
+
 ```yaml
-- id: blog-list
-  name: 文章列表
-  icon: ◉
-```
-
-### 更新个人信息
-
-编辑 `_config.yml`：
-```yaml
-name: 你的名字
-title: 职位标题
-email: your.email@example.com
-description: 个人简介
+- name: 应用名称
+  description: 简短描述
+  category: 工具库
+  icon: ⚡
+  url: /apps/my-app/
+  status: 已发布
 ```
 
 ---
 
-## ⚙️ 自定义配置
+## 部署
 
-### 修改配置文件
-
-编辑 `_config.yml` 后需要重启服务器：
-
-1. 停止服务器：<kbd>Ctrl</kbd> + <kbd>C</kbd>
-2. 重新启动：`bundle exec jekyll serve`
-
-### 样式定制
-
-编辑 `assets/styles.scss`：
-
-```scss
-// 修改主题色
-:root {
-    --primary-color: #1a202c;
-    --secondary-color: #4a5568;
-    --accent-color: #4299E5;
-}
-
-// 添加自定义样式
-.custom-class {
-    // 你的样式
-}
-```
-
-样式会自动重新编译，无需重启服务器。
-
-### 添加新页面
-
-1. 在根目录创建 `new-page.html` 或 `new-page.md`
-
-2. 添加 Front Matter：
-   ```yaml
----
-layout: default
-   title: 新页面标题
-   navigation: navigation  # 指定导航配置文件
-   ---
-   
-   页面内容...
-   ```
-
-3. 页面将自动可通过 `/new-page` 访问
+推送到 `main` 分支，GitHub Pages 自动构建部署。
 
 ---
 
-## 👨‍💻 开发指南
+## 许可证
 
-### 关键文件说明
-
-#### `_layouts/default.html`
-- 包含完整页面结构
-- 顶部导航栏
-- 侧边导航系统
-- 粒子背景
-- 关键词网络可视化
-- 页脚
-- 回到顶部按钮
-
-#### `assets/styles.scss`
-- 所有样式定义
-- 玻璃拟态效果
-- 动画和过渡
-- 响应式布局
-- 组件样式
-
-#### `_data/*.yml`
-- 导航配置
-- 数据驱动内容
-- 便于维护和更新
-
-### 开发最佳实践
-
-1. **修改前备份**
-   ```bash
-   git add .
-   git commit -m "备份：修改前的状态"
-   ```
-
-2. **测试修改**
-   - 在本地完整测试
-   - 检查不同页面
-   - 验证响应式布局
-
-3. **检查语法**
-   ```bash
-   # 检查 YAML 语法
-   bundle exec jekyll build --verbose
-   ```
-
-4. **清理缓存**
-   ```bash
-   # 清理并重新构建
-   bundle exec jekyll clean
-   bundle exec jekyll build
-   ```
-
-### 调试技巧
-
-#### 查看详细日志
-```bash
-bundle exec jekyll serve --verbose
-```
-
-#### 禁用缓存
-```bash
-bundle exec jekyll serve --no-watch
-```
-
-#### 查看未发布的内容
-```bash
-bundle exec jekyll serve --unpublished --future --drafts
-```
+MIT License
 
 ---
 
-## 🚢 部署
+## 作者
 
-### GitHub Pages 部署
-
-1. **创建 GitHub 仓库**
-   - 仓库名：`username.github.io`（替换为你的 GitHub 用户名）
-
-2. **推送代码**
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M master
-   git remote add origin https://github.com/username/username.github.io.git
-   git push -u origin master
-   ```
-
-3. **配置 GitHub Pages**
-   - 进入仓库 Settings
-   - 找到 Pages 选项
-   - Source 选择 `master` 分支
-   - 保存
-
-4. **访问网站**
-   - 几分钟后访问：`https://username.github.io`
-
-### 自定义域名
-
-1. 在仓库根目录创建 `CNAME` 文件
-   ```
-   yourdomain.com
-   ```
-
-2. 配置 DNS：
-   ```
-   类型    主机    记录值
-   A       @       185.199.108.153
-   A       @       185.199.109.153
-   A       @       185.199.110.153
-   A       @       185.199.111.153
-   CNAME   www     username.github.io
-   ```
-
----
-
-## ❓ 常见问题
-
-### Q: 运行时出现 "command not found: bundle"？
-
-**A:** 需要安装 Bundler：
-```bash
-gem install bundler
-```
-
-### Q: bundle install 失败？
-
-**A:** 尝试：
-```bash
-# 更新 RubyGems
-gem update --system
-
-# 清除缓存
-bundle clean --force
-
-# 重新安装
-bundle install
-```
-
-### Q: 修改配置后没有生效？
-
-**A:** 配置文件修改需要重启服务器：
-1. <kbd>Ctrl</kbd> + <kbd>C</kbd> 停止
-2. `bundle exec jekyll serve` 重启
-
-### Q: 样式没有更新？
-
-**A:** 清理缓存并重新构建：
-```bash
-bundle exec jekyll clean
-bundle exec jekyll serve
-```
-
-### Q: 端口 4000 被占用？
-
-**A:** 使用其他端口：
-```bash
-bundle exec jekyll serve --port 4001
-```
-
-### Q: 图片不显示？
-
-**A:** 检查：
-1. 图片路径是否正确（使用 `/assets/image.png`）
-2. 图片文件是否存在于 `assets/` 目录
-3. 文件名大小写是否匹配
-
-### Q: 如何添加 Google Analytics？
-
-**A:** 在 `_config.yml` 添加：
-```yaml
-google_analytics: UA-XXXXXXXXX-X
-```
-
-### Q: 如何启用评论系统？
-
-**A:** 可以集成 Disqus、Utterances 等第三方评论系统，需要修改 `_layouts/post.html`。
-
----
-
-## 🔧 依赖更新
-
-### 更新所有依赖
-```bash
-bundle update
-```
-
-### 更新特定依赖
-```bash
-bundle update jekyll
-```
-
-### 检查过期依赖
-```bash
-bundle outdated
-```
-
----
-
-## 📚 参考资源
-
-### 项目文档
-- [项目结构快速参考](docs/PROJECT_STRUCTURE.md) - 详细的文件结构说明
-- [博客管理指南](docs/BLOG_MANAGEMENT.md) - 博客创建和管理完整教程
-
-### 外部资源
-- [Jekyll 官方文档](https://jekyllrb.com/docs/)
-- [Liquid 模板语言](https://shopify.github.io/liquid/)
-- [GitHub Pages 文档](https://docs.github.com/en/pages)
-- [Markdown 语法](https://www.markdownguide.org/)
-- [Sass 文档](https://sass-lang.com/documentation)
-
----
-
-## 🤝 贡献
-
-欢迎提交 Issue 和 Pull Request！
-
----
-
-## 📄 许可证
-
-本项目采用 [MIT License](LICENSE.txt) 开源协议。
-
----
-
-## 👤 作者
-
-**YangCazz** - 医疗机器人算法工程师
+**YangCazz / 杨钱俊** — 医疗机器人算法工程师
 
 - GitHub: [@YangCazz](https://github.com/YangCazz)
 - Email: yangcraz@qq.com
-- 位置: 杭州市余杭区
-
----
-
-## ⭐ Star History
-
-如果这个项目对你有帮助，请给个 Star ⭐️
-
----
-
-<div align="center">
-
-**🎉 祝你使用愉快！**
-
-Made with ❤️ by YangCazz
-
-</div>
