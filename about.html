@@ -6,14 +6,14 @@ navigation: about_navigation
 ---
 
 <!-- 页面标题 -->
-<section class="page-header">
-    <h1 class="page-title">关于我</h1>
-    <p class="page-subtitle">医疗机器人算法工程师 | 技术思考者 | 终身学习者</p>
+<section class="about-page-header">
+    <h1 class="about-page-title">关于我</h1>
+    <p class="about-page-subtitle">医疗机器人算法工程师 | 技术思考者 | 终身学习者</p>
 </section>
 
 <!-- 关于我 -->
-<section id="about-me" class="achievement-card">
-    <h2>👤 关于我</h2>
+<section id="about-me" class="about-section">
+    <h2>{% octicon person height:24 %} 关于我</h2>
     <p>
         你好，我是<strong>杨钱俊 (YangCazz)</strong>，一名深耕医疗机器人领域的算法工程师。我的工作横跨深度学习、医学图像处理和手术导航三大领域，致力于将前沿 AI 技术转化为真正能帮助外科医生、惠及患者的临床产品。
     </p>
@@ -29,11 +29,11 @@ navigation: about_navigation
 </section>
 
 <!-- 我的旅程 -->
-<section id="journey" class="achievement-card">
-    <h2>🚀 我的旅程</h2>
+<section id="journey" class="about-section">
+    <h2>{% octicon rocket height:24 %} 我的旅程</h2>
     <div class="card-layout">
-        <div class="info-card">
-            <h3>🏥 医疗器械行业 (2024-至今)</h3>
+        <div class="journey-card">
+            <h3>医疗器械行业 (2024-至今)</h3>
             <p>从实验室到产品落地</p>
             <ul>
                 <li>在杭州柳叶刀机器人担任算法部门主管，带领 10 人团队</li>
@@ -43,8 +43,8 @@ navigation: about_navigation
             </ul>
         </div>
 
-        <div class="info-card">
-            <h3>🔬 广州国家实验室 (2023-2024)</h3>
+        <div class="journey-card">
+            <h3>广州国家实验室 (2023-2024)</h3>
             <p>联合培养 | 医学影像算法研究</p>
             <ul>
                 <li>从事多模态医学人工智能前沿研究</li>
@@ -53,8 +53,8 @@ navigation: about_navigation
             </ul>
         </div>
 
-        <div class="info-card">
-            <h3>🎓 广州医科大学 (2021-2024)</h3>
+        <div class="journey-card">
+            <h3>广州医科大学 (2021-2024)</h3>
             <p>生物医学工程 硕士 | 专业排名 1/25</p>
             <ul>
                 <li>国家奖学金、研究生一等学业奖学金 (2022, 2023)</li>
@@ -63,8 +63,8 @@ navigation: about_navigation
             </ul>
         </div>
 
-        <div class="info-card">
-            <h3>🌱 初心起点 (2016-2020)</h3>
+        <div class="journey-card">
+            <h3>初心起点 (2016-2020)</h3>
             <p>浙江农林大学 | 信息与计算科学 本科</p>
             <ul>
                 <li>专业排名前 15%，获省级以上学科竞赛荣誉 6 项</li>
@@ -76,39 +76,39 @@ navigation: about_navigation
 </section>
 
 <!-- 技术理念 -->
-<section id="philosophy" class="achievement-card">
-    <h2>🎯 技术理念</h2>
+<section id="philosophy" class="about-section">
+    <h2>{% octicon light-bulb height:24 %} 技术理念</h2>
     <div class="publication-wall">
-        <div class="innovation-item">
-            <span class="pub-type pub-medical">🏥 从临床中来，到临床中去</span>
-            <p class="project-intro">技术不是空中楼阁，它必须解决真实的临床问题。</p>
+        <div class="philosophy-card">
+            <span class="philosophy-label philosophy-label--medical">从临床中来，到临床中去</span>
+            <p class="philosophy-intro">技术不是空中楼阁，它必须解决真实的临床问题。</p>
             <p>在开发每一个算法之前，我都会花时间了解手术流程、与医生交流痛点。只有理解了临床场景，才能做出真正有价值的工程决策——而非仅仅追逐 SOTA 指标的学术练习。</p>
         </div>
 
-        <div class="innovation-item">
-            <span class="pub-type pub-ai">⚡ 追求极致性能</span>
-            <p class="project-intro">在手术室里，毫秒级的延迟和亚毫米级的误差都可能带来严重后果。</p>
+        <div class="philosophy-card">
+            <span class="philosophy-label philosophy-label--perf">追求极致性能</span>
+            <p class="philosophy-intro">在手术室里，毫秒级的延迟和亚毫米级的误差都可能带来严重后果。</p>
             <p>我始终对性能抱有敬畏之心：从 C++ 底层优化到 GPU 并行加速，从算法复杂度分析到系统整体吞吐设计。60fps 的实时渲染、0.3mm 的定位精度——这些数字的背后是对极致的不妥协。</p>
         </div>
 
-        <div class="innovation-item">
-            <span class="pub-type pub-paper">📖 开源与分享</span>
-            <p class="project-intro">知识的价值在于流动，而不是囤积。</p>
+        <div class="philosophy-card">
+            <span class="philosophy-label philosophy-label--oss">开源与分享</span>
+            <p class="philosophy-intro">知识的价值在于流动，而不是囤积。</p>
             <p>这个博客是我回馈社区的方式之一。我在 GitHub 上开源代码，在学术会议上做报告分享，在博客里拆解经典论文——因为我深知，自己也是站在无数前辈的肩膀上才走到今天。</p>
         </div>
 
-        <div class="innovation-item">
-            <span class="pub-type pub-conference">🔗 交叉学科创新</span>
-            <p class="project-intro">最好的突破往往发生在学科的交界处。</p>
+        <div class="philosophy-card">
+            <span class="philosophy-label philosophy-label--cross">交叉学科创新</span>
+            <p class="philosophy-intro">最好的突破往往发生在学科的交界处。</p>
             <p>我坚信医疗机器人的未来在于：计算机视觉 × 临床医学 × 机械控制的深度融合。单一学科的思维定式很难解决复杂的临床问题，跨领域的知识整合才是创新的源泉。</p>
         </div>
     </div>
 </section>
 
 <!-- 关于本站 -->
-<section id="about-blog" class="achievement-card">
-    <h2>🌐 关于本站</h2>
-    <p class="project-intro">这里是我在医疗 AI 与技术探索之路上的思考笔记，也是与志同道合者交流的开放空间。</p>
+<section id="about-blog" class="about-section">
+    <h2>{% octicon globe height:24 %} 关于本站</h2>
+    <p><strong>这里是我在医疗 AI 与技术探索之路上的思考笔记，也是与志同道合者交流的开放空间。</strong></p>
     <p>
         本站的内容主要围绕三大主线：<strong>深度学习前沿论文解读</strong>（从经典 CNN 到 Transformer、GNN 的完整知识图谱）、<strong>医学图像处理实践</strong>（U-Net 系列、分割、配准的实战经验）、以及<strong>医疗器械研发洞察</strong>（从算法原型到三类注册的全流程思考）。
     </p>
@@ -116,42 +116,42 @@ navigation: about_navigation
         往更深一层说，写博客对我来说是一种<strong>费曼学习法</strong>的实践——如果你不能简单地解释清楚一件事，说明你还没有真正理解它。每一篇文章都是我对某个知识点的重新梳理和深度内化。希望你在阅读时，也能感受到这种"把复杂问题讲清楚"的努力。
     </p>
 
-    <div class="tech-stack" style="margin-top: 1.5rem;">
-        <span class="tech-tag">Jekyll</span>
-        <span class="tech-tag">GitHub Pages</span>
-        <span class="tech-tag">SCSS</span>
-        <span class="tech-tag">JavaScript</span>
-        <span class="tech-tag">Canvas 粒子背景</span>
-        <span class="tech-tag">玻璃拟态设计</span>
-        <span class="tech-tag">Markdown</span>
-        <span class="tech-tag">MathJax</span>
-        <span class="tech-tag">Rouge 语法高亮</span>
+    <div class="about-tech-stack">
+        <span class="about-tech-tag">Jekyll</span>
+        <span class="about-tech-tag">GitHub Pages</span>
+        <span class="about-tech-tag">SCSS</span>
+        <span class="about-tech-tag">JavaScript</span>
+        <span class="about-tech-tag">Canvas 粒子背景</span>
+        <span class="about-tech-tag">玻璃拟态设计</span>
+        <span class="about-tech-tag">Markdown</span>
+        <span class="about-tech-tag">MathJax</span>
+        <span class="about-tech-tag">Rouge 语法高亮</span>
     </div>
 </section>
 
 <!-- 与我联系 -->
-<section id="contact" class="achievement-card">
-    <h2>📬 与我联系</h2>
-    <p>如果你对医学图像处理、手术机器人或深度学习有任何技术问题、合作想法，或者只是想打个招呼，欢迎通过以下方式联系我。我尤其欢迎来自临床一线的反馈——那是我最珍视的输入。</p>
+<section id="contact" class="about-section">
+    <h2>{% octicon mail height:24 %} 与我联系</h2>
+    <p class="contact-intro">如果你对医学图像处理、手术机器人或深度学习有任何技术问题、合作想法，或者只是想打个招呼，欢迎通过以下方式联系我。我尤其欢迎来自临床一线的反馈——那是我最珍视的输入。</p>
 
     <div class="card-layout">
-        <div class="info-card">
-            <h3>📧 电子邮件</h3>
+        <div class="journey-card">
+            <h3>电子邮件</h3>
             <p>yangcraz@qq.com</p>
             <p>技术交流与合作咨询，通常 24 小时内回复</p>
         </div>
-        <div class="info-card">
-            <h3>💻 GitHub</h3>
+        <div class="journey-card">
+            <h3>GitHub</h3>
             <p>github.com/YangCazz</p>
             <p>开源项目、代码分享与技术协作</p>
         </div>
-        <div class="info-card">
-            <h3>🔗 LinkedIn</h3>
+        <div class="journey-card">
+            <h3>LinkedIn</h3>
             <p>linkedin.com/in/YangCazz</p>
             <p>职业网络、行业动态与工作机会</p>
         </div>
-        <div class="info-card">
-            <h3>📍 所在城市</h3>
+        <div class="journey-card">
+            <h3>所在城市</h3>
             <p>杭州市余杭区</p>
             <p>欢迎同城线下技术交流与面谈</p>
         </div>

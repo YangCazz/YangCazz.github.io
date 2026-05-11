@@ -135,53 +135,6 @@
     text-align: justify;
 }
 
-.blog-post .post-content ul,
-.blog-post .post-content ol {
-    margin: 1.2rem 0;
-    padding-left: 2rem;
-}
-
-.blog-post .post-content li {
-    margin: 0.5rem 0;
-}
-
-/* 引用块 */
-.blog-post .post-content blockquote {
-    background: rgba(66, 153, 225, 0.05);
-    border-left: 4px solid var(--accent-color);
-    padding: 1rem 1.5rem;
-    margin: 1.5rem 0;
-    border-radius: 0 8px 8px 0;
-    font-style: italic;
-    color: var(--secondary-color);
-}
-
-/* 表格 */
-.blog-post .post-content table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 1.5rem 0;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    overflow: hidden;
-}
-
-.blog-post .post-content th,
-.blog-post .post-content td {
-    padding: 0.8rem 1rem;
-    text-align: left;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-.blog-post .post-content th {
-    background: rgba(66, 153, 225, 0.1);
-    color: var(--accent-color);
-    font-weight: 600;
-}
-
-.blog-post .post-content tr:hover {
-    background: rgba(255, 255, 255, 0.05);
-}
 
 /* 行内代码 */
 .blog-post .post-content code:not(.highlight code):not(pre code) {

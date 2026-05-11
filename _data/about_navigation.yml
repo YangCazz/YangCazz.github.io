@@ -1,19 +1,19 @@
 - id: about-me
   name: 关于我
-  icon: ◉
+  icon: person
 
 - id: journey
   name: 我的旅程
-  icon: ◭
+  icon: rocket
 
 - id: philosophy
   name: 技术理念
-  icon: ◬
+  icon: light-bulb
 
 - id: about-blog
   name: 关于本站
-  icon: ◆
+  icon: globe
 
 - id: contact
   name: 与我联系
-  icon: ◈
+  icon: mail

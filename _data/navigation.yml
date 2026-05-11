@@ -1,25 +1,25 @@
 # 首页导航
 - id: hero
   name: 首页
-  icon: ⌂
+  icon: home
   url: /
 
 - id: blog
   name: 博客
-  icon: ◆
+  icon: note
   url: /blog
 
 - id: resume
   name: 简历
-  icon: ◈
+  icon: person
   url: /resume
 
 - id: about
   name: 关于
-  icon: ◉
+  icon: info
   url: /about
 
 - id: apps
   name: 应用
-  icon: ◐
+  icon: package
   url: /apps

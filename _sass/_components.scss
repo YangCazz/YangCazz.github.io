@@ -31,13 +31,13 @@
 
 .btn-outline {
     background: transparent;
-    color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    color: #e2e8f0;
+    border: 2px solid #e2e8f0;
 }
 
 .btn-outline:hover {
-    background: var(--primary-color);
-    color: white;
+    background: #e2e8f0;
+    color: #2b2d42;
 }
 
 /* 鼠标点击波纹效果 */
@@ -690,4 +690,30 @@
         width: 14px;
         height: 14px;
     }
+}
+
+/* ---- 共享统计组件 ---- */
+.stat-item {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-weight: 700;
+    color: var(--accent-color);
+}
+
+.stat-label {
+    display: block;
+    color: var(--secondary-color);
+    font-weight: 500;
+}
+
+/* ---- 共享联系人条目 ---- */
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    font-size: 0.9rem;
+    color: var(--secondary-color);
 }

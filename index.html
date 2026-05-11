@@ -19,7 +19,7 @@ navigation: home_navigation
         
         <div class="hero-right">
             <div class="blog-stats">
-                <h3 class="stats-title">📚 博客统计</h3>
+                <h3 class="stats-title">{% octicon book height:20 %} 博客统计</h3>
                 <div class="stats-grid">
                     <div class="stat-item">
                         <span class="stat-number">{{ site.posts.size }}</span>
@@ -41,7 +41,7 @@ navigation: home_navigation
 
 <!-- 最新博客文章 -->
 <section id="blog" class="blog-section">
-    <h2 class="section-title">📝 最新博客文章</h2>
+    <h2 class="section-title">{% octicon note height:24 %} 最新博客文章</h2>
     <div class="blog-grid">
         {% for post in site.posts limit:6 %}
         <article class="blog-card">
@@ -66,7 +66,7 @@ navigation: home_navigation
 
 <!-- 技术栈展示 -->
 <section id="tech" class="tech-section">
-    <h2 class="section-title">🛠️ 技术专长</h2>
+    <h2 class="section-title">{% octicon tools height:24 %} 技术专长</h2>
     <div class="tech-grid">
         <div class="tech-category">
             <h3>编程语言</h3>
@@ -112,7 +112,7 @@ navigation: home_navigation
 
 <!-- 项目展示 -->
 <section id="projects" class="projects-section">
-    <h2 class="section-title">🚀 精选项目</h2>
+    <h2 class="section-title">{% octicon rocket height:24 %} 精选项目</h2>
     <div class="projects-grid">
         <div class="project-card">
             <h3>智能手术导航系统</h3>
