@@ -26,7 +26,7 @@
 }
 
 .footer-content {
-    max-width: 1200px;
+    max-width: 1600px;
     margin: 0 auto;
     padding: 0 2rem 3rem;
     display: grid;
@@ -203,33 +203,33 @@
 }
 
 /* GitHub品牌色 */
-.social-link-item:nth-child(1) .social-svg {
+.social-link-item[title="GitHub"] .social-svg {
     color: #333;
 }
 
-.social-link-item:nth-child(1):hover {
+.social-link-item[title="GitHub"]:hover {
     background: rgba(51, 51, 51, 0.05);
     border-color: #333;
     color: #333;
 }
 
 /* LinkedIn品牌色 */
-.social-link-item:nth-child(2) .social-svg {
+.social-link-item[title="LinkedIn"] .social-svg {
     color: #0077B5;
 }
 
-.social-link-item:nth-child(2):hover {
+.social-link-item[title="LinkedIn"]:hover {
     background: rgba(0, 119, 181, 0.05);
     border-color: #0077B5;
     color: #0077B5;
 }
 
 /* Twitter品牌色 */
-.social-link-item:nth-child(3) .social-svg {
+.social-link-item[title="Twitter"] .social-svg {
     color: #1DA1F2;
 }
 
-.social-link-item:nth-child(3):hover {
+.social-link-item[title="Twitter"]:hover {
     background: rgba(29, 161, 242, 0.05);
     border-color: #1DA1F2;
     color: #1DA1F2;

@@ -2,21 +2,21 @@
 
 - id: apps-header
   name: 应用总览
-  icon: ◆
+  icon: rocket
 
 - id: professional
   name: 专业项目
-  icon: ◈
+  icon: briefcase
 
 - id: opensource
   name: 开源项目
-  icon: ◉
+  icon: git-branch
 
 - id: tools
   name: 实用工具
-  icon: ◐
+  icon: tools
 
 - id: research
   name: 研究项目
-  icon: ◬
+  icon: beaker
 

@@ -7,9 +7,6 @@ body {
     background: transparent;
     position: relative;
     animation: fadeIn 0.8s ease-out;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
     min-height: 100vh;
     display: flex;
     flex-direction: column;

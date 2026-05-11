@@ -1,0 +1,212 @@
+/* ========================================
+   关于页面样式
+   ======================================== */
+
+/* ---- 页面头部 ---- */
+.about-page-header {
+    text-align: center;
+    padding: 3rem 2rem 2rem;
+    margin-bottom: 2rem;
+
+    .about-page-title {
+        font-size: 2.8rem;
+        font-weight: 700;
+        margin-bottom: 0.75rem;
+        background: linear-gradient(135deg, var(--accent-color), #667eea);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+
+    .about-page-subtitle {
+        font-size: 1.15rem;
+        color: #cbd5e1;
+        font-weight: 500;
+    }
+}
+
+/* ---- 分区卡片 ---- */
+.about-section {
+    @include glass-card;
+    padding: 2.5rem;
+    margin-bottom: 2rem;
+
+    h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: linear-gradient(135deg, var(--accent-color), #667eea);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+
+        .octicon {
+            -webkit-text-fill-color: var(--accent-color);
+        }
+    }
+
+    p {
+        color: var(--secondary-color);
+        line-height: 1.85;
+        margin-bottom: 1rem;
+        font-size: 1rem;
+    }
+
+    strong {
+        color: var(--primary-color);
+    }
+}
+
+/* ---- 共享布局 ---- */
+.card-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.publication-wall {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 1.5rem;
+}
+
+/* ---- 旅程卡片 ---- */
+.journey-card {
+    @include glass-card;
+    padding: 1.5rem;
+    @include hover-lift;
+
+    h3 {
+        color: var(--primary-color);
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+    }
+
+    > p {
+        color: var(--accent-color);
+        font-weight: 500;
+        font-size: 0.9rem;
+        margin-bottom: 1rem;
+    }
+
+    ul {
+        margin: 0;
+        padding-left: 1.2rem;
+    }
+
+    li {
+        color: var(--secondary-color);
+        margin: 0.4rem 0;
+        line-height: 1.55;
+        font-size: 0.9rem;
+    }
+}
+
+/* ---- 技术理念卡片 ---- */
+.philosophy-card {
+    @include glass-card;
+    padding: 1.5rem;
+    border-left: 4px solid var(--accent-color);
+    @include hover-lift;
+
+    .philosophy-label {
+        display: inline-block;
+        padding: 0.3rem 0.8rem;
+        border-radius: var(--radius-pill);
+        font-size: 0.85rem;
+        font-weight: 500;
+        margin-bottom: 0.75rem;
+    }
+
+    .philosophy-intro {
+        color: var(--primary-color);
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+        font-size: 0.95rem;
+    }
+
+    p {
+        color: var(--secondary-color);
+        line-height: 1.75;
+        margin-bottom: 0.5rem;
+        font-size: 0.95rem;
+    }
+}
+
+.philosophy-label--medical {
+    background: var(--badge-cert-bg);
+    color: var(--badge-cert-color);
+    border: 1px solid rgba(30, 126, 52, 0.3);
+}
+
+.philosophy-label--perf {
+    background: var(--badge-award-bg);
+    color: var(--badge-award-color);
+    border: 1px solid rgba(167, 29, 42, 0.3);
+}
+
+.philosophy-label--oss {
+    background: rgba(0, 123, 255, 0.1);
+    color: #007bff;
+    border: 1px solid rgba(0, 123, 255, 0.3);
+}
+
+.philosophy-label--cross {
+    background: rgba(108, 117, 125, 0.1);
+    color: #6c757d;
+    border: 1px solid rgba(108, 117, 125, 0.3);
+}
+
+/* ---- 关于本站技术栈 ---- */
+.about-tech-stack {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-top: 1.5rem;
+
+    .about-tech-tag {
+        padding: 0.3rem 0.8rem;
+        background: var(--tag-bg);
+        color: var(--tag-color);
+        border-radius: var(--radius-pill);
+        font-size: 0.85rem;
+        font-weight: 500;
+        border: 1px solid var(--border-light);
+        transition: var(--transition);
+
+        &:hover {
+            background: rgba(66, 153, 225, 0.2);
+            transform: translateY(-2px);
+        }
+    }
+}
+
+/* ---- 联系方式 ---- */
+.contact-intro {
+    color: var(--secondary-color);
+    line-height: 1.85;
+    margin-bottom: 1.5rem;
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+    .about-page-header {
+        padding: 2rem 1rem 1.5rem;
+
+        .about-page-title {
+            font-size: 2rem;
+        }
+    }
+
+    .about-section {
+        padding: 1.5rem;
+
+        h2 {
+            font-size: 1.3rem;
+        }
+    }
+}

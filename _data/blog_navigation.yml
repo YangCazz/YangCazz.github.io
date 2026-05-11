@@ -1,11 +1,11 @@
 - id: tag-network
   name: 关键词网络
-  icon: 🔗
+  icon: hubot
 
 - id: blog-list
   name: 文章列表
-  icon: ◉
+  icon: note
 
 - id: blog-footer
   name: 页面底部
-  icon: ◈
+  icon: info

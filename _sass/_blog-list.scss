@@ -1,12 +1,13 @@
-/* 博客列表页面标题 */
+/* ========================================
+   博客列表页样式
+   ======================================== */
+
+/* ---- 页面头部 ---- */
 .page-header {
     text-align: center;
     padding: 3rem 0;
-    background: var(--glass-bg);
-    border-radius: 12px;
+    @include glass-card;
     margin-bottom: 2rem;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
 }
 
 .page-title {
@@ -17,6 +18,14 @@
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    .octicon {
+        -webkit-text-fill-color: var(--accent-color);
+    }
 }
 
 .page-description {
@@ -25,7 +34,7 @@
     margin: 0;
 }
 
-/* 博客列表 */
+/* ---- 博客列表 ---- */
 .blog-list {
     display: flex;
     flex-direction: column;
@@ -33,19 +42,9 @@
 }
 
 .blog-post-card {
-    background: var(--glass-bg);
-    border-radius: 12px;
+    @include glass-card;
     padding: 2rem;
-    box-shadow: var(--shadow);
-    transition: var(--transition);
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-}
-
-.blog-post-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    @include hover-lift;
 }
 
 .blog-post-header {
@@ -56,16 +55,16 @@
     font-size: 1.5rem;
     font-weight: 600;
     margin-bottom: 1rem;
-}
 
-.blog-post-title a {
-    color: var(--primary-color);
-    text-decoration: none;
-    transition: var(--transition);
-}
+    a {
+        color: var(--primary-color);
+        text-decoration: none;
+        transition: var(--transition);
 
-.blog-post-title a:hover {
-    color: var(--accent-color);
+        &:hover {
+            color: var(--accent-color);
+        }
+    }
 }
 
 .blog-post-meta {
@@ -89,12 +88,7 @@
 }
 
 .category-tag {
-    background: rgba(66, 153, 225, 0.1);
-    color: var(--accent-color);
-    padding: 0.3rem 0.8rem;
-    border-radius: 16px;
-    font-size: 0.85rem;
-    border: 1px solid rgba(66, 153, 225, 0.3);
+    @include tag-pill;
 }
 
 .blog-post-excerpt {
@@ -118,12 +112,12 @@
 }
 
 .tag {
+    @include tag-pill;
     background: rgba(74, 85, 104, 0.1);
     color: var(--secondary-color);
-    padding: 0.2rem 0.6rem;
-    border-radius: 12px;
+    border-color: rgba(74, 85, 104, 0.2);
     font-size: 0.8rem;
-    border: 1px solid rgba(74, 85, 104, 0.3);
+    padding: 0.2rem 0.6rem;
 }
 
 .read-more-btn {
@@ -131,25 +125,22 @@
     text-decoration: none;
     font-weight: 500;
     transition: var(--transition);
+
+    &:hover {
+        text-decoration: underline;
+        transform: translateX(4px);
+    }
 }
 
-.read-more-btn:hover {
-    text-decoration: underline;
-    transform: translateX(5px);
-}
-
-/* 无文章提示 */
+/* ---- 无文章提示 ---- */
 .no-posts {
     text-align: center;
     padding: 4rem 2rem;
 }
 
 .no-posts-content {
-    background: var(--glass-bg);
-    border-radius: 12px;
+    @include glass-card;
     padding: 3rem;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
 }
 
 .no-posts h2 {
@@ -163,37 +154,30 @@
     margin-bottom: 2rem;
 }
 
-/* 博客页面底部 */
+/* ---- 博客页脚 ---- */
 .blog-footer {
     text-align: center;
-    padding: 0;
     margin-top: 2rem;
 }
 
 .blog-footer-content {
-    background: var(--glass-bg);
-    border-radius: 12px;
+    @include glass-card;
     padding: 2.5rem;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    box-shadow: var(--shadow);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    transition: var(--transition);
-}
-
-.blog-footer-content:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    @include hover-lift;
 }
 
 .blog-footer h2 {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+
+    .octicon {
+        color: var(--accent-color);
+    }
 }
 
 .blog-footer p {
@@ -206,18 +190,15 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 1.5rem;
-    margin: 2rem 0;
+    margin: 2rem auto;
     max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
 }
 
 .footer-stats .stat-item {
     text-align: center;
     padding: 1rem;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: var(--tag-bg);
+    border-radius: var(--radius-sm);
 }
 
 .footer-stats .stat-number {
@@ -240,52 +221,18 @@
     justify-content: center;
     flex-wrap: wrap;
     margin-top: 2rem;
+
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+    }
 }
 
-.footer-actions .btn {
-    padding: 0.75rem 1.5rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 500;
-    transition: var(--transition);
-    border: none;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-}
-
-.footer-actions .btn-primary {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-}
-
-.footer-actions .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
-}
-
-.footer-actions .btn-secondary {
-    background: rgba(255, 255, 255, 0.8);
-    color: var(--primary-color);
-    border: 1px solid rgba(0, 0, 0, 0.1);
-}
-
-.footer-actions .btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.95);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-/* 早期文章归档 */
+/* ---- 早期文章归档 ---- */
 .blog-archive {
     margin-top: 3rem;
     padding: 2rem;
-    background: var(--glass-bg);
-    border-radius: 12px;
-    -webkit-backdrop-filter: blur(10px);
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    @include glass-card;
 }
 
 .archive-title {
@@ -294,7 +241,14 @@
     color: var(--secondary-color);
     margin-bottom: 1.5rem;
     padding-bottom: 0.75rem;
-    border-bottom: 2px solid rgba(66, 153, 225, 0.15);
+    border-bottom: 2px solid var(--tag-bg);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+
+    .octicon {
+        color: var(--accent-color);
+    }
 }
 
 .archive-list {
@@ -316,7 +270,7 @@
 
 .archive-date {
     font-size: 0.8rem;
-    color: #94a3b8;
+    color: var(--secondary-color);
     white-space: nowrap;
     flex-shrink: 0;
     min-width: 90px;
@@ -327,19 +281,15 @@
     color: var(--primary-color);
     text-decoration: none;
     transition: var(--transition);
-}
 
-.archive-link:hover {
-    color: var(--accent-color);
-    transform: translateX(4px);
-}
-
-@media (max-width: 768px) {
-    .blog-footer {
-        padding: 2rem 0.5rem;
-        margin-top: 1.5rem;
+    &:hover {
+        color: var(--accent-color);
+        transform: translateX(4px);
     }
+}
 
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
     .blog-footer-content {
         padding: 1.5rem;
     }
@@ -360,12 +310,12 @@
     .footer-actions {
         flex-direction: column;
         align-items: center;
-    }
 
-    .footer-actions .btn {
-        width: 100%;
-        max-width: 200px;
-        justify-content: center;
+        .btn {
+            width: 100%;
+            max-width: 200px;
+            justify-content: center;
+        }
     }
 
     .blog-post-meta,
@@ -377,5 +327,9 @@
     .blog-post-footer {
         flex-direction: column;
         align-items: flex-start;
+    }
+
+    .archive-list {
+        grid-template-columns: 1fr;
     }
 }

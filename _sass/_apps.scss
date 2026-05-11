@@ -2,10 +2,10 @@
    应用页面样式
    ========================================== */
 
+/* ---- 页面头部 ---- */
 .apps-header-section {
     padding: 3rem 1rem 2rem;
     text-align: center;
-    position: relative;
     max-width: 1600px;
     margin: 0 auto;
 }
@@ -19,22 +19,25 @@
     font-size: 3rem;
     font-weight: 700;
     margin-bottom: 1rem;
-    background: linear-gradient(135deg, #93C5FD, #C4B5FD, #F9A8D4);
+    background: linear-gradient(135deg, var(--accent-color), #667eea);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
-    animation: gradientShift 5s ease infinite;
+
+    .octicon {
+        -webkit-text-fill-color: var(--accent-color);
+    }
 }
 
 .apps-subtitle {
     font-size: 1.2rem;
-    color: #f8fafc;
+    color: #cbd5e1;
     margin-bottom: 1.5rem;
     line-height: 1.8;
-    font-weight: 600;
+    font-weight: 500;
 }
 
-/* 统计信息 */
+/* ---- 统计信息 ---- */
 .apps-stats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -47,37 +50,26 @@
     text-align: center;
     padding: 1.2rem 1.5rem;
     min-width: 140px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    transition: var(--transition);
-}
-
-.apps-stats .stat-item:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    @include glass-card;
+    @include hover-lift;
 }
 
 .apps-stats .stat-number {
     display: block;
     font-size: 2rem;
     font-weight: 700;
-    background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--accent-color);
     margin-bottom: 0.5rem;
 }
 
 .apps-stats .stat-label {
     display: block;
     font-size: 0.85rem;
-    color: #64748b;
-    font-weight: 700;
+    color: var(--secondary-color);
+    font-weight: 600;
 }
 
-/* 筛选器 */
+/* ---- 筛选器 ---- */
 .apps-filter {
     display: flex;
     flex-wrap: wrap;
@@ -89,31 +81,28 @@
 
 .filter-btn {
     padding: 0.6rem 1.2rem;
-    background: #ffffff;
-    border: 2px solid rgba(0, 0, 0, 0.1);
+    @include glass-card;
     border-radius: 50px;
     font-size: 0.9rem;
     font-weight: 500;
     color: var(--primary-color);
     cursor: pointer;
     transition: var(--transition);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
 
-.filter-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-color: var(--accent-color);
+    &:hover {
+        transform: translateY(-2px);
+        border-color: var(--accent-color);
+    }
 }
 
 .filter-btn.active {
-    background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+    background: var(--accent-color);
     color: white;
     border-color: transparent;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.3);
 }
 
-/* 应用区域 */
+/* ---- 应用区域 ---- */
 .apps-section {
     padding: 2rem 1rem;
     max-width: 1600px;
@@ -128,31 +117,26 @@
 .section-title {
     font-size: 2rem;
     font-weight: 700;
-    color: #f1f5f9;
+    color: #e2e8f0;
     margin-bottom: 0.75rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.75rem;
-}
+    gap: 0.5rem;
 
-.section-icon {
-    font-size: 1.5rem;
-    background: linear-gradient(135deg, #3B82F6, #8B5CF6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    .octicon {
+        color: var(--accent-color);
+    }
 }
 
 .section-description {
     font-size: 1.05rem;
-    color: #e2e8f0;
+    color: #cbd5e1;
     max-width: 600px;
     margin: 0 auto;
-    font-weight: 600;
 }
 
-/* 应用网格 */
+/* ---- 应用网格 ---- */
 .apps-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
@@ -166,15 +150,9 @@
     }
 }
 
-@media (min-width: 1200px) and (max-width: 1599px) {
+@media (max-width: 1024px) {
     .apps-grid {
-        grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    }
-}
-
-@media (min-width: 768px) and (max-width: 1199px) {
-    .apps-grid {
-        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
         gap: 1.5rem;
     }
 }
@@ -186,18 +164,20 @@
     }
 }
 
-/* 应用卡片 */
+/* ---- 应用卡片 ---- */
 .app-card {
-    background: #ffffff;
+    @include glass-card;
     border-radius: 16px;
     padding: 2rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    transition: var(--transition);
     display: flex;
     flex-direction: column;
     position: relative;
     overflow: hidden;
+    @include hover-lift;
+
+    &:hover {
+        border-color: rgba(66, 153, 225, 0.3);
+    }
 }
 
 .app-card::before {
@@ -207,7 +187,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: linear-gradient(90deg, #3B82F6, #8B5CF6, #EC4899);
+    background: linear-gradient(90deg, var(--accent-color), #667eea);
     transform: scaleX(0);
     transform-origin: left;
     transition: transform 0.3s ease;
@@ -217,20 +197,13 @@
     transform: scaleX(1);
 }
 
-.app-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.15);
-    border-color: rgba(59, 130, 246, 0.3);
-}
-
 .app-card-highlight {
-    border: 2px solid rgba(59, 130, 246, 0.3);
-    background: #ffffff;
-    box-shadow: 0 4px 16px rgba(59, 130, 246, 0.15);
-}
+    border: 2px solid rgba(66, 153, 225, 0.3);
+    box-shadow: 0 4px 16px rgba(66, 153, 225, 0.15);
 
-.app-card-highlight::before {
-    height: 5px;
+    &::before {
+        height: 5px;
+    }
 }
 
 .app-card-header {
@@ -247,13 +220,11 @@
     width: 80px;
     height: 80px;
     object-fit: contain;
-    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.1));
     transition: var(--transition);
-}
 
-.app-card-logo:hover {
-    transform: scale(1.1);
-    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.15));
+    &:hover {
+        transform: scale(1.1);
+    }
 }
 
 .app-card-title-row {
@@ -267,7 +238,7 @@
 .app-card-title {
     font-size: 1.4rem;
     font-weight: 700;
-    color: #1a202c;
+    color: var(--primary-color);
     margin: 0;
     flex: 1;
     min-width: 0;
@@ -277,10 +248,9 @@
     font-size: 0.9rem;
     color: var(--accent-color);
     font-weight: 500;
-    margin: 0;
 }
 
-/* 徽章 */
+/* ---- 徽章 ---- */
 .app-badge {
     padding: 0.25rem 0.75rem;
     border-radius: 50px;
@@ -293,7 +263,6 @@
 .app-badge-highlight {
     background: linear-gradient(135deg, #EC4899, #F59E0B);
     color: white;
-    animation: pulse 2s ease-in-out infinite;
 }
 
 .app-badge-生产环境 {
@@ -321,7 +290,7 @@
     color: white;
 }
 
-/* 卡片主体 */
+/* ---- 卡片主体 ---- */
 .app-card-body {
     flex: 1;
     display: flex;
@@ -331,7 +300,7 @@
 
 .app-card-description {
     font-size: 1rem;
-    color: #2d3748;
+    color: var(--secondary-color);
     line-height: 1.7;
     margin: 0;
 }
@@ -340,7 +309,7 @@
 .app-card-tech h4 {
     font-size: 0.9rem;
     font-weight: 700;
-    color: #1a202c;
+    color: var(--primary-color);
     margin: 0 0 0.75rem 0;
 }
 
@@ -352,18 +321,18 @@
 
 .app-card-features li {
     font-size: 0.9rem;
-    color: #2d3748;
+    color: var(--secondary-color);
     padding-left: 1.5rem;
     margin-bottom: 0.5rem;
     position: relative;
-}
 
-.app-card-features li::before {
-    content: '✓';
-    position: absolute;
-    left: 0;
-    color: var(--accent-color);
-    font-weight: bold;
+    &::before {
+        content: '\2713';
+        position: absolute;
+        left: 0;
+        color: var(--accent-color);
+        font-weight: bold;
+    }
 }
 
 .tech-stack-tags {
@@ -373,26 +342,18 @@
 }
 
 .tech-stack-tag {
-    padding: 0.4rem 0.9rem;
-    background: rgba(59, 130, 246, 0.1);
-    color: var(--accent-color);
-    border-radius: 50px;
-    font-size: 0.85rem;
-    font-weight: 500;
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    transition: var(--transition);
+    @include tag-pill;
+    &:hover {
+        background: rgba(66, 153, 225, 0.2);
+        transform: translateY(-2px);
+    }
 }
 
-.tech-stack-tag:hover {
-    background: rgba(59, 130, 246, 0.2);
-    transform: scale(1.05);
-}
-
-/* 卡片底部 */
+/* ---- 卡片底部 ---- */
 .app-card-footer {
     margin-top: 1.5rem;
     padding-top: 1.5rem;
-    border-top: 1px solid rgba(0, 0, 0, 0.05);
+    border-top: 1px solid var(--border-light);
 }
 
 .app-card-links {
@@ -406,42 +367,30 @@
     align-items: center;
     gap: 0.5rem;
     padding: 0.6rem 1.2rem;
-    background: linear-gradient(135deg, #3B82F6, #8B5CF6);
+    background: var(--accent-color);
     color: white;
     text-decoration: none;
     border-radius: 8px;
     font-size: 0.9rem;
     font-weight: 500;
     transition: var(--transition);
-    box-shadow: 0 2px 8px rgba(59, 130, 246, 0.2);
+
+    &:hover {
+        opacity: 0.9;
+        transform: translateY(-2px);
+    }
+
+    .link-icon {
+        width: 16px;
+        height: 16px;
+        flex-shrink: 0;
+    }
 }
 
-.app-link:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
-    background: linear-gradient(135deg, #2563EB, #7C3AED);
-}
-
-.link-icon {
-    flex-shrink: 0;
-}
-
-/* 紧凑卡片 */
-.app-card,
-.repo-card,
-.post-card {
-    margin: 0;
-}
-
-body.apps .apps-grid {
-    max-width: 1600px;
-    margin: 0 auto;
-}
-
-/* 响应式 */
+/* ---- 响应式 ---- */
 @media (max-width: 768px) {
     .apps-header-section {
-        padding: 4rem 1.5rem 1.5rem;
+        padding: 2rem 1rem 1.5rem;
     }
 
     .apps-main-title {
@@ -459,7 +408,7 @@ body.apps .apps-grid {
 
     .apps-stats .stat-item {
         padding: 1rem;
-        min-width: 120px;
+        min-width: auto;
     }
 
     .apps-stats .stat-number {
@@ -473,11 +422,6 @@ body.apps .apps-grid {
     .filter-btn {
         padding: 0.5rem 1rem;
         font-size: 0.85rem;
-    }
-
-    .apps-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
     }
 
     .app-card {
