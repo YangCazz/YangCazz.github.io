@@ -474,6 +474,15 @@
     border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
+.toc-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--primary-color);
+    margin: 0 0 0.75rem 0;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--border-light);
+}
+
 .toc-content {
     max-height: 400px;
     overflow-y: auto;
@@ -481,13 +490,13 @@
 
 .toc-item {
     display: block;
-    padding: 0.5rem 0.8rem;
-    margin: 0.2rem 0;
+    padding: 0.3rem 0.8rem;
+    margin: 0.1rem 0;
     border-radius: 6px;
     text-decoration: none;
     color: var(--secondary-color);
     font-size: 0.9rem;
-    line-height: 1.4;
+    line-height: 1.35;
     transition: var(--transition);
     border-left: 2px solid transparent;
 }
@@ -509,25 +518,40 @@
 .toc-item.h1 {
     font-weight: 600;
     font-size: 0.95rem;
-    padding-left: 0.8rem;
+    margin-top: 0.35rem;
+    padding-top: 0.45rem;
+    border-top: 1px solid var(--border-light);
+}
+
+.toc-item.h1:first-child {
+    margin-top: 0;
+    padding-top: 0.3rem;
+    border-top: none;
 }
 
 .toc-item.h2 {
     font-weight: 500;
     font-size: 0.9rem;
-    padding-left: 1.6rem;
 }
 
 .toc-item.h3 {
     font-weight: 400;
     font-size: 0.85rem;
-    padding-left: 2.4rem;
 }
 
 .toc-item.h4 {
     font-weight: 400;
     font-size: 0.8rem;
-    padding-left: 3.2rem;
+}
+
+.toc-item.h3,
+.toc-item.h4 {
+    color: rgba(74, 85, 104, 0.7);
+}
+
+.toc-item.h3.active,
+.toc-item.h4.active {
+    color: var(--accent-color);
 }
 
 /* 博客文章导航 */

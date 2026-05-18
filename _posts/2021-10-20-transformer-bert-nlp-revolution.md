@@ -11,19 +11,22 @@ excerpt: "深入解析Transformer和BERT的原理与创新。从'Attention Is Al
 
 ## 引言
 
-2017年，Google发表了论文《Attention Is All You Need》，提出了Transformer架构。这一工作不仅革新了NLP领域，更影响了整个深度学习的发展方向。
+2017年，Google发表了论文《Attention Is All You Need》<cite>[1]</cite>，提出了Transformer架构。这一工作不仅革新了NLP领域，更影响了整个深度学习的发展方向。
 
 **"Attention Is All You Need"** —— 你只需要注意力机制，不需要RNN和CNN！
 
 ## 1. Transformer (2017)
 
-### 基本信息
+{% include paper-info.html 
+   authors="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin (Google Brain)"
+   venue="NeurIPS"
+   year="2017"
+   arxiv="1706.03762"
+   url="https://arxiv.org/abs/1706.03762"
+   url_label="arXiv:1706.03762"
+%}
 
-* **团队**：Google Brain
-* **论文**：[Attention Is All You Need](https://arxiv.org/abs/1706.03762)
-* **DOI**：arXiv:1706.03762
-* **时间**：2017年
-* **影响**：NLP领域的里程碑
+**影响**：NLP领域的里程碑
 
 ### 为什么需要Transformer？
 
@@ -38,13 +41,13 @@ excerpt: "深入解析Transformer和BERT的原理与创新。从'Attention Is Al
 * ❌ 感受野受限
 * ❌ 难以建模长距离依赖
 
-**解决方案**：**完全基于Attention机制！**
+**解决方案**<cite>[1]</cite>：**完全基于Attention机制！**
 
 ### Transformer架构
 
-![Transformer结构](/assets/images/deep-learning/Transformer.png)
+![Transformer结构](/assets/images/posts/deep-learning/transformer-architecture.png)
 
-![Transformer路径](/assets/images/deep-learning/Transformer_path.png)
+![Transformer路径](/assets/images/posts/deep-learning/transformer-data-flow.png)
 
 #### 整体结构
 
@@ -62,11 +65,11 @@ excerpt: "深入解析Transformer和BERT的原理与创新。从'Attention Is Al
 
 #### 1. Multi-Head Self-Attention
 
-![Self-Attention](/assets/images/deep-learning/Self_Attention.png)
+![Self-Attention](/assets/images/posts/deep-learning/transformer-self-attention.png)
 
-![Self-Attention计算](/assets/images/deep-learning/Self_Attention_Caculation.png)
+![Self-Attention计算](/assets/images/posts/deep-learning/transformer-attention-calculation.png)
 
-**单头注意力**：
+**单头注意力**<cite>[1]</cite>：
 
 $$
 \text{Attention}(Q, K, V) = \text{softmax}\left(\frac{QK^T}{\sqrt{d_k}}\right)V
@@ -74,7 +77,7 @@ $$
 
 **多头注意力**：
 
-![Multi-Head Attention](/assets/images/deep-learning/Self_Attention_MultiHead.png)
+![Multi-Head Attention](/assets/images/posts/deep-learning/transformer-multi-head.png)
 
 $$
 \text{MultiHead}(Q, K, V) = \text{Concat}(head_1, ..., head_h)W^O
@@ -191,7 +194,7 @@ class PositionwiseFeedForward(nn.Module):
 
 #### 3. Positional Encoding
 
-**位置编码**：由于Self-Attention本身不考虑位置，需要添加位置信息。
+**位置编码**<cite>[1]</cite>：由于Self-Attention本身不考虑位置，需要添加位置信息。
 
 $$
 PE_{(pos, 2i)} = \sin\left(\frac{pos}{10000^{2i/d_{model}}}\right)
@@ -402,32 +405,34 @@ class Transformer(nn.Module):
 ### Transformer的应用
 
 * ✅ **机器翻译**：Google Translate
-* ✅ **文本生成**：GPT系列
-* ✅ **语言理解**：BERT系列
+* ✅ **文本生成**：GPT系列<cite>[3]</cite>
+* ✅ **语言理解**：BERT系列<cite>[2]</cite>
 * ✅ **对话系统**：ChatGPT
 * ✅ **代码生成**：Codex, GitHub Copilot
 * ✅ **计算机视觉**：Vision Transformer
 
 ## 2. BERT (2018)
 
-### 基本信息
-
-* **团队**：Google AI Language
-* **论文**：[BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805)
-* **DOI**：arXiv:1810.04805
-* **时间**：2018年
+{% include paper-info.html 
+   authors="Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova (Google AI Language)"
+   venue="NAACL"
+   year="2019"
+   arxiv="1810.04805"
+   url="https://arxiv.org/abs/1810.04805"
+   url_label="arXiv:1810.04805"
+%}
 
 ### BERT的创新
 
 #### 1. 双向Transformer
 
-![BERT结构](/assets/images/deep-learning/BERT.png)
+![BERT结构](/assets/images/posts/deep-learning/bert-architecture.png)
 
 **与GPT的区别**：
-* **GPT**：单向（从左到右）
-* **BERT**：双向（同时看左右）
+* **GPT**<cite>[3]</cite>：单向（从左到右）
+* **BERT**<cite>[2]</cite>：双向（同时看左右）
 
-**优势**：更好地理解上下文。
+**优势**<cite>[2]</cite>：更好地理解上下文。
 
 #### 2. 预训练 + 微调范式
 
@@ -448,7 +453,7 @@ input_embedding = token_embedding + segment_embedding + position_embedding
 
 #### 任务1：Masked Language Model (MLM)
 
-**思想**：随机遮蔽15%的词，让模型预测。
+**思想**<cite>[2]</cite>：随机遮蔽15%的词，让模型预测。
 
 ```
 输入：The [MASK] sat on the [MASK].
@@ -462,7 +467,7 @@ input_embedding = token_embedding + segment_embedding + position_embedding
 
 #### 任务2：Next Sentence Prediction (NSP)
 
-**思想**：判断两个句子是否相邻。
+**思想**<cite>[2]</cite>：判断两个句子是否相邻。
 
 ```
 输入A：[CLS] The cat sat. [SEP] It was tired. [SEP]
@@ -474,7 +479,7 @@ input_embedding = token_embedding + segment_embedding + position_embedding
 
 ### BERT的架构
 
-**两种规模**：
+**两种规模**<cite>[2]</cite>：
 
 | 模型 | 层数 | 隐藏层大小 | 注意力头数 | 参数量 |
 |------|------|-----------|----------|--------|
@@ -555,7 +560,7 @@ DeBERTa (2020): 解耦注意力
 
 ### 性能提升
 
-BERT在11个NLP任务上刷新SOTA：
+BERT在11个NLP任务上刷新SOTA<cite>[2]</cite>：
 
 | 任务 | 之前SOTA | BERT-Base | BERT-Large |
 |------|---------|-----------|-----------|
@@ -668,21 +673,21 @@ scaler.update()
 
 Transformer和BERT：
 * 📊 革新了NLP领域的方法论
-* 🔧 催生了GPT、ChatGPT等大语言模型
+* 🔧 催生了GPT、ChatGPT等大语言模型<cite>[3]</cite>
 * 🚀 扩展到计算机视觉（ViT）
 * 🎓 成为深度学习的主流架构
 
 **Transformer改变了AI的未来！**
 
-## 参考资料
+## 参考文献
 
-1. Vaswani, A., et al. (2017). Attention Is All You Need
-2. Devlin, J., et al. (2018). BERT: Pre-training of Deep Bidirectional Transformers
-3. [Transformer论文解读](https://arxiv.org/abs/1706.03762)
-4. [BERT论文解读](https://arxiv.org/abs/1810.04805)
-5. [The Illustrated Transformer](http://jalammar.github.io/illustrated-transformer/)
+<ol class="references">
+<li>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L., Gomez, A. N., Kaiser, L., and Polosukhin, I. <em>Attention Is All You Need</em>. NeurIPS, 2017. arXiv: <a href="https://arxiv.org/abs/1706.03762">1706.03762</a></li>
+<li>Devlin, J., Chang, M.-W., Lee, K., and Toutanova, K. <em>BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding</em>. NAACL, 2019. arXiv: <a href="https://arxiv.org/abs/1810.04805">1810.04805</a></li>
+<li>Radford, A., Narasimhan, K., Salimans, T., and Sutskever, I. <em>Improving Language Understanding by Generative Pre-Training</em>. 2018.</li>
+</ol>
 
 ---
 
-*这是深度学习经典网络系列的第九篇，下一篇将介绍Vision Transformer。欢迎关注！*
+{% include series-nav.html series="deep-learning-classics" %}
 

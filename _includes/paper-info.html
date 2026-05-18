@@ -1,0 +1,40 @@
+<!-- 论文/项目信息卡片 -->
+<div class="paper-info">
+    <div class="paper-info-title">📄 {{ include.title | default: "论文信息" }}</div>
+    {% if include.authors %}
+    <div class="paper-info-row">
+        <span class="paper-info-label">作者</span>
+        <span class="paper-info-value">{{ include.authors }}</span>
+    </div>
+    {% endif %}
+    {% if include.venue %}
+    <div class="paper-info-row">
+        <span class="paper-info-label">发表</span>
+        <span class="paper-info-value">{{ include.venue }}{% if include.year %} ({{ include.year }}){% endif %}</span>
+    </div>
+    {% endif %}
+    {% if include.url %}
+    <div class="paper-info-row">
+        <span class="paper-info-label">论文</span>
+        <span class="paper-info-value"><a href="{{ include.url }}" target="_blank" rel="noopener">{{ include.url_label | default: include.url }}</a></span>
+    </div>
+    {% endif %}
+    {% if include.doi %}
+    <div class="paper-info-row">
+        <span class="paper-info-label">DOI</span>
+        <span class="paper-info-value"><a href="https://doi.org/{{ include.doi }}" target="_blank" rel="noopener">{{ include.doi }}</a></span>
+    </div>
+    {% endif %}
+    {% if include.arxiv %}
+    <div class="paper-info-row">
+        <span class="paper-info-label">arXiv</span>
+        <span class="paper-info-value"><a href="https://arxiv.org/abs/{{ include.arxiv }}" target="_blank" rel="noopener">{{ include.arxiv }}</a></span>
+    </div>
+    {% endif %}
+    {% if include.code %}
+    <div class="paper-info-row">
+        <span class="paper-info-label">代码</span>
+        <span class="paper-info-value"><a href="{{ include.code }}" target="_blank" rel="noopener">{{ include.code }}</a></span>
+    </div>
+    {% endif %}
+</div>

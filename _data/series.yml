@@ -1,0 +1,66 @@
+# 博客系列定义 — 供 series-nav.html 组件使用
+# slug 使用 Jekyll page.slug 格式（不含日期前缀）
+
+- id: deep-learning-classics
+  name: 深度学习经典网络
+  posts:
+    - slug: deep-learning-pioneers-lenet-alexnet
+    - slug: vgg-deep-network-exploration
+    - slug: googlenet-inception-series
+    - slug: resnet-resnext-residual-revolution
+    - slug: mobilenet-series-mobile-deep-learning
+    - slug: shufflenet-efficient-network-design
+    - slug: efficientnet-neural-architecture-search
+    - slug: attention-mechanism-explained
+    - slug: transformer-bert-nlp-revolution
+    - slug: vision-transformer-swin-transformer
+
+- id: gnn
+  name: 图神经网络
+  posts:
+    - slug: graph-neural-networks-fundamentals
+    - slug: rnn-to-gnn-connection
+    - slug: graph-echo-state-networks
+    - slug: gcn-principles-mathematical-derivation
+    - slug: gcn-pytorch-implementation
+    - slug: gnn-medical-image-processing
+    - slug: heterogeneous-gnn-multimodal
+    - slug: gnn-survey-writing-guide
+
+- id: medical-segmentation
+  name: 医学图像分割
+  posts:
+    - slug: fcn-unet-foundation
+    - slug: vnet-3d-segmentation
+    - slug: attention-unet
+    - slug: unet-plus-series
+    - slug: transunet-hybrid-architecture
+    - slug: swin-unet-hierarchical-transformer
+    - slug: sam-segment-anything
+    - slug: nnunet-self-configuring-framework
+
+- id: object-detection
+  name: 目标检测
+  posts:
+    - slug: rcnn-to-faster-rcnn
+    - slug: yolo-v1-revolution
+    - slug: yolo-v2-v3-evolution
+    - slug: yolo-v4-cspnet
+    - slug: yolo-v5-industrial
+    - slug: yolo-v8-modern
+    - slug: yolo-variants
+    - slug: yolo-practical
+
+- id: pixelknit
+  name: PixelKnit 像素织梦
+  posts:
+    - slug: knitting-guide-web-app
+    - slug: pixelknit-v1.1-editor-update
+    - slug: pixelknit-v2.0-modular-architecture
+
+- id: claude-code
+  name: Claude Code 系列
+  posts:
+    - slug: claude-code-practical-guide
+    - slug: claude-code-vscode-setup
+    - slug: agent-skills-architecture

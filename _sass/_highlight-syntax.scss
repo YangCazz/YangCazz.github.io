@@ -9,25 +9,88 @@
     overflow: hidden;
     margin: 2rem 0;
     position: relative;
-    box-shadow: 
+    box-shadow:
         0 10px 40px rgba(0, 0, 0, 0.2),
         0 0 0 1px rgba(255, 255, 255, 0.1);
-    
+
+    /* 代码头部栏 */
+    .code-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        height: 38px;
+        background: #252526;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        user-select: none;
+    }
+
+    .code-header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .code-dots {
+        display: flex;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+    .code-dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+    }
+
+    .code-dot--red    { background: #ff5f57; }
+    .code-dot--yellow { background: #febc2e; }
+    .code-dot--green  { background: #28c840; }
+
+    .code-lang {
+        font-size: 0.75rem;
+        color: #999;
+        font-family: 'Inter', -apple-system, sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+
+    .code-header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    /* 头部内的复制按钮 */
+    .code-header .copy-code-button {
+        position: static;
+        opacity: 0;
+        transform: none;
+        padding: 0.25rem 0.6rem;
+        font-size: 0.7rem;
+        border-radius: 4px;
+    }
+
+    .code-header:hover .copy-code-button,
+    .code-header .copy-code-button.copied,
+    .code-header .copy-code-button.copy-error {
+        opacity: 1;
+    }
+
     pre {
         margin: 0;
-        padding: 1.5rem;
+        padding: 1.25rem 1.5rem;
         overflow-x: auto;
         background: transparent;
-        border: none !important;  /* 强制移除任何可能的边框 */
-        box-shadow: none !important;  /* 强制移除任何可能的阴影 */
-        
+        border: none !important;
+        box-shadow: none !important;
+
         code {
             background: transparent;
             padding: 0;
             color: inherit;
             font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
-            font-size: 0.9rem;
-            line-height: 1.7;
+            font-size: 0.85rem;
+            line-height: 1.5;
         }
     }
     
@@ -464,7 +527,7 @@
 /* 响应式优化 */
 @media (max-width: 768px) {
     .highlight pre code {
-        font-size: 0.85rem;
-        line-height: 1.6;
+        font-size: 0.8rem;
+        line-height: 1.45;
     }
 }

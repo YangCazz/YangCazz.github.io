@@ -1,0 +1,21 @@
+<!-- 性能指标卡片网格
+  用法1 (推荐): 直接写 HTML 使用 .metrics-grid / .metric-card 类
+  用法2: 通过 include 参数传入指标字符串（格式: "标签1=值1, 标签2=值2"）
+-->
+
+<div class="metrics-grid">
+{% if include.metrics %}
+    {% assign items = include.metrics | split: ',' %}
+    {% for item in items %}
+        {% assign pair = item | split: '=' %}
+        {% assign label = pair[0] | strip %}
+        {% assign value = pair[1] | strip %}
+        <div class="metric-card">
+            <div class="metric-value">{{ value }}</div>
+            <div class="metric-label">{{ label }}</div>
+        </div>
+    {% endfor %}
+{% else %}
+    {{ include.content }}
+{% endif %}
+</div>

@@ -9,7 +9,7 @@ author: YangCazz
 math: true
 ---
 
-## 📋 引言
+## 引言
 
 在前面的文章中，我们学习了各种专门为医学图像分割设计的网络：从[UNet](/2025/02/01/fcn-unet-foundation/)的U型结构，到[Transformer](/2025/02/20/transunet-hybrid-architecture/)的全局建模。这些方法虽然有效，但都存在一个共同问题：
 
@@ -47,15 +47,15 @@ math: true
 
 ---
 
-## 🎯 SAM：核心思想
+## SAM：核心思想
 
-### 论文信息
-- **标题**: Segment Anything
-- **作者**: Alexander Kirillov, et al. (Meta AI Research)
-- **发表**: ICCV 2023
-- **论文链接**: [arXiv:2304.02643](https://arxiv.org/abs/2304.02643)
-- **官方代码**: [GitHub](https://github.com/facebookresearch/segment-anything)
-- **数据集**: SA-1B（11M图像，1.1B mask）
+{% include paper-info.html 
+   authors="Alexander Kirillov, et al. (Meta AI Research)"
+   venue="ICCV"
+   year="2023"
+   arxiv="2304.02643"
+   code="https://github.com/facebookresearch/segment-anything"
+%}
 
 ### 什么是Promptable Segmentation？
 
@@ -154,7 +154,7 @@ class ImageEncoder(nn.Module):
 **特点**：
 - 输入固定1024×1024（预处理时resize）
 - 输出256通道的64×64特征图
-- 参数量：约630M（占SAM总参数的99%）
+- 参数量：约630M（占SAM总参数的99%）<cite>[1]</cite>
 
 #### 2. Prompt Encoder
 
@@ -287,12 +287,12 @@ class MaskDecoder(nn.Module):
 
 #### SA-1B数据集
 
-**规模**：
+**规模**：<cite>[1]</cite>
 - 图像数量：11M（1100万）
 - Mask数量：1.1B（11亿）
 - 平均每张图100个mask
 
-**构建流程**（数据飞轮）：
+**构建流程**（数据飞轮）<cite>[1]</cite>：
 
 ```
 阶段1：辅助标注（Assisted-manual）
@@ -336,14 +336,15 @@ $$
 
 ---
 
-## 🏥 MedSAM：医学领域的SAM
+## MedSAM：医学领域的SAM
 
-### 论文信息
-- **标题**: Segment Anything in Medical Images
-- **作者**: Jun Ma, et al. (University of Toronto)
-- **发表**: Nature Communications 2024
-- **论文链接**: [arXiv:2304.12306](https://arxiv.org/abs/2304.12306)
-- **官方代码**: [GitHub](https://github.com/bowang-lab/MedSAM)
+{% include paper-info.html 
+   authors="Jun Ma, et al. (University of Toronto)"
+   venue="Nature Communications"
+   year="2024"
+   arxiv="2304.12306"
+   code="https://github.com/bowang-lab/MedSAM"
+%}
 
 ### 为什么需要MedSAM？
 
@@ -370,7 +371,7 @@ $$
 
 ### MedSAM数据集
 
-**规模**：
+**规模**：<cite>[2]</cite>
 - 图像数量：1.57M
 - Mask数量：约10M
 - 模态：10种（CT、MRI、超声、X-ray、眼底、病理等）
@@ -436,7 +437,7 @@ for epoch in range(10, 30):
 
 ### 性能对比
 
-#### 多模态医学图像分割
+#### 多模态医学图像分割<cite>[2]</cite>
 
 | 模态 | 任务 | SAM (Zero-shot) | **MedSAM** | UNet |
 |------|------|-----------------|-----------|------|
@@ -453,7 +454,7 @@ for epoch in range(10, 30):
 - ✅ **一个模型处理所有模态**（vs. 每个任务训练一个UNet）
 - ✅ 对新类别有良好泛化
 
-#### Few-shot学习
+#### Few-shot学习<cite>[2]</cite>
 
 ```
 场景：新任务（新器官/新模态），仅有少量标注
@@ -474,7 +475,7 @@ for epoch in range(10, 30):
 
 ---
 
-## 💡 SAM/MedSAM的优势与局限
+## SAM/MedSAM的优势与局限
 
 ### ✅ 优势
 
@@ -585,7 +586,7 @@ MedSAM不能：
 
 ---
 
-## 🎓 实用技巧
+## 实用技巧
 
 ### 1. Prompt工程
 
@@ -692,9 +693,9 @@ def refine_prediction(pred_mask):
 
 ---
 
-## 📖 总结
+## 总结
 
-### SAM的核心贡献
+### SAM的核心贡献<cite>[1]</cite>
 
 1. **Promptable Segmentation范式**
    - 通过prompt实现灵活交互
@@ -708,7 +709,7 @@ def refine_prediction(pred_mask):
    - 无需训练即可分割新类别
    - 开启基础模型在视觉领域的应用
 
-### MedSAM的贡献
+### MedSAM的贡献<cite>[2]</cite>
 
 1. **医学领域适配**
    - 157万医学图像fine-tune
@@ -735,16 +736,15 @@ def refine_prediction(pred_mask):
 - 外科：术前规划和导航
 - 研究：高效数据集构建
 
-**下一篇预告**：[nnU-Net：自适应医学分割框架](/2025/03/15/nnunet-self-configuring-framework/) - 探索如何通过自动化配置让UNet适配任何医学分割任务。
-
 ---
 
-## 📚 参考资料
+## 参考资料
 
-### 论文
-1. [SAM] Kirillov, A., et al. (2023). Segment Anything. *ICCV*.
-2. [MedSAM] Ma, J., et al. (2024). Segment Anything in Medical Images. *Nature Communications*.
-3. [SAM-Med2D] Cheng, J., et al. (2023). SAM-Med2D. *arXiv*.
+<ol class="references">
+  <li><cite id="ref-1">[1]</cite> Kirillov, A. et al. "Segment Anything", <em>ICCV 2023</em>. <a href="https://arxiv.org/abs/2304.02643">arXiv:2304.02643</a></li>
+  <li><cite id="ref-2">[2]</cite> Ma, J. et al. "Segment Anything in Medical Images", <em>Nature Communications</em>, 2024. <a href="https://arxiv.org/abs/2304.12306">arXiv:2304.12306</a></li>
+  <li><cite id="ref-3">[3]</cite> Cheng, J. et al. (2023). SAM-Med2D. <em>arXiv</em>.</li>
+</ol>
 
 ### 代码实现
 - [SAM官方](https://github.com/facebookresearch/segment-anything) - Meta AI原始代码
@@ -757,18 +757,5 @@ def refine_prediction(pred_mask):
 
 ---
 
-## 🔗 系列文章导航
-
-1. [FCN与UNet：医学分割的奠基之作](/2025/02/01/fcn-unet-foundation/)
-2. [V-Net：3D医学图像分割的突破](/2025/02/05/vnet-3d-segmentation/)
-3. [Attention UNet：注意力机制的引入](/2025/02/10/attention-unet/)
-4. [UNet++/UNet 3+：密集连接的力量](/2025/02/15/unet-plus-series/)
-5. [TransUNet：CNN与Transformer的融合](/2025/02/20/transunet-hybrid-architecture/)
-6. [Swin-UNet：层级化Transformer](/2025/02/25/swin-unet-hierarchical-transformer/)
-7. 📍 **SAM与MedSAM：基础模型的医学应用**（本文）
-8. [nnU-Net：自适应医学分割框架](/2025/03/15/nnunet-self-configuring-framework/)
-
----
-
-*本文深入探讨了SAM如何通过Promptable Segmentation革新分割范式，以及MedSAM如何将其成功迁移到医学影像领域，开启few-shot学习和交互式分割的新时代。*
+{% include series-nav.html series="medical-segmentation" %}
 

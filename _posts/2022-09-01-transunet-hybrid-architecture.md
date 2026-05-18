@@ -9,7 +9,7 @@ author: YangCazz
 math: true
 ---
 
-## 📋 引言
+## 引言
 
 在前面的文章中，我们学习了基于CNN的各种UNet变种：[标准UNet](/2025/02/01/fcn-unet-foundation/)、[Attention UNet](/2025/02/10/attention-unet/)、[UNet++/UNet 3+](/2025/02/15/unet-plus-series/)。这些方法虽然强大，但都存在一个根本性限制：
 
@@ -29,20 +29,28 @@ math: true
 - 病灶位置需要全局上下文（如转移瘤的相对位置）
 - 多器官分割需要理解空间关系
 
-**TransUNet**（2021）引入**Transformer**，实现真正的**全局建模**：
+**TransUNet**<cite>[1]</cite>（2021）引入**Transformer**，实现真正的**全局建模**：
 - ✅ 自注意力机制：任意两点直接交互
 - ✅ 长距离依赖：无需堆叠多层即可感知全图
 - ✅ CNN + Transformer混合：兼顾局部细节和全局语义
 
 ---
 
-## 🔬 Transformer基础回顾
+{% include paper-info.html 
+   authors="Jieneng Chen, et al. (Johns Hopkins University)"
+   venue="arXiv"
+   year="2021"
+   arxiv="2102.04306"
+   code="https://github.com/Beckschen/TransUNet"
+%}
+
+## Transformer基础回顾
 
 在深入TransUNet之前，让我们快速回顾Transformer的核心机制。
 
 ### 自注意力（Self-Attention）
 
-**核心思想**：计算每个位置与所有位置的相关性。
+**核心思想**<cite>[3]</cite>：计算每个位置与所有位置的相关性。
 
 给定输入序列 \( X \in \mathbb{R}^{N \times D} \)（\(N\)个token，每个维度\(D\)）：
 
@@ -136,14 +144,7 @@ $$
 
 ---
 
-## 🎯 TransUNet：混合架构
-
-### 论文信息
-- **标题**: TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation
-- **作者**: Jieneng Chen, et al. (Johns Hopkins University)
-- **发表**: arXiv 2021
-- **论文链接**: [arXiv:2102.04306](https://arxiv.org/abs/2102.04306)
-- **官方代码**: [GitHub](https://github.com/Beckschen/TransUNet)
+## TransUNet：混合架构
 
 ### 整体架构
 
@@ -434,7 +435,7 @@ class TransUNet(nn.Module):
 
 ---
 
-## 📊 实验结果
+## 实验结果
 
 ### 数据集
 
@@ -467,7 +468,7 @@ class TransUNet(nn.Module):
 | 脾脏 | 88.11 | 88.59 | 89.16 | **92.13** |
 | 胃 | 75.62 | 76.51 | 76.88 | **82.30** |
 
-**关键观察**：
+**关键观察**<cite>[1]</cite>：
 - ✅ **小器官提升明显**：胆囊（+6.3%）、胰腺（+9.6%）
 - ✅ **大器官也有提升**：主动脉（+1.7%）、脾脏（+4.0%）
 - ✅ **平均HD95大幅下降**：39.70 → 28.78（-27.5%）
@@ -484,7 +485,7 @@ class TransUNet(nn.Module):
 
 ---
 
-## 💡 TransUNet的优势与挑战
+## TransUNet的优势与挑战
 
 ### ✅ 优势
 
@@ -605,7 +606,7 @@ ImageNet预训练（1.2M图像）：
 ```
 
 **解决方案**：
-- 使用ImageNet预训练的ViT
+- 使用ImageNet预训练的ViT<cite>[2]</cite>
 - 数据增强（旋转、翻转、弹性变形）
 - 正则化（Dropout、StochasticDepth）
 
@@ -632,7 +633,7 @@ Batch=2, Heads=12, N=4096
 
 ---
 
-## 🔬 TransUNet的变种
+## TransUNet的变种
 
 ### 1. MedT（Medical Transformer）
 
@@ -693,7 +694,7 @@ class GatedAxialAttention(nn.Module):
 
 ---
 
-## 🎓 训练技巧
+## 训练技巧
 
 ### 1. 预训练策略
 
@@ -772,11 +773,11 @@ for images, masks in train_loader:
 
 ---
 
-## 📖 总结
+## 总结
 
 ### TransUNet的核心贡献
 
-1. **首次将Transformer成功应用于医学图像分割**
+1. **首次将Transformer成功应用于医学图像分割**<cite>[1]</cite>
    - 证明全局建模对医学图像的重要性
    - Dice提升：76.85% → 81.87%（+5%）
 
@@ -785,7 +786,7 @@ for images, masks in train_loader:
    - Transformer建模全局依赖
    - 两者优势互补
 
-3. **开启医学分割Transformer时代**
+3. **开启医学分割Transformer时代**<cite>[1]</cite>
    - 后续涌现大量Transformer分割网络
    - 成为新范式的基石
 
@@ -800,40 +801,21 @@ for images, masks in train_loader:
 | 实时应用 | ❌ | 计算量大 |
 | 高分辨率（>512） | ⚠️ | 需要优化 |
 
-**下一篇预告**：[Swin-UNet：层级化Transformer](/2025/02/25/swin-unet-hierarchical-transformer/) - 探索如何通过shifted windows和层级结构克服TransUNet的计算瓶颈。
+---
+
+## 参考资料
+
+<ol class="references">
+  <li><strong>Chen, J. et al.</strong> "TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation", arXiv:2102.04306, 2021. <a href="https://arxiv.org/abs/2102.04306">arXiv:2102.04306</a> <span class="code-link">[<a href="https://github.com/Beckschen/TransUNet">Code</a>]</span></li>
+  <li><strong>Dosovitskiy, A. et al.</strong> "An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale", ICLR 2021. <a href="https://arxiv.org/abs/2010.11929">arXiv:2010.11929</a></li>
+  <li><strong>Vaswani, A. et al.</strong> "Attention is All You Need", NeurIPS 2017. <a href="https://arxiv.org/abs/1706.03762">arXiv:1706.03762</a></li>
+  <li>UNETR 代码实现 (MONAI). <a href="https://github.com/Project-MONAI/research-contributions/tree/main/UNETR">https://github.com/Project-MONAI/research-contributions/tree/main/UNETR</a></li>
+  <li>Medical Transformer 代码库. <a href="https://github.com/jeya-maria-jose/Medical-Transformer">https://github.com/jeya-maria-jose/Medical-Transformer</a></li>
+  <li>Synapse Multi-organ 数据集. <a href="https://www.synapse.org/#!Synapse:syn3193805/wiki/217789">https://www.synapse.org/#!Synapse:syn3193805/wiki/217789</a></li>
+  <li>ACDC 数据集. <a href="https://www.creatis.insa-lyon.fr/Challenge/acdc/">https://www.creatis.insa-lyon.fr/Challenge/acdc/</a></li>
+</ol>
 
 ---
 
-## 📚 参考资料
-
-### 论文
-1. [TransUNet] Chen, J., et al. (2021). TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation. *arXiv*.
-2. [Vision Transformer] Dosovitskiy, A., et al. (2021). An Image is Worth 16x16 Words: Transformers for Image Recognition at Scale. *ICLR*.
-3. [Attention is All You Need] Vaswani, A., et al. (2017). Attention is All You Need. *NeurIPS*.
-
-### 代码实现
-- [TransUNet官方](https://github.com/Beckschen/TransUNet) - PyTorch实现
-- [UNETR官方](https://github.com/Project-MONAI/research-contributions/tree/main/UNETR) - MONAI实现
-- [Medical Transformer库](https://github.com/jeya-maria-jose/Medical-Transformer) - 多种医学Transformer
-
-### 数据集
-- [Synapse Multi-organ](https://www.synapse.org/#!Synapse:syn3193805/wiki/217789) - 多器官CT分割
-- [ACDC](https://www.creatis.insa-lyon.fr/Challenge/acdc/) - 心脏MRI分割
-
----
-
-## 🔗 系列文章导航
-
-1. [FCN与UNet：医学分割的奠基之作](/2025/02/01/fcn-unet-foundation/)
-2. [V-Net：3D医学图像分割的突破](/2025/02/05/vnet-3d-segmentation/)
-3. [Attention UNet：注意力机制的引入](/2025/02/10/attention-unet/)
-4. [UNet++/UNet 3+：密集连接的力量](/2025/02/15/unet-plus-series/)
-5. 📍 **TransUNet：CNN与Transformer的融合**（本文）
-6. [Swin-UNet：层级化Transformer](/2025/02/25/swin-unet-hierarchical-transformer/)
-7. [SAM与MedSAM：基础模型的医学应用](/2025/03/05/sam-segment-anything/)
-8. [nnU-Net：自适应医学分割框架](/2025/03/15/nnunet-self-configuring-framework/)
-
----
-
-*本文深入探讨了TransUNet如何将Transformer的全局建模能力引入医学图像分割，开创了混合架构的新范式。下一篇将介绍Swin-UNet如何通过层级结构和shifted windows优化Transformer效率。*
+{% include series-nav.html series="medical-segmentation" %}
 

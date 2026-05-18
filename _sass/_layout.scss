@@ -1,3 +1,9 @@
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
     line-height: 1.6;
@@ -10,6 +16,7 @@ body {
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 }
 
 /* 主内容区域 */
