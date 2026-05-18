@@ -9,11 +9,11 @@ author: YangCazz
 math: true
 ---
 
-## 📋 引言
+## 引言
 
 在前面的文章中，我们学习了[UNet](/2025/02/01/fcn-unet-foundation/)的对称U型结构和[V-Net](/2025/02/05/vnet-3d-segmentation/)的3D扩展。这些网络虽然强大，但存在一个问题：**Skip Connections盲目地传递所有特征**，无法区分哪些特征是重要的，哪些是噪声。
 
-**Attention UNet**（2018）引入了**注意力门控（Attention Gates）**机制，让网络学会"看哪里"——自动聚焦于与任务相关的区域，抑制无关背景。
+**Attention UNet**（2018）引入了**注意力门控（Attention Gates）**机制<cite>[1]</cite>，让网络学会"看哪里"——自动聚焦于与任务相关的区域，抑制无关背景。
 
 ### 为什么需要注意力机制？
 
@@ -47,23 +47,24 @@ CT图像：512×512
 
 ---
 
-## 🎯 Attention UNet：核心创新
+{% include paper-info.html 
+   authors="Ozan Oktay, Jo Schlemper, et al. (Imperial College London)"
+   venue="MIDL"
+   year="2018"
+   arxiv="1804.03999"
+   code="https://github.com/ozan-octopus/attention-unet"
+%}
 
-### 论文信息
-- **标题**: Attention U-Net: Learning Where to Look for the Pancreas
-- **作者**: Ozan Oktay, Jo Schlemper, et al. (Imperial College London)
-- **发表**: MIDL 2018 (Medical Imaging with Deep Learning)
-- **论文链接**: [arXiv:1804.03999](https://arxiv.org/abs/1804.03999)
-- **官方代码**: [GitHub](https://github.com/ozan-octopus/attention-unet)
+## Attention UNet：核心创新
 
 ### 核心思想：注意力门控（Attention Gates）
 
-**Attention Gate**是插入在Skip Connection中的模块，作用是：
+**Attention Gate**是插入在Skip Connection中的模块<cite>[1][2]</cite>，作用是：
 1. 接收**两个输入**：编码器特征（\(x^l\)）和解码器特征（\(g\)）
 2. 计算**注意力系数**（\(\alpha\)）：判断编码器特征的每个位置是否重要
 3. 输出**加权特征**：\(\hat{x}^l = \alpha \odot x^l\)（\(\odot\)表示逐元素乘法）
 
-**关键优势**：
+**关键优势**<cite>[1][2]</cite>：
 - ✅ **自动学习**：无需手工标注感兴趣区域
 - ✅ **端到端训练**：注意力权重通过反向传播学习
 - ✅ **可解释性**：可视化注意力图，了解网络关注哪里
@@ -71,7 +72,7 @@ CT图像：512×512
 
 ---
 
-## 🏗️ Attention Gate详解
+## Attention Gate详解
 
 ### 1. 整体架构
 
@@ -333,7 +334,7 @@ def visualize_attention(model, image):
     plt.show()
 ```
 
-**典型的注意力图**：
+**典型的注意力图**<cite>[1]</cite>：
 ```
 浅层（Layer 1-2）：
 - 关注器官边界和纹理细节
@@ -350,7 +351,7 @@ def visualize_attention(model, image):
 
 ---
 
-## 📊 实验结果
+## 实验结果
 
 ### 数据集
 
@@ -368,7 +369,7 @@ def visualize_attention(model, image):
 
 ### 性能对比
 
-#### Pancreas-CT数据集
+#### Pancreas-CT数据集 <cite>[1]</cite>
 
 | 方法 | Dice系数 | Sensitivity | Specificity |
 |------|---------|-------------|-------------|
@@ -377,11 +378,11 @@ def visualize_attention(model, image):
 | ResUNet | 0.84 | 0.82 | 0.99 |
 | **Attention UNet** | **0.86** | **0.85** | **0.99** |
 
-**提升**：
+**提升**<cite>[1]</cite>：
 - Dice: +4% vs. ResUNet, +18% vs. FCN
 - Sensitivity: +3% vs. ResUNet（减少漏检）
 
-#### 消融实验
+#### 消融实验 <cite>[1]</cite>
 
 | 配置 | Dice | 说明 |
 |------|------|------|
@@ -423,7 +424,7 @@ Layer 4注意力图（最深层）：
 
 ---
 
-## 💡 Attention UNet的优势与局限
+## Attention UNet的优势与局限
 
 ### ✅ 优势
 
@@ -443,7 +444,7 @@ Attention UNet：
 - 注意力门控抑制97%背景
 - Skip仅传递重要特征
 - 解码器专注前景
-- Dice: 0.86（+4%）
+- Dice: 0.86（+4%）<cite>[1]</cite>
 ```
 
 #### 2. 可解释性
@@ -470,7 +471,7 @@ Layer 4: 关注区域比例 = 3%   （精确定位）
 
 #### 4. 计算效率高
 
-**参数量对比**：
+**参数量对比**<cite>[1]</cite>：
 ```
 UNet: 31.0M 参数
 Attention UNet: 34.5M 参数（+11%）
@@ -559,7 +560,7 @@ class StableAttentionGate(nn.Module):
 
 ---
 
-## 🔬 变种与扩展
+## 变种与扩展
 
 ### 1. Dual Attention UNet
 
@@ -643,7 +644,7 @@ class MultiScaleAttention(nn.Module):
 
 ---
 
-## 🎓 训练技巧
+## 训练技巧
 
 ### 1. 损失函数
 
@@ -746,7 +747,7 @@ for epoch in range(50, 100):
 
 ---
 
-## 📖 总结
+## 总结
 
 ### Attention UNet的贡献
 
@@ -762,7 +763,7 @@ for epoch in range(50, 100):
    - 可视化注意力图，理解网络决策
    - 辅助临床诊断
 
-4. **计算高效**
+4. **计算高效**<cite>[1]</cite>
    - 仅增加11%参数，5%计算量
    - 性价比极高的改进
 
@@ -789,16 +790,15 @@ Attention UNet开启了医学图像分割中的"注意力时代"：
 - ✅ Transformer（TransUNet、Swin-UNet）的自注意力
 - ✅ 成为现代分割网络的标配模块
 
-**下一篇预告**：[UNet++/UNet 3+：密集连接的力量](/2025/02/15/unet-plus-series/) - 探索如何通过密集跳跃连接和深度监督进一步提升分割性能。
-
 ---
 
-## 📚 参考资料
+## 参考资料
 
-### 论文
-1. [Attention UNet] Oktay, O., et al. (2018). Attention u-net: Learning where to look for the pancreas. *MIDL*.
-2. [UNet] Ronneberger, O., et al. (2015). U-net: Convolutional networks for biomedical image segmentation. *MICCAI*.
-3. [SENet] Hu, J., et al. (2018). Squeeze-and-excitation networks. *CVPR*.
+<ol class="references">
+  <li><strong>Oktay, O.</strong>, Schlemper, J., Le Folgoc, L., Lee, M., Heinrich, M., Misawa, K., Mori, K., McDonagh, S., Hammerla, N. Y., Kainz, B., Glocker, B., and Rueckert, D. "Attention U-Net: Learning Where to Look for the Pancreas." In <em>Medical Imaging with Deep Learning (MIDL)</em>, 2018. <a href="https://arxiv.org/abs/1804.03999">arXiv:1804.03999</a></li>
+  <li><strong>Schlemper, J.</strong>, Oktay, O., Schaap, M., Heinrich, M., Kainz, B., Glocker, B., and Rueckert, D. "Attention Gated Networks: Learning to Leverage Salient Regions in Medical Images." <em>Medical Image Analysis</em>, vol. 53, pp. 197-207, 2019. <a href="https://doi.org/10.1016/j.media.2019.01.012">DOI: 10.1016/j.media.2019.01.012</a></li>
+  <li>Ronneberger, O., Fischer, P., and Brox, T. "U-Net: Convolutional Networks for Biomedical Image Segmentation." In <em>Medical Image Computing and Computer-Assisted Intervention (MICCAI)</em>, pp. 234-241, 2015. <a href="https://arxiv.org/abs/1505.04597">arXiv:1505.04597</a></li>
+</ol>
 
 ### 代码实现
 - [Attention UNet官方](https://github.com/ozan-octopus/attention-unet) - 原始实现
@@ -816,20 +816,5 @@ Attention UNet开启了医学图像分割中的"注意力时代"：
 
 ---
 
-## 🔗 系列文章导航
-
-**医学影像分割网络系列**：
-
-1. [FCN与UNet：医学分割的奠基之作](/2025/02/01/fcn-unet-foundation/)
-2. [V-Net：3D医学图像分割的突破](/2025/02/05/vnet-3d-segmentation/)
-3. 📍 **Attention UNet：注意力机制的引入**（本文）
-4. [UNet++/UNet 3+：密集连接的力量](/2025/02/15/unet-plus-series/)
-5. [TransUNet：CNN与Transformer的融合](/2025/02/20/transunet-hybrid-architecture/)
-6. [Swin-UNet：层级化Transformer](/2025/02/25/swin-unet-hierarchical-transformer/)
-7. [SAM与MedSAM：基础模型的医学应用](/2025/03/05/sam-segment-anything/)
-8. [nnU-Net：自适应医学分割框架](/2025/03/15/nnunet-self-configuring-framework/)
-
----
-
-*本文深入解析了Attention UNet如何通过注意力门控机制让网络学会自动聚焦重要区域，在小目标分割任务上取得突破。下一篇将介绍UNet++和UNet 3+如何通过密集连接进一步提升性能。*
+{% include series-nav.html series="medical-segmentation" %}
 

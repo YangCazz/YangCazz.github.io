@@ -9,9 +9,9 @@ author: YangCazz
 math: true
 ---
 
-## 📋 引言
+## 引言
 
-在[上一篇文章](/2025/02/20/transunet-hybrid-architecture/)中，我们学习了TransUNet如何将Transformer引入医学图像分割，通过全局自注意力建模长距离依赖。然而，TransUNet存在一个致命缺陷：
+在[上一篇文章](/2025/02/20/transunet-hybrid-architecture/)中，我们学习了TransUNet<cite>[3]</cite>如何将Transformer引入医学图像分割，通过全局自注意力建模长距离依赖。然而，TransUNet存在一个致命缺陷：
 
 **自注意力的二次复杂度** \( O(N^2) \)
 
@@ -31,14 +31,14 @@ math: true
 ✗ GPU内存消耗巨大
 ```
 
-**Swin-UNet**（2021）通过**Shifted Window Attention**解决了这个问题：
+**Swin-UNet**<cite>[1]</cite>（2021）通过**Shifted Window Attention**解决了这个问题：
 - ✅ **局部窗口注意力**：复杂度从 \( O(N^2) \) 降至 \( O(N) \)
 - ✅ **层级化架构**：类似CNN的多尺度特征金字塔
 - ✅ **跨窗口交互**：shifted windows实现全局建模
 
 ---
 
-## 🎯 Swin Transformer核心思想
+## Swin Transformer核心思想<cite>[2]</cite>
 
 ### 1. Window-based Self-Attention
 
@@ -165,7 +165,7 @@ $$
 
 ---
 
-## 🏗️ Swin-UNet架构
+## Swin-UNet架构
 
 ### 整体设计
 
@@ -419,7 +419,7 @@ class SwinUNet(nn.Module):
 
 ---
 
-## 📊 性能对比
+## 性能对比
 
 ### Synapse Multi-organ数据集
 
@@ -429,7 +429,7 @@ class SwinUNet(nn.Module):
 | TransUNet | 81.87 | 28.78 | 105M | 200 |
 | **Swin-UNet** | **83.24** | **25.44** | **27M** | **47** |
 
-**关键优势**：
+**关键优势**<cite>[1]</cite>：
 - ✅ **精度最高**：Dice 83.24%（+1.4% vs. TransUNet）
 - ✅ **参数最少**：27M（仅为TransUNet的26%）
 - ✅ **速度最快**：47 GFLOPs（TransUNet的24%）
@@ -449,7 +449,7 @@ class SwinUNet(nn.Module):
 
 ---
 
-## 💡 Swin-UNet的优势
+## Swin-UNet的优势
 
 ### 1. 计算效率
 
@@ -502,7 +502,7 @@ Layer 3（常规窗口）：感受野扩大
 
 ---
 
-## 🎓 训练技巧
+## 训练技巧
 
 ### 1. 窗口大小调优
 
@@ -560,15 +560,15 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
 
 ---
 
-## 📖 总结
+## 总结
 
 ### Swin-UNet的核心贡献
 
-1. **Window Attention破解效率困局**
+1. **Window Attention破解效率困局**<cite>[1]</cite>
    - 复杂度：\( O(N^2) \rightarrow O(N) \)
    - 2.5×推理加速
 
-2. **Shifted Windows实现全局建模**
+2. **Shifted Windows实现全局建模**<cite>[2]</cite>
    - 交替使用常规/移位窗口
    - 保留Transformer全局感受野优势
 
@@ -576,7 +576,7 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
    - 类似CNN的多尺度特征金字塔
    - 更自然的编码器-解码器融合
 
-4. **SOTA性能 + 高效率**
+4. **SOTA性能 + 高效率**<cite>[1]</cite>
    - Dice: 83.24%（最高）
    - 参数：27M（TransUNet的26%）
    - 速度：2.5×加速
@@ -591,36 +591,18 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
 | 多尺度目标 | ✅✅✅ | 层级特征 |
 | 极小数据集 | ⚠️ | 需预训练 |
 
-**下一篇预告**：[SAM与MedSAM：基础模型的医学应用](/2025/03/05/sam-segment-anything/) - 探索Segment Anything Model如何通过prompt实现zero-shot医学图像分割。
+---
+
+## 参考资料
+
+<ol class="references">
+  <li><strong>Cao, H. et al.</strong> "Swin-Unet: Unet-like Pure Transformer for Medical Image Segmentation", ECCV Workshop 2022, arXiv:2105.05537. <a href="https://arxiv.org/abs/2105.05537">arXiv:2105.05537</a> <span class="code-link">[<a href="https://github.com/HuCaoFighting/Swin-Unet">Code</a>]</span></li>
+  <li><strong>Liu, Z. et al.</strong> "Swin Transformer: Hierarchical Vision Transformer using Shifted Windows", ICCV 2021, arXiv:2103.14030. <a href="https://arxiv.org/abs/2103.14030">arXiv:2103.14030</a> <span class="code-link">[<a href="https://github.com/microsoft/Swin-Transformer">Code</a>]</span></li>
+  <li><strong>Chen, J. et al.</strong> "TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation", arXiv:2102.04306, 2021. <a href="https://arxiv.org/abs/2102.04306">arXiv:2102.04306</a></li>
+  <li>MONAI 医学图像框架. <a href="https://github.com/Project-MONAI/MONAI">https://github.com/Project-MONAI/MONAI</a></li>
+</ol>
 
 ---
 
-## 📚 参考资料
-
-### 论文
-1. [Swin-UNet] Cao, H., et al. (2021). Swin-Unet: Unet-like Pure Transformer for Medical Image Segmentation. *arXiv*.
-2. [Swin Transformer] Liu, Z., et al. (2021). Swin Transformer: Hierarchical Vision Transformer using Shifted Windows. *ICCV*.
-3. [TransUNet] Chen, J., et al. (2021). TransUNet: Transformers Make Strong Encoders for Medical Image Segmentation. *arXiv*.
-
-### 代码实现
-- [Swin-UNet官方](https://github.com/HuCaoFighting/Swin-Unet) - PyTorch实现
-- [Swin Transformer官方](https://github.com/microsoft/Swin-Transformer) - Microsoft官方代码
-- [MONAI](https://github.com/Project-MONAI/MONAI) - 医学图像框架，包含Swin-UNet
-
----
-
-## 🔗 系列文章导航
-
-1. [FCN与UNet：医学分割的奠基之作](/2025/02/01/fcn-unet-foundation/)
-2. [V-Net：3D医学图像分割的突破](/2025/02/05/vnet-3d-segmentation/)
-3. [Attention UNet：注意力机制的引入](/2025/02/10/attention-unet/)
-4. [UNet++/UNet 3+：密集连接的力量](/2025/02/15/unet-plus-series/)
-5. [TransUNet：CNN与Transformer的融合](/2025/02/20/transunet-hybrid-architecture/)
-6. 📍 **Swin-UNet：层级化Transformer**（本文）
-7. [SAM与MedSAM：基础模型的医学应用](/2025/03/05/sam-segment-anything/)
-8. [nnU-Net：自适应医学分割框架](/2025/03/15/nnunet-self-configuring-framework/)
-
----
-
-*本文深入解析了Swin-UNet如何通过shifted windows和层级架构实现高效的医学图像分割，在保持全局建模能力的同时大幅降低计算复杂度。下一篇将介绍SAM如何通过prompt实现通用分割。*
+{% include series-nav.html series="medical-segmentation" %}
 

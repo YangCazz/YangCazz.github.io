@@ -1,0 +1,223 @@
+/* ========================================
+   内容块格式组件 — 统一的博客内容样式
+   ======================================== */
+
+/* ---- 1. 论文信息卡片 ---- */
+.paper-info {
+    @include glass-card;
+    padding: 1.25rem 1.5rem;
+    margin: 1.5rem 0;
+    font-size: 0.9rem;
+    line-height: 1.7;
+
+    .paper-info-title {
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--primary-color);
+        margin: 0 0 0.75rem 0;
+    }
+
+    .paper-info-row {
+        display: flex;
+        gap: 0.5rem;
+        margin: 0.3rem 0;
+
+        .paper-info-label {
+            flex-shrink: 0;
+            color: var(--secondary-color);
+            font-weight: 500;
+            min-width: 3.5rem;
+        }
+
+        .paper-info-value {
+            color: var(--primary-color);
+        }
+
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-family: var(--font-mono);
+            font-size: 0.85em;
+            &:hover { text-decoration: underline; }
+        }
+    }
+}
+
+/* ---- 2. 系列文章导航 ---- */
+.series-nav {
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border-light);
+
+    .series-nav-title {
+        font-size: 0.85rem;
+        color: var(--secondary-color);
+        font-weight: 500;
+        margin: 0 0 1rem 0;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    .series-nav-links {
+        display: flex;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+
+    .series-nav-link {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        color: var(--accent-color);
+        text-decoration: none;
+        font-size: 0.9rem;
+        font-weight: 500;
+        padding: 0.5rem 0.75rem;
+        border-radius: var(--radius-sm);
+        transition: var(--transition);
+        max-width: 48%;
+
+        &:hover {
+            background: rgba(66, 153, 225, 0.08);
+        }
+
+        &.prev { text-align: left; }
+        &.next {
+            text-align: right;
+            margin-left: auto;
+        }
+
+        .nav-arrow { flex-shrink: 0; }
+
+        .nav-label {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    }
+}
+
+/* ---- 3. 代码仓库链接 ---- */
+.repo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.3rem 0.75rem;
+    background: rgba(66, 153, 225, 0.08);
+    border: 1px solid rgba(66, 153, 225, 0.2);
+    border-radius: var(--radius-pill);
+    color: var(--accent-color);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 500;
+    transition: var(--transition);
+
+    &:hover {
+        background: rgba(66, 153, 225, 0.15);
+        border-color: var(--accent-color);
+    }
+
+    .repo-icon {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
+    }
+}
+
+/* ---- 4. 性能指标卡片 ---- */
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.metric-card {
+    @include glass-card;
+    padding: 1rem;
+    text-align: center;
+
+    .metric-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--accent-color);
+        line-height: 1.2;
+    }
+
+    .metric-label {
+        font-size: 0.78rem;
+        color: var(--secondary-color);
+        margin-top: 0.3rem;
+        font-weight: 500;
+    }
+
+    &.metric-highlight {
+        background: linear-gradient(135deg, rgba(66, 153, 225, 0.08), rgba(102, 126, 234, 0.08));
+        border-color: rgba(66, 153, 225, 0.3);
+    }
+}
+
+/* ---- 5. 警示/提示框 ---- */
+.callout {
+    padding: 1rem 1.5rem;
+    margin: 1.5rem 0;
+    border-radius: var(--radius-md);
+    border-left: 4px solid;
+    font-size: 0.92rem;
+    line-height: 1.7;
+
+    .callout-title {
+        font-weight: 600;
+        margin: 0 0 0.3rem 0;
+        font-size: 0.95rem;
+    }
+
+    p { margin: 0.3rem 0; }
+
+    /* 变体 */
+    &.callout-info {
+        background: rgba(66, 153, 225, 0.06);
+        border-color: var(--accent-color);
+        .callout-title { color: var(--accent-color); }
+    }
+
+    &.callout-warning {
+        background: rgba(230, 126, 34, 0.06);
+        border-color: #e67e22;
+        .callout-title { color: #e67e22; }
+    }
+
+    &.callout-tip {
+        background: rgba(40, 167, 69, 0.06);
+        border-color: #28a745;
+        .callout-title { color: #28a745; }
+    }
+
+    &.callout-quote {
+        background: linear-gradient(135deg, rgba(102, 126, 234, 0.05), rgba(118, 75, 162, 0.05));
+        border-image: linear-gradient(180deg, #667eea, #764ba2) 1;
+        border-radius: 0 var(--radius-md) var(--radius-md) 0;
+        font-style: italic;
+    }
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .paper-info .paper-info-row {
+        flex-direction: column;
+        gap: 0.1rem;
+    }
+
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .series-nav .series-nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .series-nav-link {
+            max-width: 100%;
+        }
+    }
+}

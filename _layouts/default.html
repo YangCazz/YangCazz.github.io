@@ -7,8 +7,8 @@
     <meta name="description" content="{{ page.description | default: site.description }}">
 
     <!-- Favicon & PWA -->
-    <link rel="icon" href="{{ '/assets/images/favicon.svg' | relative_url }}" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="{{ '/assets/images/favicon.svg' | relative_url }}">
+    <link rel="icon" href="{{ '/assets/images/site/favicon.svg' | relative_url }}" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="{{ '/assets/images/site/favicon.svg' | relative_url }}">
     <link rel="manifest" href="{{ '/manifest.json' | relative_url }}">
     <meta name="theme-color" content="#4299e1">
 
@@ -51,6 +51,7 @@
     <script src="{{ '/assets/js/blog-toc.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/tag-network.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/code-copy.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/image-zoom.js' | relative_url }}"></script>
 
     <script>
     // 应用初始化
@@ -147,7 +148,7 @@
                 <!-- 个人信息栏 - 仅在简历页面显示 -->
                 {% if page.url == '/resume/' or page.url == '/resume' %}
                 <div class="profile-sidebar">
-                    <img src="/assets/images/avatar.png" alt="个人照片" class="profile-avatar">
+                    <img src="/assets/images/site/avatar.png" alt="个人照片" class="profile-avatar">
                     <h1 class="profile-name">杨钱俊</h1>
                     <p class="profile-title">医疗机器人算法工程师</p>
                     
@@ -196,6 +197,7 @@
                 <!-- 博客内容导航 - 仅在博客文章页面显示 -->
                 {% if page.layout == 'post' %}
                 <div class="blog-toc-widget">
+                    <h3 class="toc-title">文章目录</h3>
                     <div class="toc-content" id="blogToc"></div>
                 </div>
                 

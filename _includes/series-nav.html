@@ -1,0 +1,49 @@
+<!-- 系列文章导航 -->
+{% assign current_slug = page.slug %}
+{% assign series_id = include.series %}
+{% assign series = site.data.series | where: 'id', series_id | first %}
+
+{% if series %}
+  {% assign posts = series.posts %}
+  {% assign found = false %}
+  {% assign prev = false %}
+  {% assign next = false %}
+
+  {% for post_data in posts %}
+    {% if found and next == false %}
+      {% assign next = post_data %}
+    {% endif %}
+    {% if post_data.slug == current_slug %}
+      {% assign found = true %}
+    {% else %}
+      {% unless found %}
+        {% assign prev = post_data %}
+      {% endunless %}
+    {% endif %}
+  {% endfor %}
+
+  {% if prev or next %}
+  <nav class="series-nav">
+    <div class="series-nav-title">{{ series.name }} 系列</div>
+    <div class="series-nav-links">
+      {% if prev %}
+        {% assign prev_post = site.posts | where: 'slug', prev.slug | first %}
+        <a class="series-nav-link prev" href="{{ prev_post.url | relative_url }}">
+          <span class="nav-arrow">←</span>
+          <span class="nav-label">{{ prev_post.title | truncate: 30 }}</span>
+        </a>
+      {% else %}
+        <span></span>
+      {% endif %}
+
+      {% if next %}
+        {% assign next_post = site.posts | where: 'slug', next.slug | first %}
+        <a class="series-nav-link next" href="{{ next_post.url | relative_url }}">
+          <span class="nav-label">{{ next_post.title | truncate: 30 }}</span>
+          <span class="nav-arrow">→</span>
+        </a>
+      {% endif %}
+    </div>
+  </nav>
+  {% endif %}
+{% endif %}

@@ -9,9 +9,9 @@ author: YangCazz
 math: true
 ---
 
-## 📋 引言
+## 引言
 
-随着YOLO系列的不断发展，各种基于YOLO的变种和衍生技术层出不穷。从RT-DETR到YOLO-NAS，这些变种在保持YOLO核心优势的同时，针对特定问题进行了优化和改进。
+随着YOLO系列的不断发展，各种基于YOLO的变种和衍生技术层出不穷。从RT-DETR<cite>[1]</cite>到YOLO-NAS<cite>[2]</cite>，这些变种在保持YOLO核心优势的同时，针对特定问题进行了优化和改进。
 
 **YOLO变种的核心特点**：
 
@@ -27,7 +27,15 @@ R-CNN系列 → YOLO v1 → YOLO v2/v3 → YOLO v4 → YOLO v5 → YOLO v8 → Y
 
 ---
 
-## 🎯 YOLO变种概述
+{% include paper-info.html 
+   authors="Qiang Chen, et al. (Microsoft Research)"
+   venue="ICCV"
+   year="2023"
+   arxiv="2304.08069"
+   code="https://github.com/lyuwenyu/RT-DETR"
+%}
+
+## YOLO变种概述
 
 ### 变种分类
 
@@ -38,12 +46,12 @@ class YOLOVariants:
     def __init__(self):
         self.variants = {
             "Transformer变种": {
-                "RT-DETR": "实时检测Transformer",
+                "RT-DETR": "实时检测Transformer<cite>[1]</cite>",
                 "YOLO-DETR": "YOLO与DETR结合",
                 "YOLO-Transformer": "YOLO Transformer架构"
             },
             "NAS变种": {
-                "YOLO-NAS": "神经架构搜索YOLO",
+                "YOLO-NAS": "神经架构搜索YOLO<cite>[2]</cite>",
                 "AutoYOLO": "自动YOLO设计",
                 "YOLO-Search": "YOLO架构搜索"
             },
@@ -87,26 +95,19 @@ class YOLOVariants:
 
 ```
 技术融合：
-- YOLO + Transformer = RT-DETR
-- YOLO + NAS = YOLO-NAS
+- YOLO + Transformer = RT-DETR<cite>[1]</cite>
+- YOLO + NAS = YOLO-NAS<cite>[2]</cite>
 - YOLO + 轻量化 = YOLO-Lite
 - YOLO + 多任务 = YOLO-Seg
 ```
 
 ---
 
-## 🔄 RT-DETR：实时检测Transformer
-
-### 论文信息
-- **标题**: RT-DETR: Real-Time Detection Transformer
-- **作者**: Qiang Chen, et al. (Microsoft Research)
-- **发表**: ICCV 2023
-- **论文链接**: [arXiv:2304.08069](https://arxiv.org/abs/2304.08069)
-- **官方代码**: [GitHub](https://github.com/lyuwenyu/RT-DETR)
+## RT-DETR：实时检测Transformer
 
 ### 核心思想
 
-**RT-DETR的设计理念**：
+**RT-DETR的设计理念**<cite>[1]</cite>：
 
 ```
 YOLO优势 + Transformer优势 = RT-DETR
@@ -294,18 +295,20 @@ def analyze_rt_detr_performance():
 
 ---
 
-## 🔍 YOLO-NAS：神经架构搜索
+## YOLO-NAS：神经架构搜索
 
-### 论文信息
-- **标题**: YOLO-NAS: A Neural Architecture Search Approach to Object Detection
-- **作者**: Deci AI Research Team
-- **发表**: arXiv 2023
-- **论文链接**: [arXiv:2305.09972](https://arxiv.org/abs/2305.09972)
-- **官方代码**: [GitHub](https://github.com/Deci-AI/super-gradients)
+{% include paper-info.html 
+   title="YOLO-NAS"
+   authors="Deci AI"
+   url="https://github.com/Deci-AI/super-gradients"
+   url_label="GitHub: Deci-AI/super-gradients"
+%}
+
+**性质**：基于神经架构搜索（NAS）的 YOLO 检测器，通过 SuperGradients 库发布
 
 ### 核心思想
 
-**YOLO-NAS的设计理念**：
+**YOLO-NAS的设计理念**<cite>[2]</cite>：
 
 ```
 YOLO优势 + NAS技术 = YOLO-NAS
@@ -488,7 +491,7 @@ def analyze_yolo_nas_performance():
 
 ---
 
-## 📱 轻量化变种
+## 轻量化变种
 
 ### YOLO-Lite
 
@@ -679,7 +682,7 @@ class MBConv(nn.Module):
 
 ---
 
-## 🎯 多任务变种
+## 多任务变种
 
 ### YOLO-Seg
 
@@ -816,7 +819,7 @@ class PoseHead(nn.Module):
 
 ---
 
-## 📊 YOLO变种性能对比
+## YOLO变种性能对比
 
 ### 性能对比表
 
@@ -870,7 +873,7 @@ def analyze_yolo_variants():
 
 ---
 
-## 💡 YOLO变种的优势与局限
+## YOLO变种的优势与局限
 
 ### ✅ 主要优势
 
@@ -938,11 +941,11 @@ def analyze_yolo_variants():
 
 ---
 
-## 🎓 YOLO变种的历史意义
+## YOLO变种的历史意义
 
 ### 技术贡献
 
-**YOLO变种的技术贡献**：
+**YOLO变种的技术贡献**<cite>[3][4][6][7]</cite>：
 
 1. **技术融合**：结合不同技术优势
 2. **应用导向**：面向具体应用需求
@@ -978,7 +981,7 @@ YOLO变种 → 现代YOLO → 未来YOLO
 
 ---
 
-## 📖 总结
+## 总结
 
 ### YOLO变种的核心贡献
 
@@ -1001,15 +1004,19 @@ YOLO变种特点：
 
 YOLO变种通过技术融合和应用导向，为YOLO系列的发展提供了新的方向和可能性，为后续YOLO系列的发展奠定了重要基础。
 
-**下一篇预告**：[YOLO实战：从训练到部署](/2025/05/05/yolo-practical/) - 探索YOLO系列的实际应用，从模型训练到生产部署的完整流程。
-
 ---
 
-## 📚 参考资料
+## 参考资料
 
-### 论文
-1. [RT-DETR] Chen, Q., et al. (2023). RT-DETR: Real-Time Detection Transformer. *ICCV*.
-2. [YOLO-NAS] Deci AI Research Team. (2023). YOLO-NAS: A Neural Architecture Search Approach to Object Detection. *arXiv*.
+<ol class="references">
+  <li id="ref-1">Chen, Q. et al. "RT-DETR: Real-Time Detection Transformer", ICCV 2023. <a href="https://arxiv.org/abs/2304.08069">arXiv:2304.08069</a></li>
+  <li id="ref-2">Deci AI. <em>YOLO-NAS by Deci</em>. SuperGradients library, 2023. <a href="https://github.com/Deci-AI/super-gradients">github.com/Deci-AI/super-gradients</a></li>
+  <li id="ref-3">Jocher, G. et al. "ultralytics/yolov5", GitHub, 2020. <a href="https://github.com/ultralytics/yolov5">GitHub</a></li>
+  <li id="ref-4">Wang, C.-Y. et al. "YOLOv7: Trainable bag-of-freebies sets new state-of-the-art for real-time object detectors", CVPR 2023. <a href="https://arxiv.org/abs/2207.02696">arXiv:2207.02696</a></li>
+  <li id="ref-5">Ultralytics. "YOLOv8", 2023. <a href="https://github.com/ultralytics/ultralytics">GitHub</a></li>
+  <li id="ref-6">Ge, Z. et al. "YOLOX: Exceeding YOLO Series in 2021", arXiv 2021. <a href="https://arxiv.org/abs/2107.08430">arXiv:2107.08430</a></li>
+  <li id="ref-7">Li, C. et al. "YOLOv6: A Single-Stage Object Detection Framework for Industrial Applications", arXiv 2022. <a href="https://arxiv.org/abs/2209.02976">arXiv:2209.02976</a></li>
+</ol>
 
 ### 代码实现
 - [RT-DETR官方](https://github.com/lyuwenyu/RT-DETR) - 官方PyTorch实现
@@ -1022,19 +1029,4 @@ YOLO变种通过技术融合和应用导向，为YOLO系列的发展提供了新
 
 ---
 
-## 🔗 系列文章导航
-
-**YOLO系列目标检测**：
-
-1. [R-CNN到Faster R-CNN：两阶段检测的演进](/2025/04/01/rcnn-to-faster-rcnn/)（已完成）
-2. [YOLO v1：实时目标检测的革命](/2025/04/05/yolo-v1-revolution/)（已完成）
-3. [YOLO v2/v3：多尺度检测的进化](/2025/04/10/yolo-v2-v3-evolution/)（已完成）
-4. [YOLO v4：CSPNet与数据增强的艺术](/2025/04/15/yolo-v4-cspnet/)（已完成）
-5. [YOLO v5：工业化的成功](/2025/04/20/yolo-v5-industrial/)（已完成）
-6. [YOLO v8：Ultralytics的现代架构](/2025/04/25/yolo-v8-modern/)（已完成）
-7. 📍 **YOLO变种：RT-DETR、YOLO-NAS等**（本文）
-8. [YOLO实战：从训练到部署](/2025/05/05/yolo-practical/)
-
----
-
-*本文深入解析了YOLO系列的各种变种和衍生技术，从RT-DETR到YOLO-NAS，探索YOLO生态的多样性和技术创新。下一篇将介绍YOLO系列的实际应用，从模型训练到生产部署的完整流程。*
+{% include series-nav.html series="object-detection" %}

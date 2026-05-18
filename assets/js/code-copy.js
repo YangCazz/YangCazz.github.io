@@ -14,28 +14,131 @@
     }
     
     function initCodeCopy() {
-        // 查找所有代码块
-        const codeBlocks = document.querySelectorAll('pre code');
-        
-        codeBlocks.forEach((codeBlock) => {
-            // 跳过已经添加过按钮的代码块
-            if (codeBlock.parentElement.querySelector('.copy-code-button')) {
-                return;
-            }
-            
-            // 创建复制按钮
+        // 处理 .highlight 容器（Jekyll Rouge 输出的代码块）
+        const highlights = document.querySelectorAll('.highlight');
+
+        highlights.forEach((highlight) => {
+            // 跳过已处理过的
+            if (highlight.querySelector('.code-header')) return;
+
+            // 注入代码头部栏
+            const codeHeader = createCodeHeader(highlight);
+            highlight.insertBefore(codeHeader, highlight.firstChild);
+
+            // 找到 pre > code
+            const codeBlock = highlight.querySelector('pre code');
+            if (!codeBlock) return;
+
+            // 在头部栏添加复制按钮
+            const actions = codeHeader.querySelector('.code-header-actions');
             const button = createCopyButton();
-            
-            // 将按钮添加到pre元素
-            const pre = codeBlock.parentElement;
-            pre.style.position = 'relative';
-            pre.appendChild(button);
-            
-            // 添加点击事件
+            actions.appendChild(button);
+
             button.addEventListener('click', () => {
                 copyCode(codeBlock, button);
             });
         });
+
+        // 处理散落的 pre code（不在 .highlight 内的，作为兜底）
+        document.querySelectorAll('pre code').forEach((codeBlock) => {
+            const pre = codeBlock.parentElement;
+            // 如果 pre 在 .highlight 内则跳过
+            if (pre.closest('.highlight')) return;
+            if (pre.querySelector('.copy-code-button')) return;
+
+            pre.style.position = 'relative';
+            const button = createCopyButton();
+            pre.appendChild(button);
+            button.addEventListener('click', () => {
+                copyCode(codeBlock, button);
+            });
+        });
+    }
+
+    /**
+     * 从父级 div 的 class 中提取语言名
+     */
+    function extractLanguage(highlight) {
+        // 从 .highlight 本身查找 language-* 类
+        const classes = highlight.className.split(/\s+/);
+        for (const cls of classes) {
+            if (cls.startsWith('language-')) {
+                return cls.replace('language-', '');
+            }
+        }
+        // 也可能在外层 .highlighter-rouge 上
+        const rouge = highlight.closest('.highlighter-rouge');
+        if (rouge) {
+            for (const cls of rouge.className.split(/\s+/)) {
+                if (cls.startsWith('language-')) {
+                    return cls.replace('language-', '');
+                }
+            }
+        }
+        return '';
+    }
+
+    /**
+     * 创建代码头部栏（macOS 风格圆点 + 语言标签）
+     */
+    function createCodeHeader(highlight) {
+        const header = document.createElement('div');
+        header.className = 'code-header';
+
+        const lang = extractLanguage(highlight);
+        const langLabel = getLangLabel(lang);
+
+        const left = document.createElement('div');
+        left.className = 'code-header-left';
+        left.innerHTML = `
+            <span class="code-dots">
+                <span class="code-dot code-dot--red"></span>
+                <span class="code-dot code-dot--yellow"></span>
+                <span class="code-dot code-dot--green"></span>
+            </span>
+            <span class="code-lang">${langLabel || lang || 'code'}</span>
+        `;
+
+        const actions = document.createElement('div');
+        actions.className = 'code-header-actions';
+
+        header.appendChild(left);
+        header.appendChild(actions);
+        return header;
+    }
+
+    function getLangLabel(lang) {
+        const map = {
+            'python': 'Python',
+            'js': 'JavaScript',
+            'javascript': 'JavaScript',
+            'ts': 'TypeScript',
+            'typescript': 'TypeScript',
+            'html': 'HTML',
+            'css': 'CSS',
+            'scss': 'SCSS',
+            'bash': 'Bash',
+            'shell': 'Shell',
+            'sh': 'Shell',
+            'json': 'JSON',
+            'yaml': 'YAML',
+            'yml': 'YAML',
+            'markdown': 'Markdown',
+            'md': 'Markdown',
+            'ruby': 'Ruby',
+            'rb': 'Ruby',
+            'c': 'C',
+            'cpp': 'C++',
+            'java': 'Java',
+            'go': 'Go',
+            'rust': 'Rust',
+            'sql': 'SQL',
+            'xml': 'XML',
+            'dockerfile': 'Dockerfile',
+            'makefile': 'Makefile',
+            'plaintext': 'Plain Text',
+        };
+        return map[lang.toLowerCase()] || '';
     }
     
     /**

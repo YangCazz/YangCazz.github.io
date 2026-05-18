@@ -9,9 +9,9 @@ author: YangCazz
 math: true
 ---
 
-## 📋 引言
+## 引言
 
-2020年，Ultralytics发布的YOLO v5标志着YOLO系列的一次重大转变。与之前的学术研究导向不同，YOLO v5专注于工业化和工程实践，通过PyTorch实现和工程化设计，成为最成功的YOLO版本。
+2020年，Ultralytics发布的YOLO v5<cite>[1]</cite>标志着YOLO系列的一次重大转变。与之前的学术研究导向不同，YOLO v5专注于工业化和工程实践，通过PyTorch实现和工程化设计，成为最成功的YOLO版本。
 
 **YOLO v5的核心特点**：
 
@@ -27,7 +27,7 @@ R-CNN系列 → YOLO v1 → YOLO v2/v3 → YOLO v4 → YOLO v5（本文） → Y
 
 ---
 
-## 🎯 YOLO v5的设计理念
+## YOLO v5的设计理念
 
 ### 工业化导向
 
@@ -73,7 +73,7 @@ class YOLOv5:
 
 ---
 
-## 🏗️ YOLO v5网络架构
+## YOLO v5网络架构
 
 ### 完整网络结构
 
@@ -313,7 +313,7 @@ class YOLOv5Head(nn.Module):
 
 ---
 
-## 🚀 YOLO v5的工程实践
+## YOLO v5的工程实践
 
 ### 训练流程
 
@@ -525,7 +525,7 @@ class YOLOv5Loss(nn.Module):
 
 ---
 
-## 📊 YOLO v5性能分析
+## YOLO v5性能分析
 
 ### 速度对比
 
@@ -540,6 +540,8 @@ class YOLOv5Loss(nn.Module):
 |------|----------|---------|------|
 | YOLO v4 | 43.5% | 84.5% | 基准 |
 | **YOLO v5** | **44.1%** | **85.2%** | **+0.6%** |
+
+<cite>[1]</cite>
 
 ### 工程化优势
 
@@ -578,7 +580,7 @@ def analyze_yolo_v5_advantages():
 
 ---
 
-## 💡 YOLO v5的优势与局限
+## YOLO v5的优势与局限
 
 ### ✅ 主要优势
 
@@ -646,7 +648,7 @@ def analyze_yolo_v5_advantages():
 
 ---
 
-## 🎓 YOLO v5的历史意义
+## YOLO v5的历史意义
 
 ### 技术贡献
 
@@ -686,7 +688,7 @@ YOLO v5 → YOLO v8 → 现代YOLO
 
 ---
 
-## 📖 总结
+## 总结
 
 ### YOLO v5的核心贡献
 
@@ -707,21 +709,19 @@ YOLO v5特点：
 
 ### 为后续发展奠定基础
 
-YOLO v5通过工业化的设计理念和工程实践，成为最成功的YOLO版本，为后续YOLO系列的发展奠定了重要基础。
-
-**下一篇预告**：[YOLO v8：Ultralytics的现代架构](/2025/04/25/yolo-v8-modern/) - 探索YOLO v8如何通过现代架构设计和先进技术，进一步提升YOLO系列的性能。
+YOLO v5通过工业化的设计理念和工程实践，成为最成功的YOLO版本<cite>[1]</cite>，为后续YOLO系列的发展奠定了重要基础。
 
 ---
 
-## 📚 参考资料
+## 参考资料
 
-### 论文
-1. [YOLO v5] Ultralytics. (2020). YOLOv5: A New State-of-the-Art in Real-Time Object Detection. *GitHub*.
+<ol class="references">
+<li>Jocher, G. et al. "ultralytics/yolov5", GitHub repository, 2020. <a href="https://github.com/ultralytics/yolov5">https://github.com/ultralytics/yolov5</a></li>
+</ol>
 
 ### 代码实现
 - [YOLO v5官方](https://github.com/ultralytics/yolov5) - 官方PyTorch实现
 - [YOLO v5文档](https://docs.ultralytics.com/) - 完整文档
-- [YOLO v5教程](https://github.com/ultralytics/yolov5/wiki) - 使用教程
 
 ### 数据集
 - [COCO](https://cocodataset.org/) - 大规模目标检测数据集
@@ -729,19 +729,4 @@ YOLO v5通过工业化的设计理念和工程实践，成为最成功的YOLO版
 
 ---
 
-## 🔗 系列文章导航
-
-**YOLO系列目标检测**：
-
-1. [R-CNN到Faster R-CNN：两阶段检测的演进](/2025/04/01/rcnn-to-faster-rcnn/)（已完成）
-2. [YOLO v1：实时目标检测的革命](/2025/04/05/yolo-v1-revolution/)（已完成）
-3. [YOLO v2/v3：多尺度检测的进化](/2025/04/10/yolo-v2-v3-evolution/)（已完成）
-4. [YOLO v4：CSPNet与数据增强的艺术](/2025/04/15/yolo-v4-cspnet/)（已完成）
-5. 📍 **YOLO v5：工业化的成功**（本文）
-6. [YOLO v8：Ultralytics的现代架构](/2025/04/25/yolo-v8-modern/)
-7. [YOLO变种：RT-DETR、YOLO-NAS等](/2025/04/30/yolo-variants/)
-8. [YOLO实战：从训练到部署](/2025/05/05/yolo-practical/)
-
----
-
-*本文深入解析了YOLO v5如何通过工业化的设计理念和工程实践，成为最成功的YOLO版本。下一篇将介绍YOLO v8如何通过现代架构设计和先进技术，进一步提升YOLO系列的性能。*
+{% include series-nav.html series="object-detection" %}

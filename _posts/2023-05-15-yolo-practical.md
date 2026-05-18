@@ -9,7 +9,7 @@ author: YangCazz
 math: true
 ---
 
-## 📋 引言
+## 引言
 
 经过前面7篇文章的深入解析，我们已经全面了解了YOLO系列的发展历程和技术特点。现在，让我们将理论知识转化为实际应用，探索YOLO系列从训练到部署的完整工程实践。
 
@@ -28,11 +28,11 @@ R-CNN系列 → YOLO v1 → YOLO v2/v3 → YOLO v4 → YOLO v5 → YOLO v8 → Y
 
 ---
 
-## 📊 数据准备
+## 数据准备
 
 ### 数据集构建
 
-**YOLO数据集格式**：
+**YOLO数据集格式**<cite>[3]</cite>：
 
 ```python
 import os
@@ -265,11 +265,11 @@ class YOLODataAugmentation:
 
 ---
 
-## 🏋️ 模型训练
+## 模型训练
 
 ### 训练配置
 
-**YOLO训练配置**：
+**YOLO训练配置**<cite>[1][2]</cite>：
 
 ```python
 import torch
@@ -569,11 +569,11 @@ class YOLOTrainingStrategy:
 
 ---
 
-## ⚡ 性能优化
+## 性能优化
 
 ### 模型压缩
 
-**YOLO模型压缩技术**：
+**YOLO模型压缩技术**<cite>[1]</cite>：
 
 ```python
 import torch
@@ -723,7 +723,7 @@ class YOLOCompression:
 
 ### 模型加速
 
-**YOLO模型加速技术**：
+**YOLO模型加速技术**<cite>[4][5][6][7]</cite>：
 
 ```python
 class YOLOAcceleration:
@@ -829,11 +829,11 @@ class YOLOAcceleration:
 
 ---
 
-## 🚀 模型部署
+## 模型部署
 
 ### 部署环境
 
-**YOLO部署环境配置**：
+**YOLO部署环境配置**<cite>[4][5][6][7]</cite>：
 
 ```python
 class YOLODeployment:
@@ -1163,7 +1163,7 @@ class YOLOProductionDeployment:
 
 ---
 
-## 📊 性能监控
+## 性能监控
 
 ### 性能指标
 
@@ -1342,7 +1342,7 @@ class YOLOPerformanceMonitor:
 
 ---
 
-## 💡 工程实践总结
+## 工程实践总结
 
 ### 最佳实践
 
@@ -1505,7 +1505,7 @@ class YOLOCommonIssues:
 
 ---
 
-## 📖 总结
+## 总结
 
 ### YOLO实战的核心内容
 
@@ -1534,19 +1534,17 @@ YOLO实战通过完整的工程实践，为YOLO系列的实际应用提供了重
 
 ---
 
-## 📚 参考资料
+## 参考资料
 
-### 论文
-1. [YOLO v1] Redmon, J., et al. (2016). You Only Look Once: Unified, Real-Time Object Detection. *CVPR*.
-2. [YOLO v2] Redmon, J., & Farhadi, A. (2017). YOLO9000: Better, Faster, Stronger. *CVPR*.
-3. [YOLO v3] Redmon, J., & Farhadi, A. (2018). YOLOv3: An Incremental Improvement. *arXiv*.
-4. [YOLO v4] Bochkovskiy, A., et al. (2020). YOLOv4: Optimal Speed and Accuracy of Object Detection. *CVPR*.
-5. [YOLO v8] Ultralytics. (2023). YOLOv8: A New State-of-the-Art in Real-Time Object Detection. *GitHub*.
-
-### 代码实现
-- [YOLO v8官方](https://github.com/ultralytics/ultralytics) - 官方PyTorch实现
-- [YOLO v5官方](https://github.com/ultralytics/yolov5) - 官方PyTorch实现
-- [YOLO v4官方](https://github.com/AlexeyAB/darknet) - 官方C实现
+<ol class="references">
+  <li id="ref-1">Ultralytics. "Ultralytics YOLOv8", 2023. <a href="https://github.com/ultralytics/ultralytics">GitHub</a></li>
+  <li id="ref-2">Jocher, G. et al. "ultralytics/yolov5", GitHub, 2020. <a href="https://github.com/ultralytics/yolov5">GitHub</a></li>
+  <li id="ref-3">Redmon, J. et al. "You Only Look Once: Unified, Real-Time Object Detection", CVPR 2016. <a href="https://arxiv.org/abs/1506.02640">arXiv:1506.02640</a></li>
+  <li id="ref-4">ONNX Runtime developers. "ONNX Runtime". <a href="https://onnxruntime.ai/">https://onnxruntime.ai/</a></li>
+  <li id="ref-5">NVIDIA Corporation. "NVIDIA TensorRT". <a href="https://developer.nvidia.com/tensorrt">https://developer.nvidia.com/tensorrt</a></li>
+  <li id="ref-6">Intel Corporation. "OpenVINO Toolkit". <a href="https://docs.openvino.ai/">https://docs.openvino.ai/</a></li>
+  <li id="ref-7">Apple Inc. "Core ML". <a href="https://developer.apple.com/documentation/coreml">https://developer.apple.com/documentation/coreml</a></li>
+</ol>
 
 ### 数据集
 - [COCO](https://cocodataset.org/) - 大规模目标检测数据集
@@ -1554,19 +1552,4 @@ YOLO实战通过完整的工程实践，为YOLO系列的实际应用提供了重
 
 ---
 
-## 🔗 系列文章导航
-
-**YOLO系列目标检测**：
-
-1. [R-CNN到Faster R-CNN：两阶段检测的演进](/2025/04/01/rcnn-to-faster-rcnn/)（已完成）
-2. [YOLO v1：实时目标检测的革命](/2025/04/05/yolo-v1-revolution/)（已完成）
-3. [YOLO v2/v3：多尺度检测的进化](/2025/04/10/yolo-v2-v3-evolution/)（已完成）
-4. [YOLO v4：CSPNet与数据增强的艺术](/2025/04/15/yolo-v4-cspnet/)（已完成）
-5. [YOLO v5：工业化的成功](/2025/04/20/yolo-v5-industrial/)（已完成）
-6. [YOLO v8：Ultralytics的现代架构](/2025/04/25/yolo-v8-modern/)（已完成）
-7. [YOLO变种：RT-DETR、YOLO-NAS等](/2025/04/30/yolo-variants/)（已完成）
-8. 📍 **YOLO实战：从训练到部署**（本文）
-
----
-
-*本文深入解析了YOLO系列的实际应用，从模型训练到生产部署的完整流程。通过8篇文章的深入解析，我们全面了解了YOLO系列的发展历程、技术特点、变种技术和工程实践，为YOLO系列的学习和应用提供了重要指导。*
+{% include series-nav.html series="object-detection" %}

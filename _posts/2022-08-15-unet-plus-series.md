@@ -9,7 +9,7 @@ author: YangCazz
 math: true
 ---
 
-## 📋 引言
+## 引言
 
 在前面的文章中，我们学习了[UNet](/2025/02/01/fcn-unet-foundation/)的基础架构、[V-Net](/2025/02/05/vnet-3d-segmentation/)的3D扩展，以及[Attention UNet](/2025/02/10/attention-unet/)的注意力机制。这些改进主要关注**如何选择特征**，但忽略了一个根本问题：
 
@@ -26,20 +26,21 @@ Low-level ────→ High-level
    语义差距大，融合效果差
 ```
 
-**UNet++**（2018）和**UNet 3+**（2020）通过**密集连接**（Dense Connections）解决这个问题，分别提出：
+**UNet++**（2018）<cite>[1]</cite>和**UNet 3+**（2020）<cite>[2]</cite>通过**密集连接**（Dense Connections）解决这个问题，分别提出：
 - **UNet++**: 嵌套的Skip Connections（Nested Skip Pathways）
 - **UNet 3+**: 全尺度Skip Connections（Full-scale Skip Connections）
 
 ---
 
-## 🎯 Part 1: UNet++ (2018)
+## Part 1: UNet++ (2018)
 
-### 论文信息
-- **标题**: UNet++: A Nested U-Net Architecture for Medical Image Segmentation
-- **作者**: Zongwei Zhou, et al. (Arizona State University)
-- **发表**: DLMIA 2018 (Deep Learning in Medical Image Analysis)
-- **论文链接**: [arXiv:1807.10165](https://arxiv.org/abs/1807.10165)
-- **官方代码**: [GitHub](https://github.com/MrGiovanni/UNetPlusPlus)
+{% include paper-info.html 
+   authors="Zongwei Zhou, et al. (Arizona State University)"
+   venue="DLMIA"
+   year="2018"
+   arxiv="1807.10165"
+   code="https://github.com/MrGiovanni/UNetPlusPlus"
+%}
 
 ### 核心思想：嵌套Skip Connections
 
@@ -105,7 +106,7 @@ $$
 - \( [\cdot, \cdot] \): 通道维度拼接
 - \( \left[ X^{i,k} \right]_{k=0}^{j-1} \): 同一层所有前面列的特征
 
-**关键点**：每个节点 \( X^{i,j} \) 接收：
+**关键点**<cite>[1]</cite>：每个节点 \( X^{i,j} \) 接收：
 1. **同层所有前面节点**：\( X^{i,0}, X^{i,1}, \ldots, X^{i,j-1} \)
 2. **下一层上采样**：\( \mathcal{U}(X^{i+1,j-1}) \)
 
@@ -196,7 +197,7 @@ class UNetPlusPlus(nn.Module):
 
 ### Deep Supervision（深度监督）
 
-UNet++的另一个重要创新：在每一列都添加输出层。
+UNet++的另一个重要创新<cite>[1]</cite>：在每一列都添加输出层。
 
 **标准UNet**：
 ```
@@ -247,14 +248,15 @@ out_L4 = model.forward_L4(image)
 
 ---
 
-## 🚀 Part 2: UNet 3+ (2020)
+## Part 2: UNet 3+ (2020)
 
-### 论文信息
-- **标题**: UNet 3+: A Full-Scale Connected UNet for Medical Image Segmentation
-- **作者**: Huimin Huang, et al. (Zhejiang University)
-- **发表**: ICASSP 2020
-- **论文链接**: [arXiv:2004.08790](https://arxiv.org/abs/2004.08790)
-- **官方代码**: [GitHub](https://github.com/ZJUGiveLab/UNet-Version)
+{% include paper-info.html 
+   authors="Huimin Huang, et al. (Zhejiang University)"
+   venue="ICASSP"
+   year="2020"
+   arxiv="2004.08790"
+   code="https://github.com/ZJUGiveLab/UNet-Version"
+%}
 
 ### 核心思想：全尺度Skip Connections
 
@@ -267,7 +269,7 @@ out_L4 = model.forward_L4(image)
 
 **UNet 3+的解决方案**：
 
-**Full-scale Skip Connections** - 每个解码器层接收**所有尺度**的特征：
+**Full-scale Skip Connections**<cite>[2]</cite> - 每个解码器层接收**所有尺度**的特征：
 
 ```
 编码器                    解码器
@@ -452,7 +454,7 @@ class UNet3Plus(nn.Module):
 
 ### UNet 3+的独特优势
 
-#### 1. Classification-Guided Module（CGM）
+#### 1. Classification-Guided Module（CGM） <cite>[2]</cite>
 
 UNet 3+添加了一个**分类分支**，用于图像级别的监督：
 
@@ -480,7 +482,7 @@ total_loss = seg_loss + 0.5 * cls_loss
 - 减少假阳性（避免在空白图像中分割）
 - 作为质量控制机制
 
-#### 2. Hybrid Loss Function
+#### 2. Hybrid Loss Function <cite>[2]</cite>
 
 $$
 \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{seg}} + \lambda_1 \mathcal{L}_{\text{ms-ssim}} + \lambda_2 \mathcal{L}_{\text{IoU}} + \lambda_3 \mathcal{L}_{\text{cls}}
@@ -493,7 +495,7 @@ $$
 
 ---
 
-## 📊 性能对比
+## 性能对比
 
 ### 数据集
 
@@ -505,7 +507,7 @@ $$
 
 ### 实验结果
 
-#### ISIC 2018（皮肤病变分割）
+#### ISIC 2018（皮肤病变分割） <cite>[1][2]</cite>
 
 | 方法 | Dice | IoU | Sensitivity | Specificity |
 |------|------|-----|-------------|-------------|
@@ -519,7 +521,7 @@ $$
 - UNet 3+ vs. UNet: +2.6% Dice
 - UNet 3+ vs. UNet++: +0.5% Dice
 
-#### LiTS（肝脏肿瘤分割）
+#### LiTS（肝脏肿瘤分割） <cite>[2]</cite>
 
 | 方法 | Liver Dice | Tumor Dice | 平均 Dice |
 |------|-----------|------------|----------|
@@ -533,7 +535,7 @@ $$
 
 ### 消融实验
 
-#### UNet++消融
+#### UNet++消融 <cite>[1]</cite>
 
 | 配置 | Dice | 说明 |
 |------|------|------|
@@ -541,7 +543,7 @@ $$
 | + Nested Skip | 0.859 | 嵌套连接 (+1.2%) |
 | + Deep Supervision | **0.868** | 深度监督 (+0.9%) |
 
-#### UNet 3+消融
+#### UNet 3+消融 <cite>[2]</cite>
 
 | 配置 | Dice | 说明 |
 |------|------|------|
@@ -552,7 +554,7 @@ $$
 
 ---
 
-## 💡 UNet++与UNet 3+对比
+## UNet++与UNet 3+对比 <cite>[1][2]</cite>
 
 | 维度 | UNet++ | UNet 3+ |
 |------|--------|---------|
@@ -573,7 +575,7 @@ $$
 
 ---
 
-## 🎓 训练技巧
+## 训练技巧
 
 ### 1. 深度监督训练策略
 
@@ -679,7 +681,7 @@ class HybridLoss(nn.Module):
 
 ---
 
-## 📖 总结
+## 总结
 
 ### 密集连接的演进
 
@@ -717,16 +719,15 @@ UNet 3+ (2020):
 | **多类别** | UNet 3+ | CGM辅助分类 |
 | **通用分割** | UNet++ | 性价比高 |
 
-**下一篇预告**：[TransUNet：CNN与Transformer的融合](/2025/02/20/transunet-hybrid-architecture/) - 探索Transformer如何为医学图像分割带来全局建模能力。
-
 ---
 
-## 📚 参考资料
+## 参考资料
 
-### 论文
-1. [UNet++] Zhou, Z., et al. (2018). UNet++: A Nested U-Net Architecture for Medical Image Segmentation. *DLMIA*.
-2. [UNet 3+] Huang, H., et al. (2020). UNet 3+: A Full-Scale Connected UNet for Medical Image Segmentation. *ICASSP*.
-3. [DenseNet] Huang, G., et al. (2017). Densely Connected Convolutional Networks. *CVPR*.
+<ol class="references">
+  <li><strong>Zhou, Z.</strong>, Rahman Siddiquee, M. M., Tajbakhsh, N., and Liang, J. "UNet++: A Nested U-Net Architecture for Medical Image Segmentation." In <em>Deep Learning in Medical Image Analysis and Multimodal Learning for Clinical Decision Support (DLMIA/MICCAI)</em>, pp. 3-11, 2018. <a href="https://arxiv.org/abs/1807.10165">arXiv:1807.10165</a></li>
+  <li><strong>Huang, H.</strong>, Lin, L., Tong, R., Hu, H., Zhang, Q., Iwamoto, Y., Han, X., Chen, Y.-W., and Wu, J. "UNet 3+: A Full-Scale Connected UNet for Medical Image Segmentation." In <em>IEEE International Conference on Acoustics, Speech and Signal Processing (ICASSP)</em>, 2020. <a href="https://arxiv.org/abs/2004.08790">arXiv:2004.08790</a></li>
+  <li>Huang, G., Liu, Z., Van Der Maaten, L., and Weinberger, K. Q. "Densely Connected Convolutional Networks." In <em>IEEE Conference on Computer Vision and Pattern Recognition (CVPR)</em>, 2017. <a href="https://arxiv.org/abs/1608.06993">arXiv:1608.06993</a></li>
+</ol>
 
 ### 代码实现
 - [UNet++官方](https://github.com/MrGiovanni/UNetPlusPlus) - 原始Keras实现
@@ -740,18 +741,5 @@ UNet 3+ (2020):
 
 ---
 
-## 🔗 系列文章导航
-
-1. [FCN与UNet：医学分割的奠基之作](/2025/02/01/fcn-unet-foundation/)
-2. [V-Net：3D医学图像分割的突破](/2025/02/05/vnet-3d-segmentation/)
-3. [Attention UNet：注意力机制的引入](/2025/02/10/attention-unet/)
-4. 📍 **UNet++/UNet 3+：密集连接的力量**（本文）
-5. [TransUNet：CNN与Transformer的融合](/2025/02/20/transunet-hybrid-architecture/)
-6. [Swin-UNet：层级化Transformer](/2025/02/25/swin-unet-hierarchical-transformer/)
-7. [SAM与MedSAM：基础模型的医学应用](/2025/03/05/sam-segment-anything/)
-8. [nnU-Net：自适应医学分割框架](/2025/03/15/nnunet-self-configuring-framework/)
-
----
-
-*本文深入探讨了UNet++和UNet 3+如何通过密集连接策略重新定义Skip Connections，分别通过嵌套路径和全尺度融合弥合编码器-解码器之间的语义鸿沟。下一篇将介绍Transformer如何革新医学图像分割。*
+{% include series-nav.html series="medical-segmentation" %}
 

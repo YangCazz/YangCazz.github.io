@@ -9,7 +9,7 @@ author: YangCazz
 math: true
 ---
 
-## 📋 引言
+## 引言
 
 在前面的文章中，我们学习了众多UNet变种：[Attention UNet](/2025/02/10/attention-unet/)、[UNet++](/2025/02/15/unet-plus-series/)、[TransUNet](/2025/02/20/transunet-hybrid-architecture/)、[Swin-UNet](/2025/02/25/swin-unet-hierarchical-transformer/)等。这些方法通过架构创新不断刷新SOTA。
 
@@ -47,20 +47,20 @@ math: true
 核心理念：
 - ✅ **自适应配置**：根据数据特性自动调整所有超参数
 - ✅ **无需调参**：拿到数据，一键运行，达到SOTA
-- ✅ **鲁棒性强**：在23个医学分割挑战赛中均名列前茅
+- ✅ **鲁棒性强**：在23个医学分割挑战赛中均名列前茅<cite>[1]</cite>
 - ✅ **可复现**：消除"调参艺术"，科学且系统
 
 ---
 
-## 🎯 nnU-Net：核心思想
+## nnU-Net：核心思想
 
-### 论文信息
-- **标题**: nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation
-- **作者**: Fabian Isensee, et al. (DKFZ, German Cancer Research Center)
-- **发表**: Nature Methods 2021
-- **论文链接**: [arXiv:1809.10486](https://arxiv.org/abs/1809.10486)
-- **官方代码**: [GitHub](https://github.com/MIC-DKFZ/nnUNet)
-- **成就**: Medical Segmentation Decathlon冠军（2018）
+{% include paper-info.html 
+   authors="Fabian Isensee, et al. (DKFZ, German Cancer Research Center)"
+   venue="Nature Methods"
+   year="2021"
+   arxiv="1809.10486"
+   code="https://github.com/MIC-DKFZ/nnUNet"
+%}
 
 ### 什么是Self-Configuring？
 
@@ -108,7 +108,7 @@ nnU-Net的三大原则：
 
 ---
 
-## 🏗️ nnU-Net架构
+## nnU-Net架构
 
 ### 整体流程
 
@@ -411,11 +411,11 @@ def get_augmentation_pipeline(dataset_properties):
 
 ---
 
-## 📊 性能表现
+## 性能表现
 
 ### Medical Segmentation Decathlon
 
-**10个任务，10种模态，2000+病例**
+**10个任务，10种模态，2000+病例**<cite>[1]</cite>
 
 | 任务 | 模态 | nnU-Net Dice | 第二名 | 提升 |
 |------|------|-------------|--------|------|
@@ -431,12 +431,12 @@ def get_augmentation_pipeline(dataset_properties):
 | 结肠癌 | CT | **0.56** | 0.51 | +5% |
 | **平均** | - | **0.77** | 0.73 | **+4%** |
 
-**关键发现**：
+**关键发现**<cite>[1]</cite>：
 - ✅ **所有任务第一名**
 - ✅ 平均提升4%
 - ✅ **无需调参，开箱即用**
 
-### 与SOTA方法对比
+### 与SOTA方法对比<cite>[1]</cite>
 
 | 数据集 | UNet | Attention UNet | UNet++ | TransUNet | **nnU-Net** |
 |--------|------|---------------|--------|-----------|------------|
@@ -451,7 +451,7 @@ def get_augmentation_pipeline(dataset_properties):
 
 ---
 
-## 💡 nnU-Net的优势
+## nnU-Net的优势
 
 ### 1. 零调参
 
@@ -527,7 +527,7 @@ final_pred = np.mean(predictions, axis=0)
 
 ---
 
-## 🎓 使用nnU-Net
+## 使用nnU-Net
 
 ### 安装
 
@@ -632,7 +632,7 @@ nnUNet_predict -i ./test_images -o ./predictions \
 
 ---
 
-## 🔬 进阶技巧
+## 进阶技巧
 
 ### 1. 自定义Trainer
 
@@ -712,9 +712,9 @@ class ImbalancedTrainer(nnUNetTrainerV2):
 
 ---
 
-## 📖 总结
+## 总结
 
-### nnU-Net的核心贡献
+### nnU-Net的核心贡献<cite>[1]</cite>
 
 1. **自配置方法论**
    - 将"调参艺术"转化为"系统工程"
@@ -724,7 +724,7 @@ class ImbalancedTrainer(nnUNetTrainerV2):
    - 不追求新颖性，追求可用性
    - "No new UNet" - 标准架构+最佳实践
 
-3. **广泛验证**
+3. **广泛验证**<cite>[1]</cite>
    - 23个医学分割任务SOTA
    - 成为医学分割的**事实标准**
 
@@ -751,17 +751,18 @@ class ImbalancedTrainer(nnUNetTrainerV2):
 - ❌ 对极小数据集（<20例）效果有限
 
 **未来方向**：
-- **nnU-Net v2**（2022）：支持更多架构（ResNet、Transformer）
+- **nnU-Net v2**（2022）<cite>[2]</cite>：支持更多架构（ResNet、Transformer）
 - **轻量化**：自动剪枝和蒸馏
 - **Few-shot nnU-Net**：结合Meta Learning
 
 ---
 
-## 📚 参考资料
+## 参考资料
 
-### 论文
-1. [nnU-Net] Isensee, F., et al. (2021). nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation. *Nature Methods*.
-2. [nnU-Net v2] Isensee, F., et al. (2022). nnU-Net revisited: A call for rigorous validation in 3D medical image segmentation. *arXiv*.
+<ol class="references">
+  <li><cite id="ref-1">[1]</cite> Isensee, F. et al. "nnU-Net: a self-configuring method for deep learning-based biomedical image segmentation", <em>Nature Methods</em>, 2021. <a href="https://arxiv.org/abs/1809.10486">arXiv:1809.10486</a></li>
+  <li><cite id="ref-2">[2]</cite> Isensee, F. et al. "nnU-Net revisited: A call for rigorous validation in 3D medical image segmentation", <em>arXiv</em>, 2022.</li>
+</ol>
 
 ### 代码与资源
 - [官方GitHub](https://github.com/MIC-DKFZ/nnUNet) - 完整代码+文档
@@ -774,34 +775,5 @@ class ImbalancedTrainer(nnUNetTrainerV2):
 
 ---
 
-## 🔗 系列文章导航
-
-1. [FCN与UNet：医学分割的奠基之作](/2025/02/01/fcn-unet-foundation/)
-2. [V-Net：3D医学图像分割的突破](/2025/02/05/vnet-3d-segmentation/)
-3. [Attention UNet：注意力机制的引入](/2025/02/10/attention-unet/)
-4. [UNet++/UNet 3+：密集连接的力量](/2025/02/15/unet-plus-series/)
-5. [TransUNet：CNN与Transformer的融合](/2025/02/20/transunet-hybrid-architecture/)
-6. [Swin-UNet：层级化Transformer](/2025/02/25/swin-unet-hierarchical-transformer/)
-7. [SAM与MedSAM：基础模型的医学应用](/2025/03/05/sam-segment-anything/)
-8. 📍 **nnU-Net：自适应医学分割框架**（本文）
-
----
-
-**系列完结寄语**：
-
-从2015年的[UNet](/2025/02/01/fcn-unet-foundation/)到2024年的[MedSAM](/2025/03/05/sam-segment-anything/)，医学图像分割经历了10年的快速发展。我们见证了架构创新（注意力、密集连接、Transformer）、效率提升（Window Attention）、范式转变（Promptable Segmentation）和工程优化（nnU-Net）。
-
-**核心启示**：
-- ✅ **正确配置比新架构更重要**（nnU-Net）
-- ✅ **全局建模vs.局部细节的平衡**（Transformer vs. CNN）
-- ✅ **数据比算法更重要**（SAM的11亿mask）
-- ✅ **实用性>新颖性**（nnU-Net的成功）
-
-未来的医学图像分割将走向：
-1. **基础模型**：Few-shot学习，降低标注成本
-2. **多模态融合**：图像+文本+临床信息
-3. **可解释性**：辅助临床决策
-4. **实时化**：手术导航、即时诊断
-
-*感谢您阅读本系列，希望对您的研究和工作有所帮助！*
+{% include series-nav.html series="medical-segmentation" %}
 
