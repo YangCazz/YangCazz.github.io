@@ -1,0 +1,12 @@
+<!-- 警示/提示框
+  参数:
+    type: info | warning | tip | quote (默认: info)
+    title: 可选标题
+    content: 正文内容（支持 Markdown/HTML）
+-->
+<div class="callout callout-{{ include.type | default: 'info' }}">
+    {% if include.title %}
+    <div class="callout-title">{{ include.title }}</div>
+    {% endif %}
+    {{ include.content }}
+</div>
