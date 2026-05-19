@@ -15,19 +15,20 @@
     
     function initCodeCopy() {
         // 处理 .highlight 容器（Jekyll Rouge 输出的代码块）
-        const highlights = document.querySelectorAll('.highlight');
+        // 只匹配 div.highlight（Rouge 的 formatter 容器），排除 pre.highlight
+        const highlights = document.querySelectorAll('div.highlight');
 
         highlights.forEach((highlight) => {
             // 跳过已处理过的
             if (highlight.querySelector('.code-header')) return;
 
-            // 注入代码头部栏
-            const codeHeader = createCodeHeader(highlight);
-            highlight.insertBefore(codeHeader, highlight.firstChild);
-
             // 找到 pre > code
             const codeBlock = highlight.querySelector('pre code');
             if (!codeBlock) return;
+
+            // 注入代码头部栏
+            const codeHeader = createCodeHeader(highlight);
+            highlight.insertBefore(codeHeader, highlight.firstChild);
 
             // 在头部栏添加复制按钮
             const actions = codeHeader.querySelector('.code-header-actions');
@@ -39,11 +40,11 @@
             });
         });
 
-        // 处理散落的 pre code（不在 .highlight 内的，作为兜底）
+        // 处理散落的 pre code（不在 div.highlight 内的，作为兜底）
         document.querySelectorAll('pre code').forEach((codeBlock) => {
             const pre = codeBlock.parentElement;
-            // 如果 pre 在 .highlight 内则跳过
-            if (pre.closest('.highlight')) return;
+            // 如果 pre 在 div.highlight 内则跳过
+            if (pre.closest('div.highlight')) return;
             if (pre.querySelector('.copy-code-button')) return;
 
             pre.style.position = 'relative';
