@@ -15,10 +15,16 @@
     
     function initCodeCopy() {
         // 处理 .highlight 容器（Jekyll Rouge 输出的代码块）
-        // 只匹配 div.highlight（Rouge 的 formatter 容器），排除 pre.highlight
-        const highlights = document.querySelectorAll('div.highlight');
+        // 匹配 .highlight 容器，但排除：
+        //   1) pre.highlight（Rouge 给 pre 也加了这个类）
+        //   2) 内层还嵌套了另一个 .highlight 的外层容器（GitHub Pages 旧版 kramdown 会双重包裹）
+        const highlights = document.querySelectorAll('.highlight');
 
         highlights.forEach((highlight) => {
+            // 跳过 pre 元素
+            if (highlight.tagName === 'PRE') return;
+            // 如果这个 .highlight 包裹的是另一个 .highlight（而非 pre），说明是外层壳，跳过
+            if (highlight.querySelector('.highlight')) return;
             // 跳过已处理过的
             if (highlight.querySelector('.code-header')) return;
 
