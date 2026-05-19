@@ -1,0 +1,46 @@
+<!-- GitHub 项目卡片组件 -->
+<a href="{{ include.repo.url }}" target="_blank" rel="noopener noreferrer" class="github-project-card{% if include.repo.featured %} github-project-featured{% endif %}">
+    <div class="gh-card-header">
+        <div class="gh-card-icon">
+            {% octicon repo height:20 %}
+        </div>
+        <div class="gh-card-title">
+            <span class="gh-card-owner">{{ include.repo.owner }}/</span>
+            <span class="gh-card-name">{{ include.repo.name }}</span>
+        </div>
+        {% if include.repo.featured %}
+        <span class="gh-card-badge">精选</span>
+        {% endif %}
+    </div>
+
+    <p class="gh-card-desc">{{ include.repo.description }}</p>
+
+    <div class="gh-card-meta">
+        {% if include.repo.language %}
+        <span class="gh-card-lang">
+            <span class="gh-lang-dot" style="background-color: {{ include.repo.language_color | default: '#858585' }}"></span>
+            {{ include.repo.language }}
+        </span>
+        {% endif %}
+
+        {% if include.repo.stars %}
+        <span class="gh-card-stars">
+            {% octicon star height:14 %}
+            {{ include.repo.stars }}
+        </span>
+        {% endif %}
+    </div>
+
+    {% if include.repo.topics %}
+    <div class="gh-card-topics">
+        {% for topic in include.repo.topics limit: 4 %}
+        <span class="gh-topic-tag">{{ topic }}</span>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <div class="gh-card-link">
+        <span class="gh-link-text">查看仓库</span>
+        {% octicon link-external height:14 %}
+    </div>
+</a>
