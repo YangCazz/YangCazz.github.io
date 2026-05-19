@@ -5,6 +5,7 @@ date: 2021-10-10 10:00:00 +0800
 categories: [深度学习, 经典网络]
 tags: [CNN, NAS, PyTorch]
 excerpt: "深入解析Google的EfficientNet系列（V1-V2）。探索网络深度、宽度、分辨率三维度的复合缩放策略，以及如何通过NAS找到最优网络架构。"
+image: /assets/images/covers/cnn-pioneers.jpg
 ---
 
 # EfficientNet：神经架构搜索的艺术

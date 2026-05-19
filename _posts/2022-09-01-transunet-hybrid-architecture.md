@@ -7,6 +7,7 @@ tags: [UNet, Transformer, 医学图像]
 excerpt: "探索TransUNet如何将Transformer的全局建模能力与CNN的局部特征提取相结合，开启医学图像分割的Transformer时代。"
 author: YangCazz
 math: true
+image: /assets/images/covers/medical-segmentation.jpg
 ---
 
 ## 引言

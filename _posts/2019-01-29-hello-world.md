@@ -1,6 +1,7 @@
 ---
 title: "Welcome to Jekyll!"
 published: false
+image: /assets/images/covers/blog-intro.jpg
 ---
 
 **Hello world**, this is my first Jekyll blog post.

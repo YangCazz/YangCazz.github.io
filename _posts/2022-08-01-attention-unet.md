@@ -7,6 +7,7 @@ tags: [UNet, Attention, 医学图像]
 excerpt: "深入解析Attention UNet如何通过注意力门控机制让网络自动学习关注重要区域，在胰腺等小器官分割任务上取得突破性进展。"
 author: YangCazz
 math: true
+image: /assets/images/covers/medical-segmentation.jpg
 ---
 
 ## 引言

@@ -5,6 +5,7 @@ date: 2023-06-01 10:00:00 +0800
 categories: [深度学习, 模型优化]
 tags: [深度学习, 模型优化, PyTorch]
 excerpt: "分享深度学习模型优化的实践经验，包括模型压缩、量化、剪枝等技术，以及在实际项目中的应用效果。"
+image: /assets/images/covers/dl-practice.jpg
 ---
 
 # 深度学习模型优化实践：从训练到部署

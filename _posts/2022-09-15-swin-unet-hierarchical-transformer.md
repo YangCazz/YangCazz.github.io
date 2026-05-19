@@ -7,6 +7,7 @@ tags: [UNet, Transformer, 医学图像]
 excerpt: "深入剖析Swin-UNet如何通过shifted windows和层级设计，在保持全局建模能力的同时大幅降低计算复杂度，成为医学图像分割的实用Transformer方案。"
 author: YangCazz
 math: true
+image: /assets/images/covers/medical-segmentation.jpg
 ---
 
 ## 引言

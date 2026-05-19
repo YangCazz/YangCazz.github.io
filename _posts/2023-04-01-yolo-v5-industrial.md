@@ -7,6 +7,7 @@ tags: [YOLO, 目标检测, 工程实践]
 excerpt: "深入解析YOLO v5如何通过工业化的设计理念和工程实践，成为最成功的YOLO版本。从PyTorch实现到工程化部署，探索YOLO v5的成功之道。"
 author: YangCazz
 math: true
+image: /assets/images/covers/object-detection.jpg
 ---
 
 ## 引言

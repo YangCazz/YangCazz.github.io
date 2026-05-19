@@ -5,6 +5,7 @@ date: 2024-06-01 10:00:00 +0800
 categories: [技术, 测试]
 tags: [Jekyll, 博客, 测试]
 excerpt: "这是一篇测试博客，用于验证博客系统的各项功能，包括目录生成、样式显示和交互功能。"
+image: /assets/images/covers/blog-intro.jpg
 ---
 
 # 测试博客系统功能

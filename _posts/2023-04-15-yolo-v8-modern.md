@@ -7,6 +7,7 @@ tags: [YOLO, 目标检测, 现代架构]
 excerpt: "深入解析YOLO v8如何通过现代架构设计和先进技术，进一步提升YOLO系列的性能。从网络架构到训练策略，探索YOLO v8的技术创新。"
 author: YangCazz
 math: true
+image: /assets/images/covers/object-detection.jpg
 ---
 
 ## 引言

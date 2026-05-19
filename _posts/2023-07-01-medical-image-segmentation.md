@@ -5,6 +5,7 @@ date: 2023-07-01 10:00:00 +0800
 categories: [深度学习, 医学图像处理]
 tags: [UNet, 医学图像, PyTorch]
 excerpt: "本文深入探讨了深度学习技术在医学图像分割领域的应用，重点介绍了U-Net架构的优化策略和实际项目中的经验总结。"
+image: /assets/images/covers/dl-practice.jpg
 ---
 
 # 深度学习在医学图像分割中的应用与优化

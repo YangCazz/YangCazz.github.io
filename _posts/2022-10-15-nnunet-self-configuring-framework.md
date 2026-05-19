@@ -7,6 +7,7 @@ tags: [UNet, 医学图像, AutoML]
 excerpt: "深入解析nnU-Net如何通过自适应配置消除手工调参，仅用标准UNet就在23个医学分割任务上达到SOTA，成为医学图像分割的事实标准。"
 author: YangCazz
 math: true
+image: /assets/images/covers/medical-segmentation.jpg
 ---
 
 ## 引言
