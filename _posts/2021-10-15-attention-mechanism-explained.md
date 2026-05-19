@@ -5,6 +5,7 @@ date: 2021-10-15 10:00:00 +0800
 categories: [深度学习, Attention机制]
 tags: [Attention, 深度学习, NLP]
 excerpt: "深入解析Attention注意力机制的原理、发展历程和应用。从Seq2Seq到Self-Attention，理解如何让模型关注重要信息。"
+image: /assets/images/covers/attention-transformers.jpg
 ---
 
 # Attention机制详解：深度学习的注意力革命

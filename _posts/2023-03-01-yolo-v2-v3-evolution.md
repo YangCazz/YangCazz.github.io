@@ -7,6 +7,7 @@ tags: [YOLO, 目标检测, 多尺度检测]
 excerpt: "深入解析YOLO v2和YOLO v3如何通过锚框机制、多尺度检测和更好的网络架构，在保持实时性的同时大幅提升检测精度。从YOLO9000到YOLOv3，见证YOLO系列的第一次重大进化。"
 author: YangCazz
 math: true
+image: /assets/images/covers/object-detection.jpg
 ---
 
 ## 引言

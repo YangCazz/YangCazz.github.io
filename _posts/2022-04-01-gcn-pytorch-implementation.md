@@ -5,6 +5,7 @@ date: 2022-04-01 10:00:00 +0800
 categories: [图神经网络, 深度学习, PyTorch]
 tags: [GNN, PyTorch, 代码实现]
 excerpt: "通过PyTorch和PyTorch Geometric实现图卷积网络，包含完整的代码示例和实际应用案例。"
+image: /assets/images/covers/gnn-series.jpg
 ---
 
 # GCN实战：PyTorch实现图卷积网络

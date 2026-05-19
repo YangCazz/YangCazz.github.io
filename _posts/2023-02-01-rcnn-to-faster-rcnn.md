@@ -7,6 +7,7 @@ tags: [YOLO, 目标检测, 深度学习]
 excerpt: "深入解析R-CNN系列如何从传统方法演进到深度学习时代，为YOLO革命奠定基础。从R-CNN的CNN特征提取到Faster R-CNN的端到端训练，见证两阶段检测的完整发展历程。"
 author: YangCazz
 math: true
+image: /assets/images/covers/object-detection.jpg
 ---
 
 ## 引言

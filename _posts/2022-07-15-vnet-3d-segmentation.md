@@ -7,6 +7,7 @@ tags: [UNet, 医学图像, 3D分割]
 excerpt: "探索V-Net如何将UNet扩展到3D域，通过残差连接和Dice Loss实现前列腺MRI的精确体积分割。"
 author: YangCazz
 math: true
+image: /assets/images/covers/medical-segmentation.jpg
 ---
 
 ## 引言

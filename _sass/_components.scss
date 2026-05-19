@@ -1,3 +1,25 @@
+/* ── 不可选择元素（防止误操作）── */
+.nav-link, .nav-brand, .nav-toggle,
+.nav-icon, .nav-text, .brand-text, .brand-dot,
+.btn, .read-more, .read-more-btn, .back-to-top,
+.calendar-nav, .toc-item, .post-nav-link,
+.octicon, .nav-arrow,
+.stat-icon, .skill-icon, .skill-badge-icon, .footer-icon-svg,
+.pub-type, .project-status, .status-ongoing, .status-completed,
+.legend-circle,
+.stat-number, .stat-label, .achievement-stat,
+.category-tag, .tag, .skill-tag, .tech-tag, .project-tag,
+.timeline-skill-tag, .impact-tag, .tooltip-tag,
+.company-name, .position-title, .project-role,
+.timeline-period, .position-period, .project-period,
+.skill-card,
+.page-title, .section-title,
+.calendar-widget, .calendar-tooltip,
+#tagNetworkCanvas, .tag-network-section, .tag-tooltip {
+    -webkit-user-select: none;
+    user-select: none;
+}
+
 /* 按钮 */
 .btn {
     padding: 0.8rem 2rem;
@@ -740,4 +762,265 @@
     gap: 0.7rem;
     font-size: 0.9rem;
     color: var(--secondary-color);
+}
+
+/* ---- GitHub 项目卡片 ---- */
+.github-project-card {
+    display: block;
+    text-decoration: none;
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.github-project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 3px;
+    background: linear-gradient(90deg, #667eea, #4299e1, #8B5CF6);
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.github-project-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 32px rgba(66, 153, 225, 0.18);
+    border-color: rgba(102, 126, 234, 0.4);
+    text-decoration: none;
+}
+
+.github-project-card:hover::before {
+    opacity: 1;
+}
+
+.github-project-featured {
+    border-left: 3px solid var(--accent-color);
+}
+
+/* 头部 */
+.gh-card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.9rem;
+}
+
+.gh-card-icon {
+    color: var(--accent-color);
+    flex-shrink: 0;
+    display: flex;
+}
+
+.gh-card-title {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.3;
+    flex: 1;
+    min-width: 0;
+}
+
+.gh-card-owner {
+    color: var(--secondary-color);
+    font-weight: 400;
+}
+
+.gh-card-name {
+    color: var(--primary-color);
+}
+
+.gh-card-badge {
+    flex-shrink: 0;
+    font-size: 0.7rem;
+    font-weight: 600;
+    padding: 0.15rem 0.5rem;
+    border-radius: 10px;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.15), rgba(139, 92, 246, 0.15));
+    color: #667eea;
+    white-space: nowrap;
+}
+
+/* 描述 */
+.gh-card-desc {
+    font-size: 0.88rem;
+    color: var(--secondary-color);
+    line-height: 1.55;
+    margin: 0 0 1rem 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 底部元数据 */
+.gh-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 0.7rem;
+}
+
+.gh-card-lang {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.78rem;
+    color: var(--secondary-color);
+}
+
+.gh-lang-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.gh-card-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.78rem;
+    color: var(--secondary-color);
+}
+
+.gh-card-stars .octicon {
+    color: #e3b341;
+}
+
+/* 话题标签 */
+.gh-card-topics {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 0.9rem;
+}
+
+.gh-topic-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 0.2rem 0.6rem;
+    border-radius: 10px;
+    background: rgba(66, 153, 225, 0.08);
+    color: var(--accent-color);
+    transition: background 0.15s ease;
+}
+
+.github-project-card:hover .gh-topic-tag {
+    background: rgba(66, 153, 225, 0.14);
+}
+
+/* 查看链接 */
+.gh-card-link {
+    display: flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--accent-color);
+    padding-top: 0.6rem;
+    border-top: 1px solid rgba(66, 153, 225, 0.12);
+}
+
+/* 网格布局容器 */
+.github-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+    .github-projects-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .github-project-card {
+        padding: 1.2rem;
+    }
+}
+
+/* ── 文章底部 GitHub 项目卡片区 ── */
+.post-github-projects {
+    margin-top: 2.5rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.post-section-title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #e2e8f0;
+    margin-bottom: 1.5rem;
+
+    .octicon {
+        color: #4299e1;
+    }
+}
+
+/* ── 访问量计数器 ── */
+.visitor-count,
+.post-visitor-count {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+
+    .octicon { color: #6b7280; }
+
+    .visitor-badge-img {
+        height: 16px;
+        display: block;
+        margin-left: -9px;
+        // 用 mix-blend-mode 消除 SVG 内部的阴影文字和渐变层
+        mix-blend-mode: multiply;
+        filter: brightness(0) saturate(0);
+        opacity: 0.55;
+        transition: opacity 0.2s ease;
+    }
+
+    &:hover {
+        .octicon { color: #4b5563; }
+        .visitor-badge-img { opacity: 0.8; }
+    }
+}
+
+/* 站点级（footer — 浅色玻璃背景）*/
+.visitor-count {
+    opacity: 0.55;
+    transition: opacity 0.2s ease;
+
+    &:hover { opacity: 0.85; }
+}
+
+/* 文章头部 — 浅色玻璃背景 */
+.post-visitor-count {
+    margin-left: 0.5rem;
+    padding-left: 0.5rem;
+    border-left: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+/* 有封面图时 — 深色渐变背景，白色文字 */
+.post-header--cover .post-visitor-count {
+    border-left-color: rgba(255, 255, 255, 0.25);
+
+    .octicon { color: rgba(255,255,255,0.7); }
+    .visitor-badge-img {
+        mix-blend-mode: normal;
+        filter: none;
+        opacity: 0.75;
+    }
+
+    &:hover {
+        .octicon { color: rgba(255,255,255,0.95); }
+        .visitor-badge-img { opacity: 0.95; }
+    }
 }

@@ -5,6 +5,7 @@ date: 2021-09-20 10:00:00 +0800
 categories: [深度学习, 经典网络]
 tags: [CNN, 计算机视觉, 深度学习]
 excerpt: "深入解析GoogLeNet/InceptionNet系列（V1-V4）的演进历程。从Inception结构到BatchNorm，从设计准则到Inception-ResNet，探索网络在宽度维度上的创新。"
+image: /assets/images/covers/cnn-pioneers.jpg
 ---
 
 # GoogLeNet/InceptionNet系列：网络宽度的探索

@@ -5,6 +5,7 @@ date: 2021-10-01 10:00:00 +0800
 categories: [深度学习, 轻量化网络]
 tags: [CNN, 移动端, PyTorch]
 excerpt: "深入解析MobileNet系列（V1-V3）的演进历程。从深度可分离卷积到逆残差结构，从ReLU6到H-Swish，探索如何设计高效的移动端深度学习模型。"
+image: /assets/images/covers/cnn-pioneers.jpg
 ---
 
 # MobileNet系列：移动端的深度学习革命

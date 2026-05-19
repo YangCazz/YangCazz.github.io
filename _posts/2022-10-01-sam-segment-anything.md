@@ -7,6 +7,7 @@ tags: [UNet, 医学图像, Foundation Model]
 excerpt: "深入探讨Meta AI的Segment Anything Model（SAM）如何通过prompt机制实现通用分割，以及MedSAM如何将其成功迁移到医学影像领域。"
 author: YangCazz
 math: true
+image: /assets/images/covers/medical-segmentation.jpg
 ---
 
 ## 引言

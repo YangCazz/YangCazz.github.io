@@ -5,6 +5,7 @@ date: 2021-10-25 10:00:00 +0800
 categories: [深度学习, Transformer]
 tags: [Transformer, 计算机视觉, PyTorch]
 excerpt: "深入解析Vision Transformer和Swin Transformer。探索Transformer如何从NLP跨界到CV，以及如何通过窗口注意力机制实现高效的图像处理。"
+image: /assets/images/covers/attention-transformers.jpg
 ---
 
 # Vision Transformer：Transformer在计算机视觉的革命

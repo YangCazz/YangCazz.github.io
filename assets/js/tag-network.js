@@ -121,10 +121,10 @@ function initTagNetwork() {
                 const dx = nodes[j].x - nodes[i].x;
                 const dy = nodes[j].y - nodes[i].y;
                 const dist = Math.sqrt(dx * dx + dy * dy);
-                const minDistance = nodes[i].radius + nodes[j].radius + 30;
+                const minDistance = nodes[i].radius + nodes[j].radius + 20;
 
                 if (dist < minDistance && dist > 0) {
-                    const force = 800 / (dist * dist);
+                    const force = 1500 / (dist * dist);
                     const fx = (dx / dist) * force;
                     const fy = (dy / dist) * force;
                     if (nodes[i] !== dragNode) {

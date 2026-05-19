@@ -5,6 +5,7 @@ date: 2022-03-15 10:00:00 +0800
 categories: [图神经网络, 深度学习, 图卷积网络]
 tags: [GNN, 数学推导, 图学习]
 excerpt: "深入解析图卷积网络(GCN)的数学原理，从图信号处理到拉普拉斯矩阵，完整推导GCN的理论基础。"
+image: /assets/images/covers/gnn-series.jpg
 ---
 
 # GCN原理详解：图卷积网络的数学推导与理论基础

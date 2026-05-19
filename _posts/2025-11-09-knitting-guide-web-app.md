@@ -5,6 +5,7 @@ date: 2025-11-09 12:00:00 +0800
 categories: [Web开发, 前端应用]
 tags: [JavaScript, Canvas, Web应用]
 excerpt: "介绍像素织梦 (PixelKnit) - 一个功能完整的Web编织引导应用，通过可视化网格地图帮助用户跟踪编织进度。涵盖双地图显示、智能路径规划、进度跟踪、性能优化等核心功能。"
+image: /assets/images/covers/pixelknit.jpg
 ---
 ## 引言
 

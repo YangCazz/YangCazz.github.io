@@ -1,0 +1,53 @@
+# GitHub 项目卡片配置
+# 用于在页面中展示精选 GitHub 仓库
+
+repos:
+  - name: "YangCazz.github.io"
+    owner: "YangCazz"
+    description: "个人技术博客与作品集 — 基于 Jekyll 的静态网站，涵盖深度学习、医学图像处理、机器人控制等领域"
+    language: "SCSS"
+    language_color: "#667eea"
+    stars: 0
+    topics: ["Jekyll", "GitHub Pages", "Blog", "Portfolio"]
+    url: "https://github.com/YangCazz/YangCazz.github.io"
+    featured: true
+
+  - name: "PixelKnit"
+    owner: "YangCazz"
+    description: "像素织梦 — 浏览器端像素画编辑器，支持图层管理、调色板、导出和模块化架构"
+    language: "JavaScript"
+    language_color: "#f1e05a"
+    stars: 0
+    topics: ["Canvas", "Pixel Art", "Editor", "Modular"]
+    url: "https://github.com/YangCazz/PixelKnit"
+    featured: true
+
+  - name: "claude-code-skills"
+    owner: "YangCazz"
+    description: "Claude Code Agent Skills 集合 — 自定义代码审查、TDD 工作流、文档生成等技能"
+    language: "Markdown"
+    language_color: "#083fa1"
+    stars: 0
+    topics: ["Claude Code", "Agent Skills", "AI", "Productivity"]
+    url: "https://github.com/YangCazz/claude-code-skills"
+    featured: true
+
+  - name: "medical-image-segmentation"
+    owner: "YangCazz"
+    description: "医学图像分割实验仓库 — UNet/Attention UNet/TransUNet/Swin-UNet 实现与对比"
+    language: "Python"
+    language_color: "#3572A5"
+    stars: 0
+    topics: ["Deep Learning", "Medical Imaging", "Segmentation", "PyTorch"]
+    url: "https://github.com/YangCazz/medical-image-segmentation"
+    featured: false
+
+  - name: "yolo-detection-benchmark"
+    owner: "YangCazz"
+    description: "YOLO 系列目标检测模型基准测试 — YOLOv1 到 YOLOv8 完整实现与性能对比"
+    language: "Python"
+    language_color: "#3572A5"
+    stars: 0
+    topics: ["YOLO", "Object Detection", "Computer Vision", "Benchmark"]
+    url: "https://github.com/YangCazz/yolo-detection-benchmark"
+    featured: false

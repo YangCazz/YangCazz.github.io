@@ -18,7 +18,58 @@
     padding: 0;
 }
 
-.blog-post .post-header {
+/* ---- 文章封面图（背景 + 渐变叠加）---- */
+.blog-post .post-header--cover {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem 2rem 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    isolation: isolate;
+
+    // 渐变遮罩层：底部深色保证标题可读
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+            linear-gradient(180deg,
+                rgba(43, 45, 66, 0.1) 0%,
+                rgba(43, 45, 66, 0.4) 40%,
+                rgba(43, 45, 66, 0.85) 75%,
+                rgba(43, 45, 66, 0.95) 100%);
+    }
+
+    .post-title {
+        color: #ffffff;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .post-meta,
+    .post-date,
+    .category-tag {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .category-tag {
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .tag {
+        background: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* 无封面图时保持默认外观 */
+.blog-post .post-header:not(.post-header--cover) {
     background: var(--glass-bg);
     border-radius: 12px;
     padding: 2rem;
@@ -290,10 +341,68 @@
     line-height: 0;
     white-space: nowrap;
     transition: color 0.15s ease;
+    position: relative;
+
+    // 扩大悬停命中区域
+    &::after {
+        content: '';
+        position: absolute;
+        top: -6px;
+        right: -4px;
+        bottom: -6px;
+        left: -4px;
+    }
 }
 
 .blog-post .post-content a cite {
     color: inherit;
+}
+
+/* ── 引用角标悬浮预览 ── */
+.cite-tooltip {
+    position: absolute;
+    max-width: 320px;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(66, 153, 225, 0.25);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(66, 153, 225, 0.08);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #2d3748;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1000;
+
+    &.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cite-tooltip-ref {
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-right: 0.35em;
+}
+
+.cite-tooltip-body {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cite-tooltip-link {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--accent-color);
+    opacity: 0.8;
 }
 
 /* ---- 增强引用块 ---- */

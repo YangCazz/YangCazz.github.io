@@ -129,6 +129,16 @@ navigation: about_navigation
     </div>
 </section>
 
+<!-- GitHub 开源项目 -->
+<section id="github-projects" class="about-section">
+    <h2>{% octicon mark-github height:24 %} 开源项目</h2>
+    <div class="github-projects-grid">
+        {% for repo in site.data.github_projects.repos %}
+            {% include github-project-card.html repo=repo %}
+        {% endfor %}
+    </div>
+</section>
+
 <!-- 与我联系 -->
 <section id="contact" class="about-section">
     <h2>{% octicon mail height:24 %} 与我联系</h2>

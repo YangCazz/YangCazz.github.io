@@ -5,6 +5,7 @@ date: 2022-03-01 10:00:00 +0800
 categories: [图神经网络, 深度学习, 回声状态网络]
 tags: [GNN, 深度学习, 图学习]
 excerpt: "深入解析图回声状态网络的原理、数学推导和应用，理解这一图神经网络重要先驱的思想和贡献。"
+image: /assets/images/covers/gnn-series.jpg
 ---
 
 # 图回声状态网络(GESN)：图神经网络的重要先驱

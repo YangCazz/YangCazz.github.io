@@ -38,6 +38,8 @@ body {
 /* 页面内容区域 */
 .page-content {
     min-height: 600px;
+    min-width: 0;
+    overflow-x: clip;
 }
 
 /* 粒子背景画布 */
