@@ -3,7 +3,7 @@ layout: post
 title: "Transformer与BERT：自然语言处理的革命"
 date: 2021-10-20 10:00:00 +0800
 categories: [深度学习, Transformer]
-tags: [Transformer, NLP, 预训练模型]
+tags: [Transformer, NLP]
 excerpt: "深入解析Transformer和BERT的原理与创新。从'Attention Is All You Need'到预训练语言模型，探索NLP领域的范式转变。"
 image: /assets/images/covers/attention-transformers.jpg
 ---
@@ -61,6 +61,26 @@ image: /assets/images/covers/attention-transformers.jpg
   - Masked Multi-Head Self-Attention
   - Encoder-Decoder Attention
   - Position-wise Feed-Forward Network
+
+```mermaid
+graph LR
+    subgraph Encoder["编码器 ×6"]
+        E_IN["词嵌入 + 位置编码"] --> MHA["多头自注意力"]
+        MHA --> AN1["Add & LayerNorm"]
+        AN1 --> FFN["前馈网络"]
+        FFN --> AN2["Add & LayerNorm"]
+    end
+    subgraph Decoder["解码器 ×6"]
+        D_IN["词嵌入 + 位置编码"] --> MMHA["掩码多头自注意力"]
+        MMHA --> AN3["Add & LayerNorm"]
+        AN3 --> EDA["编码器-解码器注意力"]
+        EDA --> AN4["Add & LayerNorm"]
+        AN4 --> FFN2["前馈网络"]
+        FFN2 --> AN5["Add & LayerNorm"]
+    end
+    Encoder --> EDA
+    Decoder --> LINEAR["全连接层"] --> SOFTMAX["Softmax"]
+```
 
 ### 核心组件详解
 
@@ -476,6 +496,20 @@ input_embedding = token_embedding + segment_embedding + position_embedding
 
 输入B：[CLS] The cat sat. [SEP] The dog ran. [SEP]
 标签：NotNext
+```
+
+```mermaid
+graph LR
+    subgraph Pretrain["预训练"]
+        DATA["大规模未标注语料"] --> MLM["MLM: 预测 [MASK]"]
+        DATA --> NSP["NSP: 下一句预测"]
+    end
+    Pretrain --> BERT["BERT 基础模型"]
+    subgraph Finetune["微调"]
+        BERT --> CLS["句子分类"]
+        BERT --> NER["命名实体识别"]
+        BERT --> QA["阅读理解"]
+    end
 ```
 
 ### BERT的架构

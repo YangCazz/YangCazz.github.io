@@ -159,6 +159,25 @@ $$
 3. **小目标困难**：对小尺寸目标分割效果差
 4. **计算效率**：全卷积层参数量较大
 
+### FCN vs UNet 流程对比
+
+```mermaid
+graph LR
+    subgraph FCN["FCN 流程"]
+        A1[Input] --> B1[VGG Conv<br/>32× Down]
+        B1 --> C1[1×1 Conv<br/>C channels]
+        C1 --> D1[Transposed Conv<br/>32× Up]
+        D1 --> E1[Output H×W×C]
+    end
+    subgraph UNetArch["UNet 流程"]
+        A2[Input 572²] --> B2[Encoder<br/>64→1024 ch]
+        B2 --> C2[Bottleneck]
+        B2 -.->|Skip Concat| D2[Decoder<br/>1024→64 ch]
+        C2 --> D2
+        D2 --> E2[Output 388²×2]
+    end
+```
+
 ---
 
 ## UNet：医学图像分割的里程碑

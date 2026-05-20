@@ -78,6 +78,19 @@ image: /assets/images/covers/cnn-pioneers.jpg
 * 过高的分辨率，收益递减
 * 计算量急剧增加
 
+```mermaid
+graph LR
+    BASE["Baseline<br/>EfficientNet-B0"] --> SCALE["Compound Scaling<br/>系数 φ"]
+    SCALE --> DEPTH["Depth: α^φ<br/>更丰富的特征"]
+    SCALE --> WIDTH["Width: β^φ<br/>更细粒度的模式"]
+    SCALE --> RES["Resolution: γ^φ<br/>更高分辨率细节"]
+    DEPTH & WIDTH & RES --> CONST["约束: α·β²·γ² ≈ 2<br/>FLOPs × 2^φ"]
+    CONST --> B7["B7: φ=6<br/>66M · 84.3%"]
+    style DEPTH fill:#e3f2fd,stroke:#1565c0
+    style WIDTH fill:#e8f5e9,stroke:#2e7d32
+    style RES fill:#fff3e0,stroke:#e65100
+```
+
 ### 复合缩放策略
 
 **核心思想**：**同时**优化深度、宽度和分辨率<cite>[1]</cite>。
@@ -234,6 +247,15 @@ class Swish(nn.Module):
 1. **训练速度慢**：在大尺寸图像上训练很慢 <cite>[2]</cite>
 2. **DW卷积速度慢**：浅层DW卷积无法利用硬件加速 <cite>[2]</cite>
 3. **扩展性问题**：简单放大模型效果不佳 <cite>[2]</cite>
+
+```mermaid
+graph LR
+    V1["V1 (2019)<br/>MBConv · Swish<br/>37B FLOPs at B7"] --> ISSUES["V1 问题<br/>大图训练慢<br/>DW Conv GPU 效率低"]
+    ISSUES --> V2["V2 (2021)<br/>Fused-MBConv<br/>渐进式学习<br/>3-9× faster"]
+    style V1 fill:#e3f2fd,stroke:#1565c0
+    style ISSUES fill:#fce4ec,stroke:#c62828
+    style V2 fill:#e8f5e9,stroke:#2e7d32
+```
 
 ### 核心创新
 

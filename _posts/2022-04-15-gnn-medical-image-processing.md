@@ -119,6 +119,13 @@ class AnatomicalGraph:
         return torch.stack(features)
 ```
 
+```mermaid
+graph LR
+    SCAN["医学扫描<br/>CT/MRI/PET"] --> GRID["像素/体素网格"] --> GRAPH["构建图<br/>节点=像素<br/>边=邻接"]
+    SCAN --> SEG["解剖分割"] --> ORGANS["器官图<br/>节点=器官<br/>边=解剖关系"]
+    GRAPH & ORGANS --> GNN["GNN 处理"] --> PRED["分割/分类"]
+```
+
 ## 医学图像分割中的GNN应用
 
 ### 基于GNN的医学图像分割<cite>[3]</cite>
@@ -339,6 +346,15 @@ class MultiModalGNN(nn.Module):
         output = self.gnn_layers[-1](x, multimodal_data.edge_index)
         
         return F.softmax(output, dim=1)
+```
+
+```mermaid
+graph LR
+    CT["CT 特征 256d"] --> CTE["CT 编码器"]
+    MRI["MRI 特征 128d"] --> MRIE["MRI 编码器"]
+    PET["PET 特征 32d"] --> PETE["PET 编码器"]
+    CTE & MRIE & PETE --> FUSION["多模态异构图<br/>跨模态边 + 模态内边"]
+    FUSION --> GNNL["GCNConv ×3"] --> DIAG["疾病预测<br/>正常/MCI/AD"]
 ```
 
 ## 疾病预测与诊断

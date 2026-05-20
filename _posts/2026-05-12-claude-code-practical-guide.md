@@ -3,7 +3,7 @@ layout: post
 title: "Claude Code 实战指南：用 AI 智能体驱动全栈开发"
 date: 2026-05-12 12:00:00 +0800
 categories: [开发工具, AI]
-tags: [Claude Code, AI编程, 智能体, 开发工作流, 效率提升]
+tags: [Claude Code, AI Agent, 工程实践, 效率工具]
 excerpt: "深入介绍 Claude Code 的核心概念、实战工作流和高级技巧。以 YangCazz.github.io 博客项目的真实开发场景为例，展示如何用 AI 智能体完成页面重构、样式系统设计、PPT 生成等复杂任务。"
 image: /assets/images/covers/ai-dev-tools.jpg
 ---
@@ -90,11 +90,11 @@ Claude Code 具有**跨会话持久化记忆**，存储在 `.claude/memory/` 目
 
 对于复杂任务，Claude Code 可以启动**并行子智能体**：
 
-```
-主智能体
-├── 子智能体 1: 搜索所有相关文件
-├── 子智能体 2: 审查代码变更
-└── 子智能体 3: 运行测试套件
+```mermaid
+graph LR
+    Main["主智能体"] --> Sub1["子智能体 1<br/>搜索相关文件"]
+    Main --> Sub2["子智能体 2<br/>审查代码变更"]
+    Main --> Sub3["子智能体 3<br/>运行测试套件"]
 ```
 
 每个子智能体独立执行，互不干扰，完成后将结果汇总回主智能体。
@@ -109,6 +109,16 @@ Claude Code 具有**跨会话持久化记忆**，存储在 `.claude/memory/` 目
 4. 批准后按计划逐步执行
 
 这避免了 AI "想当然"地做出你并不想要的架构决策。
+
+```mermaid
+graph LR
+    A["1. 探索代码库<br/>理解现有架构"] --> B["2. 设计实现方案"]
+    B --> C["3. 提交计划审核"]
+    C --> D{"审核通过?"}
+    D -->|是| E["4. 按计划逐步执行"]
+    D -->|否| F["调整方案<br/>重新审核"]
+    F --> B
+```
 
 ## 实战工作流
 

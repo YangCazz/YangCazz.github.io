@@ -36,7 +36,22 @@ image: /assets/images/covers/gnn-series.jpg
 2. **更新（Update）**：基于聚合的信息更新节点自身的表示
 3. **传播（Propagate）**：将更新后的信息传递给邻居节点
 
+```mermaid
+graph LR
+    NODE["节点 v<br/>当前状态"] --> AGG["1. 聚合<br/>收集邻居信息"]
+    AGG --> UPD["2. 更新<br/>自身 + 邻居"]
+    UPD --> NEW["新状态"] --> PROP["3. 传播<br/>传递给邻居"]
+```
+
 ## 图神经网络的发展历程
+
+```mermaid
+graph LR
+    E["2005-2015<br/>早期 GNN<br/>递归 · 回声状态"] --> GCN["2016<br/>GCN<br/>Kipf & Welling"]
+    GCN --> GAT["2017<br/>GAT<br/>Velickovic"]
+    GAT --> MOD["2018-2020<br/>GraphSAGE · Graph Transformer<br/>异构图 GNN"]
+    MOD --> NOW["2021至今<br/>现代 GNN<br/>理论 + 应用"]
+```
 
 ### 早期发展（2005-2015）
 
@@ -120,6 +135,22 @@ $$\alpha_{ij}^{(l)} = \frac{\exp(\text{LeakyReLU}(a^T [W^{(l)} h_i^{(l)} \| W^{(
 2. **图分类**：预测整个图的类别
 3. **链接预测**：预测节点间是否存在边
 4. **图生成**：生成新的图结构
+
+```mermaid
+graph LR
+    GNN["GNN 分类"] --> MSG["按消息传递"]
+    MSG --> CONV["卷积类: GCN/GAT"]
+    MSG --> ATT["注意力类: GAT/Graph Transformer"]
+    MSG --> REC["递归类: GNN/GGNN"]
+    GNN --> GRAPH["按图类型"]
+    GRAPH --> HOMO["同构图"]
+    GRAPH --> HET["异构图"]
+    GRAPH --> DYN["动态图"]
+    GNN --> TASK["按任务"]
+    TASK --> NODE_T["节点分类"]
+    TASK --> LINK_T["链接预测"]
+    TASK --> GRAPH_T["图分类"]
+```
 
 ## 图神经网络的优势
 

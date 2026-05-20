@@ -1021,6 +1021,28 @@ YOLO革命的前奏：
 
 ---
 
+## R-CNN家族三代对比
+
+```mermaid
+graph LR
+    subgraph RCNN["R-CNN (2014)<br/>17 min/img · 58.5 mAP"]
+        R1[Input] --> R2[Selective Search<br/>2000 Regions]
+        R2 --> R3["CNN ×2000<br/>Very Slow"]
+        R3 --> R4["SVM + BBox Reg"]
+    end
+    subgraph FastRCNN["Fast R-CNN (2015)<br/>2.3s/img · 66.9 mAP"]
+        F1[Input] --> F2["CNN ×1<br/>Fast"]
+        F2 --> F3["ROI Pooling"]
+        F3 --> F4["FC + Softmax<br/>+ BBox Reg"]
+    end
+    subgraph FasterRCNN["Faster R-CNN (2015)<br/>0.2s/img · 70.0 mAP"]
+        G1[Input] --> G2["CNN + RPN<br/>Shared Features"]
+        G2 --> G3["ROI Pooling<br/>+ Detection"]
+    end
+```
+
+---
+
 ## 总结
 
 ### R-CNN系列的核心贡献

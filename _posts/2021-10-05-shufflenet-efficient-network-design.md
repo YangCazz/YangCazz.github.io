@@ -3,7 +3,7 @@ layout: post
 title: "ShuffleNet：高效网络设计的艺术"
 date: 2021-10-05 10:00:00 +0800
 categories: [深度学习, 轻量化网络]
-tags: [CNN, 轻量化, PyTorch]
+tags: [CNN, PyTorch]
 excerpt: "深入解析旷视科技的ShuffleNet系列（V1-V2）。从Channel Shuffle到设计准则，探索如何设计真正高效的轻量化网络。"
 image: /assets/images/covers/cnn-pioneers.jpg
 ---
@@ -95,6 +95,14 @@ def channel_shuffle(x, groups):
 * 组2的输出 → 分散到所有组的输入
 * ...
 * 实现组间信息交流！
+
+```mermaid
+graph LR
+    IN["Input<br/>3 groups × 4 ch"] --> RESHAPE["Reshape<br/>(batch, groups, ch, h, w)"]
+    RESHAPE --> TRANS["Transpose<br/>交换 groups ↔ ch"]
+    TRANS --> FLAT["Flatten<br/>(batch, groups×ch, h, w)"]
+    FLAT --> OUT["Output<br/>组间信息已混合"]
+```
 
 ### ShuffleNet单元
 
@@ -245,6 +253,17 @@ $$
 **实验**：去掉残差连接中的ReLU和shortcut，速度提升20%！
 
 **结论**：减少元素级操作。
+
+```mermaid
+graph LR
+    R1["准则1: 均衡通道<br/>c_in=c_out 时 MAC 最小"] --> R2["准则2: 控制分组数<br/>groups↑ → MAC↑ → speed↓"]
+    R2 --> R3["准则3: 减少碎片化<br/>规整结构 → 高并行度"]
+    R3 --> R4["准则4: 减少逐元素操作<br/>ReLU/Add/Bias 内存开销高"]
+    style R1 fill:#e3f2fd,stroke:#1565c0
+    style R2 fill:#e8f5e9,stroke:#2e7d32
+    style R3 fill:#fff3e0,stroke:#e65100
+    style R4 fill:#f3e5f5,stroke:#6a1b9a
+```
 
 ### V2的设计
 

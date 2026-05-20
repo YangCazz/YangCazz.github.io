@@ -105,7 +105,10 @@ function initCalendar() {
             const dayElement = document.createElement('div');
             dayElement.className = 'calendar-day';
             dayElement.textContent = date.getDate();
-            dayElement.dataset.date = date.toISOString().split('T')[0];
+            const yyyy = date.getFullYear();
+            const mm = String(date.getMonth() + 1).padStart(2, '0');
+            const dd = String(date.getDate()).padStart(2, '0');
+            dayElement.dataset.date = yyyy + '-' + mm + '-' + dd;
 
             if (date.getMonth() !== month) {
                 dayElement.classList.add('other-month');

@@ -3,7 +3,7 @@ layout: post
 title: "图回声状态网络(GESN)：图神经网络的重要先驱"
 date: 2022-03-01 10:00:00 +0800
 categories: [图神经网络, 深度学习, 回声状态网络]
-tags: [GNN, 深度学习, 图学习]
+tags: [GNN, 深度学习]
 excerpt: "深入解析图回声状态网络的原理、数学推导和应用，理解这一图神经网络重要先驱的思想和贡献。"
 image: /assets/images/covers/gnn-series.jpg
 ---
@@ -82,6 +82,17 @@ GESN支持两种输出模式：
 
 **归一化输出（Structure-to-Element）**：
 $$Y_V(t) = g_{out}\left(\frac{1}{|\mathcal{V}|} \sum_{v \in \mathcal{V}} \overrightarrow{X}_V(t)\right) = W_{out}\left(\frac{1}{|\mathcal{V}|} \sum_{v \in \mathcal{V}} \overrightarrow{X}_V(t)\right)$$
+
+```mermaid
+graph LR
+    U["节点输入 u(Vᵢ)"] --> WIN["输入权重 W_in"]
+    WIN --> ADD["求和 ⊕"]
+    NEIGH["邻居状态<br/>X(Eₙᵢ)"] --> WRES["存储池权重 Ŵ<br/>固定随机"]
+    WRES --> ADD
+    ADD --> TANH["tanh"] --> XT["新状态 X(Vᵢ)"]
+    XT -->|"反馈"| NEIGH
+    XT --> WOUT["输出权重 W_out<br/>可训练"] --> Y["输出 y(Vᵢ)"]
+```
 
 ## GESN的优势
 

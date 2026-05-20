@@ -3,7 +3,7 @@ layout: post
 title: "YOLO v2/v3：多尺度检测的进化之路"
 date: 2023-03-01 10:00:00 +0800
 categories: [计算机视觉, 目标检测]
-tags: [YOLO, 目标检测, 多尺度检测]
+tags: [YOLO, 目标检测]
 excerpt: "深入解析YOLO v2和YOLO v3如何通过锚框机制、多尺度检测和更好的网络架构，在保持实时性的同时大幅提升检测精度。从YOLO9000到YOLOv3，见证YOLO系列的第一次重大进化。"
 author: YangCazz
 math: true
@@ -525,6 +525,27 @@ anchors = generate_multiscale_anchors()
 print("多尺度锚框:")
 for scale, anchor_list in anchors.items():
     print(f"{scale}: {anchor_list}")
+```
+
+---
+
+## YOLOv3 FPN多尺度架构
+
+```mermaid
+graph LR
+    I[Input] --> DK[Darknet-53<br/>Backbone]
+    DK --> C3["Feature C3<br/>52×52 · 小目标"]
+    DK --> C4["Feature C4<br/>26×26"]
+    DK --> C5["Feature C5<br/>13×13 · 大目标"]
+    C5 --> P5["Head 13×13<br/>大 Anchor"]
+    C5 --> UP4[Upsample]
+    C4 --> CAT4[Concat]
+    UP4 --> CAT4
+    CAT4 --> P4["Head 26×26<br/>中 Anchor"]
+    CAT4 --> UP3[Upsample]
+    C3 --> CAT3[Concat]
+    UP3 --> CAT3
+    CAT3 --> P3["Head 52×52<br/>小 Anchor"]
 ```
 
 ---

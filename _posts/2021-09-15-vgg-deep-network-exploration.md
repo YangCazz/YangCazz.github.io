@@ -121,6 +121,25 @@ params_3x3_x3 = (3 * 3 * C * C) * 3 = 27C²
 reduction = (49C² - 27C²) / 49C² = 45%
 ```
 
+```mermaid
+graph LR
+    subgraph SINGLE["单个 7×7 卷积"]
+        S_IN[Input] --> S_CONV["7×7 Conv<br/>49C² 参数"]
+        S_CONV --> S_OUT[Output]
+        S_NL["1× ReLU 非线性"]
+    end
+    subgraph STACKED["3个 3×3 卷积 · VGG"]
+        T_IN[Input] --> T_C1["3×3 Conv → ReLU"]
+        T_C1 --> T_C2["3×3 Conv → ReLU"]
+        T_C2 --> T_C3["3×3 Conv → ReLU"]
+        T_C3 --> T_OUT[Output]
+        T_P["27C² 参数 · 45% 更少<br/>3× 非线性"]
+    end
+    S_OUT -.->|"相同 7×7 感受野"| T_OUT
+    style SINGLE fill:#fce4ec,stroke:#c62828
+    style STACKED fill:#e8f5e9,stroke:#2e7d32
+```
+
 ## 网络配置
 
 VGG提供了多种深度的配置方案：

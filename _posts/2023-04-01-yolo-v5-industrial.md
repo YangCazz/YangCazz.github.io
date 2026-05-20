@@ -314,6 +314,19 @@ class YOLOv5Head(nn.Module):
 
 ---
 
+## YOLOv5工业化流水线
+
+```mermaid
+graph LR
+    DATA[Data + Annotation] --> AUG["Mosaic + MixUp<br/>Augmentation"]
+    AUG --> TRAIN["Training<br/>CSPDarknet + PANet<br/>CIoU Loss"]
+    TRAIN --> EXPORT["Export<br/>TorchScript / ONNX<br/>TensorRT / OpenVINO"]
+    EXPORT --> DEPLOY["Deploy<br/>Edge/Cloud/Mobile"]
+    DEPLOY --> MONITOR["Monitor<br/>mAP · FPS · Latency"]
+```
+
+---
+
 ## YOLO v5的工程实践
 
 ### 训练流程

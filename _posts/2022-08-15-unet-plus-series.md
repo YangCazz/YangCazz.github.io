@@ -3,7 +3,7 @@ layout: post
 title: "UNet++与UNet 3+：密集连接重新定义Skip Connections"
 date: 2022-08-15 10:00:00 +0800
 categories: [医学影像, 图像分割]
-tags: [UNet, 深度学习, 密集连接]
+tags: [UNet, 深度学习]
 excerpt: "深入探讨UNet++的嵌套Skip Connections和UNet 3+的全尺度特征融合，理解密集连接如何弥合编码器和解码器之间的语义鸿沟。"
 author: YangCazz
 math: true
@@ -552,6 +552,23 @@ $$
 | + Full-scale Skip | 0.865 | 全尺度连接 (+1.8%) |
 | + CGM | 0.870 | 分类引导 (+0.5%) |
 | + Hybrid Loss | **0.873** | 混合损失 (+0.3%) |
+
+### Skip Connection 演进
+
+```mermaid
+graph LR
+    subgraph Base["UNet (2015)"]
+        B1[Encoder] -- "single skip" --> B2[Decoder]
+    end
+    subgraph Nested["UNet++ (2018)"]
+        N1[Encoder] --> N3[Nested Dense Blocks<br/>Deep Supervision]
+        N3 --> N2[Decoder]
+    end
+    subgraph Full["UNet 3+ (2020)"]
+        F1[Encoder All Scales] --> F3[Full-scale Fusion<br/>Down/Up-sample All]
+        F3 --> F2[Decoder<br/>+ CGM + Hybrid Loss]
+    end
+```
 
 ---
 

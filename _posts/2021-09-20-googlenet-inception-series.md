@@ -25,6 +25,17 @@ image: /assets/images/covers/cnn-pioneers.jpg
 * **[2015] InceptionNet V3**：[Rethinking the Inception Architecture for Computer Vision](https://arxiv.org/abs/1512.00567)
 * **[2017] InceptionNet V4**：[Inception-v4, Inception-ResNet and the Impact of Residual Connections on Learning](https://arxiv.org/abs/1602.07261)
 
+```mermaid
+graph LR
+    V1["V1 (2014)<br/>Inception module<br/>Auxiliary classifiers<br/>7M · 22 layers"] --> V2["V2 (2015)<br/>+ BatchNorm<br/>7.73% top-5 error"]
+    V2 --> V3["V3 (2015)<br/>Conv factorization<br/>Design principles<br/>24M · 42 layers"]
+    V3 --> V4["V4 (2016)<br/>+ Residual<br/>Inception-ResNet<br/>43M · 75 layers"]
+    style V1 fill:#e3f2fd,stroke:#1565c0
+    style V2 fill:#e8f5e9,stroke:#2e7d32
+    style V3 fill:#fff3e0,stroke:#e65100
+    style V4 fill:#f3e5f5,stroke:#6a1b9a
+```
+
 ## 1. InceptionNet V1 (2014)
 
 {% include paper-info.html 
@@ -57,6 +68,16 @@ image: /assets/images/covers/cnn-pioneers.jpg
 * 3×3最大池化分支
 
 所有分支的输出在通道维度拼接（Concatenate）。
+
+```mermaid
+graph LR
+    IN[Input] --> C1["1×1 Conv"]
+    IN --> C3["1×1 Conv → 3×3 Conv"]
+    IN --> C5["1×1 Conv → 5×5 Conv"]
+    IN --> P3["3×3 MaxPool → 1×1 Conv"]
+    C1 & C3 & C5 & P3 --> CONCAT["Channel Concat"]
+    CONCAT --> OUT["Output<br/>多尺度特征融合"]
+```
 
 #### 1×1卷积的妙用
 

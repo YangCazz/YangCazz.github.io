@@ -142,6 +142,17 @@ nnU-Net的三大原则：
 └─────────────────────────────────────────────┘
 ```
 
+### 5步自配置流程
+
+```mermaid
+graph LR
+    DATA[Raw Dataset] --> FPR["Step 1<br/>Dataset Fingerprint<br/>Spacing/Size/Intensity"]
+    FPR --> RULE["Step 2<br/>Rule-based Inference<br/>Patch/Batch/LR"]
+    RULE --> CFG["Step 3<br/>3 Configs<br/>2D/3D/Cascade"]
+    CFG --> TRAIN["Step 4<br/>5-fold CV × 3<br/>= 15 Models"]
+    TRAIN --> ENS["Step 5<br/>Ensemble<br/>Average 15 Models"]
+```
+
 ### 数据集指纹（Dataset Fingerprint）
 
 **自动提取的关键特征**：

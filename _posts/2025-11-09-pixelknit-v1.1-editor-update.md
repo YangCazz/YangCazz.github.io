@@ -101,6 +101,16 @@ v1.1 版本引入了地图类型系统，区分示例地图和用户地图：
 - 可以复制创建新副本
 - 保存在 localStorage 中
 
+```mermaid
+graph LR
+    Maps["地图列表"] --> Example["示例地图<br/>pixel_map_data.json"]
+    Maps --> User["用户地图<br/>localStorage"]
+    Example --> RO["只读保护<br/>不可编辑/删除"]
+    Example --> Copy["可复制为模板"]
+    User --> RW["完全可编辑/删除"]
+    User --> Edit["编辑直接更新原图"]
+```
+
 <!-- TODO: add image: map-type-badges.png -->
 *图6：地图类型标识，展示"示例"和"用户"标签*
 
@@ -142,6 +152,15 @@ v1.1 版本实现了智能保存机制，根据编辑状态自动选择保存方
 - 保存时显示保存对话框
 - 自动生成 5 位数字 ID（如 `map_00001`）
 - 可以自定义显示名称
+
+```mermaid
+graph LR
+    Save["用户触发保存"] --> Q{"正在编辑<br/>用户地图?"}
+    Q -->|是| Update["直接更新原图<br/>自动退出编辑"]
+    Q -->|否| Dialog["弹出保存对话框<br/>输入名称"]
+    Dialog --> NewID["自动生成 ID<br/>map_00001"]
+    NewID --> NewSave["另存为新地图"]
+```
 
 <!-- TODO: add image: save-dialog.png -->
 *图8：保存对话框，展示地图ID和显示名称输入*

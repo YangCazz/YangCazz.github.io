@@ -175,6 +175,25 @@ AlexNet在2012年的ImageNet挑战赛上以巨大优势夺冠（top-5错误率15
 | 训练设备 | CPU | 双GPU |
 | 参数量 | ~6万 | ~6000万 |
 
+```mermaid
+graph LR
+    subgraph LeNet["LeNet (1998)"]
+        L1["5 layers<br/>Conv → Pool → FC"]
+        L2["Tanh activation"]
+        L3["MNIST 60K images"]
+        L4["~60K params"]
+    end
+    subgraph AlexNet["AlexNet (2012)"]
+        A1["8 layers<br/>Conv → Dropout → FC"]
+        A2["ReLU activation"]
+        A3["ImageNet 1.2M images"]
+        A4["~60M params<br/>Dual-GPU"]
+    end
+    LeNet -->|"14年 · GPU + 大数据"| AlexNet
+    style LeNet fill:#e8f5e9,stroke:#2e7d32
+    style AlexNet fill:#e3f2fd,stroke:#1565c0
+```
+
 ## 实践经验
 
 在复现这两个经典网络的过程中，我获得了以下体会：

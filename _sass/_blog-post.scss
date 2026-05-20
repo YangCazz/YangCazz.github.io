@@ -534,6 +534,30 @@
     margin: 3rem 0;
 }
 
+/* Mermaid 图表容器 */
+.blog-post .post-content .mermaid-container {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 0.5rem;
+}
+
+.blog-post .post-content .mermaid-container svg {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.blog-post .post-content .mermaid-error {
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
 .post-footer {
     margin-top: 3rem;
     padding-top: 2rem;

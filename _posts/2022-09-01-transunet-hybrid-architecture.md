@@ -184,6 +184,21 @@ UpConv + e1  →  (H×W×64)
 Conv 1×1  →  (H×W×num_classes)
 ```
 
+### TransUNet 混合流程
+
+```mermaid
+graph LR
+    I[Input] --> CNN["CNN Encoder<br/>ResNet/VGG"]
+    CNN --> PE["Patch Embedding<br/>1×1 Conv"]
+    PE --> POS["+ Position Encoding"]
+    POS --> TE["Transformer ×L<br/>Multi-Head Self-Attn"]
+    TE --> RESHAPE["Reshape → 2D"]
+    RESHAPE --> UP1["UpConv + Skip"]
+    UP1 --> UP2["UpConv + Skip"]
+    UP2 --> UP3["UpConv + Skip"]
+    UP3 --> OUT["Output"]
+```
+
 ### 关键组件详解
 
 #### 1. Patch Embedding

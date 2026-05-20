@@ -3,7 +3,7 @@ layout: post
 title: "图神经网络综述写作指南：从文献调研到论文撰写"
 date: 2022-05-15 10:00:00 +0800
 categories: [图神经网络, 学术写作, 文献综述]
-tags: [GNN, 学术写作, 研究方法]
+tags: [GNN, 学术写作]
 excerpt: "系统介绍图神经网络综述的写作方法，从文献检索、分类整理到论文撰写的完整流程，为学术研究提供实用指导。"
 image: /assets/images/covers/gnn-series.jpg
 ---
@@ -26,6 +26,15 @@ image: /assets/images/covers/gnn-series.jpg
 2. **文献检索与分类**
 3. **文献梳理与分析**
 4. **论文撰写与修改**
+
+```mermaid
+graph LR
+    FRAME["1. 确定研究框架<br/>明确范围与问题"] --> SEARCH["2. 文献检索<br/>GNN/GCN/GAT<br/>WoS/CNKI/PubMed"]
+    SEARCH --> CLASS["3. 文献分类<br/>按时间/技术/应用"]
+    CLASS --> OUTLINE["4. 设计大纲<br/>引言→基础→分类→应用→挑战"]
+    OUTLINE --> WRITE["5. 撰写<br/>综: 逻辑组织 · 述: 批判分析"]
+    WRITE --> REVISE["6. 修改完善<br/>同行评审 · 持续更新"]
+```
 
 ## 文献检索策略
 
@@ -203,6 +212,15 @@ application_areas = {
 - 5.2 未来发展方向
 
 ## 6. 结论
+```
+
+```mermaid
+graph LR
+    INTRO["1. 引言<br/>背景/动机/贡献"] --> BASICS["2. GNN 基础<br/>图概念 · 消息传递"]
+    BASICS --> TAX["3. GNN 分类<br/>卷积/注意力/递归"]
+    TAX --> APPS["4. 应用<br/>CV/NLP/推荐/生物"]
+    APPS --> CHALL["5. 挑战与方向<br/>可扩展/过平滑/理论"]
+    CHALL --> CONC["6. 结论"]
 ```
 
 ### 2. 章节逻辑衔接

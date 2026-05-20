@@ -3,7 +3,7 @@ layout: post
 title: "GCN原理详解：图卷积网络的数学推导与理论基础"
 date: 2022-03-15 10:00:00 +0800
 categories: [图神经网络, 深度学习, 图卷积网络]
-tags: [GNN, 数学推导, 图学习]
+tags: [GNN]
 excerpt: "深入解析图卷积网络(GCN)的数学原理，从图信号处理到拉普拉斯矩阵，完整推导GCN的理论基础。"
 image: /assets/images/covers/gnn-series.jpg
 ---
@@ -73,6 +73,14 @@ $$\tilde{L}_{rw} = D^{-1} L = I - D^{-1} A$$
 $$(f * g)(t) = \int f(\tau) g(t - \tau) d\tau$$
 
 在图上，我们需要定义类似的卷积操作。关键思想是：**图上的卷积应该保持局部性，即每个节点只与其邻居节点进行信息交换**。
+
+```mermaid
+graph LR
+    FT["图傅里叶变换<br/>f*g = U((Uᵀf)⊙(Uᵀg))"] --> CHEB["切比雪夫近似<br/>Σ θₖ Tₖ(Λ̃)"]
+    CHEB --> K1["K=1 一阶近似<br/>g_θ ≈ θ₀ + θ₁Λ̃"]
+    K1 --> SIMP["λ_max≈2 化简<br/>θ₀ + θ₁(Λ-I)"]
+    SIMP --> FINAL["GCN 层<br/>H⁽ˡ⁺¹⁾ = σ(ÃH⁽ˡ⁾W⁽ˡ⁾)"]
+```
 
 ### 图傅里叶变换
 
@@ -178,6 +186,15 @@ $$\text{Norm}A_{ij} = \frac{A_{ij}}{\sqrt{d_i}\sqrt{d_j}}$$
 2. **邻接聚合**：$\tilde{A} (H^{(l)} W^{(l)})$
 3. **归一化**：$\tilde{D}^{-\frac{1}{2}} \tilde{A} \tilde{D}^{-\frac{1}{2}} (H^{(l)} W^{(l)})$
 4. **激活**：$\sigma(\cdot)$
+
+```mermaid
+graph LR
+    HL["H⁽ˡ⁾"] --> LIN["线性变换<br/>H⁽ˡ⁾·W⁽ˡ⁾"]
+    LIN --> AGG["邻居聚合<br/>Ã·H⁽ˡ⁾·W⁽ˡ⁾"]
+    AGG --> NORM["对称归一化<br/>D̃⁻¹⸍²·Ã·D̃⁻¹⸍²"]
+    NORM --> ACT["激活 σ(·)"]
+    ACT --> HL1["H⁽ˡ⁺¹⁾"]
+```
 
 ### 多层GCN的累积效应
 

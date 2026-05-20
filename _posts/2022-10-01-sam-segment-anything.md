@@ -128,6 +128,19 @@ Prompt输入  →  ┌───────────────────�
             (可能有多个候选)
 ```
 
+### SAM 三组件架构
+
+```mermaid
+graph LR
+    IMG["Image 1024³"] --> IE["Image Encoder<br/>ViT-H/MAE"]
+    IE --> IEMB["Image Embedding<br/>256×64×64"]
+    PROMPT["Prompt<br/>Points/Box/Mask"] --> PE["Prompt Encoder<br/>Pos Enc + Conv"]
+    PE --> PEMB["Prompt Embedding<br/>Sparse + Dense"]
+    IEMB --> MD["Mask Decoder<br/>2-layer Transformer"]
+    PEMB --> MD
+    MD --> MASKS["3 Candidate Masks<br/>+ IoU Scores"]
+```
+
 ### 关键组件
 
 #### 1. Image Encoder

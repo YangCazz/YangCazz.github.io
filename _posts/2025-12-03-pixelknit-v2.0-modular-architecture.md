@@ -3,7 +3,7 @@ layout: post
 title: "像素织梦 (PixelKnit) v2.0：模块化架构重构与用户体验全面升级"
 date: 2025-12-03 18:00:00 +0800
 categories: [Web开发, 前端应用]
-tags: [JavaScript, ES6模块化, Canvas, Web应用, 架构设计]
+tags: [JavaScript, Canvas, Web应用]
 excerpt: "介绍像素织梦 (PixelKnit) v2.0 的重大更新：完整的模块化架构重构、三栏布局设计、侧边栏显示/隐藏、悬浮mini菜单等新功能。从代码架构到用户体验，全面探索应用的最新升级。"
 image: /assets/images/covers/pixelknit.jpg
 ---
@@ -83,6 +83,17 @@ v2.0 版本最重要的更新是进行了全面的模块化架构重构。原有
 - 鼠标交互支持
 - 自动适配窗口大小
 
+```mermaid
+graph LR
+    Main["main.js<br/>应用启动与协调"] --> Alg["Algorithms.js<br/>路径生成"]
+    Main --> Help["Helpers.js<br/>工具函数"]
+    Main --> Stor["Storage.js<br/>localStorage"]
+    Main --> Hist["History.js<br/>50步撤销"]
+    Main --> PS["ParticleSystem.js<br/>粒子背景"]
+    Hist --> Stor
+    Alg --> Help
+```
+
 ### 架构优势
 
 **模块化架构带来的优势**：
@@ -133,6 +144,13 @@ v2.0 版本将原有的两栏布局升级为三栏布局，解决了右侧悬浮
 - **中等屏幕（1200px-1400px）**：调整列宽 `280px 1fr 260px`
 - **小屏幕（968px-1200px）**：进一步缩小 `260px 1fr 240px`
 - **移动端（<968px）**：单栏布局（堆叠显示）
+
+```mermaid
+graph LR
+    Large["> 1400px<br/>320px 1fr 280px"] --> Medium["1200-1400px<br/>280px 1fr 260px"]
+    Medium --> Small["968-1200px<br/>260px 1fr 240px"]
+    Small --> Mobile["< 968px<br/>单栏堆叠"]
+```
 
 ## 侧边栏显示/隐藏功能
 

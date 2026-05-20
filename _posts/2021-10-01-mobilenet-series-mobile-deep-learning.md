@@ -3,7 +3,7 @@ layout: post
 title: "MobileNet系列：移动端的深度学习革命"
 date: 2021-10-01 10:00:00 +0800
 categories: [深度学习, 轻量化网络]
-tags: [CNN, 移动端, PyTorch]
+tags: [CNN, PyTorch]
 excerpt: "深入解析MobileNet系列（V1-V3）的演进历程。从深度可分离卷积到逆残差结构，从ReLU6到H-Swish，探索如何设计高效的移动端深度学习模型。"
 image: /assets/images/covers/cnn-pioneers.jpg
 ---
@@ -103,6 +103,21 @@ $$
 $$
 
 **当\(K=3\)时**，压缩比约为 **1/9**！
+
+```mermaid
+graph LR
+    subgraph STD["标准卷积"]
+        S_IN["M 通道"] --> S_C["K×K Conv<br/>M×N kernels"]
+        S_C --> S_OUT["N 通道<br/>FLOPs: K²·M·N·H·W"]
+    end
+    subgraph DSC["深度可分离卷积"]
+        D_IN["M 通道"] --> DW["Depthwise<br/>K×K · groups=M<br/>FLOPs: K²·M·H·W"]
+        DW --> PW["Pointwise<br/>1×1 · M→N<br/>FLOPs: M·N·H·W"]
+        PW --> D_OUT["N 通道<br/>≈ 1/9 FLOPs"]
+    end
+    style STD fill:#fce4ec,stroke:#c62828
+    style DSC fill:#e8f5e9,stroke:#2e7d32
+```
 
 ### 网络结构
 
@@ -489,12 +504,13 @@ MobileNet系列特别适合：
 
 ### 技术演进
 
-```
-V1: 深度可分离卷积（基础轻量化）
-  ↓
-V2: 逆残差+Linear Bottleneck（优化特征表达）
-  ↓
-V3: NAS+SE+H-Swish（极致优化）
+```mermaid
+graph LR
+    V1["V1 (2017)<br/>Depthwise Separable Conv<br/>DW + PW<br/>9× FLOPs 降低<br/>4.2M · 70.6%"] --> V2["V2 (2018)<br/>Inverted Residual<br/>Linear Bottleneck<br/>ReLU6<br/>3.4M · 72.0%"]
+    V2 --> V3["V3 (2019)<br/>NAS + SE + H-Swish<br/>自动搜索架构<br/>5.4M · 75.2%"]
+    style V1 fill:#e3f2fd,stroke:#1565c0
+    style V2 fill:#e8f5e9,stroke:#2e7d32
+    style V3 fill:#fff3e0,stroke:#e65100
 ```
 
 ### 核心思想

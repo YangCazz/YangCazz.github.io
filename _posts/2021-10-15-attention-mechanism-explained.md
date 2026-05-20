@@ -421,20 +421,14 @@ class LearnedPositionalEncoding(nn.Module):
 
 ## Attention的演进
 
-```
-2014: 基础Attention（机器翻译）
-  ↓
-2015: 各类变体（图像字幕、文本摘要）
-  ↓
-2017: Self-Attention / Transformer
-  ↓
-2018: BERT（双向Self-Attention）
-  ↓
-2019: GPT-2（单向Self-Attention）
-  ↓
-2020: Vision Transformer（Attention用于CV）
-  ↓
-2021: Swin Transformer（窗口Attention）
+```mermaid
+graph LR
+    A["2014: 基础 Attention"] --> B["2015: 各类变体"]
+    B --> C["2017: Self-Attention / Transformer"]
+    C --> D["2018: BERT"]
+    D --> E["2019: GPT-2"]
+    E --> F["2020: Vision Transformer"]
+    F --> G["2021: Swin Transformer"]
 ```
 
 ## 总结
@@ -456,6 +450,17 @@ class LearnedPositionalEncoding(nn.Module):
 ```
 Query + Key → Similarity → Softmax → Weights
 Weights + Value → Weighted Sum → Output
+```
+
+```mermaid
+graph LR
+    Q["Query<br/>我需要什么?"] --> SIM["点积相似度"]
+    K["Key<br/>我是什么?"] --> SIM
+    SIM --> SM["Softmax<br/>归一化"]
+    SM --> W["注意力权重 αᵢⱼ"]
+    V["Value<br/>我有什么?"] --> SUM["加权求和"]
+    W --> SUM
+    SUM --> OUT["输出 Context cᵢ"]
 ```
 
 ### Attention的影响
