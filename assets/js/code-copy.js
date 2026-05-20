@@ -23,8 +23,9 @@
         highlights.forEach((highlight) => {
             // 跳过 pre 元素
             if (highlight.tagName === 'PRE') return;
-            // 如果这个 .highlight 包裹的是另一个 .highlight（而非 pre），说明是外层壳，跳过
-            if (highlight.querySelector('.highlight')) return;
+            // 如果这个 .highlight 包裹的是另一个 div.highlight（非 pre），
+            // 说明是 GitHub Pages 旧版 kramdown 的双层外壳，跳过外层
+            if (highlight.querySelector('div.highlight')) return;
             // 跳过已处理过的
             if (highlight.querySelector('.code-header')) return;
 
