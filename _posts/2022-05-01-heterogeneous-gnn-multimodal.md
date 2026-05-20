@@ -3,7 +3,7 @@ layout: post
 title: "异构图神经网络与多模态学习：处理复杂图结构数据"
 date: 2022-05-01 10:00:00 +0800
 categories: [图神经网络, 异构图, 多模态学习]
-tags: [GNN, 多模态, 异构图]
+tags: [GNN, 多模态]
 excerpt: "深入探讨异构图神经网络的理论基础、实现方法和在多模态学习中的应用，处理包含多种节点和边类型的复杂图结构。"
 image: /assets/images/covers/gnn-series.jpg
 ---
@@ -59,6 +59,15 @@ class HeterogeneousGraphExample:
         self.data['paper', 'has_keyword', 'keyword'].edge_index = torch.randint(0, 200, (2, 400))
         
         return self.data
+```
+
+```mermaid
+graph LR
+    AUTHOR["作者 A"] -->|"writes"| PAPER["论文 P"]
+    PAPER -->|"published_in"| CONF["会议 C"]
+    PAPER -->|"has_keyword"| KW["关键词 K"]
+    AUTHOR -.->|"similar_to"| AUTHOR2["作者 B"]
+    PAPER -.->|"cites"| PAPER2["论文 Q"]
 ```
 
 ## 异构图神经网络架构
@@ -280,6 +289,17 @@ class MultiModalHeteroGNN(nn.Module):
         # 输出
         output = self.output_layer(fused_features.mean(dim=0))
         return F.softmax(output, dim=1)
+```
+
+```mermaid
+graph LR
+    TXT["文本"] --> TXTE["文本编码器"]
+    IMG["图像"] --> IMGE["图像编码器"]
+    AUD["音频"] --> AUDE["音频编码器"]
+    TXTE & IMGE --> E1["文本-图像 GCNConv"]
+    TXTE & AUDE --> E2["文本-音频 GCNConv"]
+    IMGE & AUDE --> E3["图像-音频 GCNConv"]
+    E1 & E2 & E3 --> ATT["多头注意力融合"] --> CLASS["分类器"]
 ```
 
 ## 实际应用案例

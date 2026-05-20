@@ -3,7 +3,7 @@ layout: post
 title: "飞书 CLI 完全指南：从安装到 Claude Code 深度集成"
 date: 2026-05-19 10:00:00 +0800
 categories: [工具效率, AI开发]
-tags: [飞书CLI, Claude Code, Agent Skills, MCP, 效率工具, 命令行]
+tags: [效率工具, Claude Code, Agent Skills, MCP]
 excerpt: "飞书官方 CLI (lark-cli) 开源：200+ 命令、23 个 AI Agent Skills、覆盖 11 大业务域。本文从安装配置到 Claude Code 深度集成，涵盖双向通信桥接、MCP Server 对接、实战工作流和常见问题排查。"
 author: YangCazz
 image: /assets/images/covers/ai-dev-tools.jpg
@@ -218,6 +218,15 @@ Skills 模式是官方推荐、最轻量的集成方式。安装后零配置，C
 
 这个过程对用户完全透明——你只需要说人话，Claude Code 负责翻译成飞书操作。
 
+```mermaid
+graph LR
+    A["自然语言指令<br/>'查看今天日程'"] --> B["1. Skill 匹配<br/>description 命中"]
+    B --> C["2. SKILL.md 加载<br/>全文注入上下文"]
+    C --> D["3. Reference 按需读取<br/>不占基础上下文"]
+    D --> E["4. 命令生成<br/>lark-cli im ..."]
+    E --> F["5. 执行与反馈<br/>自然语言结果"]
+```
+
 ---
 
 ## 四、Claude Code 集成：MCP Server 模式
@@ -284,11 +293,10 @@ Skills 模式是官方推荐、最轻量的集成方式。安装后零配置，C
 
 这个方向的实现叫"飞书桥接"（Feishu Bridge），核心架构是 <cite>[8]</cite>：
 
-```
-飞书 App ←── WebSocket 长连接 ──→ Bridge 进程（本机）
-                                       ↓
-                              Claude Code CLI
-                              （子进程 / Agent SDK）
+```mermaid
+graph LR
+    Feishu["飞书 App<br/>手机/桌面"] <-->|"WebSocket"| Bridge["Bridge 进程<br/>本机运行"]
+    Bridge --> CC["Claude Code CLI<br/>子进程 / Agent SDK"]
 ```
 
 ### 5.1 主流桥接方案

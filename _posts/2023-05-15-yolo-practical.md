@@ -29,6 +29,19 @@ R-CNN系列 → YOLO v1 → YOLO v2/v3 → YOLO v4 → YOLO v5 → YOLO v8 → Y
 
 ---
 
+## 端到端工程流水线
+
+```mermaid
+graph LR
+    P1[Data<br/>Collect · Annotate<br/>Convert Format] --> P2[Train<br/>Transfer Learn<br/>HP Tuning]
+    P2 --> P3[Optimize<br/>Prune · Quantize<br/>Distill]
+    P3 --> P4[Convert<br/>ONNX · TRT<br/>OpenVINO · CoreML]
+    P4 --> P5[Deploy<br/>Local/Cloud<br/>Edge/Mobile]
+    P5 --> P6[Monitor<br/>mAP · FPS · GPU<br/>Latency · Logs]
+```
+
+---
+
 ## 数据准备
 
 ### 数据集构建

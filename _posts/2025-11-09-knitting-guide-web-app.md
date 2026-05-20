@@ -179,6 +179,12 @@ function calculateBresenhamLine(start, end) {
 <!-- TODO: add image: performance-optimization.png -->
 *图7：性能优化架构图，展示离屏Canvas缓存机制*
 
+```mermaid
+graph LR
+    Static["离屏 Canvas<br/>静态网格缓存<br/>仅脏标记时重绘"] -.->|"合成叠加"| Dynamic["主 Canvas<br/>仅绘制动态层<br/>已完成/路径/悬停"]
+    Dynamic --> Display["最终显示"]
+```
+
 **2. 事件节流**：
 
 - 使用 `requestAnimationFrame` 节流鼠标移动事件
@@ -230,6 +236,17 @@ function calculateBresenhamLine(start, end) {
 4. **跟踪进度**：实时查看进度条和路径状态
 5. **保存进度**：定期保存进度，防止数据丢失
 6. **完成确认**：编织完成后保存，系统自动确认完成状态
+
+```mermaid
+graph LR
+    A["1. 选择地图<br/>左侧列表点击"] --> B["2. 选择模式<br/>手动/对角预设"]
+    B --> C["3. 开始编织<br/>按路径提示"]
+    C --> D["4. 跟踪进度<br/>实时进度条"]
+    D --> E["5. 保存进度<br/>localStorage"]
+    E --> F{"6. 全部完成?"}
+    F -->|否| C
+    F -->|是| Done["完成确认<br/>导航按钮自动禁用"]
+```
 
 ### 特色功能
 

@@ -49,6 +49,24 @@ CT Volume (512×512×200) → 直接3D分割 → 连续体积
 - 手术规划（3D重建）
 - 放疗靶区勾画
 
+### 2D vs 3D 流程对比
+
+```mermaid
+graph LR
+    subgraph Method2D["2D 逐切片 UNet"]
+        T1[CT Volume] --> T2[提取200张2D切片]
+        T2 --> T3[逐切片分割]
+        T3 --> T4[堆叠结果<br/>锯齿边界]
+    end
+    subgraph Method3D["3D 体素 V-Net"]
+        V1[CT Volume] --> V2[3D Conv Encoder<br/>Residual Blocks]
+        V2 --> V3[3D Bottleneck]
+        V2 -.->|Add Skip| V4[3D Conv Decoder]
+        V3 --> V4
+        V4 --> V5[平滑边界<br/>3D 上下文]
+    end
+```
+
 ---
 
 {% include paper-info.html 

@@ -70,6 +70,18 @@ O((H/M × W/M) × M^4) = O(HW × M^2) = O(N × M^2)
 | Window注意力 | \( O(N \times M^2) \) | \( O(262144 \times 49) \approx 1.3 \times 10^7 \) |
 | **加速比** | - | **约5000倍** |
 
+### Window Shift 机制
+
+```mermaid
+graph LR
+    FM["Feature Map<br/>H×W"] --> PART["Partition<br/>M×M Windows"]
+    PART --> WSA["Window MSA<br/>Layer L"]
+    WSA --> SW["Shift Windows<br/>by M/2"]
+    SW --> SWSA["Shifted Window MSA<br/>Layer L+1"]
+    SWSA --> MERGE["Merge Windows"]
+    MERGE --> OUT["Global RF<br/>after L+L+1"]
+```
+
 ### 2. Shifted Window Mechanism
 
 **问题**：单纯的Window Attention割裂了窗口之间的信息流。

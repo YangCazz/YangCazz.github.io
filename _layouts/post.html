@@ -69,6 +69,60 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
 </article>
 
 
+<!-- Mermaid 图表渲染 -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script>
+(function() {
+    const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+    if (mermaidBlocks.length === 0) return;
+
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        themeVariables: {
+            primaryColor: '#1e2444',
+            primaryTextColor: '#e8edf5',
+            primaryBorderColor: '#4299e1',
+            lineColor: '#667eea',
+            secondaryColor: '#252d4a',
+            secondaryTextColor: '#c8d2e3',
+            secondaryBorderColor: '#4a5599',
+            tertiaryColor: '#1a2038',
+            tertiaryTextColor: '#b0bdd4',
+            tertiaryBorderColor: '#3d4780',
+            background: 'transparent',
+            mainBkg: '#1e2444',
+            nodeTextColor: '#e8edf5',
+            clusterBkg: 'rgba(102,126,234,0.06)',
+            clusterBorder: 'rgba(102,126,234,0.25)',
+            titleColor: '#c8d2e3',
+            edgeLabelBackground: 'rgba(30,36,68,0.85)',
+            fontFamily: 'Inter, Segoe UI, system-ui, sans-serif',
+            fontSize: '15px',
+            darkMode: true
+        },
+        flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis', padding: 20 },
+        sequence: { useMaxWidth: true },
+        gantt: { useMaxWidth: true }
+    });
+
+    mermaidBlocks.forEach((block, i) => {
+        const pre = block.parentElement;
+        const graphDefinition = block.textContent;
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        container.id = 'mermaid-' + i;
+        pre.replaceWith(container);
+
+        mermaid.render('mermaid-svg-' + i, graphDefinition).then(({ svg }) => {
+            container.innerHTML = svg;
+        }).catch((err) => {
+            container.innerHTML = '<pre class="mermaid-error">Mermaid 渲染失败: ' + err.message + '</pre>';
+        });
+    });
+})();
+</script>
+
 <!-- 数学公式渲染 - MathJax 3 -->
 <script>
 MathJax = {

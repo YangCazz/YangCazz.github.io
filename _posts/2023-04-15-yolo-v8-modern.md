@@ -3,7 +3,7 @@ layout: post
 title: "YOLO v8：Ultralytics的现代架构"
 date: 2023-04-15 10:00:00 +0800
 categories: [计算机视觉, 目标检测]
-tags: [YOLO, 目标检测, 现代架构]
+tags: [YOLO, 目标检测]
 excerpt: "深入解析YOLO v8如何通过现代架构设计和先进技术，进一步提升YOLO系列的性能。从网络架构到训练策略，探索YOLO v8的技术创新。"
 author: YangCazz
 math: true
@@ -548,6 +548,20 @@ class YOLOv8DataAugmentation:
             mixed_bboxes.append(bbox)
         
         return mixed_image, mixed_bboxes
+```
+
+---
+
+## YOLO家族演进时间线
+
+```mermaid
+graph LR
+    V1["YOLO v1 (2016)<br/>Grid-based · 45 FPS<br/>63.4 mAP"] --> V2["v2 (2017)<br/>Anchors · Darknet-19<br/>76.8 mAP"]
+    V2 --> V3["v3 (2018)<br/>FPN Multi-scale<br/>Darknet-53 · 78.6 mAP"]
+    V3 --> V4["v4 (2020)<br/>CSPNet · Mosaic<br/>PANet · CIoU"]
+    V4 --> V5["v5 (2020)<br/>Industrial PyTorch<br/>AutoAnchor"]
+    V5 --> V8["v8 (2023)<br/>Varifocal Loss<br/>Task Head · 45.2 COCO"]
+    V8 --> VAR["Variants<br/>RT-DETR · YOLO-NAS<br/>YOLO-Seg · YOLO-Pose"]
 ```
 
 ---

@@ -3,7 +3,7 @@ layout: post
 title: "GCN实战：PyTorch实现图卷积网络"
 date: 2022-04-01 10:00:00 +0800
 categories: [图神经网络, 深度学习, PyTorch]
-tags: [GNN, PyTorch, 代码实现]
+tags: [GNN, PyTorch, 工程实践]
 excerpt: "通过PyTorch和PyTorch Geometric实现图卷积网络，包含完整的代码示例和实际应用案例。"
 image: /assets/images/covers/gnn-series.jpg
 ---
@@ -140,6 +140,18 @@ print(f"节点数: {data.x.size(0)}")
 print(f"边数: {data.edge_index.size(1)}")
 print(f"特征维度: {data.x.size(1)}")
 print(f"类别数: {dataset.num_classes}")
+```
+
+```mermaid
+graph LR
+    DATA["Cora 数据集<br/>2708 nodes · 5429 edges<br/>7 classes"] --> SPLIT["划分: 训练/验证/测试"]
+    SPLIT --> MODEL["GCN Model<br/>conv1→ReLU→Dropout<br/>→conv2→LogSoftmax"]
+    MODEL --> PRED["预测"]
+    SPLIT --> NLL["NLLLoss"]
+    PRED --> NLL
+    NLL --> BACK["反向传播<br/>Adam lr=0.01"]
+    BACK --> MODEL
+    PRED --> EVAL["评估<br/>测试集准确率"]
 ```
 
 ### 模型训练

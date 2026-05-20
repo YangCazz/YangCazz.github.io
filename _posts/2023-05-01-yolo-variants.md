@@ -3,7 +3,7 @@ layout: post
 title: "YOLO变种：RT-DETR、YOLO-NAS等"
 date: 2023-05-01 10:00:00 +0800
 categories: [计算机视觉, 目标检测]
-tags: [YOLO, 目标检测, 变种]
+tags: [YOLO, 目标检测]
 excerpt: "深入解析YOLO系列的各种变种和衍生技术，从RT-DETR到YOLO-NAS，探索YOLO生态的多样性和技术创新。了解不同变种的特点、优势和应用场景。"
 author: YangCazz
 math: true
@@ -100,6 +100,19 @@ class YOLOVariants:
 - YOLO + NAS = YOLO-NAS<cite>[2]</cite>
 - YOLO + 轻量化 = YOLO-Lite
 - YOLO + 多任务 = YOLO-Seg
+```
+
+---
+
+## YOLO变种分类总览
+
+```mermaid
+graph LR
+    ROOT["YOLO Variants"] --> TRANS["Transformer-based<br/>RT-DETR · YOLO-DETR"]
+    ROOT --> NAS_B["NAS-based<br/>YOLO-NAS · AutoYOLO"]
+    ROOT --> LITE["Lightweight<br/>YOLO-Lite · YOLO-Mobile"]
+    ROOT --> MULTI["Multi-task<br/>YOLO-Seg · YOLO-Pose<br/>YOLO-Track"]
+    ROOT --> EFF["Enhanced<br/>YOLOX · YOLOv6<br/>YOLOv7 · PP-YOLO"]
 ```
 
 ---

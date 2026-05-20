@@ -58,6 +58,25 @@ $$
 
 但实际上，深层网络很难学到这种恒等映射，导致性能下降。
 
+```mermaid
+graph LR
+    subgraph PROBLEM["退化问题"]
+        P20["20层网络<br/>Train: 8% · Test: 10%"]
+        P56["56层网络<br/>Train: 15% · Test: 18%"]
+        P20 -->|"越深越差<br/>非过拟合"| P56
+    end
+    subgraph SOLUTION["残差学习"]
+        S_IN["Input x"] --> S_CONV["Weight Layers<br/>F(x)"]
+        S_IN --> S_ID["Identity: x"]
+        S_CONV --> S_ADD["⊕"]
+        S_ID --> S_ADD
+        S_ADD --> S_OUT["H(x) = F(x) + x"]
+    end
+    PROBLEM -.->|"解决方案"| SOLUTION
+    style PROBLEM fill:#fce4ec,stroke:#c62828
+    style SOLUTION fill:#e8f5e9,stroke:#2e7d32
+```
+
 ## 残差学习
 
 ### 核心思想
@@ -396,11 +415,16 @@ nn.Conv2d(in_channels=64, out_channels=64,
 
 ResNet提出后，涌现出许多变体：
 
-1. **Pre-activation ResNet**：调整激活函数位置
-2. **Wide ResNet**：增加网络宽度
-3. **ResNeXt**：增加基数
-4. **SE-ResNet**：加入通道注意力
-5. **ResNeSt**：分组注意力
+```mermaid
+graph LR
+    RES["ResNet 2015<br/>CVPR Best Paper"] --> PRE["Pre-activation<br/>ResNet"]
+    RES --> WIDE["Wide ResNet<br/>增加宽度"]
+    RES --> RNXT["ResNeXt 2016<br/>分组卷积<br/>基数维度"]
+    RNXT --> SE["SE-ResNet<br/>通道注意力"]
+    RNXT --> RSNT["ResNeSt<br/>分组注意力"]
+    style RES fill:#e3f2fd,stroke:#1565c0
+    style RNXT fill:#fff3e0,stroke:#e65100
+```
 
 ## 实践经验
 

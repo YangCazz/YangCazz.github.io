@@ -350,6 +350,20 @@ def visualize_attention(model, image):
 - 背景几乎完全被抑制（α ≈ 0）
 ```
 
+### Attention Gate 数据流
+
+```mermaid
+graph LR
+    X["Encoder Feature x"] --> WX["1×1 Conv W_x"]
+    G["Decoder Feature g"] --> WG["1×1 Conv W_g"]
+    WX --> ADD["ReLU: x+g"]
+    WG --> ADD
+    ADD --> PSI["1×1 Conv ψ"] --> SIG["Sigmoid<br/>α ∈ [0,1]"]
+    SIG --> MUL["Element-wise ×"]
+    X --> MUL
+    MUL --> OUT["加权特征 α·x"]
+```
+
 ---
 
 ## 实验结果

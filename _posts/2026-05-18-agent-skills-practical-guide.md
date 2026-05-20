@@ -3,7 +3,7 @@ layout: post
 title: "AI Agent Skills 实用指南：让 AI 真正干活的 12 个技能"
 date: 2026-05-18 10:00:00 +0800
 categories: [工具效率, AI开发]
-tags: [Claude Code, Agent Skills, 效率工具, AI编程]
+tags: [Claude Code, Agent Skills, 效率工具]
 excerpt: "从 1000+ 个社区 Agent Skills 中精选 12 个真正提升日常效率的技能。覆盖文档办公、代码审查、前端设计、PPT 制作、Web 测试等高频场景，附带安装配置和组合使用方案。"
 author: YangCazz
 image: /assets/images/covers/ai-dev-tools.jpg
@@ -254,6 +254,15 @@ Skills 的真正威力在于**串联**。以下是我日常使用的三种组合
 测试验证    → Webapp Testing
 ```
 
+```mermaid
+graph LR
+    A["1. 需求澄清<br/>Superpowers"] --> B["2. 任务分解<br/>Planning w/ Files"]
+    B --> C["3. 编码实现<br/>TDD"]
+    C --> D["4. 代码审查<br/>Code Review"]
+    D --> E["5. 代码清理<br/>Code Simplifier"]
+    E --> F["6. 测试验证<br/>Webapp Testing"]
+```
+
 ### 方案 B：技术汇报流
 
 ```
@@ -319,6 +328,22 @@ See references/style-guide.md for formatting rules.
 | 不写"完成定义" | Claude 停在 60% | 在指令末尾写清楚"输出 COMPLETE 的条件" |
 
 ---
+
+```mermaid
+graph LR
+    subgraph Doc["文档办公"]
+        D1["PPTX"] --- D2["XLSX"] --- D3["DOCX"]
+    end
+    subgraph Dev["开发辅助"]
+        V1["Superpowers"] --- V2["Code Review"] --- V3["Code Simplifier"] --- V4["Planning"]
+    end
+    subgraph UI["前端与UI"]
+        U1["UI UX Pro Max"] --- U2["Webapp Testing"]
+    end
+    subgraph Auto["流程自动化"]
+        A1["MCP Builder"] --- A2["Ralph Loop"] --- A3["Skill Creator"]
+    end
+```
 
 ## 总结
 

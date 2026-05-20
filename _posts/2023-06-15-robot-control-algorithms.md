@@ -32,6 +32,26 @@ ROS Melodic
 └── 安全监控模块
 ```
 
+```mermaid
+graph LR
+    subgraph Hardware["硬件平台"]
+        Arm["KUKA LBR iiwa 7"] --> Sensors["光学跟踪 + 力传感器"]
+    end
+    subgraph ROS["ROS Melodic"]
+        MC["运动控制模块<br/>逆运动学/轨迹规划"]
+        SF["传感器融合模块<br/>卡尔曼滤波"]
+        PP["路径规划模块<br/>RRT* + 人工势场"]
+        SM["安全监控模块<br/>碰撞检测/力反馈"]
+    end
+    Sensors --> SF
+    SF --> MC
+    SF --> PP
+    PP --> MC
+    MC --> Arm
+    SM --> Arm
+    SM --> ES["紧急停止"]
+```
+
 ## 关键技术实现
 
 ### 1. 运动控制算法

@@ -3,7 +3,7 @@ layout: post
 title: "Claude Code VS Code 插件配置指南：从安装到 API Key 设置"
 date: 2026-05-12 18:00:00 +0800
 categories: [开发工具, AI]
-tags: [Claude Code, VS Code, API配置, DeepSeek V4, 开发环境, 效率工具]
+tags: [Claude Code, VS Code, 工程实践, 效率工具]
 excerpt: "手把手教你配置 Claude Code VS Code 插件：安装、API Key 设置、DeepSeek V4 模型切换、自定义端点配置，以及 Windows 环境下常见问题的解决。"
 image: /assets/images/covers/ai-dev-tools.jpg
 ---
@@ -123,6 +123,16 @@ set ANTHROPIC_API_KEY=sk-ant-api03-your-key-here
 
 设置后 Claude Code 会自动读取，无需在配置文件中重复写入。
 
+```mermaid
+graph LR
+    Start["配置 API 访问"] --> Choice{"选择方式"}
+    Choice -->|"API Key"| Console["Console 创建 Key<br/>sk-ant-..."]
+    Choice -->|"订阅"| OAuth["OAuth 登录"]
+    Console --> VS["设置到 VS Code<br/>或 config.json"]
+    Console --> Env["环境变量方式<br/>CI/CD 适用"]
+    OAuth --> VS
+```
+
 ## 模型选择
 
 Claude Code 原生支持 Anthropic 模型系列。同时也允许通过环境变量配置兼容 Anthropic Messages API 格式的第三方模型服务（如 DeepSeek V4）。
@@ -218,6 +228,13 @@ $env:ANTHROPIC_MODEL="deepseek-v4-pro"
 - **复杂代码重构、多文件分析** → DeepSeek V4 Pro（性价比高）
 - **关键架构决策、复杂设计评审** → Claude Opus/Sonnet（原生工具调用，全局理解更深）
 - **混合使用** → 日常 DeepSeek，重要节点切回 Claude
+
+```mermaid
+graph LR
+    Task{"任务类型"} -->|"日常编码"| Flash["DeepSeek V4 Flash<br/>极低价 · 高速"]
+    Task -->|"复杂重构"| Pro["DeepSeek V4 Pro<br/>高性价比"]
+    Task -->|"架构决策"| Claude["Claude Opus/Sonnet<br/>原生工具调用"]
+```
 
 **快速切换配置**
 
