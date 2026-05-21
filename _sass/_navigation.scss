@@ -324,10 +324,42 @@
 
     .nav-menu {
         display: none;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background: rgba(15, 23, 42, 0.95);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+        flex-direction: column;
+        padding: 0.75rem 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        z-index: 999;
+
+        &.open {
+            display: flex;
+        }
+
+        .nav-link {
+            padding: 0.85rem 1.5rem;
+            font-size: 1.05rem;
+            border-radius: 0;
+            justify-content: flex-start;
+        }
     }
 
     .nav-toggle {
         display: flex;
+
+        &.open span:nth-child(1) {
+            transform: translateY(8px) rotate(45deg);
+        }
+        &.open span:nth-child(2) {
+            opacity: 0;
+        }
+        &.open span:nth-child(3) {
+            transform: translateY(-8px) rotate(-45deg);
+        }
     }
 
     .sidebar-nav {

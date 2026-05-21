@@ -90,6 +90,25 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
+// 汉堡菜单切换
+document.addEventListener('DOMContentLoaded', function() {
+    var toggle = document.querySelector('.nav-toggle');
+    var menu = document.querySelector('.nav-menu');
+    if (toggle && menu) {
+        toggle.addEventListener('click', function() {
+            menu.classList.toggle('open');
+            toggle.classList.toggle('open');
+        });
+        // 点击菜单外关闭
+        document.addEventListener('click', function(e) {
+            if (!toggle.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.remove('open');
+                toggle.classList.remove('open');
+            }
+        });
+    }
+});
+
 // 事件监听
 window.addEventListener('scroll', updateNavOnScroll);
 window.addEventListener('hashchange', updateSidebarActive);

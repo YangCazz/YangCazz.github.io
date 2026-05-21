@@ -239,6 +239,10 @@
 }
 
 @media (max-width: 768px) {
+    .hero-section {
+        padding: 2rem 1rem;
+    }
+
     .hero-content {
         grid-template-columns: 1fr;
         gap: 2rem;
@@ -252,6 +256,10 @@
 
     .hero-title {
         font-size: 2rem;
+    }
+
+    .section-title {
+        font-size: 1.5rem;
     }
 
     .stats-grid {

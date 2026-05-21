@@ -290,6 +290,18 @@
 
 /* ---- 响应式 ---- */
 @media (max-width: 768px) {
+    .page-header {
+        padding: 2rem 0;
+    }
+
+    .page-title {
+        font-size: 1.8rem;
+    }
+
+    .page-description {
+        font-size: 0.95rem;
+    }
+
     .blog-footer-content {
         padding: 1.5rem;
     }
