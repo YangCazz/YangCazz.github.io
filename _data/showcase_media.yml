@@ -1,0 +1,55 @@
+# ==========================================
+#   展示页媒体配置 — 可选，留空即保留 SVG 占位
+#   支持类型: image | video | iframe
+# ==========================================
+
+# ---- 精选项目 ----
+
+# showcase-surgery-nav:
+#   type: image
+#   src: /assets/images/showcase/surgery-nav.png
+#   caption: "手术导航系统界面"
+#   fit: cover
+
+# showcase-pixelknit:
+#   type: iframe
+#   src: ""
+#   caption: "在线演示文稿"
+
+# showcase-medical-seg:
+#   type: image
+#   src: /assets/images/showcase/medical-seg.png
+#   caption: "分割结果对比"
+
+# showcase-pointcloud:
+#   type: image
+#   src: /assets/images/showcase/pointcloud.png
+#   caption: "点云配准流程"
+
+# ---- 画廊卡片 ----
+
+# gallery-blog:
+#   type: image
+#   src: /assets/images/showcase/blog-preview.png
+#   caption: "博客首页"
+
+# gallery-medical-toolbox:
+#   type: image
+#   src: /assets/images/showcase/medical-toolbox.png
+
+# gallery-dicom-viewer:
+#   type: image
+#   src: /assets/images/showcase/dicom-viewer.png
+
+# gallery-robot-path:
+#   type: video
+#   src: /assets/videos/showcase/robot-path-demo.mp4
+#   poster: /assets/images/showcase/robot-poster.png
+
+# gallery-post-helper:
+#   type: image
+#   src: /assets/images/showcase/post-helper.png
+
+# gallery-organ-seg:
+#   type: image
+#   src: /assets/images/showcase/organ-seg.png
