@@ -1,0 +1,544 @@
+---
+layout: default
+title: YangCazz - 项目展示
+description: 杨钱俊的项目作品集 —— 医疗机器人、深度学习、Web 应用与开源工具
+navigation: showcase_navigation
+body_class: showcase
+---
+
+<!-- 全屏滚动展演容器 -->
+<div class="showcase">
+
+    <!-- Hero -->
+    <section id="showcase-hero" class="showcase-section hero-section">
+        <div class="hero-bg-grid"></div>
+        <div class="hero-content">
+            <p class="hero-eyebrow">PROJECT SHOWCASE</p>
+            <h1 class="hero-title">从算法到产品</h1>
+            <p class="hero-subtitle">
+                医疗机器人 &middot; 深度学习 &middot; Web 应用 &middot; 开源工具
+            </p>
+            <p class="hero-desc">
+                每一个项目都是对"技术如何落地"的一次回答。这里展示的不仅是代码，
+                更是从学术研究到临床产品、从个人工具到社区贡献的完整历程。
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-num"><span class="counter" data-target="10">0</span>+</span>
+                    <span class="hero-stat-label">项目作品</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num"><span class="counter" data-target="4">0</span></span>
+                    <span class="hero-stat-label">领域方向</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num"><span class="counter" data-target="5">0</span></span>
+                    <span class="hero-stat-label">开源仓库</span>
+                </div>
+            </div>
+            <div class="hero-scroll-hint">
+                <span>滚动探索</span>
+                <div class="scroll-line"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 精选项目 1: 智能手术导航系统 -->
+    <section id="showcase-surgery-nav" class="showcase-section project-featured">
+        <span class="section-num">01</span>
+        <div class="project-showcase">
+            <div class="project-visual visual-medical">
+                {% assign media = site.data.showcase_media.showcase-surgery-nav %}
+                {% if media %}
+                  {% if media.type == "image" %}
+                    <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media" style="object-fit: {{ media.fit | default: 'cover' }};">
+                  {% elsif media.type == "video" %}
+                    <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline style="object-fit: {{ media.fit | default: 'contain' }};"></video>
+                  {% elsif media.type == "iframe" %}
+                    <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if media.caption %}
+                    <div class="visual-label">{{ media.caption }}</div>
+                  {% endif %}
+                {% else %}
+                  <div class="visual-glow"></div>
+                  <div class="visual-icon">
+                      <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="36" stroke="currentColor" stroke-width="2" stroke-dasharray="8 4"/><circle cx="40" cy="40" r="16" fill="currentColor" opacity="0.3"/><line x1="40" y1="8" x2="40" y2="20" stroke="currentColor" stroke-width="2"/><line x1="40" y1="60" x2="40" y2="72" stroke="currentColor" stroke-width="2"/><line x1="8" y1="40" x2="20" y2="40" stroke="currentColor" stroke-width="2"/><line x1="60" y1="40" x2="72" y2="40" stroke="currentColor" stroke-width="2"/></svg>
+                  </div>
+                  <div class="visual-label">手术导航</div>
+                {% endif %}
+            </div>
+            <div class="project-content">
+                <span class="project-badge badge-professional">专业项目</span>
+                <h2>智能手术导航系统</h2>
+                <p class="project-tagline">从算法原型到三类医疗器械注册证的完整产品化历程</p>
+                <ul class="project-features">
+                    <li>实时图像配准与手术导航，刷新率 60fps</li>
+                    <li>深度学习驱动的多器官自动分割</li>
+                    <li>高精度机器人控制，定位精度 0.3mm</li>
+                    <li>多模态影像融合（CT/MRI/超声）</li>
+                </ul>
+                <div class="project-tech">
+                    <span>C++</span><span>深度学习</span><span>机器人控制</span><span>医学图像</span>
+                </div>
+                <p class="project-status status-production">生产环境</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 精选项目 2: PixelKnit -->
+    <section id="showcase-pixelknit" class="showcase-section project-featured">
+        <span class="section-num">02</span>
+        <div class="project-showcase reverse">
+            <div class="project-content">
+                <span class="project-badge badge-tool">实用工具</span>
+                <h2>PixelKnit 像素织梦</h2>
+                <p class="project-tagline">浏览器端编织引导应用，用 Canvas 把编织图变成交互式导航</p>
+                <ul class="project-features">
+                    <li>双地图显示系统：地图列表 + 主网格同步导航</li>
+                    <li>智能路径规划：手动标记 + 对角预设模式</li>
+                    <li>实时进度跟踪：进度条 + 颜色统计可视化</li>
+                    <li>模块化 ES6 架构，支持侧边栏显示/隐藏</li>
+                </ul>
+                <div class="project-tech">
+                    <span>JavaScript</span><span>Canvas API</span><span>ES6 模块化</span><span>localStorage</span>
+                </div>
+                <div class="project-links">
+                    <a href="/apps/PixelKnit/index.html" class="project-link primary">在线体验 →</a>
+                    <a href="https://github.com/YangCazz/YangCazz.github.io/tree/main/apps/PixelKnit" class="project-link">源代码</a>
+                </div>
+            </div>
+            <div class="project-visual visual-web">
+                {% assign media = site.data.showcase_media.showcase-pixelknit %}
+                {% if media %}
+                  {% if media.type == "image" %}
+                    <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media" style="object-fit: {{ media.fit | default: 'cover' }};">
+                  {% elsif media.type == "video" %}
+                    <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline style="object-fit: {{ media.fit | default: 'contain' }};"></video>
+                  {% elsif media.type == "iframe" %}
+                    <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if media.caption %}
+                    <div class="visual-label">{{ media.caption }}</div>
+                  {% endif %}
+                {% else %}
+                  <div class="visual-glow"></div>
+                  <div class="visual-icon">
+                      <svg viewBox="0 0 80 80" fill="none"><rect x="8" y="8" width="28" height="28" rx="4" stroke="currentColor" stroke-width="2"/><rect x="44" y="8" width="28" height="28" rx="4" stroke="currentColor" stroke-width="2"/><rect x="8" y="44" width="28" height="28" rx="4" stroke="currentColor" stroke-width="2"/><rect x="44" y="44" width="28" height="28" rx="4" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="16" height="16" fill="currentColor" opacity="0.2"/><rect x="50" y="14" width="16" height="16" fill="currentColor" opacity="0.15"/></svg>
+                  </div>
+                  <div class="visual-label">Web 应用</div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- 精选项目 3: 医学图像分割系统 -->
+    <section id="showcase-medical-seg" class="showcase-section project-featured">
+        <span class="section-num">03</span>
+        <div class="project-showcase">
+            <div class="project-visual visual-ai">
+                {% assign media = site.data.showcase_media.showcase-medical-seg %}
+                {% if media %}
+                  {% if media.type == "image" %}
+                    <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media" style="object-fit: {{ media.fit | default: 'cover' }};">
+                  {% elsif media.type == "video" %}
+                    <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline style="object-fit: {{ media.fit | default: 'contain' }};"></video>
+                  {% elsif media.type == "iframe" %}
+                    <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if media.caption %}
+                    <div class="visual-label">{{ media.caption }}</div>
+                  {% endif %}
+                {% else %}
+                  <div class="visual-glow"></div>
+                  <div class="visual-icon">
+                      <svg viewBox="0 0 80 80" fill="none"><circle cx="28" cy="32" r="12" stroke="currentColor" stroke-width="2"/><circle cx="52" cy="32" r="12" stroke="currentColor" stroke-width="2"/><circle cx="40" cy="56" r="12" stroke="currentColor" stroke-width="2"/><line x1="28" y1="20" x2="40" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="52" y1="20" x2="40" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="28" y1="44" x2="40" y2="44" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="52" y1="44" x2="40" y2="44" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><circle cx="40" cy="16" r="3" fill="currentColor"/></svg>
+                  </div>
+                  <div class="visual-label">深度学习</div>
+                {% endif %}
+            </div>
+            <div class="project-content">
+                <span class="project-badge badge-research">研究项目</span>
+                <h2>医学图像分割系统</h2>
+                <p class="project-tagline">基于 U-Net / Transformer 架构的 3D 医学图像分割，多数据集 SOTA</p>
+                <ul class="project-features">
+                    <li>3D U-Net / Attention UNet / TransUNet / Swin-UNet 完整实现</li>
+                    <li>多器官自动分割，支持 CT/MRI 模态</li>
+                    <li>解耦图神经网络处理模态缺失问题</li>
+                    <li>在多个公开数据集上达到 SOTA 性能</li>
+                </ul>
+                <div class="project-tech">
+                    <span>Python</span><span>PyTorch</span><span>Transformer</span><span>医学图像</span><span>GNN</span>
+                </div>
+                <p class="project-status status-research">持续研究</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 精选项目 4: 点云配准算法库 -->
+    <section id="showcase-pointcloud" class="showcase-section project-featured">
+        <span class="section-num">04</span>
+        <div class="project-showcase reverse">
+            <div class="project-content">
+                <span class="project-badge badge-professional">专业项目</span>
+                <h2>点云配准算法库</h2>
+                <p class="project-tagline">高精度手术导航中的实时点云配准引擎</p>
+                <ul class="project-features">
+                    <li>基于 ICP 的快速点云配准，支持 GPU 加速</li>
+                    <li>鲁棒特征点提取与匹配（FPFH / SHOT）</li>
+                    <li>实时性能优化，单次配准 &lt; 50ms</li>
+                    <li>支持术中实时更新与累积误差校正</li>
+                </ul>
+                <div class="project-tech">
+                    <span>C++</span><span>PCL</span><span>点云处理</span><span>ICP</span><span>CUDA</span>
+                </div>
+                <p class="project-status status-production">生产环境</p>
+            </div>
+            <div class="project-visual visual-3d">
+                {% assign media = site.data.showcase_media.showcase-pointcloud %}
+                {% if media %}
+                  {% if media.type == "image" %}
+                    <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media" style="object-fit: {{ media.fit | default: 'cover' }};">
+                  {% elsif media.type == "video" %}
+                    <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline style="object-fit: {{ media.fit | default: 'contain' }};"></video>
+                  {% elsif media.type == "iframe" %}
+                    <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                  {% endif %}
+                  {% if media.caption %}
+                    <div class="visual-label">{{ media.caption }}</div>
+                  {% endif %}
+                {% else %}
+                  <div class="visual-glow"></div>
+                  <div class="visual-icon">
+                      <svg viewBox="0 0 80 80" fill="none"><polygon points="40,8 68,28 56,52 24,52 12,28" stroke="currentColor" stroke-width="2" fill="currentColor" opacity="0.1"/><circle cx="40" cy="34" r="4" fill="currentColor"/><circle cx="28" cy="40" r="3" fill="currentColor" opacity="0.6"/><circle cx="52" cy="40" r="3" fill="currentColor" opacity="0.6"/><circle cx="40" cy="24" r="3" fill="currentColor" opacity="0.6"/></svg>
+                  </div>
+                  <div class="visual-label">3D 视觉</div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <!-- 项目画廊 -->
+    <section id="showcase-gallery" class="showcase-section gallery-section">
+        <h2 class="gallery-title">更多项目</h2>
+        <div class="project-gallery">
+            <div class="gallery-card">
+                {% assign media = site.data.showcase_media.gallery-blog %}
+                {% if media %}
+                  <div class="gallery-card-media">
+                    {% if media.type == "image" %}
+                      <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media">
+                    {% elsif media.type == "video" %}
+                      <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline></video>
+                    {% elsif media.type == "iframe" %}
+                      <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <div class="gallery-card-accent"></div>
+                  <div class="gallery-card-icon">{% octicon globe height:22 %}</div>
+                {% endif %}
+                <h3>个人技术博客网站</h3>
+                <p>基于 Jekyll 构建的现代化技术博客，粒子背景、标签网络图、日历组件等丰富交互</p>
+                <div class="project-tech">
+                    <span>Jekyll</span><span>SCSS</span><span>JavaScript</span><span>Canvas</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/YangCazz/YangCazz.github.io" class="project-link">源代码</a>
+                </div>
+            </div>
+            <div class="gallery-card">
+                {% assign media = site.data.showcase_media.gallery-medical-toolbox %}
+                {% if media %}
+                  <div class="gallery-card-media">
+                    {% if media.type == "image" %}
+                      <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media">
+                    {% elsif media.type == "video" %}
+                      <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline></video>
+                    {% elsif media.type == "iframe" %}
+                      <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <div class="gallery-card-accent"></div>
+                  <div class="gallery-card-icon">{% octicon beaker height:22 %}</div>
+                {% endif %}
+                <h3>医学图像处理工具箱</h3>
+                <p>DICOM 读写、图像预处理、3D 可视化、常用算法实现的 Python 工具集</p>
+                <div class="project-tech">
+                    <span>Python</span><span>NumPy</span><span>ITK</span><span>VTK</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                {% assign media = site.data.showcase_media.gallery-dicom-viewer %}
+                {% if media %}
+                  <div class="gallery-card-media">
+                    {% if media.type == "image" %}
+                      <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media">
+                    {% elsif media.type == "video" %}
+                      <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline></video>
+                    {% elsif media.type == "iframe" %}
+                      <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <div class="gallery-card-accent"></div>
+                  <div class="gallery-card-icon">{% octicon device-camera height:22 %}</div>
+                {% endif %}
+                <h3>DICOM 图像查看器</h3>
+                <p>轻量级医学图像查看工具，支持窗宽窗位调整和多平面重建（MPR）</p>
+                <div class="project-tech">
+                    <span>Python</span><span>PyQt5</span><span>pydicom</span><span>VTK</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                {% assign media = site.data.showcase_media.gallery-robot-path %}
+                {% if media %}
+                  <div class="gallery-card-media">
+                    {% if media.type == "image" %}
+                      <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media">
+                    {% elsif media.type == "video" %}
+                      <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline></video>
+                    {% elsif media.type == "iframe" %}
+                      <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <div class="gallery-card-accent"></div>
+                  <div class="gallery-card-icon">{% octicon hubot height:22 %}</div>
+                {% endif %}
+                <h3>机器人路径规划算法</h3>
+                <p>医疗机器人在复杂环境下的自主导航研究：A*、动态避障、轨迹优化</p>
+                <div class="project-tech">
+                    <span>C++</span><span>ROS</span><span>路径规划</span><span>运动控制</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                {% assign media = site.data.showcase_media.gallery-post-helper %}
+                {% if media %}
+                  <div class="gallery-card-media">
+                    {% if media.type == "image" %}
+                      <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media">
+                    {% elsif media.type == "video" %}
+                      <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline></video>
+                    {% elsif media.type == "iframe" %}
+                      <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <div class="gallery-card-accent"></div>
+                  <div class="gallery-card-icon">{% octicon note height:22 %}</div>
+                {% endif %}
+                <h3>博客文章创建助手</h3>
+                <p>跨平台 Jekyll 博客文章快速创建脚本，自动生成 Front Matter 和元数据</p>
+                <div class="project-tech">
+                    <span>Batch</span><span>Shell</span><span>Node.js</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                {% assign media = site.data.showcase_media.gallery-organ-seg %}
+                {% if media %}
+                  <div class="gallery-card-media">
+                    {% if media.type == "image" %}
+                      <img src="{{ media.src }}" alt="{{ media.caption | default: '' }}" class="visual-media">
+                    {% elsif media.type == "video" %}
+                      <video src="{{ media.src }}" {% if media.poster %}poster="{{ media.poster }}"{% endif %} class="visual-media" controls playsinline></video>
+                    {% elsif media.type == "iframe" %}
+                      <iframe src="{{ media.src }}" class="visual-media visual-media-iframe" allowfullscreen></iframe>
+                    {% endif %}
+                  </div>
+                {% else %}
+                  <div class="gallery-card-accent"></div>
+                  <div class="gallery-card-icon">{% octicon cpu height:22 %}</div>
+                {% endif %}
+                <h3>基于深度学习的器官分割研究</h3>
+                <p>Vision Transformer 在医学图像分割中的应用，注意力机制优化与多尺度融合</p>
+                <div class="project-tech">
+                    <span>Python</span><span>PyTorch</span><span>Transformer</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- GitHub 开源项目 -->
+    <section id="showcase-github" class="showcase-section github-section">
+        <h2 class="gallery-title">开源仓库</h2>
+        <div class="github-grid">
+            {% for repo in site.data.github_projects.repos %}
+                {% include github-project-card.html repo=repo %}
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- 联系 CTA -->
+    <section id="showcase-contact" class="showcase-section contact-section">
+        <div class="contact-glow"></div>
+        <div class="contact-cta">
+            <h2>有合作想法？</h2>
+            <p>如果你对医疗机器人、深度学习或任何项目有技术疑问或合作想法，欢迎联系。</p>
+            <div class="contact-methods">
+                <a href="mailto:yangcazz@qq.com" class="contact-method">
+                    <span class="contact-icon">{% octicon mail height:20 %}</span>
+                    <span>yangcazz@qq.com</span>
+                    <span class="contact-arrow">→</span>
+                </a>
+                <a href="https://github.com/YangCazz" target="_blank" class="contact-method">
+                    <span class="contact-icon">{% octicon mark-github height:20 %}</span>
+                    <span>github.com/YangCazz</span>
+                    <span class="contact-arrow">→</span>
+                </a>
+                <a href="https://linkedin.com/in/YangCazz" target="_blank" class="contact-method">
+                    <span class="contact-icon">{% octicon link height:20 %}</span>
+                    <span>LinkedIn</span>
+                    <span class="contact-arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+</div>
+
+<script>
+(function() {
+    var showcase = document.querySelector('.showcase');
+    var sections = document.querySelectorAll('.showcase-section');
+    if (!showcase || !sections.length) return;
+
+    /* ---- Build dot navigation ---- */
+    var dotsContainer = document.createElement('div');
+    dotsContainer.className = 'showcase-dots';
+    var dots = [];
+
+    // Double up arrow — scroll to top
+    var arrowTop = document.createElement('button');
+    arrowTop.className = 'showcase-arrow showcase-arrow-double';
+    arrowTop.innerHTML = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 10L6 5l5 5"/><path d="M1 5L6 0l5 5"/></svg>';
+    arrowTop.addEventListener('click', function() {
+        sections[0].scrollIntoView({ behavior: 'smooth' });
+    });
+    dotsContainer.appendChild(arrowTop);
+
+    // Up arrow
+    var arrowUp = document.createElement('button');
+    arrowUp.className = 'showcase-arrow';
+    arrowUp.innerHTML = '<svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7L6 2l5 5"/></svg>';
+    arrowUp.addEventListener('click', function() {
+        var cur = currentIdx();
+        if (cur > 0) sections[cur - 1].scrollIntoView({ behavior: 'smooth' });
+    });
+    dotsContainer.appendChild(arrowUp);
+
+    sections.forEach(function(sec, i) {
+        var dot = document.createElement('span');
+        dot.className = 'showcase-dot';
+        var h = sec.querySelector('h1') || sec.querySelector('h2');
+        var label = sec.getAttribute('data-nav') || (h ? h.textContent : 'Section ' + (i + 1));
+        dot.setAttribute('data-label', label);
+        dot.addEventListener('click', function() {
+            sections[i].scrollIntoView({ behavior: 'smooth' });
+        });
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+    });
+
+    // Down arrow
+    var arrowDown = document.createElement('button');
+    arrowDown.className = 'showcase-arrow';
+    arrowDown.innerHTML = '<svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l5 5 5-5"/></svg>';
+    arrowDown.addEventListener('click', function() {
+        var cur = currentIdx();
+        if (cur < sections.length - 1) sections[cur + 1].scrollIntoView({ behavior: 'smooth' });
+    });
+    dotsContainer.appendChild(arrowDown);
+
+    // Double down arrow — scroll to bottom
+    var arrowBottom = document.createElement('button');
+    arrowBottom.className = 'showcase-arrow showcase-arrow-double';
+    arrowBottom.innerHTML = '<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 2l5 5 5-5"/><path d="M1 7l5 5 5-5"/></svg>';
+    arrowBottom.addEventListener('click', function() {
+        sections[sections.length - 1].scrollIntoView({ behavior: 'smooth' });
+    });
+    dotsContainer.appendChild(arrowBottom);
+
+    document.body.appendChild(dotsContainer);
+
+    var ratios = {};
+
+    function currentIdx() {
+        var best = 0, bestI = 0;
+        for (var key in ratios) {
+            if (ratios[key] > best) { best = ratios[key]; bestI = parseInt(key); }
+        }
+        return bestI;
+    }
+
+    /* ---- Counter animation ---- */
+    var counters = document.querySelectorAll('.counter');
+    var counterObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (!entry.isIntersecting) return;
+            var el = entry.target;
+            var target = parseInt(el.getAttribute('data-target'));
+            var duration = 1500;
+            var start = performance.now();
+
+            function update(now) {
+                var elapsed = now - start;
+                var progress = Math.min(elapsed / duration, 1);
+                var eased = 1 - Math.pow(1 - progress, 3);
+                el.textContent = Math.round(eased * target);
+                if (progress < 1) {
+                    requestAnimationFrame(update);
+                } else {
+                    el.textContent = target;
+                }
+            }
+            requestAnimationFrame(update);
+            counterObserver.unobserve(el);
+        });
+    }, { threshold: 0.6 });
+
+    counters.forEach(function(c) { counterObserver.observe(c); });
+
+    /* ---- Reveal animation ---- */
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.project-featured, .gallery-card, .github-project-card').forEach(function(el) {
+        el.classList.add('reveal');
+        observer.observe(el);
+    });
+
+    /* ---- Dot update via IntersectionObserver ---- */
+    function updateDots(idx) {
+        for (var i = 0; i < dots.length; i++) {
+            dots[i].classList.toggle('active', i === idx);
+        }
+    }
+
+    var dotObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            var idx = Array.prototype.indexOf.call(sections, entry.target);
+            if (idx >= 0) ratios[idx] = entry.intersectionRatio;
+        });
+        var best = 0, bestIdx = 0;
+        for (var key in ratios) {
+            if (ratios[key] > best) { best = ratios[key]; bestIdx = parseInt(key); }
+        }
+        updateDots(bestIdx);
+    }, {
+        root: showcase,
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    });
+
+    sections.forEach(function(sec) { dotObserver.observe(sec); });
+
+    /* ---- Init ---- */
+    updateDots(0);
+})();
+</script>
