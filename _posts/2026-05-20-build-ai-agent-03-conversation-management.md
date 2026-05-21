@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "构建自己的 AI Agent · 第三篇：对话管理 — 上下文窗口的数学与工程"
-date: 2026-05-23 10:00:00 +0800
+date: 2026-05-20 10:00:00 +0800
 categories: [AI, 软件工程, AI Agent 系列]
 tags: [AI Agent, 对话管理, Token, tiktoken, 从零构建]
 excerpt: "深入 AI Agent 的对话管理。实现 Token 计数（BPE 算法原理）、滑动窗口策略和递归摘要压缩。用信息论分析上下文保留率，给出滑动窗口的保留率下界公式。"

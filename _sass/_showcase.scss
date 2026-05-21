@@ -1,0 +1,189 @@
+/* ========================================
+   全屏滚动展演 — 可复用框架
+   使用方式: 页面 frontmatter 中设置 body_class: showcase
+   ======================================== */
+
+/* ---- 页面布局覆写 ---- */
+body.showcase {
+    overflow: hidden;
+
+    #particleCanvas {
+        display: none;
+    }
+
+    .main-content {
+        margin-top: 60px;
+        height: calc(100vh - 60px);
+        padding: 0;
+        flex: 0 0 auto;
+    }
+
+    .content-wrapper {
+        display: block;
+        height: 100%;
+        max-width: none;
+        padding: 0;
+    }
+
+    .page-content {
+        height: 100%;
+        min-height: 0;
+    }
+
+    .sidebar-nav {
+        display: none;
+    }
+
+    .site-footer {
+        display: none;
+    }
+}
+
+/* ---- Scroll 容器 ---- */
+.showcase {
+    height: 100%;
+    overflow-y: auto;
+    scroll-snap-type: y mandatory;
+    overscroll-behavior: none;
+    user-select: none;
+
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+/* ---- Section 基础 ---- */
+.showcase-section {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    position: relative;
+}
+
+/* ---- 滚动渐入动画 ---- */
+.reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.project-featured.reveal.visible {
+    transition-delay: 0.1s;
+}
+
+/* ---- 右侧圆点导航 ---- */
+.showcase-dots {
+    position: fixed;
+    right: 1.25rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 200;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.showcase-dot {
+    width: 10px;
+    height: 10px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+
+    &:hover {
+        border-color: var(--accent-color);
+        background: rgba(66, 153, 225, 0.3);
+    }
+
+    &.active {
+        border-color: var(--accent-color);
+        background: var(--accent-color);
+        box-shadow: 0 0 10px rgba(66, 153, 225, 0.5);
+        transform: scale(1.2);
+    }
+
+    /* dot label tooltip */
+    &::after {
+        content: attr(data-label);
+        position: absolute;
+        right: 1.25rem;
+        top: 50%;
+        transform: translateY(-50%);
+        white-space: nowrap;
+        font-size: 0.72rem;
+        font-family: var(--font-mono);
+        color: #e2e8f0;
+        background: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(4px);
+        padding: 0.25rem 0.7rem;
+        border-radius: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 0.2s ease;
+    }
+
+    &:hover::after {
+        opacity: 1;
+    }
+}
+
+.showcase-arrow {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.35);
+    transition: color 0.3s ease;
+    background: none;
+    border: none;
+    padding: 0;
+    flex-shrink: 0;
+
+    &:hover {
+        color: var(--accent-color);
+    }
+
+    svg {
+        width: 14px;
+        height: 14px;
+        pointer-events: none;
+    }
+}
+
+/* ---- 响应式 ---- */
+@media (max-width: 768px) {
+    .showcase-section {
+        padding: 2rem 1rem;
+    }
+
+    .showcase-dots {
+        right: 0.5rem;
+        gap: 8px;
+    }
+
+    .showcase-dot {
+        width: 8px;
+        height: 8px;
+        border-width: 1.5px;
+
+        &::after {
+            display: none;
+        }
+    }
+}

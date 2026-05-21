@@ -73,14 +73,13 @@ function initCalendar() {
         tooltip.style.display = 'none';
     }
 
-    // 获取某日期的博客文章
+    // 获取某日期的博客文章（字符串比较，避免 new Date() 的 UTC/local 歧义）
     function getPostsForDate(date) {
-        return blogPosts.filter(post => {
-            const postDate = new Date(post.date);
-            return postDate.getFullYear() === date.getFullYear() &&
-                   postDate.getMonth() === date.getMonth() &&
-                   postDate.getDate() === date.getDate();
-        });
+        const yyyy = date.getFullYear();
+        const mm = String(date.getMonth() + 1).padStart(2, '0');
+        const dd = String(date.getDate()).padStart(2, '0');
+        const dateStr = yyyy + '-' + mm + '-' + dd;
+        return blogPosts.filter(post => post.date === dateStr);
     }
 
     function renderCalendar() {

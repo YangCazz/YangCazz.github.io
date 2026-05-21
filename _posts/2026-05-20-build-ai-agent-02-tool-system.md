@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "构建自己的 AI Agent · 第二篇：工具系统 — 从函数签名到工具链"
-date: 2026-05-22 10:00:00 +0800
+date: 2026-05-20 10:00:00 +0800
 categories: [AI, 软件工程, AI Agent 系列]
 tags: [AI Agent, Tool Calling, Python, 类型系统, JSON Schema, 从零构建]
 excerpt: "深入 AI Agent 的工具系统设计。从 Python 函数签名自动生成 JSON Schema，实现 @tool 装饰器、类型安全校验和工具链编排。附数学原理：工具选择作为多分类问题的概率分析。"

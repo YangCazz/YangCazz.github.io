@@ -1,190 +1,339 @@
 ---
 layout: default
-title: YangCazz - 关于我
-description: 了解杨钱俊 —— 医疗机器人算法工程师的技术理念、成长历程，以及关于本站的一切
+title: YangCazz - 项目展示
+description: 杨钱俊的项目作品集 —— 医疗机器人、深度学习、Web 应用与开源工具
 navigation: about_navigation
+body_class: showcase
 ---
 
-<!-- 页面标题 -->
-<section class="about-page-header">
-    <h1 class="about-page-title">关于我</h1>
-    <p class="about-page-subtitle">医疗机器人算法工程师 | 技术思考者 | 终身学习者</p>
-</section>
+<!-- 全屏滚动展演容器 -->
+<div class="showcase">
 
-<!-- 关于我 -->
-<section id="about-me" class="about-section">
-    <h2>{% octicon person height:24 %} 关于我</h2>
-    <p>
-        你好，我是<strong>杨钱俊 (YangCazz)</strong>，一名深耕医疗机器人领域的算法工程师。我的工作横跨深度学习、医学图像处理和手术导航三大领域，致力于将前沿 AI 技术转化为真正能帮助外科医生、惠及患者的临床产品。
-    </p>
-    <p>
-        选择这个方向并非偶然。在求学和工作中，我越来越深切地感受到：当代码的精度可以直接影响一台手术的成败，当算法的优化可以缩短一位患者的康复时间——这种技术与生命的紧密连接，正是我每天工作的核心驱动力。
-    </p>
-    <p>
-        我享受从 0 到 1 的创造过程——从第一篇 SCI 论文的构思，到第一个三类医疗器械注册证的攻坚，再到带领算法团队将原型系统打磨成可落地的产品。我相信好的工程师不仅要有扎实的技术功底，更要理解临床场景、尊重医疗的严肃性。
-    </p>
-    <p>
-        工作之外，我是一个持续写作者和开源爱好者。这个博客就是我思考的外化——通过写作整理知识体系，通过代码分享让更多人受益。如果你也在医疗 AI 这条路上探索，希望这里能成为你的一个参考站。
-    </p>
-</section>
-
-<!-- 我的旅程 -->
-<section id="journey" class="about-section">
-    <h2>{% octicon rocket height:24 %} 我的旅程</h2>
-    <div class="card-layout">
-        <div class="journey-card">
-            <h3>医疗器械行业 (2024-至今)</h3>
-            <p>从实验室到产品落地</p>
-            <ul>
-                <li>在杭州柳叶刀机器人担任算法部门主管，带领 10 人团队</li>
-                <li>主导研发国内首款神经外科手术机器人、口腔种植机器人</li>
-                <li>推动多个项目通过三类医疗器械注册与临床试验</li>
-                <li>目前在杭州康基唯精机器人，专注术前影像重建与术中导航</li>
-            </ul>
+    <!-- Hero -->
+    <section class="showcase-section hero-section">
+        <div class="hero-content">
+            <p class="hero-eyebrow">PROJECT SHOWCASE</p>
+            <h1 class="hero-title">从算法到产品</h1>
+            <p class="hero-subtitle">
+                医疗机器人 &middot; 深度学习 &middot; Web 应用 &middot; 开源工具
+            </p>
+            <p class="hero-desc">
+                每一个项目都是对"技术如何落地"的一次回答。这里展示的不仅是代码，
+                更是从学术研究到临床产品、从个人工具到社区贡献的完整历程。
+            </p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <span class="hero-stat-num">10+</span>
+                    <span class="hero-stat-label">项目作品</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num">4</span>
+                    <span class="hero-stat-label">领域方向</span>
+                </div>
+                <div class="hero-stat">
+                    <span class="hero-stat-num">5</span>
+                    <span class="hero-stat-label">开源仓库</span>
+                </div>
+            </div>
+            <div class="hero-scroll-hint">
+                <span>滚动探索</span>
+                <div class="scroll-arrow"></div>
+            </div>
         </div>
+    </section>
 
-        <div class="journey-card">
-            <h3>广州国家实验室 (2023-2024)</h3>
-            <p>联合培养 | 医学影像算法研究</p>
-            <ul>
-                <li>从事多模态医学人工智能前沿研究</li>
-                <li>发表 Information Fusion (IF 9.6) 等高水平论文</li>
-                <li>提出解耦图神经网络架构，解决模态缺失难题</li>
-            </ul>
+    <!-- 精选项目 1: 智能手术导航系统 -->
+    <section class="showcase-section project-featured">
+        <div class="project-showcase">
+            <div class="project-visual visual-medical">
+                <div class="visual-icon">
+                    <svg viewBox="0 0 80 80" fill="none"><circle cx="40" cy="40" r="36" stroke="currentColor" stroke-width="2" stroke-dasharray="8 4"/><circle cx="40" cy="40" r="16" fill="currentColor" opacity="0.3"/><line x1="40" y1="8" x2="40" y2="20" stroke="currentColor" stroke-width="2"/><line x1="40" y1="60" x2="40" y2="72" stroke="currentColor" stroke-width="2"/><line x1="8" y1="40" x2="20" y2="40" stroke="currentColor" stroke-width="2"/><line x1="60" y1="40" x2="72" y2="40" stroke="currentColor" stroke-width="2"/></svg>
+                </div>
+                <div class="visual-label">手术导航</div>
+            </div>
+            <div class="project-content">
+                <span class="project-badge badge-professional">专业项目</span>
+                <h2>智能手术导航系统</h2>
+                <p class="project-tagline">从算法原型到三类医疗器械注册证的完整产品化历程</p>
+                <ul class="project-features">
+                    <li>实时图像配准与手术导航，刷新率 60fps</li>
+                    <li>深度学习驱动的多器官自动分割</li>
+                    <li>高精度机器人控制，定位精度 0.3mm</li>
+                    <li>多模态影像融合（CT/MRI/超声）</li>
+                </ul>
+                <div class="project-tech">
+                    <span>C++</span><span>深度学习</span><span>机器人控制</span><span>医学图像</span>
+                </div>
+                <p class="project-status status-production">生产环境</p>
+            </div>
         </div>
+    </section>
 
-        <div class="journey-card">
-            <h3>广州医科大学 (2021-2024)</h3>
-            <p>生物医学工程 硕士 | 专业排名 1/25</p>
-            <ul>
-                <li>国家奖学金、研究生一等学业奖学金 (2022, 2023)</li>
-                <li>获省级以上竞赛荣誉 3 项，优秀毕业生</li>
-                <li>研究方向：图神经网络、医学图像分割、多模态学习</li>
-            </ul>
+    <!-- 精选项目 2: PixelKnit -->
+    <section class="showcase-section project-featured">
+        <div class="project-showcase reverse">
+            <div class="project-content">
+                <span class="project-badge badge-tool">实用工具</span>
+                <h2>PixelKnit 像素织梦</h2>
+                <p class="project-tagline">浏览器端编织引导应用，用 Canvas 把编织图变成交互式导航</p>
+                <ul class="project-features">
+                    <li>双地图显示系统：地图列表 + 主网格同步导航</li>
+                    <li>智能路径规划：手动标记 + 对角预设模式</li>
+                    <li>实时进度跟踪：进度条 + 颜色统计可视化</li>
+                    <li>模块化 ES6 架构，支持侧边栏显示/隐藏</li>
+                </ul>
+                <div class="project-tech">
+                    <span>JavaScript</span><span>Canvas API</span><span>ES6 模块化</span><span>localStorage</span>
+                </div>
+                <div class="project-links">
+                    <a href="/apps/PixelKnit/index.html" class="project-link primary">在线体验 →</a>
+                    <a href="https://github.com/YangCazz/YangCazz.github.io/tree/main/apps/PixelKnit" class="project-link">源代码</a>
+                </div>
+            </div>
+            <div class="project-visual visual-web">
+                <div class="visual-icon">
+                    <svg viewBox="0 0 80 80" fill="none"><rect x="8" y="8" width="28" height="28" rx="4" stroke="currentColor" stroke-width="2"/><rect x="44" y="8" width="28" height="28" rx="4" stroke="currentColor" stroke-width="2"/><rect x="8" y="44" width="28" height="28" rx="4" stroke="currentColor" stroke-width="2"/><rect x="44" y="44" width="28" height="28" rx="4" stroke="currentColor" stroke-width="2"/><rect x="14" y="14" width="16" height="16" fill="currentColor" opacity="0.2"/><rect x="50" y="14" width="16" height="16" fill="currentColor" opacity="0.15"/></svg>
+                </div>
+                <div class="visual-label">Web 应用</div>
+            </div>
         </div>
+    </section>
 
-        <div class="journey-card">
-            <h3>初心起点 (2016-2020)</h3>
-            <p>浙江农林大学 | 信息与计算科学 本科</p>
-            <ul>
-                <li>专业排名前 15%，获省级以上学科竞赛荣誉 6 项</li>
-                <li>打下扎实的数学与编程基础</li>
-                <li>开始对 AI 与医疗交叉领域产生浓厚兴趣</li>
-            </ul>
+    <!-- 精选项目 3: 医学图像分割系统 -->
+    <section class="showcase-section project-featured">
+        <div class="project-showcase">
+            <div class="project-visual visual-ai">
+                <div class="visual-icon">
+                    <svg viewBox="0 0 80 80" fill="none"><circle cx="28" cy="32" r="12" stroke="currentColor" stroke-width="2"/><circle cx="52" cy="32" r="12" stroke="currentColor" stroke-width="2"/><circle cx="40" cy="56" r="12" stroke="currentColor" stroke-width="2"/><line x1="28" y1="20" x2="40" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="52" y1="20" x2="40" y2="12" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="28" y1="44" x2="40" y2="44" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><line x1="52" y1="44" x2="40" y2="44" stroke="currentColor" stroke-width="1.5" opacity="0.5"/><circle cx="40" cy="16" r="3" fill="currentColor"/></svg>
+                </div>
+                <div class="visual-label">深度学习</div>
+            </div>
+            <div class="project-content">
+                <span class="project-badge badge-research">研究项目</span>
+                <h2>医学图像分割系统</h2>
+                <p class="project-tagline">基于 U-Net / Transformer 架构的 3D 医学图像分割，多数据集 SOTA</p>
+                <ul class="project-features">
+                    <li>3D U-Net / Attention UNet / TransUNet / Swin-UNet 完整实现</li>
+                    <li>多器官自动分割，支持 CT/MRI 模态</li>
+                    <li>解耦图神经网络处理模态缺失问题</li>
+                    <li>在多个公开数据集上达到 SOTA 性能</li>
+                </ul>
+                <div class="project-tech">
+                    <span>Python</span><span>PyTorch</span><span>Transformer</span><span>医学图像</span><span>GNN</span>
+                </div>
+                <p class="project-status status-research">持续研究</p>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- 技术理念 -->
-<section id="philosophy" class="about-section">
-    <h2>{% octicon light-bulb height:24 %} 技术理念</h2>
-    <div class="publication-wall">
-        <div class="philosophy-card">
-            <span class="philosophy-label philosophy-label--medical">从临床中来，到临床中去</span>
-            <p class="philosophy-intro">技术不是空中楼阁，它必须解决真实的临床问题。</p>
-            <p>在开发每一个算法之前，我都会花时间了解手术流程、与医生交流痛点。只有理解了临床场景，才能做出真正有价值的工程决策——而非仅仅追逐 SOTA 指标的学术练习。</p>
+    <!-- 精选项目 4: 点云配准算法库 -->
+    <section class="showcase-section project-featured">
+        <div class="project-showcase reverse">
+            <div class="project-content">
+                <span class="project-badge badge-professional">专业项目</span>
+                <h2>点云配准算法库</h2>
+                <p class="project-tagline">高精度手术导航中的实时点云配准引擎</p>
+                <ul class="project-features">
+                    <li>基于 ICP 的快速点云配准，支持 GPU 加速</li>
+                    <li>鲁棒特征点提取与匹配（FPFH / SHOT）</li>
+                    <li>实时性能优化，单次配准 &lt; 50ms</li>
+                    <li>支持术中实时更新与累积误差校正</li>
+                </ul>
+                <div class="project-tech">
+                    <span>C++</span><span>PCL</span><span>点云处理</span><span>ICP</span><span>CUDA</span>
+                </div>
+                <p class="project-status status-production">生产环境</p>
+            </div>
+            <div class="project-visual visual-3d">
+                <div class="visual-icon">
+                    <svg viewBox="0 0 80 80" fill="none"><polygon points="40,8 68,28 56,52 24,52 12,28" stroke="currentColor" stroke-width="2" fill="currentColor" opacity="0.1"/><circle cx="40" cy="34" r="4" fill="currentColor"/><circle cx="28" cy="40" r="3" fill="currentColor" opacity="0.6"/><circle cx="52" cy="40" r="3" fill="currentColor" opacity="0.6"/><circle cx="40" cy="24" r="3" fill="currentColor" opacity="0.6"/></svg>
+                </div>
+                <div class="visual-label">3D 视觉</div>
+            </div>
         </div>
+    </section>
 
-        <div class="philosophy-card">
-            <span class="philosophy-label philosophy-label--perf">追求极致性能</span>
-            <p class="philosophy-intro">在手术室里，毫秒级的延迟和亚毫米级的误差都可能带来严重后果。</p>
-            <p>我始终对性能抱有敬畏之心：从 C++ 底层优化到 GPU 并行加速，从算法复杂度分析到系统整体吞吐设计。60fps 的实时渲染、0.3mm 的定位精度——这些数字的背后是对极致的不妥协。</p>
+    <!-- 项目画廊 -->
+    <section class="showcase-section gallery-section">
+        <h2 class="gallery-title">更多项目</h2>
+        <div class="project-gallery">
+            <div class="gallery-card">
+                <h3>个人技术博客网站</h3>
+                <p>基于 Jekyll 构建的现代化技术博客，粒子背景、标签网络图、日历组件等丰富交互</p>
+                <div class="project-tech">
+                    <span>Jekyll</span><span>SCSS</span><span>JavaScript</span><span>Canvas</span>
+                </div>
+                <div class="project-links">
+                    <a href="https://github.com/YangCazz/YangCazz.github.io" class="project-link">源代码</a>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <h3>医学图像处理工具箱</h3>
+                <p>DICOM 读写、图像预处理、3D 可视化、常用算法实现的 Python 工具集</p>
+                <div class="project-tech">
+                    <span>Python</span><span>NumPy</span><span>ITK</span><span>VTK</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <h3>DICOM 图像查看器</h3>
+                <p>轻量级医学图像查看工具，支持窗宽窗位调整和多平面重建（MPR）</p>
+                <div class="project-tech">
+                    <span>Python</span><span>PyQt5</span><span>pydicom</span><span>VTK</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <h3>机器人路径规划算法</h3>
+                <p>医疗机器人在复杂环境下的自主导航研究：A*、动态避障、轨迹优化</p>
+                <div class="project-tech">
+                    <span>C++</span><span>ROS</span><span>路径规划</span><span>运动控制</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <h3>博客文章创建助手</h3>
+                <p>跨平台 Jekyll 博客文章快速创建脚本，自动生成 Front Matter 和元数据</p>
+                <div class="project-tech">
+                    <span>Batch</span><span>Shell</span><span>Node.js</span>
+                </div>
+            </div>
+            <div class="gallery-card">
+                <h3>基于深度学习的器官分割研究</h3>
+                <p>Vision Transformer 在医学图像分割中的应用，注意力机制优化与多尺度融合</p>
+                <div class="project-tech">
+                    <span>Python</span><span>PyTorch</span><span>Transformer</span>
+                </div>
+            </div>
         </div>
+    </section>
 
-        <div class="philosophy-card">
-            <span class="philosophy-label philosophy-label--oss">开源与分享</span>
-            <p class="philosophy-intro">知识的价值在于流动，而不是囤积。</p>
-            <p>这个博客是我回馈社区的方式之一。我在 GitHub 上开源代码，在学术会议上做报告分享，在博客里拆解经典论文——因为我深知，自己也是站在无数前辈的肩膀上才走到今天。</p>
+    <!-- GitHub 开源项目 -->
+    <section class="showcase-section github-section">
+        <h2 class="gallery-title">开源仓库</h2>
+        <div class="github-grid">
+            {% for repo in site.data.github_projects.repos %}
+                {% include github-project-card.html repo=repo %}
+            {% endfor %}
         </div>
+    </section>
 
-        <div class="philosophy-card">
-            <span class="philosophy-label philosophy-label--cross">交叉学科创新</span>
-            <p class="philosophy-intro">最好的突破往往发生在学科的交界处。</p>
-            <p>我坚信医疗机器人的未来在于：计算机视觉 × 临床医学 × 机械控制的深度融合。单一学科的思维定式很难解决复杂的临床问题，跨领域的知识整合才是创新的源泉。</p>
+    <!-- 联系 CTA -->
+    <section class="showcase-section contact-section">
+        <div class="contact-cta">
+            <h2>有合作想法？</h2>
+            <p>如果你对医疗机器人、深度学习或任何项目有技术疑问或合作想法，欢迎联系。</p>
+            <div class="contact-methods">
+                <a href="mailto:yangcraz@qq.com" class="contact-method">
+                    <span class="contact-icon">{% octicon mail height:20 %}</span>
+                    <span>yangcraz@qq.com</span>
+                </a>
+                <a href="https://github.com/YangCazz" target="_blank" class="contact-method">
+                    <span class="contact-icon">{% octicon mark-github height:20 %}</span>
+                    <span>github.com/YangCazz</span>
+                </a>
+                <a href="https://linkedin.com/in/YangCazz" target="_blank" class="contact-method">
+                    <span class="contact-icon">{% octicon link height:20 %}</span>
+                    <span>LinkedIn</span>
+                </a>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- 关于本站 -->
-<section id="about-blog" class="about-section">
-    <h2>{% octicon globe height:24 %} 关于本站</h2>
-    <p><strong>这里是我在医疗 AI 与技术探索之路上的思考笔记，也是与志同道合者交流的开放空间。</strong></p>
-    <p>
-        本站的内容主要围绕三大主线：<strong>深度学习前沿论文解读</strong>（从经典 CNN 到 Transformer、GNN 的完整知识图谱）、<strong>医学图像处理实践</strong>（U-Net 系列、分割、配准的实战经验）、以及<strong>医疗器械研发洞察</strong>（从算法原型到三类注册的全流程思考）。
-    </p>
-    <p>
-        往更深一层说，写博客对我来说是一种<strong>费曼学习法</strong>的实践——如果你不能简单地解释清楚一件事，说明你还没有真正理解它。每一篇文章都是我对某个知识点的重新梳理和深度内化。希望你在阅读时，也能感受到这种"把复杂问题讲清楚"的努力。
-    </p>
+</div>
 
-    <div class="about-tech-stack">
-        <span class="about-tech-tag">Jekyll</span>
-        <span class="about-tech-tag">GitHub Pages</span>
-        <span class="about-tech-tag">SCSS</span>
-        <span class="about-tech-tag">JavaScript</span>
-        <span class="about-tech-tag">Canvas 粒子背景</span>
-        <span class="about-tech-tag">玻璃拟态设计</span>
-        <span class="about-tech-tag">Markdown</span>
-        <span class="about-tech-tag">MathJax</span>
-        <span class="about-tech-tag">Rouge 语法高亮</span>
-    </div>
-</section>
+<script>
+(function() {
+    var showcase = document.querySelector('.showcase');
+    var sections = document.querySelectorAll('.showcase-section');
+    if (!showcase || !sections.length) return;
 
-<!-- GitHub 开源项目 -->
-<section id="github-projects" class="about-section">
-    <h2>{% octicon mark-github height:24 %} 开源项目</h2>
-    <div class="github-projects-grid">
-        {% for repo in site.data.github_projects.repos %}
-            {% include github-project-card.html repo=repo %}
-        {% endfor %}
-    </div>
-</section>
+    /* ---- Build dot navigation ---- */
+    var dotsContainer = document.createElement('div');
+    dotsContainer.className = 'showcase-dots';
+    var dots = [];
 
-<!-- 与我联系 -->
-<section id="contact" class="about-section">
-    <h2>{% octicon mail height:24 %} 与我联系</h2>
-    <p class="contact-intro">如果你对医学图像处理、手术机器人或深度学习有任何技术问题、合作想法，或者只是想打个招呼，欢迎通过以下方式联系我。我尤其欢迎来自临床一线的反馈——那是我最珍视的输入。</p>
+    // Up arrow
+    var arrowUp = document.createElement('button');
+    arrowUp.className = 'showcase-arrow';
+    arrowUp.innerHTML = '<svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 7L6 2l5 5"/></svg>';
+    arrowUp.addEventListener('click', function() {
+        var cur = currentIdx();
+        if (cur > 0) sections[cur - 1].scrollIntoView({ behavior: 'smooth' });
+    });
+    dotsContainer.appendChild(arrowUp);
 
-    <div class="card-layout">
-        <div class="journey-card">
-            <h3>电子邮件</h3>
-            <p>yangcraz@qq.com</p>
-            <p>技术交流与合作咨询，通常 24 小时内回复</p>
-        </div>
-        <div class="journey-card">
-            <h3>GitHub</h3>
-            <p>github.com/YangCazz</p>
-            <p>开源项目、代码分享与技术协作</p>
-        </div>
-        <div class="journey-card">
-            <h3>LinkedIn</h3>
-            <p>linkedin.com/in/YangCazz</p>
-            <p>职业网络、行业动态与工作机会</p>
-        </div>
-        <div class="journey-card">
-            <h3>所在城市</h3>
-            <p>杭州市余杭区</p>
-            <p>欢迎同城线下技术交流与面谈</p>
-        </div>
-    </div>
+    sections.forEach(function(sec, i) {
+        var dot = document.createElement('span');
+        dot.className = 'showcase-dot';
+        var h = sec.querySelector('h1') || sec.querySelector('h2');
+        var label = sec.getAttribute('data-nav') || (h ? h.textContent : 'Section ' + (i + 1));
+        dot.setAttribute('data-label', label);
+        dot.addEventListener('click', function() {
+            sections[i].scrollIntoView({ behavior: 'smooth' });
+        });
+        dotsContainer.appendChild(dot);
+        dots.push(dot);
+    });
 
-    <div class="social-links-modern" style="margin-top: 1.5rem;">
-        <a href="https://github.com/YangCazz" target="_blank" class="social-link-item" title="GitHub">
-            <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-            </svg>
-            <span>GitHub</span>
-        </a>
-        <a href="https://linkedin.com/in/YangCazz" target="_blank" class="social-link-item" title="LinkedIn">
-            <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-            <span>LinkedIn</span>
-        </a>
-        <a href="https://twitter.com/YangCazz" target="_blank" class="social-link-item" title="Twitter">
-            <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-            </svg>
-            <span>Twitter</span>
-        </a>
-    </div>
-</section>
+    // Down arrow
+    var arrowDown = document.createElement('button');
+    arrowDown.className = 'showcase-arrow';
+    arrowDown.innerHTML = '<svg viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 1l5 5 5-5"/></svg>';
+    arrowDown.addEventListener('click', function() {
+        var cur = currentIdx();
+        if (cur < sections.length - 1) sections[cur + 1].scrollIntoView({ behavior: 'smooth' });
+    });
+    dotsContainer.appendChild(arrowDown);
+
+    document.body.appendChild(dotsContainer);
+
+    var ratios = {};
+
+    function currentIdx() {
+        var best = 0, bestI = 0;
+        for (var key in ratios) {
+            if (ratios[key] > best) { best = ratios[key]; bestI = parseInt(key); }
+        }
+        return bestI;
+    }
+
+    /* ---- Reveal animation ---- */
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.2 });
+
+    document.querySelectorAll('.project-featured, .gallery-card, .github-project-card').forEach(function(el) {
+        el.classList.add('reveal');
+        observer.observe(el);
+    });
+
+    /* ---- Dot update via IntersectionObserver ---- */
+    function updateDots(idx) {
+        for (var i = 0; i < dots.length; i++) {
+            dots[i].classList.toggle('active', i === idx);
+        }
+    }
+
+    var dotObserver = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            var idx = Array.prototype.indexOf.call(sections, entry.target);
+            if (idx >= 0) ratios[idx] = entry.intersectionRatio;
+        });
+        var best = 0, bestIdx = 0;
+        for (var key in ratios) {
+            if (ratios[key] > best) { best = ratios[key]; bestIdx = parseInt(key); }
+        }
+        updateDots(bestIdx);
+    }, {
+        root: showcase,
+        threshold: [0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1]
+    });
+
+    sections.forEach(function(sec) { dotObserver.observe(sec); });
+
+    /* ---- Init ---- */
+    updateDots(0);
+})();
+</script>

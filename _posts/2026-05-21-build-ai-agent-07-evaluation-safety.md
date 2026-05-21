@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "构建自己的 AI Agent · 第七篇：评估与安全 — 如何衡量你的 Agent 足够好"
-date: 2026-05-27 10:00:00 +0800
+date: 2026-05-21 10:00:00 +0800
 categories: [AI, 软件工程, AI Agent 系列]
 tags: [AI Agent, 评测, 安全, LLM-as-Judge, 护栏, 成本控制, 置信区间, 从零构建]
 excerpt: "构建 Agent 评测体系和安全护栏。实现 LLM-as-Judge 自动评估、50 个测试用例的评测集、分层安全护栏（输入过滤/输出校验/工具权限），以及成本控制的模型降级策略。"

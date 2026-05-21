@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "构建自己的 AI Agent · 第一篇：最小 Agent — 30 行 Python 理解核心循环"
-date: 2026-05-21 10:00:00 +0800
+date: 2026-05-20 10:00:00 +0800
 categories: [AI, 软件工程, AI Agent 系列]
 tags: [AI Agent, ReAct, LLM, Python, 从零构建, Tool Calling]
 excerpt: "从零构建 AI Agent 系列开篇。用 30 行 Python 代码理解 Agent 的本质——LLM + 工具 + While 循环。深入 ReAct 循环的数学原理，包括马尔可夫决策过程建模和工具调用收敛性分析。"

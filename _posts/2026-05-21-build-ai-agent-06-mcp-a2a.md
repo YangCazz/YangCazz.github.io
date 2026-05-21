@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "构建自己的 AI Agent · 第六篇：MCP & A2A — Agent 通信的标准化协议"
-date: 2026-05-26 10:00:00 +0800
+date: 2026-05-21 10:00:00 +0800
 categories: [AI, 软件工程, AI Agent 系列]
 tags: [AI Agent, MCP, A2A, Anthropic, Google]
 excerpt: "详解 2025-2026 年两大 Agent 通信标准：Anthropic 的 MCP（Model Context Protocol）和 Google 的 A2A（Agent-to-Agent）。从协议设计哲学到完整 Python 客户端实现，含 MCP Server 开发教程。"
