@@ -71,7 +71,15 @@ function initCalendar() {
     // 隐藏工具提示
     function hideTooltip() {
         tooltip.style.display = 'none';
+        tooltip.dataset.activeDate = '';
     }
+
+    // 点击空白处关闭 tooltip
+    document.addEventListener('click', function(e) {
+        if (!e.target.classList.contains('has-posts')) {
+            hideTooltip();
+        }
+    });
 
     // 获取某日期的博客文章（字符串比较，避免 new Date() 的 UTC/local 歧义）
     function getPostsForDate(date) {
@@ -122,17 +130,20 @@ function initCalendar() {
             if (postsForDate.length > 0) {
                 dayElement.classList.add('has-posts');
 
-                dayElement.addEventListener('mouseenter', (e) => {
-                    showTooltip(e, postsForDate);
-                });
-
-                dayElement.addEventListener('mouseleave', hideTooltip);
-
-                dayElement.addEventListener('click', () => {
-                    if (postsForDate.length === 1) {
-                        window.location.href = postsForDate[0].url;
+                dayElement.addEventListener('click', function(e) {
+                    // 如果 tooltip 正显示在这个日期上，则导航
+                    if (tooltip.style.display === 'block' && tooltip.dataset.activeDate === dayElement.dataset.date) {
+                        if (postsForDate.length === 1) {
+                            window.location.href = postsForDate[0].url;
+                        } else {
+                            window.location.href = '/blog/';
+                        }
                     } else {
-                        window.location.href = '/blog/';
+                        // 否则显示 tooltip
+                        e.preventDefault();
+                        e.stopPropagation();
+                        showTooltip(e, postsForDate);
+                        tooltip.dataset.activeDate = dayElement.dataset.date;
                     }
                 });
             }

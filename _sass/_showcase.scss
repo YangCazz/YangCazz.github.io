@@ -198,16 +198,36 @@ body.showcase {
 
     .showcase-dots {
         right: 0.5rem;
-        gap: 8px;
+        gap: 10px;
     }
 
     .showcase-dot {
-        width: 8px;
-        height: 8px;
-        border-width: 1.5px;
+        width: 14px;
+        height: 14px;
+        border-width: 2px;
 
         &::after {
             display: none;
+        }
+    }
+
+    .showcase-arrow {
+        width: 36px;
+        height: 36px;
+
+        svg {
+            width: 16px;
+            height: 16px;
+        }
+    }
+
+    .showcase-arrow-double {
+        width: 30px;
+        height: 30px;
+
+        svg {
+            width: 13px;
+            height: 13px;
         }
     }
 }

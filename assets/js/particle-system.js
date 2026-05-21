@@ -18,6 +18,12 @@ class ParticleSystem {
             this.mouse.x = e.clientX;
             this.mouse.y = e.clientY;
         });
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches.length > 0) {
+                this.mouse.x = e.touches[0].clientX;
+                this.mouse.y = e.touches[0].clientY;
+            }
+        }, { passive: true });
     }
 
     resizeCanvas() {

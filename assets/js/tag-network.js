@@ -247,17 +247,19 @@ function initTagNetwork() {
             ctx.lineWidth = 2.5;
             ctx.stroke();
 
-            ctx.shadowColor = 'rgba(0, 0, 0, 0.7)';
-            ctx.shadowBlur = 5;
+            ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
+            ctx.shadowBlur = 3;
             ctx.shadowOffsetX = 1;
             ctx.shadowOffsetY = 1;
 
             ctx.fillStyle = '#ffffff';
-            ctx.font = 'bold 12px Inter, sans-serif';
+            const fontSize = canvas.width < 400 ? 9 : canvas.width < 600 ? 11 : 12;
+            ctx.font = `bold ${fontSize}px Inter, sans-serif`;
             ctx.textAlign = 'center';
             ctx.textBaseline = 'middle';
 
-            const text = node.name.length > 8 ? node.name.substring(0, 7) + '...' : node.name;
+            const maxLen = canvas.width < 400 ? 6 : 8;
+            const text = node.name.length > maxLen ? node.name.substring(0, maxLen - 1) + '...' : node.name;
             ctx.fillText(text, node.x, node.y);
 
             ctx.shadowColor = 'transparent';
@@ -307,9 +309,11 @@ function initTagNetwork() {
 
     function getMousePos(e) {
         const rect = canvas.getBoundingClientRect();
+        const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+        const clientY = e.touches ? e.touches[0].clientY : e.clientY;
         return {
-            x: e.clientX - rect.left,
-            y: e.clientY - rect.top
+            x: clientX - rect.left,
+            y: clientY - rect.top
         };
     }
 
@@ -323,30 +327,20 @@ function initTagNetwork() {
         });
     }
 
-    canvas.addEventListener('mousedown', (e) => {
-        if (e.button !== 0) return;
+    function handlePointerDown(e) {
+        e.preventDefault();
         const pos = getMousePos(e);
         dragNode = findNodeAtPos(pos.x, pos.y);
         if (dragNode) {
             offsetX = pos.x - dragNode.x;
             offsetY = pos.y - dragNode.y;
-            simSettled = false;   // 拖拽时重新激活模拟
+            simSettled = false;
             simAlpha = 0.15;
         }
-    });
+    }
 
-    canvas.addEventListener('contextmenu', (e) => {
+    function handlePointerMove(e) {
         e.preventDefault();
-        const pos = getMousePos(e);
-        const clickedNode = findNodeAtPos(pos.x, pos.y);
-
-        if (clickedNode) {
-            pinnedNode = clickedNode;
-            showTooltip(clickedNode, pos.x, pos.y, true);
-        }
-    });
-
-    canvas.addEventListener('mousemove', (e) => {
         const pos = getMousePos(e);
 
         if (dragNode) {
@@ -362,25 +356,41 @@ function initTagNetwork() {
                 tooltip.classList.remove('show');
             }
         }
-    });
+    }
 
-    canvas.addEventListener('mouseup', (e) => {
-        if (e.button === 0) {
-            dragNode = null;
-        }
-    });
+    function handlePointerUp(e) {
+        dragNode = null;
+    }
 
-    canvas.addEventListener('mouseleave', () => {
+    function handlePointerLeave() {
         dragNode = null;
         if (!isPinned) {
             tooltip.classList.remove('show');
+        }
+    }
+
+    canvas.addEventListener('mousedown', (e) => { if (e.button === 0) handlePointerDown(e); });
+    canvas.addEventListener('touchstart', handlePointerDown, { passive: false });
+    canvas.addEventListener('mousemove', handlePointerMove);
+    canvas.addEventListener('touchmove', handlePointerMove, { passive: false });
+    canvas.addEventListener('mouseup', handlePointerUp);
+    canvas.addEventListener('touchend', handlePointerUp);
+    canvas.addEventListener('mouseleave', handlePointerLeave);
+    canvas.addEventListener('touchcancel', handlePointerLeave);
+
+    canvas.addEventListener('contextmenu', (e) => {
+        e.preventDefault();
+        const pos = getMousePos(e);
+        const clickedNode = findNodeAtPos(pos.x, pos.y);
+        if (clickedNode) {
+            pinnedNode = clickedNode;
+            showTooltip(clickedNode, pos.x, pos.y, true);
         }
     });
 
     canvas.addEventListener('click', (e) => {
         const pos = getMousePos(e);
         const clickedNode = findNodeAtPos(pos.x, pos.y);
-
         if (!clickedNode && isPinned) {
             closeTooltip();
         }
