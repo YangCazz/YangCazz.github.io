@@ -14,10 +14,10 @@
   icon: person
   url: /resume
 
-- id: about
-  name: 关于
-  icon: info
-  url: /about
+- id: showcase
+  name: 展示
+  icon: rocket
+  url: /showcase
 
 - id: apps
   name: 应用

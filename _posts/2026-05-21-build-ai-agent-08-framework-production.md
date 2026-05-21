@@ -595,7 +595,7 @@ graph LR
 
 **联系方式**：
 - GitHub: [YangCazz](https://github.com/YangCazz)
-- Email: yangcraz@qq.com
+- Email: yangcazz@qq.com
 
 ---
 

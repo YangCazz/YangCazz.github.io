@@ -216,6 +216,63 @@
     text-decoration: underline;
 }
 
+.contact-phone {
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    position: relative;
+    display: inline-block;
+    filter: blur(4px);
+    transition: filter 0.5s ease;
+
+    /* frosted scratch-off overlay */
+    &::after {
+        content: '';
+        position: absolute;
+        inset: -2px -6px;
+        border-radius: 4px;
+        background: linear-gradient(
+            120deg,
+            rgba(148, 163, 184, 0.25) 0%,
+            rgba(203, 213, 225, 0.45) 25%,
+            rgba(148, 163, 184, 0.25) 50%,
+            rgba(203, 213, 225, 0.45) 75%,
+            rgba(148, 163, 184, 0.25) 100%
+        );
+        background-size: 200% 100%;
+        animation: scratchShimmer 2.5s ease-in-out infinite;
+        pointer-events: none;
+        transition: opacity 0.4s ease;
+    }
+
+    &:hover::after {
+        background: linear-gradient(
+            120deg,
+            rgba(66, 153, 225, 0.2) 0%,
+            rgba(148, 163, 184, 0.5) 25%,
+            rgba(66, 153, 225, 0.2) 50%,
+            rgba(148, 163, 184, 0.5) 75%,
+            rgba(66, 153, 225, 0.2) 100%
+        );
+        background-size: 200% 100%;
+    }
+
+    &.revealed {
+        filter: blur(0);
+        cursor: default;
+
+        &::after {
+            opacity: 0;
+            animation: none;
+        }
+    }
+}
+
+@keyframes scratchShimmer {
+    0% { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+}
+
 /* 日历面板 */
 .calendar-widget {
     background: var(--glass-bg);

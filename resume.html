@@ -3,6 +3,7 @@ layout: default
 title: YangCazz - 个人简历
 description: 医疗机器人算法工程师的详细简历，包含工作经历、教育背景、技术能力等
 navigation: resume_navigation
+body_class: resume
 ---
 
 <!-- 页面标题 -->
@@ -14,7 +15,7 @@ navigation: resume_navigation
 <!-- 自我总结 -->
 <section id="about" class="resume-section resume-section--flat">
     <h2>{% octicon person height:22 %} 自我总结</h2>
-    <p>医疗机器人算法工程师，专注于医学图像处理、手术导航与机器人控制系统开发。拥有多项医疗器械注册证和发明专利，主导多个三类医疗器械从0到1的研发过程。擅长C++/Python开发，熟悉医学图像处理、点云配准、深度学习等技术，具备丰富的医疗器械产品落地经验。</p>
+    <p>医疗机器人算法工程师，专注于医学图像处理、手术导航与机器人控制系统开发。拥有多项医疗器械注册证和发明专利，主导多个三类医疗器械从0到1的研发过程。擅长C++/Python开发，深耕医学图像处理、点云配准、深度学习等技术，同时具备AI Agent系统设计、前端开发与工程化能力，具备丰富的医疗器械产品落地经验。</p>
 </section>
 
 <!-- 成果总结 -->
@@ -24,13 +25,18 @@ navigation: resume_navigation
         <div class="achievements-grid">
             <div class="achievement-stat">
                 <span class="stat-icon">{% octicon key height:24 %}</span>
-                <span class="stat-number">10+</span>
+                <span class="stat-number">30+</span>
                 <span class="stat-label">发明/使用新型专利</span>
             </div>
             <div class="achievement-stat">
                 <span class="stat-icon">{% octicon shield-check height:24 %}</span>
                 <span class="stat-number">3</span>
                 <span class="stat-label">主导/参与三类医疗器械注册</span>
+            </div>
+            <div class="achievement-stat">
+                <span class="stat-icon">{% octicon device-desktop height:24 %}</span>
+                <span class="stat-number">1</span>
+                <span class="stat-label">二类医疗器械独立软件注册</span>
             </div>
             <div class="achievement-stat">
                 <span class="stat-icon">{% octicon beaker height:24 %}</span>
@@ -43,7 +49,7 @@ navigation: resume_navigation
                 <span class="stat-label">创新大赛奖项</span>
             </div>
         </div>
-        <p class="achievements-note">作为核心研发人员，参与多个医疗器械项目从0到1的全流程开发，涵盖神经外科、骨科、口腔科等多个领域</p>
+        <p class="achievements-note">作为核心研发人员，主导或参与多个医疗器械项目从0到1的全流程开发，覆盖腔镜外科、神经外科、骨科、口腔科等领域</p>
     </div>
 </section>
 
@@ -57,65 +63,20 @@ navigation: resume_navigation
             核心专业领域
         </h3>
         <div class="skill-tags-cloud">
+            <span class="skill-badge">人工智能</span>
+            <span class="skill-badge">AI Agent</span>
             <span class="skill-badge">医学影像</span>
             <span class="skill-badge">手术机器人</span>
-            <span class="skill-badge">人工智能</span>
-            <span class="skill-badge">医学信息学</span>
-            <span class="skill-badge">数据分析</span>
-            <span class="skill-badge">计算图形学</span>
+            <span class="skill-badge">边缘计算</span>
             <span class="skill-badge">医疗器械</span>
+            <span class="skill-badge">计算图形学</span>
+            <span class="skill-badge">数据分析</span>
+            <span class="skill-badge">医学信息学</span>
+            <span class="skill-badge">前端开发</span>
         </div>
     </div>
-    
-    <div class="skill-categories">
-        <!-- 医学影像技术 -->
-        <div class="skill-category">
-            <h3 class="skill-category-title">医学影像技术</h3>
-            <div class="skill-matrix-grid">
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <div class="skill-icon">{% octicon package height:28 %}</div>
-                        <div>
-                            <div class="skill-name">MITK/VTK/ITK</div>
-                            <div class="skill-level-bar">
-                                <div class="skill-level-fill" style="--fill-width:"95%"></div>
-                            </div>
-                            <div class="skill-meta">
-                                <span>专家级</span>
-                                <span>5年经验</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">三维重建</span>
-                        <span class="skill-tag">可视化</span>
-                        <span class="skill-tag">图像处理</span>
-                    </div>
-                </div>
 
-                <div class="skill-card">
-                    <div class="skill-header">
-                        <div class="skill-icon">{% octicon graph height:28 %}</div>
-                        <div>
-                            <div class="skill-name">DICOM处理</div>
-                            <div class="skill-level-bar">
-                                <div class="skill-level-fill" style="--fill-width:"90%"></div>
-                            </div>
-                            <div class="skill-meta">
-                                <span>高级</span>
-                                <span>4年经验</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="skill-tags">
-                        <span class="skill-tag">数据解析</span>
-                        <span class="skill-tag">格式转换</span>
-                        <span class="skill-tag">元数据处理</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
+    <div class="skill-categories">
         <!-- 人工智能 -->
         <div class="skill-category">
             <h3 class="skill-category-title">人工智能</h3>
@@ -126,7 +87,7 @@ navigation: resume_navigation
                         <div>
                             <div class="skill-name">深度学习</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" style="--fill-width:"88%"></div>
+                                <div class="skill-level-fill" style="--fill-width: 88%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>高级</span>
@@ -140,14 +101,36 @@ navigation: resume_navigation
                         <span class="skill-tag">模型部署</span>
                     </div>
                 </div>
-                
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">{% octicon hubot height:28 %}</div>
+                        <div>
+                            <div class="skill-name">AI Agent 开发</div>
+                            <div class="skill-level-bar">
+                                <div class="skill-level-fill" style="--fill-width: 78%"></div>
+                            </div>
+                            <div class="skill-meta">
+                                <span>高级</span>
+                                <span>MCP/A2A/Claude Code</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Agent架构</span>
+                        <span class="skill-tag">MCP协议</span>
+                        <span class="skill-tag">A2A协议</span>
+                        <span class="skill-tag">多Agent协作</span>
+                    </div>
+                </div>
+
                 <div class="skill-card">
                     <div class="skill-header">
                         <div class="skill-icon">{% octicon search height:28 %}</div>
                         <div>
                             <div class="skill-name">多模态医学人工智能</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" style="--fill-width:"75%"></div>
+                                <div class="skill-level-fill" style="--fill-width: 80%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>高级</span>
@@ -164,7 +147,127 @@ navigation: resume_navigation
                 </div>
             </div>
         </div>
-        
+
+        <!-- 医学影像技术 -->
+        <div class="skill-category">
+            <h3 class="skill-category-title">医学影像技术</h3>
+            <div class="skill-matrix-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">{% octicon package height:28 %}</div>
+                        <div>
+                            <div class="skill-name">MITK/VTK/ITK</div>
+                            <div class="skill-level-bar">
+                                <div class="skill-level-fill" style="--fill-width: 95%"></div>
+                            </div>
+                            <div class="skill-meta">
+                                <span>专家级</span>
+                                <span>5年经验</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">三维重建</span>
+                        <span class="skill-tag">可视化</span>
+                        <span class="skill-tag">图像处理</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">{% octicon location height:28 %}</div>
+                        <div>
+                            <div class="skill-name">点云配准与手术导航</div>
+                            <div class="skill-level-bar">
+                                <div class="skill-level-fill" style="--fill-width: 85%"></div>
+                            </div>
+                            <div class="skill-meta">
+                                <span>高级</span>
+                                <span>3年经验</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">点云处理</span>
+                        <span class="skill-tag">结构光配准</span>
+                        <span class="skill-tag">光学跟踪</span>
+                        <span class="skill-tag">实时渲染</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">{% octicon graph height:28 %}</div>
+                        <div>
+                            <div class="skill-name">DICOM处理</div>
+                            <div class="skill-level-bar">
+                                <div class="skill-level-fill" style="--fill-width: 90%"></div>
+                            </div>
+                            <div class="skill-meta">
+                                <span>高级</span>
+                                <span>4年经验</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">数据解析</span>
+                        <span class="skill-tag">格式转换</span>
+                        <span class="skill-tag">元数据处理</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 边缘部署与系统工程 -->
+        <div class="skill-category">
+            <h3 class="skill-category-title">边缘部署与系统工程</h3>
+            <div class="skill-matrix-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">{% octicon server height:26 %}</div>
+                        <div>
+                            <div class="skill-name">NVIDIA 边缘平台</div>
+                            <div class="skill-level-bar">
+                                <div class="skill-level-fill" style="--fill-width: 82%"></div>
+                            </div>
+                            <div class="skill-meta">
+                                <span>高级</span>
+                                <span>IGX/AGX Orin/Thor</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">TensorRT</span>
+                        <span class="skill-tag">模型量化</span>
+                        <span class="skill-tag">CUDA优化</span>
+                        <span class="skill-tag">JetPack</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">{% octicon broadcast height:26 %}</div>
+                        <div>
+                            <div class="skill-name">实时通信协议</div>
+                            <div class="skill-level-bar">
+                                <div class="skill-level-fill" style="--fill-width: 78%"></div>
+                            </div>
+                            <div class="skill-meta">
+                                <span>高级</span>
+                                <span>WebSocket/gRPC</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">实时数据传输</span>
+                        <span class="skill-tag">流式推理</span>
+                        <span class="skill-tag">设备通信</span>
+                        <span class="skill-tag">协议设计</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- 编程语言 -->
         <div class="skill-category">
             <h3 class="skill-category-title">编程语言</h3>
@@ -175,11 +278,11 @@ navigation: resume_navigation
                         <div>
                             <div class="skill-name">Python</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" style="--fill-width:"92%"></div>
+                                <div class="skill-level-fill" style="--fill-width: 92%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>高级</span>
-                                <span>4年经验</span>
+                                <span>5年经验</span>
                             </div>
                         </div>
                     </div>
@@ -189,14 +292,14 @@ navigation: resume_navigation
                         <span class="skill-tag">Web开发</span>
                     </div>
                 </div>
-                
+
                 <div class="skill-card">
                     <div class="skill-header">
                         <div class="skill-icon">{% octicon gear height:28 %}</div>
                         <div>
                             <div class="skill-name">C++</div>
                             <div class="skill-level-bar">
-                                <div class="skill-level-fill" style="--fill-width:"85%"></div>
+                                <div class="skill-level-fill" style="--fill-width: 85%"></div>
                             </div>
                             <div class="skill-meta">
                                 <span>高级</span>
@@ -212,6 +315,56 @@ navigation: resume_navigation
                 </div>
             </div>
         </div>
+
+        <!-- Web 与工程化 -->
+        <div class="skill-category">
+            <h3 class="skill-category-title">Web 与工程化</h3>
+            <div class="skill-matrix-grid">
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">{% octicon mark-github height:28 %}</div>
+                        <div>
+                            <div class="skill-name">DevOps & 工具链</div>
+                            <div class="skill-level-bar">
+                                <div class="skill-level-fill" style="--fill-width: 80%"></div>
+                            </div>
+                            <div class="skill-meta">
+                                <span>高级</span>
+                                <span>Git/GitHub Pages/Linux</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">CI/CD</span>
+                        <span class="skill-tag">Shell脚本</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">技术写作</span>
+                    </div>
+                </div>
+
+                <div class="skill-card">
+                    <div class="skill-header">
+                        <div class="skill-icon">{% octicon globe height:28 %}</div>
+                        <div>
+                            <div class="skill-name">前端开发</div>
+                            <div class="skill-level-bar">
+                                <div class="skill-level-fill" style="--fill-width: 75%"></div>
+                            </div>
+                            <div class="skill-meta">
+                                <span>中级</span>
+                                <span>Jekyll/SCSS/ES6</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="skill-tags">
+                        <span class="skill-tag">响应式布局</span>
+                        <span class="skill-tag">SVG动画</span>
+                        <span class="skill-tag">PWA</span>
+                        <span class="skill-tag">SEO</span>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -221,19 +374,65 @@ navigation: resume_navigation
     <div class="timeline">
         <div class="timeline-company">
             <h3 class="company-name">
-                杭州康基唯精机器人有限公司
+                <span><span class="financing-badge">B+轮</span> 杭州康基唯精机器人有限公司</span>
                 <span class="timeline-period">2025.07-至今</span>
             </h3>
             
             <div class="company-positions">
                 <div class="company-position">
+                    <span class="position-title">术前建模组 主管</span>
+                    <span class="position-period">2026.03-至今</span>
+                    <p class="position-description">杭州康基唯精医疗机器人研究院，负责腔镜手术机器人术前建模团队管理，主导影像重建与手术导航技术攻关</p>
+                </div>
+                <div class="company-position">
                     <span class="position-title">图像算法工程师</span>
                     <span class="position-period">2025.07-至今</span>
-                    <p class="position-description">负责医学影像处理算法研发，专注于术前影像重建和术中导航技术</p>
+                    <p class="position-description">负责腔镜手术机器人医学影像处理算法研发，专注于术前影像重建与术中导航技术</p>
                 </div>
             </div>
             
             <div class="company-projects">
+                <!-- 腔镜手术机器人 -->
+                <div class="timeline-project">
+                    <div class="project-header">
+                        <div class="project-title-area">
+                            <h4>四臂腹腔镜手术机器人</h4>
+                            <div class="project-meta">
+                                <span class="project-period">2025.07-至今</span>
+                                <span class="project-role">术前建模与导航算法</span>
+                            </div>
+                            <span class="project-status status-ongoing">● 进行中</span>
+                        </div>
+                    </div>
+
+                    <p class="project-description">
+                        参与国内首批获批的四臂腹腔镜手术机器人系统研发，负责术前影像建模与术中导航算法
+                    </p>
+
+                    <ul>
+                        <li>负责术前CT/MRI影像三维重建与手术规划模块</li>
+                        <li>开发腔镜视角下的实时解剖结构标注与增强现实导航</li>
+                        <li>参与多中心临床试验中的算法性能评估与迭代优化</li>
+                        <li>配合三类医疗器械注册（注册证号：国械注准20253010806）</li>
+                    </ul>
+
+                    <div class="achievement-list">
+                        <span class="achievement-item achievement-certification">
+                            三类医疗器械注册证
+                        </span>
+                        <span class="achievement-item achievement-patent">
+                            核心算法贡献
+                        </span>
+                    </div>
+
+                    <div class="timeline-skills">
+                        <span class="timeline-skill-tag">腹腔镜手术</span>
+                        <span class="timeline-skill-tag">三维重建</span>
+                        <span class="timeline-skill-tag">增强现实</span>
+                        <span class="timeline-skill-tag">手术规划</span>
+                    </div>
+                </div>
+
                 <!-- 术前医学影像重建项目 -->
                 <div class="timeline-project">
                     <div class="project-header">
@@ -320,7 +519,7 @@ navigation: resume_navigation
         
         <div class="timeline-company">
             <h3 class="company-name">
-                杭州柳叶刀机器人有限公司
+                <span><span class="financing-badge">A+轮</span> 杭州柳叶刀机器人有限公司</span>
                 <span class="timeline-period">2024.07-2025.06</span>
             </h3>
             
@@ -475,32 +674,36 @@ navigation: resume_navigation
     <h2>{% octicon mortar-board height:22 %} 教育背景</h2>
     <div class="card-layout">
         <div class="info-card">
-            <h3>广州国家实验室 (2023.06-2024.06)</h3>
-            <p>联合培养 | 医学影像算法研究</p>
-            <ul>
-                <li>医学影像处理与分析实验室</li>
-                <li>多模态医学人工智能</li>
-            </ul>
+            <h3>广州国家实验室 <span class="edu-period">2023.06-2024.06</span></h3>
+            <p class="edu-subtitle">联合培养 · 多模态医学影像处理</p>
+            <div class="edu-achievements">
+                <span class="edu-badge edu-project">国家级科研平台</span>
+                <span class="edu-badge edu-patent">发明专利 5项</span>
+	            </div>
+            <p class="edu-thesis">依托国家实验室平台开展医学影像智能分析前沿研究</p>
         </div>
         <div class="info-card">
-            <h3>广州医科大学 (2021.09-2024.06)</h3>
-            <p>生物医学工程 硕士 | 专业排名 1/25(前1%)</p>
-            <ul>
-                <li>研究生一等学业奖学金 (2022,2023)</li>
-                <li>省级以上一类竞赛荣誉3项</li>
-                <li>国家奖学金 (2023)</li>
-                <li>优秀毕业生 (2024)</li>
-            </ul>
+            <h3>广州医科大学 <span class="edu-period">2021.09-2024.06</span></h3>
+            <p class="edu-subtitle">生物医学工程 硕士 · 排名 1/25 (前1%)</p>
+            <div class="edu-achievements">
+                <span class="edu-badge edu-paper">Information Fusion (JCR 1区)</span>
+                <span class="edu-badge edu-project">国家重点研发项目</span>
+                <span class="edu-badge edu-project">广东省自然科学面上项目</span>
+                <span class="edu-badge edu-honor">国家奖学金</span>
+                <span class="edu-badge edu-honor">优秀毕业生</span>
+            </div>
+            <p class="edu-thesis">研究方向：基于解耦图神经网络的多模态医学数据分析</p>
         </div>
         <div class="info-card">
-            <h3>浙江农林大学 (2016.09-2020.06)</h3>
-            <p>信息与计算科学 本科 | 专业排名 9/60(前15%)</p>
-            <ul>
-                <li>省级以上学科竞赛荣誉6项</li>
-                <li>校级优秀学生奖学金4项</li>
-                <li>优秀毕业生</li>
-                <li>两优一先优秀团干部(2019)</li>
-            </ul>
+            <h3>浙江农林大学 <span class="edu-period">2016.09-2020.06</span></h3>
+            <p class="edu-subtitle">信息与计算科学 本科 · 排名 9/60 (前15%)</p>
+            <div class="edu-achievements">
+                <span class="edu-badge edu-honor">省级竞赛荣誉 6项</span>
+                <span class="edu-badge edu-honor">优秀学生奖学金 4项</span>
+                <span class="edu-badge edu-honor">优秀毕业生</span>
+                <span class="edu-badge edu-honor">优秀团干部</span>
+            </div>
+            <p class="edu-thesis">数学与计算机交叉学科基础，扎实的程序设计与算法功底</p>
         </div>
     </div>
 </section>
@@ -519,7 +722,7 @@ navigation: resume_navigation
             <div class="pub-details">
                 <p class="project-intro">打造国内首款便携式脉冲振荡肺功能检测设备，解决基层医疗机构肺功能检测难题。</p>
                 <ul>
-                    <li><strong>产业合作：</strong>与浙江亿联康医疗科技有限公司（A轮）深度合作，实现技术转化</li>
+                    <li><strong>产业合作：</strong>与浙江亿联康医疗科技有限公司（B轮）深度合作，实现技术转化</li>
                     <li><strong>核心技术：</strong>自主研发高精度气流传感器系统，测量精度提升40%</li>
                     <li><strong>AI赋能：</strong>开发基于深度学习的呼吸疾病辅助诊断算法，准确率达92.3%</li>
                     <li><strong>成果转化：</strong>获得6项发明专利，设备方案已进入临床试验阶段</li>
@@ -542,7 +745,7 @@ navigation: resume_navigation
             <div class="pub-details">
                 <p class="project-intro">革新传统血液检测流程，将人工分析时间从30分钟缩短至3分钟，大幅提升检验效率。</p>
                 <ul>
-                    <li><strong>企业对接：</strong>与深圳帝迈生物（B轮）合作，打造临床级血液分析解决方案</li>
+                    <li><strong>企业对接：</strong>与深圳帝迈生物（C轮，红杉中国）合作，打造临床级血液分析解决方案</li>
                     <li><strong>算法突破：</strong>开发多尺度细胞分类CNN模型，mAP达0.87，超越行业平均水平</li>
                     <li><strong>系统集成：</strong>构建一站式Web端报告生成系统，支持远程会诊</li>
                     <li><strong>临床验证：</strong>在番禺中心医院完成1000+样本临床验证，准确率超95%</li>
@@ -565,7 +768,7 @@ navigation: resume_navigation
             <div class="pub-details">
                 <p class="project-intro">突破性实现从基因组数据直接预测HE染色图像，为精准医疗提供全新技术路径。</p>
                 <ul>
-                    <li><strong>行业合作：</strong>与金域医学集团（上市公司）共同开发，填补行业技术空白</li>
+                    <li><strong>行业合作：</strong>与金域医学集团（603882.SH）共同开发，填补行业技术空白</li>
                     <li><strong>创新模型：</strong>设计多组学数据融合架构，实现跨模态信息整合</li>
                     <li><strong>流程优化：</strong>构建端到端病理图像分析pipeline，处理时间缩短80%</li>
                     <li><strong>临床应用：</strong>在广州医科大学附属医院完成验证，助力病理诊断提速</li>
@@ -580,56 +783,22 @@ navigation: resume_navigation
     </div>
 </section>
 
-<!-- 学术成果 -->
-<section id="publications" class="resume-section resume-section--flat">
-    <h2>{% octicon book height:22 %} 学术成果</h2>
-    <div class="publication-wall">
-        <div class="publication-item">
-            <span class="pub-type pub-patent">发明专利</span>
-            <h4>多模态医学数据分类方法</h4>
-            <div class="pub-details">
-                <p class="pub-highlight">提出一种新型多模态医学数据融合方法，解决了传统方法在异构数据整合中的瓶颈问题。</p>
-                <p class="pub-metrics">专利号：202411459123.9 | 授权日期：2024年</p>
-                <p>该专利提出的方法在多中心临床试验中验证有效，跨模态数据融合准确率提升15%，已被两家医疗科技公司采用。</p>
-                <p class="pub-authors">独立发明人</p>
-                <div class="pub-impact">
-                    <span class="impact-tag">技术转化</span>
-                    <span class="impact-tag">临床应用</span>
-                    <span class="impact-tag">行业认可</span>
-                </div>
-            </div>
-        </div>
-        
-        <div class="publication-item">
-            <span class="pub-type pub-paper">SCI论文</span>
-            <h4>MM-GNE: 多模态疾病诊断模型</h4>
-            <div class="pub-details">
-                <p class="pub-highlight">首次提出解耦图神经网络架构处理多模态医学数据，在三个国际公开数据集上达到领先水平。</p>
-                <p class="pub-metrics">Information Fusion 2024 | 影响因子：9.6</p>
-                <p>该研究解决了医学多模态数据融合中的模态缺失问题，提出的MM-GNE模型在不完整数据条件下仍能保持高准确率，被国际同行广泛引用。</p>
-                <p class="pub-authors">第一作者 | 被引次数：28</p>
-                <div class="pub-impact">
-                    <span class="impact-tag">高影响因子</span>
-                    <span class="impact-tag">高引用</span>
-                    <span class="impact-tag">开源代码</span>
-                </div>
-            </div>
-        </div>
+<script>
+(function() {
+    var observer = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+                entry.target.querySelectorAll('.skill-level-fill').forEach(function(bar) {
+                    bar.classList.add('animated');
+                });
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.2 });
 
-        <div class="publication-item">
-            <span class="pub-type pub-conference">学术会议</span>
-            <h4>医学人工智能前沿进展</h4>
-            <div class="pub-details">
-                <p class="pub-highlight">受邀在国际医学人工智能会议上作主旨报告，分享手术机器人多模态感知技术的突破性进展。</p>
-                <p class="pub-metrics">CMD3IE2024（南京）| 主旨报告</p>
-                <p>报告介绍了我们团队在手术机器人视觉感知方面的创新成果，引起业内广泛关注，会后收到三家医疗器械公司的合作邀请。</p>
-                <p class="pub-authors">受邀报告 | 参会人数：500+</p>
-                <div class="pub-impact">
-                    <span class="impact-tag">国际影响</span>
-                    <span class="impact-tag">行业认可</span>
-                    <span class="impact-tag">合作机会</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+    var skillsSection = document.getElementById('skills');
+    if (skillsSection) {
+        observer.observe(skillsSection);
+    }
+})();
+</script>

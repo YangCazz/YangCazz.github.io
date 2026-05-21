@@ -6,7 +6,7 @@
 ![Ruby](https://img.shields.io/badge/Ruby-3.0+-red?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-blue?style=flat-square)
 
-基于 Jekyll + GitHub Pages 构建的个人技术网站，包含博客、简历、应用展示等模块。
+基于 Jekyll + GitHub Pages 的个人技术网站，涵盖博客、简历、项目展示、应用集等模块。
 
 [在线预览](https://yangcazz.github.io)
 
@@ -17,12 +17,13 @@
 ## 功能特性
 
 - **粒子背景** — 动态交互式粒子系统，响应鼠标移动
-- **玻璃拟态设计** — 毛玻璃卡片、渐变色彩、微交互
+- **深色主题** — 全局暗色设计，accent-color 驱动的蓝色点缀体系
 - **Octicon 图标** — 全站使用 GitHub Octicons SVG 矢量图标
-- **博客系统** — Markdown 写作、代码高亮、标签分类、关键词网络可视化、日历浏览
-- **简历页面** — 工作经历时间线、技能矩阵、学术成果展示
-- **应用展示** — PixelKnit 等个人项目介绍
-- **PWA 支持** — manifest.json + favicon.svg
+- **博客系统** — Markdown 写作、Rouge 语法高亮、标签分类、关键词网络可视化、日历浏览
+- **简历页面** — 工作经历时间线、技能进度条、教育背景卡片
+- **项目展示** — 全屏滚动展演（scroll-snap），支持图片/视频/iframe 媒体嵌入
+- **应用集** — 专业项目、开源项目、实用工具、研究项目分类展示与筛选
+- **PWA 支持** — manifest.json + favicon
 - **SEO 优化** — JSON-LD 结构化数据、OG/Twitter 卡片、jekyll-feed、jekyll-sitemap
 - **响应式布局** — 适配桌面、平板、手机
 
@@ -30,11 +31,11 @@
 
 ## 技术栈
 
-- **静态站点**: Jekyll (GitHub Pages v232)
-- **样式**: SCSS 模块化 (14 个 partial，`_sass/` 目录管理)
+- **静态站点**: Jekyll (GitHub Pages)
+- **样式**: SCSS 模块化 (17 个 partial，`_sass/` 目录管理)
 - **JavaScript**: 原生 ES6+ (8 个独立模块，`assets/js/`)
-- **图标**: [jekyll-octicons](https://github.com/primer/octicons) SVG 图标
-- **插件**: jekyll-feed, jekyll-sitemap, jemoji, jekyll-github-metadata
+- **图标**: [jekyll-octicons](https://github.com/primer/octicons) v19.8.0
+- **插件**: jekyll-feed, jekyll-sitemap, jemoji
 - **部署**: GitHub Pages
 
 ---
@@ -79,11 +80,14 @@ YangCazz.github.io/
 │   ├── blog_navigation.yml      # 博客页导航
 │   ├── resume_navigation.yml    # 简历页导航
 │   ├── apps_navigation.yml      # 应用页导航
-│   ├── about_navigation.yml     # 关于页导航
-│   └── applications.yml         # 应用列表数据
+│   ├── showcase_navigation.yml  # 展示页导航
+│   ├── applications.yml         # 应用列表
+│   ├── github_projects.yml      # GitHub 开源仓库
+│   └── showcase_media.yml       # 展示页媒体配置
 │
 ├── _includes/
-│   └── app-card.html            # 应用卡片组件
+│   ├── app-card.html            # 应用卡片组件
+│   └── github-project-card.html # GitHub 仓库卡片
 │
 ├── _layouts/
 │   ├── default.html             # 默认布局（导航、页脚、粒子背景）
@@ -104,6 +108,8 @@ YangCazz.github.io/
 │   ├── _tag-network.scss        # 关键词网络图
 │   ├── _resume.scss             # 简历页
 │   ├── _apps.scss               # 应用展示页
+│   ├── _about.scss              # 展示页内容区
+│   ├── _showcase.scss           # 展示页滚动框架
 │   ├── _enhancements.scss       # 代码复制、公式样式
 │   └── _highlight-syntax.scss   # 代码高亮
 │
@@ -111,7 +117,7 @@ YangCazz.github.io/
 │   ├── styles.scss              # SCSS 入口 (仅 @import)
 │   ├── js/                      # JavaScript 模块
 │   │   ├── particle-system.js   #   粒子背景
-│   │   ├── navigation.js        #   导航系统（滚动监听、锚点激活）
+│   │   ├── navigation.js        #   导航系统
 │   │   ├── tag-network.js       #   关键词力导向图
 │   │   ├── calendar.js          #   博客日历面板
 │   │   ├── blog-toc.js          #   文章目录生成
@@ -120,14 +126,19 @@ YangCazz.github.io/
 │   │   └── back-to-top.js       #   回到顶部
 │   └── images/                  # 图片资源
 │
+├── _scripts/                # 辅助脚本
+│   ├── create-blog.js           # 博客文章创建
+│   ├── blog-helper.bat          # Windows 博客管理
+│   └── blog-helper.sh           # Linux/Mac 博客管理
+│
 ├── apps/                    # 子应用
-│   └── PixelKnit/               # 像素编织编辑器
+│   └── PixelKnit/               # PixelKnit 像素织梦
 │
 ├── index.html               # 首页
 ├── blog.html                # 博客列表
 ├── resume.html              # 简历
 ├── apps.html                # 应用展示
-├── about.html               # 关于
+├── showcase.html            # 项目展示
 ├── manifest.json            # PWA 配置
 └── favicon.ico              # 网站图标
 ```
@@ -150,35 +161,29 @@ tags: [PyTorch, CNN]
 ---
 ```
 
+或使用脚本：`node _scripts/create-blog.js "标题" "分类" "标签"`
+
 ### 配置导航
 
-编辑 `_data/xxx_navigation.yml`，支持两种图标模式：
+编辑 `_data/xxx_navigation.yml`：
 
 ```yaml
-# Octicon SVG 图标（推荐）
 - id: about
   name: 自我总结
   icon: person
-
-# Unicode 字符
-- id: home
-  name: 首页
-  icon: ⌂
 ```
 
-可用的 octicon 名称参考 [octicons v14.2.2](https://github.com/primer/octicons/tree/v14.2.2)（GitHub Pages 当前版本）。
+可用的 octicon 名称参考 [octicons v19.8.0](https://github.com/primer/octicons/tree/v19.8.0)。
 
-### 添加应用
+### 展示页媒体
 
-编辑 `_data/applications.yml`：
+编辑 `_data/showcase_media.yml`，取消注释即可配置图片/视频/在线 PPT：
 
 ```yaml
-- name: 应用名称
-  description: 简短描述
-  category: 工具库
-  icon: ⚡
-  url: /apps/my-app/
-  status: 已发布
+showcase-surgery-nav:
+  type: image
+  src: /assets/images/showcase/surgery-nav.png
+  caption: "手术导航系统界面"
 ```
 
 ---
@@ -189,15 +194,9 @@ tags: [PyTorch, CNN]
 
 ---
 
-## 许可证
-
-MIT License
-
----
-
 ## 作者
 
 **YangCazz / 杨钱俊** — 医疗机器人算法工程师
 
 - GitHub: [@YangCazz](https://github.com/YangCazz)
-- Email: yangcraz@qq.com
+- Email: yangcazz@qq.com
