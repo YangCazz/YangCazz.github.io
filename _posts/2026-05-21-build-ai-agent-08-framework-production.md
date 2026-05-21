@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "构建自己的 AI Agent · 第八篇：框架选型 & 生产部署 — 从手写代码到工业级服务"
-date: 2026-05-28 10:00:00 +0800
+date: 2026-05-21 10:00:00 +0800
 categories: [AI, 软件工程, AI Agent 系列]
 tags: [AI Agent, LangChain, CrewAI, AutoGen, FastAPI, Docker, 生产部署, 框架选型, 从零构建]
 excerpt: "AI Agent 系列终篇。对比 5 大 Agent 框架的本质差异——它们只是对前 6 篇手写代码的封装。将 8 篇累积代码部署为 FastAPI 生产服务，含 Docker、日志监控和医疗机器人场景案例。"
@@ -595,7 +595,7 @@ graph LR
 
 **联系方式**：
 - GitHub: [YangCazz](https://github.com/YangCazz)
-- Email: yangcraz@qq.com
+- Email: yangcazz@qq.com
 
 ---
 

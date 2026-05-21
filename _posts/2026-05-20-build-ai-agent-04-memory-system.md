@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "构建自己的 AI Agent · 第四篇：记忆系统 — 从短期对话到长期知识的数学桥梁"
-date: 2026-05-24 10:00:00 +0800
+date: 2026-05-20 10:00:00 +0800
 categories: [AI, 软件工程, AI Agent 系列]
 tags: [AI Agent, 记忆系统, 向量数据库, RAG, Embedding, ChromaDB, 从零构建]
 excerpt: "构建 AI Agent 的四层记忆系统。从短期工作记忆到语义向量检索，深入 Embedding 空间的几何性质、余弦相似度与内积的等价性，以及近似最近邻搜索的 HNSW 算法原理。"

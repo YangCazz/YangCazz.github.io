@@ -21,7 +21,7 @@
         
         {% if include.app.features %}
         <div class="app-card-features">
-            <h4>✨ 主要特性</h4>
+            <h4>主要特性</h4>
             <ul>
                 {% for feature in include.app.features %}
                 <li>{{ feature }}</li>
@@ -31,7 +31,7 @@
         {% endif %}
         
         <div class="app-card-tech">
-            <h4>🛠️ 技术栈</h4>
+            <h4>技术栈</h4>
             <div class="tech-stack-tags">
                 {% for tech in include.app.tech_stack %}
                 <span class="tech-stack-tag">{{ tech }}</span>

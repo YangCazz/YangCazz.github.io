@@ -59,14 +59,32 @@ function initTagNetwork() {
             name: tag.name,
             count: tag.count,
             posts: tag.posts,
-            x: Math.random() * canvas.width / window.devicePixelRatio,
-            y: Math.random() * canvas.height / window.devicePixelRatio,
+            x: 0,
+            y: 0,
             vx: 0,
             vy: 0,
             radius: getNormalizedRadius(tag.count, maxCount),
             color: color
         };
     });
+
+    // 圆形初始分布：大节点靠近中心，小节点靠外
+    function initCircularLayout() {
+        const cx = canvas.width / window.devicePixelRatio / 2;
+        const cy = canvas.height / window.devicePixelRatio / 2;
+        const sortedByCount = [...nodes].sort((a, b) => b.count - a.count);
+        const angleStep = (2 * Math.PI) / nodes.length;
+        const outerRadius = Math.min(cx, cy) * 0.50;
+        sortedByCount.forEach((node, i) => {
+            const angle = i * angleStep + (Math.random() - 0.5) * 0.3;
+            // 按排名比例缩放半径：排名越前（count 越大）越靠近中心
+            const rankRatio = i / Math.max(1, nodes.length - 1);
+            const r = outerRadius * (0.35 + rankRatio * 0.65);
+            node.x = cx + Math.cos(angle) * r;
+            node.y = cy + Math.sin(angle) * r;
+        });
+    }
+    initCircularLayout();
 
     const links = [];
     const connectionCount = {};
@@ -96,68 +114,72 @@ function initTagNetwork() {
     let pinnedNode = null;
     let isPinned = false;
 
+    // 模拟状态 —— alpha 冷却机制
+    let simAlpha = 0.3;          // 初始震荡强度
+    const alphaDecay = 0.005;    // 每帧衰减率
+    const alphaMin = 0.002;      // 收敛阈值
+    const velocityDecay = 0.55;  // 速度阻尼
+    let simSettled = false;
+
     function applyForces() {
+        if (!dragNode && simSettled) return;
+
         const width = canvas.width / window.devicePixelRatio;
         const height = canvas.height / window.devicePixelRatio;
         const centerX = width / 2;
         const centerY = height / 2;
 
+        // 速度阻尼
         nodes.forEach(node => {
-            node.vx = 0;
-            node.vy = 0;
+            node.vx *= velocityDecay;
+            node.vy *= velocityDecay;
         });
 
+        // 中心引力（弱）
         nodes.forEach(node => {
             if (node !== dragNode) {
-                const dx = centerX - node.x;
-                const dy = centerY - node.y;
-                node.vx += dx * 0.001;
-                node.vy += dy * 0.001;
+                node.vx += (centerX - node.x) * 0.002 * simAlpha;
+                node.vy += (centerY - node.y) * 0.002 * simAlpha;
             }
         });
 
-        for (let i = 0; i < nodes.length; i++) {
-            for (let j = i + 1; j < nodes.length; j++) {
-                const dx = nodes[j].x - nodes[i].x;
-                const dy = nodes[j].y - nodes[i].y;
-                const dist = Math.sqrt(dx * dx + dy * dy);
-                const minDistance = nodes[i].radius + nodes[j].radius + 20;
+        // 碰撞排斥 —— 多遍迭代 + 线性力
+        for (let iter = 0; iter < 3; iter++) {
+            for (let i = 0; i < nodes.length; i++) {
+                for (let j = i + 1; j < nodes.length; j++) {
+                    const dx = nodes[j].x - nodes[i].x;
+                    const dy = nodes[j].y - nodes[i].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    const minDist = nodes[i].radius + nodes[j].radius + 4;
 
-                if (dist < minDistance && dist > 0) {
-                    const force = 1500 / (dist * dist);
-                    const fx = (dx / dist) * force;
-                    const fy = (dy / dist) * force;
-                    if (nodes[i] !== dragNode) {
-                        nodes[i].vx -= fx;
-                        nodes[i].vy -= fy;
-                    }
-                    if (nodes[j] !== dragNode) {
-                        nodes[j].vx += fx;
-                        nodes[j].vy += fy;
+                    if (dist < minDist && dist > 0.01) {
+                        const overlap = minDist - dist;
+                        const force = overlap * 0.45 * simAlpha;
+                        const fx = (dx / dist) * force;
+                        const fy = (dy / dist) * force;
+                        if (nodes[i] !== dragNode) { nodes[i].vx -= fx; nodes[i].vy -= fy; }
+                        if (nodes[j] !== dragNode) { nodes[j].vx += fx; nodes[j].vy += fy; }
                     }
                 }
             }
         }
 
+        // 链接弹簧
         links.forEach(link => {
             const dx = link.target.x - link.source.x;
             const dy = link.target.y - link.source.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
-            const idealDistance = link.source.radius + link.target.radius + 50;
-            const force = (dist - idealDistance) * 0.01 * link.weight;
+            if (dist < 0.01) return;
+            const ideal = link.source.radius + link.target.radius + 18;
+            const force = (dist - ideal) * 0.004 * link.weight * simAlpha;
             const fx = (dx / dist) * force;
             const fy = (dy / dist) * force;
-
-            if (link.source !== dragNode) {
-                link.source.vx += fx;
-                link.source.vy += fy;
-            }
-            if (link.target !== dragNode) {
-                link.target.vx -= fx;
-                link.target.vy -= fy;
-            }
+            if (link.source !== dragNode) { link.source.vx += fx; link.source.vy += fy; }
+            if (link.target !== dragNode) { link.target.vx -= fx; link.target.vy -= fy; }
         });
 
+        // 应用速度 + 边界钳制
+        let maxSpeed = 0;
         nodes.forEach(node => {
             if (node !== dragNode) {
                 node.x += node.vx;
@@ -165,7 +187,16 @@ function initTagNetwork() {
                 node.x = Math.max(node.radius, Math.min(width - node.radius, node.x));
                 node.y = Math.max(node.radius, Math.min(height - node.radius, node.y));
             }
+            maxSpeed = Math.max(maxSpeed, Math.abs(node.vx), Math.abs(node.vy));
         });
+
+        // 冷却：速度低于阈值时衰减 alpha
+        if (maxSpeed < 0.15) {
+            simAlpha += (alphaMin - simAlpha) * alphaDecay;
+        }
+        if (!dragNode && simAlpha <= alphaMin) {
+            simSettled = true;
+        }
     }
 
     function render() {
@@ -195,7 +226,9 @@ function initTagNetwork() {
             ctx.stroke();
         });
 
-        nodes.forEach(node => {
+        // 按文章数排序绘制：小圆底层，大圆上层
+        const sortedNodes = [...nodes].sort((a, b) => a.count - b.count);
+        sortedNodes.forEach(node => {
             const gradient = ctx.createRadialGradient(
                 node.x, node.y, 0,
                 node.x, node.y, node.radius
@@ -297,6 +330,8 @@ function initTagNetwork() {
         if (dragNode) {
             offsetX = pos.x - dragNode.x;
             offsetY = pos.y - dragNode.y;
+            simSettled = false;   // 拖拽时重新激活模拟
+            simAlpha = 0.15;
         }
     });
 
@@ -360,7 +395,12 @@ function initTagNetwork() {
     function animate() {
         applyForces();
         render();
-        requestAnimationFrame(animate);
+        // 收敛后降低渲染频率以节省资源
+        if (simSettled && !dragNode) {
+            setTimeout(() => requestAnimationFrame(animate), 500);
+        } else {
+            requestAnimationFrame(animate);
+        }
     }
 
     animate();

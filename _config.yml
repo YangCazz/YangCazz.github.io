@@ -30,11 +30,14 @@ kramdown:
 exclude:
   - ref/
   - ref/MarkDown_notebook/
-  - docs/
   - Gemfile
   - Gemfile.lock
   - node_modules/
   - vendor/
+  - generate-ppt.js
+  - presentation.pptx
+  - package.json
+  - package-lock.json
 
 plugins:
   - jekyll-octicons

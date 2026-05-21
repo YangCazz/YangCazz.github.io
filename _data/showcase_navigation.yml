@@ -1,0 +1,31 @@
+- id: showcase-hero
+  name: 项目总览
+  icon: rocket
+
+- id: showcase-surgery-nav
+  name: 手术导航系统
+  icon: cross-reference
+
+- id: showcase-pixelknit
+  name: PixelKnit
+  icon: package
+
+- id: showcase-medical-seg
+  name: 医学图像分割
+  icon: beaker
+
+- id: showcase-pointcloud
+  name: 点云配准
+  icon: globe
+
+- id: showcase-gallery
+  name: 更多项目
+  icon: git-branch
+
+- id: showcase-github
+  name: 开源仓库
+  icon: mark-github
+
+- id: showcase-contact
+  name: 联系合作
+  icon: mail

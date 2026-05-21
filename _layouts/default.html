@@ -49,7 +49,7 @@
     <script src="{{ '/assets/js/back-to-top.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/calendar.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/blog-toc.js' | relative_url }}"></script>
-    <script src="{{ '/assets/js/tag-network.js' | relative_url }}"></script>
+    <script src="{{ '/assets/js/tag-network.js?v=2' | relative_url }}"></script>
     <script src="{{ '/assets/js/code-copy.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/image-zoom.js' | relative_url }}"></script>
     <script src="{{ '/assets/js/cite-tooltip.js' | relative_url }}"></script>
@@ -101,7 +101,7 @@
     }
     </script>
 </head>
-<body>
+<body class="{% if page.body_class %}{{ page.body_class }}{% endif %}">
     <!-- 顶部导航栏 -->
     <nav class="top-nav">
         <div class="nav-container">
@@ -124,9 +124,9 @@
                     <span class="nav-icon">{% octicon person height:18 %}</span>
                     <span class="nav-text">简历</span>
                 </a>
-                <a href="{{ '/about' | relative_url }}" class="nav-link">
-                    <span class="nav-icon">{% octicon info height:18 %}</span>
-                    <span class="nav-text">关于</span>
+                <a href="{{ '/showcase' | relative_url }}" class="nav-link">
+                    <span class="nav-icon">{% octicon rocket height:18 %}</span>
+                    <span class="nav-text">展示</span>
                 </a>
                 <a href="{{ '/apps' | relative_url }}" class="nav-link">
                     <span class="nav-icon">{% octicon package height:18 %}</span>
@@ -156,11 +156,11 @@
                     <div class="profile-contact">
                         <div class="contact-item">
                             {% octicon mail height:16 class:"contact-octicon" %}
-                            <a href="mailto:yangcraz@qq.com" class="contact-link">yangcraz@qq.com</a>
+                            <a href="mailto:yangcazz@qq.com" class="contact-link">yangcazz@qq.com</a>
                         </div>
-                        <div class="contact-item">
+                        <div class="contact-item contact-phone-item">
                             {% octicon device-mobile height:16 class:"contact-octicon" %}
-                            <span>153-0657-1803</span>
+                            <span class="contact-phone" onclick="this.classList.toggle('revealed')" title="点击刮开">+86 153-0657-1803</span>
                         </div>
                         <div class="contact-item">
                             {% octicon location height:16 class:"contact-octicon" %}
@@ -346,13 +346,14 @@
                         </svg>
                         <span>简历</span>
                     </a>
-                    <a href="{{ '/about' | relative_url }}" class="footer-nav-card">
+                    <a href="{{ '/showcase' | relative_url }}" class="footer-nav-card">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"></circle>
-                            <line x1="12" y1="16" x2="12" y2="12"></line>
-                            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
                         </svg>
-                        <span>关于</span>
+                        <span>展示</span>
                     </a>
                     <a href="{{ '/apps' | relative_url }}" class="footer-nav-card">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -403,7 +404,7 @@
                             <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
                             <polyline points="22,6 12,13 2,6"></polyline>
                         </svg>
-                        <span>yangcraz@qq.com</span>
+                        <span>yangcazz@qq.com</span>
                     </div>
                     <div class="contact-item-modern">
                         <svg class="contact-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">

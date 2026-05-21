@@ -21,7 +21,3 @@
 - id: innovation
   name: 创新创业
   icon: light-bulb
-
-- id: publications
-  name: 学术成果
-  icon: book
