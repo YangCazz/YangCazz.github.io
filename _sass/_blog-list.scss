@@ -344,4 +344,28 @@
     .archive-list {
         grid-template-columns: 1fr;
     }
+
+    .blog-post-title {
+        font-size: 1.25rem;
+    }
+
+    .blog-post-card {
+        padding: 1.25rem;
+    }
+
+    .blog-footer h2 {
+        font-size: 1.5rem;
+    }
+
+    .no-posts h2 {
+        font-size: 1.5rem;
+    }
+
+    .no-posts-content {
+        padding: 2rem 1.25rem;
+    }
+
+    .archive-title {
+        font-size: 1.1rem;
+    }
 }

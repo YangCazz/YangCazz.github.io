@@ -575,36 +575,110 @@
     }
 
     .blog-post .post-title {
-        font-size: 2rem;
+        font-size: 1.6rem;
     }
 
     .blog-post .post-content {
-        padding: 1.5rem;
+        padding: 1.25rem;
     }
 
-    .blog-post .post-content pre code {
-        font-size: 0.85rem;
-        padding: 1rem;
-        padding-top: 2.5rem;
+    .blog-post .post-content h1 {
+        font-size: 1.3rem;
+    }
+
+    .blog-post .post-content h2 {
+        font-size: 1.15rem;
+    }
+
+    .blog-post .post-content h3 {
+        font-size: 1.05rem;
+    }
+
+    .blog-post .post-content h1,
+    .blog-post .post-content h2,
+    .blog-post .post-content h3,
+    .blog-post .post-content h4,
+    .blog-post .post-content h5,
+    .blog-post .post-content h6 {
+        margin: 1.25rem 0 0.75rem 0;
+    }
+
+    .blog-post .post-content p {
+        margin: 1rem 0;
     }
 
     .blog-post .post-content img {
-        margin: 1.5rem auto;
+        margin: 1.25rem auto;
         padding: 0.4rem;
         max-height: 60vh;
     }
 
+    .blog-post .post-content figure {
+        margin: 1.25rem auto;
+    }
+
     .blog-post .post-content table {
-        font-size: 0.85rem;
+        font-size: 0.8rem;
+        margin: 1.25rem 0;
     }
 
     .blog-post .post-content thead th,
     .blog-post .post-content tbody td {
-        padding: 0.75rem 1rem;
+        padding: 0.6rem 0.75rem;
     }
 
     .blog-post .post-content blockquote {
-        padding: 1rem 1.5rem;
-        margin: 1.5rem 0;
+        padding: 0.75rem 1rem;
+        margin: 1.25rem 0;
+    }
+
+    .blog-post .post-content pre code {
+        font-size: 0.8rem;
+        padding: 1rem;
+        padding-top: 2.5rem;
+    }
+
+    .blog-post .post-content ul,
+    .blog-post .post-content ol {
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .blog-post .post-content li {
+        margin: 0.5rem 0;
+    }
+
+    .blog-post .post-content hr {
+        margin: 2rem 0;
+    }
+
+    .blog-post .post-content ol.references {
+        font-size: 0.78rem;
+        margin: 1.25rem 0 0.75rem;
+    }
+
+    .blog-post .post-content ol.references li {
+        padding-left: 2rem;
+    }
+
+    .blog-post .post-header--cover {
+        min-height: 200px;
+        padding: 2rem 1rem 1.25rem;
+    }
+
+    .blog-post .post-header:not(.post-header--cover) {
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .post-footer {
+        margin-top: 2rem;
+        padding-top: 1.25rem;
+    }
+
+    .cite-tooltip {
+        max-width: 260px;
+        font-size: 0.78rem;
+        padding: 0.5rem 0.75rem;
     }
 }

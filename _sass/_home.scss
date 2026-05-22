@@ -289,4 +289,30 @@
     .projects-grid {
         grid-template-columns: 1fr;
     }
+
+    .hero-subtitle {
+        margin-bottom: 1rem;
+        font-size: 1rem;
+    }
+
+    .blog-section,
+    .tech-section,
+    .projects-section {
+        margin-bottom: 2rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .hero-title {
+        font-size: 1.6rem;
+    }
+
+    .blog-grid {
+        gap: 1rem;
+    }
 }
