@@ -910,6 +910,79 @@ body.resume {
     .timeline-company::after {
         display: none;
     }
+
+    .company-name {
+        font-size: 1.1rem;
+    }
+
+    .position-title {
+        font-size: 1rem;
+    }
+
+    .stat-number {
+        font-size: 1.5rem;
+    }
+
+    .achievements-summary {
+        padding: 1rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .achievements-summary h3 {
+        font-size: 1rem;
+    }
+
+    .timeline-company {
+        padding: 1rem;
+        margin-bottom: 1rem;
+    }
+
+    .company-position {
+        padding: 0.75rem;
+    }
+
+    .timeline-project {
+        padding: 0.75rem 1rem 1rem;
+    }
+
+    .project-title-area h4 {
+        font-size: 1rem;
+    }
+
+    .info-card {
+        padding: 0.9rem;
+    }
+
+    .info-card h3 {
+        font-size: 0.95rem;
+    }
+
+    .publication-item h4,
+    .innovation-item h3 {
+        font-size: 1rem;
+    }
+
+    .skill-matrix-grid {
+        gap: 0.4rem;
+    }
+
+    .skill-card {
+        padding: 0.75rem;
+    }
+
+    .skill-name {
+        font-size: 0.9rem;
+    }
+
+    .skill-icon {
+        width: 32px;
+        height: 32px;
+        font-size: 1.1rem;
+    }
+
+    .page-subtitle {
+        font-size: 0.9rem;
+    }
 }
 
 /* ========================================

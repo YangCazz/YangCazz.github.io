@@ -9,11 +9,14 @@ function initTagNetwork() {
     const ctx = canvas.getContext('2d');
     const data = JSON.parse(dataScript.textContent);
 
+    let cssWidth, cssHeight;
     function resizeCanvas() {
         const rect = canvas.getBoundingClientRect();
+        cssWidth = rect.width;
+        cssHeight = rect.height;
         canvas.width = rect.width * window.devicePixelRatio;
         canvas.height = rect.height * window.devicePixelRatio;
-        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
     }
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
@@ -21,8 +24,14 @@ function initTagNetwork() {
     const maxCount = Math.max(...data.tags.map(t => t.count));
 
     function getNormalizedRadius(count, maxCount) {
-        const minRadius = 18;
-        const maxRadius = 55;
+        const isMobile = cssWidth < 500;
+        const refSize = isMobile ? 720 : 500;
+        const scale = Math.min(cssWidth, cssHeight) / refSize;
+        const rawMin = 18 * scale;
+        const rawMax = 55 * scale;
+        // Mobile hard caps: max 14px radius, min 5px radius
+        const minRadius = isMobile ? Math.max(rawMin, 5) : rawMin;
+        const maxRadius = isMobile ? Math.min(rawMax, 14) : rawMax;
         const growthThreshold = 10;
 
         if (count <= growthThreshold) {
@@ -30,7 +39,7 @@ function initTagNetwork() {
             return minRadius + (maxRadius - minRadius) * 0.7 * ratio;
         } else {
             const baseSize = minRadius + (maxRadius - minRadius) * 0.7;
-            const extraGrowth = Math.log(1 + (count - growthThreshold)) * 3;
+            const extraGrowth = Math.log(1 + (count - growthThreshold)) * 3 * scale;
             return Math.min(maxRadius, baseSize + extraGrowth);
         }
     }
@@ -70,18 +79,24 @@ function initTagNetwork() {
 
     // 圆形初始分布：大节点靠近中心，小节点靠外
     function initCircularLayout() {
-        const cx = canvas.width / window.devicePixelRatio / 2;
-        const cy = canvas.height / window.devicePixelRatio / 2;
+        const cx = cssWidth / 2;
+        const cy = cssHeight / 2;
         const sortedByCount = [...nodes].sort((a, b) => b.count - a.count);
         const angleStep = (2 * Math.PI) / nodes.length;
-        const outerRadius = Math.min(cx, cy) * 0.50;
+
+        // Spread nodes to fill available space
+        // On wide screens: circular within the shorter dimension
+        // On narrow screens: elliptical, use more horizontal space
+        const outerRadiusX = Math.min(cx, cy) * 0.85;
+        const outerRadiusY = Math.min(cx, cy) * 0.75;
+
         sortedByCount.forEach((node, i) => {
             const angle = i * angleStep + (Math.random() - 0.5) * 0.3;
             // 按排名比例缩放半径：排名越前（count 越大）越靠近中心
             const rankRatio = i / Math.max(1, nodes.length - 1);
-            const r = outerRadius * (0.35 + rankRatio * 0.65);
-            node.x = cx + Math.cos(angle) * r;
-            node.y = cy + Math.sin(angle) * r;
+            const r = (0.35 + rankRatio * 0.65);
+            node.x = cx + Math.cos(angle) * outerRadiusX * r;
+            node.y = cy + Math.sin(angle) * outerRadiusY * r;
         });
     }
     initCircularLayout();
@@ -113,6 +128,7 @@ function initTagNetwork() {
     let offsetX = 0, offsetY = 0;
     let pinnedNode = null;
     let isPinned = false;
+    let isTouchDevice = false;
 
     // 模拟状态 —— alpha 冷却机制
     let simAlpha = 0.3;          // 初始震荡强度
@@ -124,8 +140,8 @@ function initTagNetwork() {
     function applyForces() {
         if (!dragNode && simSettled) return;
 
-        const width = canvas.width / window.devicePixelRatio;
-        const height = canvas.height / window.devicePixelRatio;
+        const width = cssWidth;
+        const height = cssHeight;
         const centerX = width / 2;
         const centerY = height / 2;
 
@@ -143,8 +159,9 @@ function initTagNetwork() {
             }
         });
 
-        // 碰撞排斥 —— 多遍迭代 + 线性力
-        for (let iter = 0; iter < 3; iter++) {
+        // 碰撞排斥 —— 多遍迭代 + 线性力（小屏减到 2 轮）
+        const collisionIters = cssWidth < 500 ? 2 : 3;
+        for (let iter = 0; iter < collisionIters; iter++) {
             for (let i = 0; i < nodes.length; i++) {
                 for (let j = i + 1; j < nodes.length; j++) {
                     const dx = nodes[j].x - nodes[i].x;
@@ -170,7 +187,8 @@ function initTagNetwork() {
             const dy = link.target.y - link.source.y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < 0.01) return;
-            const ideal = link.source.radius + link.target.radius + 18;
+            const linkGap = cssWidth < 500 ? 12 : 18;
+            const ideal = link.source.radius + link.target.radius + linkGap;
             const force = (dist - ideal) * 0.004 * link.weight * simAlpha;
             const fx = (dx / dist) * force;
             const fy = (dy / dist) * force;
@@ -200,8 +218,8 @@ function initTagNetwork() {
     }
 
     function render() {
-        const width = canvas.width / window.devicePixelRatio;
-        const height = canvas.height / window.devicePixelRatio;
+        const width = cssWidth;
+        const height = cssHeight;
 
         ctx.clearRect(0, 0, width, height);
 
@@ -215,8 +233,9 @@ function initTagNetwork() {
             };
 
             const normalizedWeight = link.weight / maxWeight;
-            const lineWidth = 0.5 + normalizedWeight * 3;
-            const alpha = 0.15 + normalizedWeight * 0.3;
+            const isMobile = cssWidth < 500;
+            const lineWidth = isMobile ? 0.3 + normalizedWeight * 2 : 0.5 + normalizedWeight * 3;
+            const alpha = isMobile ? 0.12 + normalizedWeight * 0.25 : 0.15 + normalizedWeight * 0.3;
 
             ctx.beginPath();
             ctx.moveTo(link.source.x, link.source.y);
@@ -242,25 +261,29 @@ function initTagNetwork() {
             ctx.fillStyle = gradient;
             ctx.fill();
 
+            const isMobile = cssWidth < 500;
             const borderBrightness = node.count > 6 ? 0.3 : 0.5;
             ctx.strokeStyle = `rgba(255, 255, 255, ${borderBrightness})`;
-            ctx.lineWidth = 2.5;
+            ctx.lineWidth = isMobile ? 1.5 : 2.5;
             ctx.stroke();
 
             ctx.shadowColor = 'rgba(0, 0, 0, 0.5)';
-            ctx.shadowBlur = 3;
+            ctx.shadowBlur = isMobile ? 2 : 3;
             ctx.shadowOffsetX = 1;
             ctx.shadowOffsetY = 1;
 
             ctx.fillStyle = '#ffffff';
-            const fontSize = canvas.width < 400 ? 9 : canvas.width < 600 ? 11 : 12;
-            ctx.font = `bold ${fontSize}px Inter, sans-serif`;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
+            const fontSize = cssWidth < 400 ? 8 : cssWidth < 600 ? 10 : 12;
+            const maxLen = cssWidth < 400 ? 5 : cssWidth < 600 ? 7 : 8;
+            const text = node.name.length > maxLen ? node.name.substring(0, maxLen - 1) + '…' : node.name;
 
-            const maxLen = canvas.width < 400 ? 6 : 8;
-            const text = node.name.length > maxLen ? node.name.substring(0, maxLen - 1) + '...' : node.name;
-            ctx.fillText(text, node.x, node.y);
+            // Skip text if node too small to contain it
+            if (node.radius >= fontSize * 1.2) {
+                ctx.font = `bold ${fontSize}px Inter, sans-serif`;
+                ctx.textAlign = 'center';
+                ctx.textBaseline = 'middle';
+                ctx.fillText(text, node.x, node.y);
+            }
 
             ctx.shadowColor = 'transparent';
             ctx.shadowBlur = 0;
@@ -269,7 +292,7 @@ function initTagNetwork() {
         });
     }
 
-    function showTooltip(node, x, y, pinned = false) {
+    function showTooltip(node, x, y, pinned = false, isTouch = false) {
         tooltip.innerHTML = `
             <button class="tag-tooltip-close" onclick="closeTooltip()">×</button>
             <h4>${node.name}</h4>
@@ -283,21 +306,36 @@ function initTagNetwork() {
             </ul>
         `;
 
-        const wrapperWidth = canvas.width / window.devicePixelRatio;
-        const wrapperHeight = canvas.height / window.devicePixelRatio;
+        // Force layout so we can measure tooltip height for touch positioning
+        tooltip.classList.add('show');
+        if (pinned) {
+            tooltip.classList.add('pinned');
+            isPinned = true;
+        } else {
+            tooltip.classList.remove('pinned');
+        }
 
-        const tooltipX = Math.min(x + 15, wrapperWidth - 250);
-        const tooltipY = Math.min(y + 15, wrapperHeight - 150);
+        const wrapperWidth = cssWidth;
+        const wrapperHeight = cssHeight;
+        const tooltipWidth = tooltip.offsetWidth;
+        const tooltipHeight = tooltip.offsetHeight;
+
+        let tooltipX, tooltipY;
+
+        if (isTouch) {
+            // Position above finger so it's not covered
+            tooltipX = Math.max(5, Math.min(x - tooltipWidth / 2, wrapperWidth - tooltipWidth - 5));
+            tooltipY = Math.max(5, y - tooltipHeight - 20);
+        } else {
+            tooltipX = Math.min(x + 15, wrapperWidth - tooltipWidth - 10);
+            tooltipY = Math.min(y + 15, wrapperHeight - tooltipHeight - 10);
+        }
 
         tooltip.style.left = tooltipX + 'px';
         tooltip.style.top = tooltipY + 'px';
 
-        if (pinned) {
-            tooltip.classList.add('show', 'pinned');
-            isPinned = true;
-        } else {
-            tooltip.classList.add('show');
-            tooltip.classList.remove('pinned');
+        if (!pinned) {
+            pinnedNode = null;
         }
     }
 
@@ -318,20 +356,49 @@ function initTagNetwork() {
     }
 
     function findNodeAtPos(x, y) {
+        const hitPadding = cssWidth < 500 ? 12 : 8;
         return nodes.find(node => {
             const dx = node.x - x;
             const dy = node.y - y;
             const distance = Math.sqrt(dx * dx + dy * dy);
-            const clickRadius = node.radius + 8;
+            const clickRadius = node.radius + hitPadding;
             return distance < clickRadius;
         });
     }
 
+    let longPressTimer = null;
+    let longPressTriggered = false;
+    let touchStartPos = null;
+
+    function clearLongPress() {
+        if (longPressTimer) {
+            clearTimeout(longPressTimer);
+            longPressTimer = null;
+        }
+        longPressTriggered = false;
+    }
+
     function handlePointerDown(e) {
         e.preventDefault();
+        isTouchDevice = !!e.touches;
         const pos = getMousePos(e);
-        dragNode = findNodeAtPos(pos.x, pos.y);
-        if (dragNode) {
+        const node = findNodeAtPos(pos.x, pos.y);
+
+        // Long-press for touch: pin tooltip after 500ms hold
+        if (isTouchDevice && node) {
+            touchStartPos = pos;
+            longPressTriggered = false;
+            clearLongPress();
+            longPressTimer = setTimeout(() => {
+                longPressTriggered = true;
+                pinnedNode = node;
+                showTooltip(node, pos.x, pos.y, true, true);
+                dragNode = null;
+            }, 500);
+        }
+
+        if (!longPressTriggered && node) {
+            dragNode = node;
             offsetX = pos.x - dragNode.x;
             offsetY = pos.y - dragNode.y;
             simSettled = false;
@@ -342,16 +409,27 @@ function initTagNetwork() {
     function handlePointerMove(e) {
         e.preventDefault();
         const pos = getMousePos(e);
+        const isTouch = !!e.touches;
+
+        // Cancel long-press if finger moves too much
+        if (isTouch && touchStartPos) {
+            const dx = pos.x - touchStartPos.x;
+            const dy = pos.y - touchStartPos.y;
+            if (Math.sqrt(dx * dx + dy * dy) > 8) {
+                clearLongPress();
+                touchStartPos = null;
+            }
+        }
 
         if (dragNode) {
             dragNode.x = pos.x - offsetX;
             dragNode.y = pos.y - offsetY;
         }
 
-        if (!isPinned) {
+        if (!isPinned && !longPressTriggered) {
             const hoverNode = findNodeAtPos(pos.x, pos.y);
             if (hoverNode) {
-                showTooltip(hoverNode, pos.x, pos.y, false);
+                showTooltip(hoverNode, pos.x, pos.y, false, isTouch);
             } else {
                 tooltip.classList.remove('show');
             }
@@ -359,10 +437,14 @@ function initTagNetwork() {
     }
 
     function handlePointerUp(e) {
+        clearLongPress();
+        touchStartPos = null;
         dragNode = null;
     }
 
     function handlePointerLeave() {
+        clearLongPress();
+        touchStartPos = null;
         dragNode = null;
         if (!isPinned) {
             tooltip.classList.remove('show');

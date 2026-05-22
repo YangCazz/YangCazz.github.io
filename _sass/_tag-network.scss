@@ -43,6 +43,7 @@
     width: 100%;
     height: 100%;
     cursor: grab;
+    touch-action: none;
 }
 
 #tagNetworkCanvas:active {
@@ -175,42 +176,68 @@
 
 @media (max-width: 768px) {
     .tag-network-section {
-        padding: 1rem;
-        margin-bottom: 1.5rem;
+        padding: 0.75rem;
+        margin-bottom: 1.25rem;
     }
 
     .tag-network-canvas-wrapper {
-        height: 320px;
+        height: 200px;
     }
 
     .tag-network-container .section-title {
-        font-size: 1.2rem;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
     }
 
     .tag-network-container .section-subtitle {
-        font-size: 0.78rem;
-        margin-bottom: 1rem;
+        font-size: 0.7rem;
+        margin-bottom: 0.6rem;
     }
 
     .tag-network-legend {
         flex-wrap: wrap;
-        gap: 0.6rem 1rem;
-        padding: 0.6rem;
+        gap: 0.35rem 0.75rem;
+        padding: 0.4rem 0.5rem;
+        margin-top: 0.75rem;
     }
 
     .legend-item {
-        font-size: 0.72rem;
-        gap: 0.3rem;
+        font-size: 0.65rem;
+        gap: 0.2rem;
     }
 
     .legend-circle {
-        border-width: 1.5px;
+        border-width: 1px;
     }
 
     // Scale down legend circles on mobile (override inline styles)
-    .legend-item:nth-child(1) .legend-circle { width: 14px !important; height: 14px !important; }
-    .legend-item:nth-child(2) .legend-circle { width: 18px !important; height: 18px !important; }
-    .legend-item:nth-child(3) .legend-circle { width: 22px !important; height: 22px !important; }
-    .legend-item:nth-child(4) .legend-circle { width: 26px !important; height: 26px !important; }
-    .legend-item:nth-child(5) .legend-circle { width: 30px !important; height: 30px !important; }
+    .legend-item:nth-child(1) .legend-circle { width: 12px !important; height: 12px !important; }
+    .legend-item:nth-child(2) .legend-circle { width: 15px !important; height: 15px !important; }
+    .legend-item:nth-child(3) .legend-circle { width: 18px !important; height: 18px !important; }
+    .legend-item:nth-child(4) .legend-circle { width: 21px !important; height: 21px !important; }
+    .legend-item:nth-child(5) .legend-circle { width: 24px !important; height: 24px !important; }
+
+    .tag-tooltip {
+        max-width: 200px;
+        padding: 0.4rem 0.6rem;
+    }
+
+    .tag-tooltip h4 {
+        font-size: 0.8rem;
+        margin-bottom: 0.2rem;
+    }
+
+    .tag-tooltip p {
+        font-size: 0.68rem;
+    }
+
+    .tag-tooltip li {
+        font-size: 0.65rem;
+    }
+
+    .tag-tooltip-close {
+        width: 30px;
+        height: 30px;
+        font-size: 16px;
+    }
 }

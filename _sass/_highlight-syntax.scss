@@ -526,8 +526,16 @@
 
 /* 响应式优化 */
 @media (max-width: 768px) {
+    .highlight {
+        margin: 1.25rem 0;
+    }
+
+    .highlight pre {
+        padding: 0.75rem 1rem;
+    }
+
     .highlight pre code {
-        font-size: 0.8rem;
-        line-height: 1.45;
+        font-size: 0.75rem;
+        line-height: 1.4;
     }
 }
