@@ -67,6 +67,24 @@ opensource:
     github: "https://github.com/YangCazz/CazzAi"
     demo: ""
 
+  - name: "WiseSegmentator CT 分割框架"
+    description: "腹部/胸部 CT 多器官自动分割框架。统一调度 CADS、TotalSegmentator 与自训练 nnUNet 模型，两级目标体系精确控制，ROI 裁剪推理性能优化，结构特定后处理管线。配置驱动设计，CLI + Python API 双接口。"
+    category: "医学图像处理"
+    tech_stack: ["Python", "PyTorch", "nnUNetv2", "nibabel", "scipy", "TotalSegmentator", "CADS"]
+    status: "活跃开发"
+    highlight: true
+    features:
+      - "统一调度 9 个模型：自动去重、依赖分析、拓扑排序"
+      - "两级目标体系：4 个一级目标 + 30+ 二级结构精确筛选"
+      - "ROI 智能裁剪：推理区域缩小 5-30 倍，12GB 显卡可用"
+      - "Predictor 生命周期管理：每模型完成即释放，VRAM 不累积"
+      - "结构特定后处理：器官（最大连通域+填孔）、血管（近邻过滤）、肿瘤（包含约束）"
+      - "推理与后处理重叠：目标齐备即后台提取，节省 ~30s"
+      - "配置驱动扩展：JSON 管理目标/模型/标签映射，扩展无需改代码"
+    link: ""
+    github: "https://github.com/YangCazz/CazzSegmentator"
+    demo: ""
+
   - name: "个人技术博客网站"
     description: "基于Jekyll构建的现代化个人技术博客，展示技术文章和项目经历"
     category: "Web开发"

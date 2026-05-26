@@ -12,6 +12,16 @@ repos:
     url: "https://github.com/YangCazz/CazzAi"
     featured: true
 
+  - name: "CazzSegmentator"
+    owner: "YangCazz"
+    description: "腹部/胸部 CT 多器官自动分割框架 — 统一调度 CADS/TotalSegmentator/nnUNet，ROI 裁剪推理，两级目标体系"
+    language: "Python"
+    language_color: "#3572A5"
+    stars: 0
+    topics: ["Medical Imaging", "CT", "Segmentation", "nnUNet", "Deep Learning", "Image Processing"]
+    url: "https://github.com/YangCazz/CazzSegmentator"
+    featured: true
+
   - name: "YangCazz.github.io"
     owner: "YangCazz"
     description: "个人技术博客与作品集 — 基于 Jekyll 的静态网站，涵盖深度学习、医学图像处理、机器人控制等领域"
