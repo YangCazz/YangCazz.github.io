@@ -40,19 +40,44 @@ Phase 1 原型存在以下结构性问题：
 
 ### 2.1 从串行到事件驱动
 
-**旧模型：**
+**旧模型（串行事务管道）：**
 
-```
-录完 → 识别 → 生成 → 播放
-(串行，每阶段等上一阶段完成)
+```mermaid
+graph LR
+    A[录音] --> B[ASR 识别] --> C[LLM 生成] --> D[TTS 播放]
+    style A fill:#ff6b6b,color:#fff
+    style B fill:#ff6b6b,color:#fff
+    style C fill:#ff6b6b,color:#fff
+    style D fill:#ff6b6b,color:#fff
 ```
 
-**新模型：**
+> 每阶段必须等上一阶段完全结束，首响延迟 7-20 秒。
 
+**新模型（事件驱动并发管道）：**
+
+```mermaid
+graph LR
+    subgraph 并发运行
+        A[音频采集<br/>~20ms chunks] --> B[流式 ASR<br/>~200ms partial]
+        B --> C[LLM<br/>token stream]
+        C --> D[SentenceSplitter<br/>句子缓冲]
+        D --> E[流式 TTS<br/>逐句合成]
+        E --> F[Speaker<br/>播放]
+    end
+    A -->|VAD 持续监听| G[打断检测]
+    G -.->|barge-in| C
+    G -.->|barge-in| E
+
+    style A fill:#4ecdc4,color:#fff
+    style B fill:#4ecdc4,color:#fff
+    style C fill:#4ecdc4,color:#fff
+    style D fill:#4ecdc4,color:#fff
+    style E fill:#4ecdc4,color:#fff
+    style F fill:#4ecdc4,color:#fff
+    style G fill:#ffe66d,color:#333
 ```
-边听边想边说
-(ASR/LM/TTS 并发运行，asyncio.Queue 通信)
-```
+
+> ASR/LM/TTS 通过 `asyncio.Queue` 并发协作，首响延迟 < 1 秒。
 
 ### 2.2 关键权衡
 
@@ -70,12 +95,28 @@ Phase 1 原型存在以下结构性问题：
 
 语音交互本质上是一个**状态机**。每一次对话回合都在状态之间迁移，迁移规则由事件触发。
 
-```
-IDLE → WAKING → LISTENING → UNDERSTANDING → THINKING → SPEAKING → IDLE
- 空闲    唤醒      聆听         理解           思考        说话       空闲
-                                                    ↑           ↓
-                                                    └── INTERRUPTED
-                                                         被打断
+```mermaid
+graph LR
+    IDLE[IDLE<br/>空闲] -->|唤醒词/Wake Word| WAKING[WAKING<br/>唤醒]
+    WAKING -->|激活确认| LISTENING[LISTENING<br/>聆听]
+    LISTENING -->|语音结束/VAD silence| UNDERSTANDING[UNDERSTANDING<br/>理解]
+    UNDERSTANDING -->|ASR 完成| THINKING[THINKING<br/>思考]
+    THINKING -->|首个句子就绪| SPEAKING[SPEAKING<br/>说话]
+    SPEAKING -->|播放完毕| IDLE
+    SPEAKING -->|用户打断| INTERRUPTED[INTERRUPTED<br/>被打断]
+    INTERRUPTED -->|重置并重新聆听| LISTENING
+    WAKING -->|超时/取消| IDLE
+    LISTENING -->|超时/取消| IDLE
+    UNDERSTANDING -->|错误/取消| IDLE
+    THINKING -->|错误/取消| IDLE
+
+    style IDLE fill:#2ecc71,color:#fff
+    style WAKING fill:#f39c12,color:#fff
+    style LISTENING fill:#3498db,color:#fff
+    style UNDERSTANDING fill:#9b59b6,color:#fff
+    style THINKING fill:#e74c3c,color:#fff
+    style SPEAKING fill:#1abc9c,color:#fff
+    style INTERRUPTED fill:#e67e22,color:#fff
 ```
 
 状态迁移表定义了合法路径：
@@ -113,14 +154,25 @@ class TurnManager:
 
 ### 4.1 数据流
 
-```
-AudioChunk (Mic, ~20ms)
-  → VAD [is_speech?]
-  → StreamingASR [partial text ~200ms intervals]
-    → LLM [streaming tokens]
-      → SentenceSplitter [buffer → 完整句子]
-        → StreamingTTS [synthesize sentence]
-          → Speaker [play chunk]
+```mermaid
+graph LR
+    A[AudioChunk<br/>Mic ~20ms] --> B[VAD<br/>is_speech?]
+    B -->|speech| C[StreamingASR<br/>partial text ~200ms]
+    C --> D[LLM<br/>streaming tokens]
+    D --> E[SentenceSplitter<br/>buffer → 完整句子]
+    E --> F[StreamingTTS<br/>逐句合成]
+    F --> G[Speaker<br/>播放音频块]
+
+    B -.->|silence| H[静音检测]
+    H -.-> C
+
+    style A fill:#667eea,color:#fff
+    style B fill:#f39c12,color:#fff
+    style C fill:#3498db,color:#fff
+    style D fill:#e74c3c,color:#fff
+    style E fill:#9b59b6,color:#fff
+    style F fill:#1abc9c,color:#fff
+    style G fill:#2ecc71,color:#fff
 ```
 
 所有阶段通过 `asyncio.Queue` 并发运行。ASR 处理 chunk N 的同时，LLM 生成 token M，TTS 合成句子 L，Speaker 播放句子 L-1，VAD 持续监听——五个阶段并发协作。
@@ -171,7 +223,27 @@ LLM 只要说出第一个完整句子（比如"好的，我来帮你查询今天
 
 打断是多轮语音体验的核心。实现原理很简单：
 
-Speaker 播放时麦克风不关，VAD 持续运行。检测到连续语音超过 300ms → 发送 cancel 信号 → Speaker 停止播放 → TTS 丢弃当前任务 → LLM 取消生成 → 已播放部分保存到记忆 → TurnManager 转入 LISTENING。
+打断检测的完整事件链：
+
+```mermaid
+graph LR
+    A[Speaker 播放中] --> B[麦克风持续采集]
+    B --> C[VAD 实时检测]
+    C -->|语音 > 300ms| D[触发 BargeIn]
+    D --> E[Speaker 停止播放]
+    D --> F[TTS 丢弃当前任务]
+    D --> G[LLM 取消生成]
+    E --> H[已播放部分保存到记忆]
+    F --> H
+    G --> H
+    H --> I[TurnManager → LISTENING]
+
+    style A fill:#1abc9c,color:#fff
+    style D fill:#e74c3c,color:#fff
+    style I fill:#3498db,color:#fff
+```
+
+> Speaker 播放时麦克风不关，VAD 持续运行。检测到连续语音超过 300ms → 发送 cancel 信号 → Speaker 停止播放 → TTS 丢弃当前任务 → LLM 取消生成 → 已播放部分保存到记忆 → TurnManager 转入 LISTENING。
 
 ```python
 class BargeInController:
@@ -201,12 +273,30 @@ class BargeInController:
 
 重构为三层：
 
-```
-L1 WorkingMemory (滑动窗口, 最近N轮完整对话)
-  ↓ 溢出时压缩
-L2 SummaryMemory (LLM 生成渐进摘要, 注入 system message)
-  ↓ 提取关键事实
-L3 PersistentMemory (SQLite 持久化, 跨会话语义检索)
+```mermaid
+graph LR
+    subgraph L1[L1: WorkingMemory]
+        A[滑动窗口<br/>最近 N 轮完整对话]
+    end
+
+    subgraph L2[L2: SummaryMemory]
+        B[LLM 渐进摘要<br/>注入 system message]
+    end
+
+    subgraph L3[L3: PersistentMemory]
+        C[SQLite 持久化<br/>跨会话语义检索]
+    end
+
+    A -->|溢出时 LLM 压缩| B
+    B -->|提取关键事实| C
+    C -.->|启动时恢复| A
+
+    A --> D[build_context<br/>→ LLM messages]
+
+    style A fill:#3498db,color:#fff
+    style B fill:#9b59b6,color:#fff
+    style C fill:#2ecc71,color:#fff
+    style D fill:#e74c3c,color:#fff
 ```
 
 ```python
