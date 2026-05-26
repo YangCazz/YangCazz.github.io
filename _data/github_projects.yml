@@ -2,6 +2,26 @@
 # 用于在页面中展示精选 GitHub 仓库
 
 repos:
+  - name: "CazzAi"
+    owner: "YangCazz"
+    description: "本地优先的 AI 语音助手 — 流式管道、打断检测、三层记忆、混合 RAG 检索"
+    language: "Python"
+    language_color: "#3572A5"
+    stars: 0
+    topics: ["Voice Assistant", "ASR", "TTS", "RAG", "Streaming", "asyncio", "FastAPI"]
+    url: "https://github.com/YangCazz/CazzAi"
+    featured: true
+
+  - name: "CazzSegmentator"
+    owner: "YangCazz"
+    description: "腹部/胸部 CT 多器官自动分割框架 — 统一调度 CADS/TotalSegmentator/nnUNet，ROI 裁剪推理，两级目标体系"
+    language: "Python"
+    language_color: "#3572A5"
+    stars: 0
+    topics: ["Medical Imaging", "CT", "Segmentation", "nnUNet", "Deep Learning", "Image Processing"]
+    url: "https://github.com/YangCazz/CazzSegmentator"
+    featured: true
+
   - name: "YangCazz.github.io"
     owner: "YangCazz"
     description: "个人技术博客与作品集 — 基于 Jekyll 的静态网站，涵盖深度学习、医学图像处理、机器人控制等领域"
