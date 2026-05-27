@@ -1,4 +1,4 @@
-// 博客目录功能
+// 博客目录 + 标题自动编号
 function initBlogToc() {
     const tocContainer = document.getElementById('blogToc');
     if (!tocContainer) return;
@@ -9,26 +9,63 @@ function initBlogToc() {
         return;
     }
 
+    // ---- 自动编号 ----
+    let h2num = 0;
+    let h3num = 0;
+    const counters = new Map(); // heading element → "X" or "X.Y"
+
+    headings.forEach((heading) => {
+        const tag = heading.tagName.toLowerCase();
+        let prefix = '';
+        if (tag === 'h2') {
+            h2num++;
+            h3num = 0;
+            prefix = h2num + '. ';
+        } else if (tag === 'h3') {
+            h3num++;
+            prefix = h2num + '.' + h3num + ' ';
+        }
+
+        if (prefix) {
+            counters.set(heading, prefix);
+            // 只在还没有添加过编号时插入
+            if (!heading.querySelector('.heading-num')) {
+                const span = document.createElement('span');
+                span.className = 'heading-num';
+                span.textContent = prefix;
+                heading.insertBefore(span, heading.firstChild);
+            }
+        }
+    });
+
+    // ---- 构建目录 ----
     let tocHtml = '';
     headings.forEach((heading, index) => {
         const level = parseInt(heading.tagName.charAt(1));
-        const text = heading.textContent.trim();
-        const id = `heading-${index}`;
-
+        const id = 'heading-' + index;
         heading.id = id;
-        tocHtml += `<a href="#${id}" class="toc-item h${level}" data-level="${level}">${text}</a>`;
+
+        // 取得已编号的文本
+        const numSpan = heading.querySelector('.heading-num');
+        const bodyText = Array.from(heading.childNodes)
+            .filter(n => n !== numSpan)
+            .map(n => n.textContent)
+            .join('')
+            .trim();
+        const displayText = numSpan ? numSpan.textContent + bodyText : bodyText;
+
+        tocHtml += '<a href="#' + id + '" class="toc-item h' + tagName(level) + '" data-level="' + level + '">' + escapeHtml(displayText) + '</a>';
     });
 
     tocContainer.innerHTML = tocHtml;
 
+    // ---- 滚动监听 ----
     const tocItems = tocContainer.querySelectorAll('.toc-item');
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 tocItems.forEach(item => item.classList.remove('active'));
-
-                const targetId = entry.target.id;
-                const correspondingTocItem = tocContainer.querySelector(`a[href="#${targetId}"]`);
+                const correspondingTocItem = tocContainer.querySelector('a[href="#' + entry.target.id + '"]');
                 if (correspondingTocItem) {
                     correspondingTocItem.classList.add('active');
                     scrollToActiveItem(correspondingTocItem, tocContainer);
@@ -47,10 +84,7 @@ function initBlogToc() {
             const targetId = item.getAttribute('href').substring(1);
             const targetElement = document.getElementById(targetId);
             if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         });
     });
@@ -58,22 +92,17 @@ function initBlogToc() {
     function scrollToActiveItem(activeItem, container) {
         const containerRect = container.getBoundingClientRect();
         const itemRect = activeItem.getBoundingClientRect();
-
-        const isVisible = itemRect.top >= containerRect.top &&
-                         itemRect.bottom <= containerRect.bottom;
-
-        if (!isVisible) {
-            const scrollTop = container.scrollTop;
-            const itemOffsetTop = activeItem.offsetTop;
-            const containerHeight = container.clientHeight;
-            const itemHeight = activeItem.offsetHeight;
-
-            const targetScrollTop = itemOffsetTop - (containerHeight / 2) + (itemHeight / 2);
-
-            container.scrollTo({
-                top: targetScrollTop,
-                behavior: 'smooth'
-            });
-        }
+        if (itemRect.top >= containerRect.top && itemRect.bottom <= containerRect.bottom) return;
+        container.scrollTo({
+            top: activeItem.offsetTop - (container.clientHeight / 2) + (activeItem.offsetHeight / 2),
+            behavior: 'smooth'
+        });
     }
+}
+
+function tagName(level) { return 'h' + level; }
+
+function escapeHtml(text) {
+    const map = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' };
+    return text.replace(/[&<>"']/g, function(m) { return map[m]; });
 }
