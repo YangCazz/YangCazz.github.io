@@ -27,9 +27,9 @@ image: /assets/images/covers/ai-dev-tools.jpg
 
 ---
 
-## 一、理解框架：不过是标准化的封装
+## 理解框架：不过是标准化的封装
 
-### 1.1 框架 = 组件 + 约定 + 生态
+### 框架 = 组件 + 约定 + 生态
 
 ```mermaid
 graph LR
@@ -62,7 +62,7 @@ graph LR
     style 框架做的事 fill:#667eea,color:#fff
 ```
 
-### 1.2 五大框架对比
+### 五大框架对比
 
 | 维度 | LangChain/LangGraph | CrewAI | AutoGen (Microsoft) | OpenAI Agents SDK | Dify / n8n |
 |------|---------------------|--------|---------------------|-------------------|------------|
@@ -76,9 +76,9 @@ graph LR
 
 ---
 
-## 二、框架的本质解构
+## 框架的本质解构
 
-### 2.1 LangChain/LangGraph：标准化了我们的第 1-4 篇
+### LangChain/LangGraph：标准化了我们的第 1-4 篇
 
 ```python
 # 我们的代码 (第 1-4 篇)
@@ -114,7 +114,7 @@ graph.add_conditional_edges("agent", should_continue, {
 
 **核心区别**：LangGraph 用**显式状态图**替代了我们的 `while + if` 隐式控制流。对于复杂工作流（如递归审查、多分支路由），图结构更清晰；但对于简单任务，while 循环更直观。
 
-### 2.2 CrewAI：标准化了我们的 AgentTeam（第 5 篇）
+### CrewAI：标准化了我们的 AgentTeam（第 5 篇）
 
 ```python
 # 我们的 AgentTeam (第 5 篇)
@@ -140,7 +140,7 @@ result = crew.kickoff()
 
 CrewAI 的核心价值在于**角色定义的标准化**（`role` + `goal` + `backstory`），比我们手写的字典方式更结构化。
 
-### 2.3 AutoGen：对话驱动的多 Agent
+### AutoGen：对话驱动的多 Agent
 
 ```python
 # AutoGen 核心设计：ConversableAgent
@@ -167,7 +167,7 @@ initiate_chats([
 
 AutoGen 的创新在于**对话本身作为编排机制**——Generator-Verifier 循环变成了两个 Agent 间的对话，更贴近人类协作方式。
 
-### 2.4 OpenAI Agents SDK：最精简的封装
+### OpenAI Agents SDK：最精简的封装
 
 ```python
 from agents import Agent, Runner, function_tool
@@ -188,7 +188,7 @@ print(result.final_output)
 
 这本质上就是我们第一篇 30 行代码的**官方版本**。OpenAI Agents SDK 的优势在于与 OpenAI 生态深度集成（Handoff、Guardrails、Tracing 开箱即用）。
 
-### 2.5 框架选型决策树
+### 框架选型决策树
 
 ```mermaid
 graph LR
@@ -209,9 +209,9 @@ graph LR
 
 ---
 
-## 三、生产部署：FastAPI + Docker
+## 生产部署：FastAPI + Docker
 
-### 3.1 架构总览
+### 架构总览
 
 ```mermaid
 graph LR
@@ -229,7 +229,7 @@ graph LR
     style LLM fill:#8B5CF6,color:#fff
 ```
 
-### 3.2 FastAPI 服务实现
+### FastAPI 服务实现
 
 ```python
 # agent_api.py — 生产级 Agent API 服务
@@ -365,7 +365,7 @@ if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=8000, workers=4)
 ```
 
-### 3.3 Dockerfile
+### Dockerfile
 
 ```dockerfile
 # Dockerfile
@@ -397,7 +397,7 @@ HEALTHCHECK --interval=30s --timeout=5s \
 CMD ["uvicorn", "agent_api:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "4"]
 ```
 
-### 3.4 docker-compose.yml
+### docker-compose.yml
 
 ```yaml
 # docker-compose.yml
@@ -469,11 +469,11 @@ volumes:
 
 ---
 
-## 四、医疗机器人场景案例
+## 医疗机器人场景案例
 
 作为本系列的结束，让我们看一个与你（医疗机器人算法工程师）场景直接相关的 Agent 应用：
 
-### 4.1 医学图像分析工作流 Agent
+### 医学图像分析工作流 Agent
 
 ```python
 # 医学图像分析 Agent 配置
@@ -536,7 +536,7 @@ result = medical_agent.run(
 
 ---
 
-## 五、八篇之旅：架构演进全景
+## 八篇之旅：架构演进全景
 
 ```mermaid
 graph LR
@@ -565,9 +565,9 @@ graph LR
 
 ---
 
-## 六、系列总结
+## 系列总结
 
-### 6.1 核心收获
+### 核心收获
 
 通过这八篇文章，你不仅构建了一个完整的 AI Agent，更获得了：
 
@@ -575,7 +575,7 @@ graph LR
 2. **工程实践的技能**：从类型系统到 Schema 映射，从 Token 计数到 BPE 原理，从向量检索到 HNSW 索引
 3. **框架选型的能力**：不再被框架文档牵着走，而是能够理解每个框架"在封装什么"
 
-### 6.2 推荐学习路径
+### 推荐学习路径
 
 ```
 入门：本系列 8 篇 → 理解 Agent 底层原理
@@ -589,7 +589,7 @@ graph LR
   └─→ 想生产部署？→ 本文 Docker Compose 一键启动
 ```
 
-### 6.3 关于我
+### 关于我
 
 作者杨钱俊 (YangCazz)，医疗机器人算法工程师，专注深度学习、医学图像处理和 AI Agent 技术。本博客（YangCazz.github.io）持续分享技术探索，欢迎关注。
 

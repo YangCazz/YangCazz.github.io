@@ -296,7 +296,7 @@ class GraphGCN(nn.Module):
 
 ## 性能优化技巧
 
-### 1. 批处理
+### 批处理
 
 ```python
 from torch_geometric.loader import DataLoader
@@ -309,7 +309,7 @@ for batch in loader:
     # 处理批数据
 ```
 
-### 2. 内存优化
+### 内存优化
 
 ```python
 # 使用梯度检查点
@@ -328,7 +328,7 @@ class MemoryEfficientGCN(nn.Module):
         return F.log_softmax(x, dim=1)
 ```
 
-### 3. 混合精度训练
+### 混合精度训练
 
 ```python
 from torch.cuda.amp import autocast, GradScaler
@@ -350,7 +350,7 @@ def train_with_amp():
 
 ## 调试和可视化
 
-### 1. 梯度检查
+### 梯度检查
 
 ```python
 def check_gradients(model):
@@ -361,7 +361,7 @@ def check_gradients(model):
             print(f"{name}: No gradient")
 ```
 
-### 2. 特征可视化
+### 特征可视化
 
 ```python
 import matplotlib.pyplot as plt
@@ -388,7 +388,7 @@ def visualize_embeddings(model, data, epoch):
 
 ## 常见问题和解决方案
 
-### 1. 过平滑问题
+### 过平滑问题
 
 ```python
 # 使用残差连接
@@ -407,7 +407,7 @@ class ResidualGCN(nn.Module):
         return F.log_softmax(h3, dim=1)
 ```
 
-### 2. 梯度消失
+### 梯度消失
 
 ```python
 # 使用层归一化

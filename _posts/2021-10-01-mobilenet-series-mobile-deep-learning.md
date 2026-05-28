@@ -24,7 +24,7 @@ image: /assets/images/covers/cnn-pioneers.jpg
 * **[2018] MobileNet V2**：[MobileNetV2: Inverted Residuals and Linear Bottlenecks](https://arxiv.org/abs/1801.04381)
 * **[2019] MobileNet V3**：[Searching for MobileNetV3](https://arxiv.org/abs/1905.02244)
 
-## 1. MobileNet V1 (2017)
+## MobileNet V1 (2017)
 
 ### 设计目标
 
@@ -154,7 +154,7 @@ class DepthwiseSeparableConv(nn.Module):
 
 * **代码地址**：[GitHub - DeepLearning/model_classification/MobileNet](https://github.com/YangCazz/DeepLearning/tree/master/model_classification/MobileNet)
 
-## 2. MobileNet V2 (2018)
+## MobileNet V2 (2018)
 
 ### 核心创新
 
@@ -274,7 +274,7 @@ class InvertedResidual(nn.Module):
 3. **ReLU6**：更适合移动端的激活函数
 4. **更好的性能**：参数量减少，精度提升
 
-## 3. MobileNet V3 (2019)
+## MobileNet V3 (2019)
 
 ### 核心创新
 
@@ -283,7 +283,7 @@ V3引入了三个主要改进 <cite>[3]</cite>：
 2. **SE模块（Squeeze-and-Excitation）**
 3. **H-Swish激活函数**
 
-### 1. NAS - 神经架构搜索
+### NAS - 神经架构搜索
 
 **暴力美学**：使用优化算法自动搜索最优的网络结构。
 
@@ -295,7 +295,7 @@ V3引入了三个主要改进 <cite>[3]</cite>：
 
 **代价**：需要极大的算力！
 
-### 2. SE模块 - 通道注意力
+### SE模块 - 通道注意力
 
 ![SE模块](/assets/images/posts/deep-learning/mobilenet-v3-squeeze-excitation.png)
 
@@ -331,7 +331,7 @@ class SEBlock(nn.Module):
         return x * y.expand_as(x)
 ```
 
-### 3. H-Swish激活函数
+### H-Swish激活函数
 
 #### Swish函数
 
@@ -408,7 +408,7 @@ V3提供两个版本：
 
 ## 实践经验
 
-### 1. 选择合适的版本
+### 选择合适的版本
 
 ```python
 # 场景1：高精度要求
@@ -421,7 +421,7 @@ model = mobilenet_v3_small(pretrained=True)
 model = mobilenet_v2(pretrained=True)
 ```
 
-### 2. 宽度乘数
+### 宽度乘数
 
 MobileNet支持通过宽度乘数调整模型大小：
 
@@ -435,7 +435,7 @@ def adjust_channels(channels, width_mult=1.0):
     return int(channels * width_mult)
 ```
 
-### 3. 量化部署
+### 量化部署
 
 ```python
 # 动态量化
@@ -451,7 +451,7 @@ model_int8 = torch.quantization.quantize_dynamic(
 # 模型大小减少75%，速度提升2-4倍
 ```
 
-### 4. 迁移学习技巧
+### 迁移学习技巧
 
 ```python
 # 冻结特征提取层

@@ -54,7 +54,7 @@ graph LR
 
 ## 关键技术实现
 
-### 1. 运动控制算法
+### 运动控制算法
 
 ```cpp
 class RobotController {
@@ -78,7 +78,7 @@ public:
 };
 ```
 
-### 2. 路径规划
+### 路径规划
 
 采用RRT*算法<cite>[3]</cite>进行路径规划，结合人工势场法避免碰撞：
 
@@ -105,7 +105,7 @@ def rrt_star_planner(start, goal, obstacles):
     return tree.get_path(start, goal)
 ```
 
-### 3. 实时定位与配准
+### 实时定位与配准
 
 使用ICP算法<cite>[4]</cite>进行点云配准：
 
@@ -127,19 +127,19 @@ Eigen::Matrix4f ICPRegistration(
 
 ## 性能优化
 
-### 1. 实时性优化
+### 实时性优化
 - **多线程处理**：分离控制循环和传感器处理
 - **优先级调度**：安全监控最高优先级
 - **缓存机制**：预计算常用轨迹
 
-### 2. 精度优化
+### 精度优化
 - **标定算法**：定期进行手眼标定
 - **误差补偿**：基于历史数据的误差预测
 - **滤波算法**：卡尔曼滤波<cite>[5]</cite>平滑运动
 
 ## 安全机制
 
-### 1. 碰撞检测
+### 碰撞检测
 ```cpp
 bool CollisionDetector::checkCollision(
     const std::vector<double>& joint_angles,
@@ -158,7 +158,7 @@ bool CollisionDetector::checkCollision(
 }
 ```
 
-### 2. 力反馈控制
+### 力反馈控制
 - **力阈值监控**：超过安全阈值立即停止
 - **阻抗控制**：柔顺控制<cite>[6]</cite>避免硬碰撞
 - **紧急停止**：多重安全开关

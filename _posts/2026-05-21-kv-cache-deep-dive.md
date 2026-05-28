@@ -16,9 +16,9 @@ image: /assets/images/covers/ai-dev-tools.jpg
 
 本文将带你从矩阵运算出发，建立对 KV Cache 的完整认知。
 
-## 一、为什么需要 KV Cache？
+## 为什么需要 KV Cache？
 
-### 1.1 自回归生成的冗余计算
+### 自回归生成的冗余计算
 
 LLM 的自回归生成过程：给定前文 \\( x_{1:t-1} \\)，预测第 \\( t \\) 个 token \\( x_t \\) 。每一轮，我们需要计算：
 
@@ -52,7 +52,7 @@ flowchart LR
     end
 ```
 
-### 1.2 计算量对比
+### 计算量对比
 
 对于序列长度 \\( n \\)，单层单头的自注意力计算量：
 
@@ -64,9 +64,9 @@ flowchart LR
 
 KV Cache 将生成阶段的注意力计算从**二次复杂度降为线性复杂度**。配合 FlashAttention <cite>[2]</cite> 等 IO-aware 算法，实际推理速度可提升 2-4 倍。
 
-## 二、KV Cache 的显存数学
+## KV Cache 的显存数学
 
-### 2.1 显存占用公式
+### 显存占用公式
 
 对于给定的模型和输入，KV Cache 的显存占用：
 
@@ -96,7 +96,7 @@ M_{\text{KV}}(n) = 2 \times 32 \times 32 \times 128 \times n \times 1 \times 2 \
 - 32K token 上下文 → ~16 GB
 - 128K token 上下文 → ~64 GB（仅 KV Cache！）
 
-### 2.2 Agent 场景的特殊性
+### Agent 场景的特殊性
 
 Agent 通常在一个会话中进行**多轮 LLM 调用**。每一轮都累积 KV Cache：
 
@@ -113,16 +113,16 @@ flowchart LR
 
 这就是为什么 Agent 的上下文窗口管理（第3篇的对话管理）与 KV Cache 密切相关——**长上下文不仅消耗 token 预算，还消耗显存**。
 
-## 三、PagedAttention 与 vLLM
+## PagedAttention 与 vLLM
 
-### 3.1 KV Cache 的内存碎片问题
+### KV Cache 的内存碎片问题
 
 传统的 KV Cache 为每个序列预分配**连续显存块**（大小为 max_seq_len × cache_size_per_token）。这导致：
 - **内部碎片**：实际序列长度 < max_seq_len 时浪费显存
 - **外部碎片**：多个序列的分配/释放导致显存碎片
 - **低利用率**：限制了 serving 的并发数
 
-### 3.2 PagedAttention 的核心思想
+### PagedAttention 的核心思想
 
 vLLM 的 PagedAttention <cite>[1]</cite> 借鉴了操作系统的**虚拟内存分页**机制：
 
@@ -145,7 +145,7 @@ flowchart LR
 
 **实际效果**：PagedAttention 可以将显存利用率从 20-40% 提升到 **80-95%**，在相同硬件上支持 2-4 倍的并发请求。
 
-### 3.3 Prefix Caching
+### Prefix Caching
 
 更进一步，如果多个请求共享相同的 system prompt（Agent 场景极其常见），vLLM 可以**共享 prefix 的 KV Cache block**：
 
@@ -158,9 +158,9 @@ flowchart LR
 
 这在 Agent serving 场景中节省 30-50% 的显存。
 
-## 四、KV Cache 量化
+## KV Cache 量化
 
-### 4.1 量化的数学本质
+### 量化的数学本质
 
 KV Cache 量化是将 K/V 激活值从 FP16 压缩到低精度：
 
@@ -173,7 +173,7 @@ KV Cache 量化是将 K/V 激活值从 FP16 压缩到低精度：
 - K/V 激活随输入动态变化，需要**在线标定**
 - 某些注意力头对量化误差极为敏感（"heavy hitter" 现象）
 
-### 4.2 量化精度对比
+### 量化精度对比
 
 | 精度 | 每token显存 | 8B模型32K显存 | 质量影响 |
 |------|-----------|-------------|---------|
@@ -187,9 +187,9 @@ KV Cache 量化是将 K/V 激活值从 FP16 压缩到低精度：
 - **对话/摘要 Agent**：INT4 通常可接受
 - **数学推理 Agent**：FP16 或 INT8，精度损失可能引起计算错误
 
-## 五、Agent 开发者的实践指南
+## Agent 开发者的实践指南
 
-### 5.1 选择合适的推理引擎
+### 选择合适的推理引擎
 
 | 引擎 | 特点 | 适用场景 |
 |------|------|---------|
@@ -198,14 +198,14 @@ KV Cache 量化是将 K/V 激活值从 FP16 压缩到低精度：
 | SGLang | RadixAttention, 结构化生成 | 复杂 Agent 工作流 <cite>[3]</cite> |
 | HuggingFace TGI | 易用, 生态好 | 快速原型 |
 
-### 5.2 降低 Agent 的 KV Cache 压力的策略
+### 降低 Agent 的 KV Cache 压力的策略
 
 1. **复用 system prompt**：所有请求使用相同的 system prompt，利用 prefix caching
 2. **及时清理历史**：当对话超出需要时，截断或摘要（见第3篇），释放 KV Cache
 3. **批量处理**：将独立工具调用结果合并到一次 LLM 调用中
 4. **选择合适的模型规模**：Agent 循环中的每一步不一定需要最强模型——简单的工具选择可以用小模型
 
-### 5.3 监控指标
+### 监控指标
 
 部署 Agent 服务时，关注以下指标：
 - **TTFT**（Time to First Token）：包括 prefill 阶段的计算 + KV Cache 分配

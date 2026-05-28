@@ -16,9 +16,9 @@ image: /assets/images/covers/ai-dev-tools.jpg
 
 这与第5篇讨论的"多 Agent 协作"不同：多 Agent 是**同级之间的协调**（如 Generator-Verifier），而 Subagent 是**主从委派**（一个主 Agent 将子任务派发给多个 Subagent）。
 
-## 一、Subagent 的多维定义
+## Subagent 的多维定义
 
-### 1.1 什么算一个 Subagent
+### 什么算一个 Subagent
 
 一个组件要被称为 Subagent，需要满足三个条件：
 
@@ -37,7 +37,7 @@ flowchart LR
 2. **工具限制**：Subagent 只能访问被授予的工具子集
 3. **明确生命周期**：有清晰的创建、执行、返回、销毁过程
 
-### 1.2 Subagent vs 多 Agent 协作
+### Subagent vs 多 Agent 协作
 
 | 维度 | Subagent（主从委派） | Multi-Agent（同级协作） |
 |------|---------------------|----------------------|
@@ -47,9 +47,9 @@ flowchart LR
 | 并行性 | 天然并行 | 需要协调 |
 | 适用场景 | 独立子任务分解 | 需要相互审查/辩论的任务 |
 
-## 二、隔离模型
+## 隔离模型
 
-### 2.1 三级隔离深度
+### 三级隔离深度
 
 ```mermaid
 flowchart LR
@@ -58,7 +58,7 @@ flowchart LR
     L3["Level 3: 完整沙箱隔离<br/>──────────────<br/>Docker / VM 级隔离<br/>完整文件系统快照<br/>网络完全隔离<br/>超时强制终止<br/><br/>开销: 中-高<br/>安全性: 高"]
 ```
 
-### 2.2 各层适用场景
+### 各层适用场景
 
 **Level 1 — 上下文隔离**（最常用）：
 - 搜索类子任务（grepping、文件搜索）
@@ -75,7 +75,7 @@ flowchart LR
 - 安全测试 / 渗透测试
 - 可能需要 root 或危险操作的任务
 
-### 2.3 Claude Code 中的 Worktree 隔离
+### Claude Code 中的 Worktree 隔离
 
 Claude Code 的 Subagent 支持 `isolation: "worktree"` ——这是一个 Level 2 隔离的优秀工程实例 <cite>[1]</cite>：
 
@@ -94,9 +94,9 @@ Worktree 隔离的精妙之处：
 - **Git 原生**：不需要 Docker，利用 Git 的 worktree 机制实现轻量级分支隔离
 - **天然并行**：多个 Subagent 在独立的 Worktree 中并行工作，互不干扰
 
-## 三、委派-收集-合并模式
+## 委派-收集-合并模式
 
-### 3.1 基本模式
+### 基本模式
 
 ```python
 import asyncio
@@ -164,7 +164,7 @@ class SubagentOrchestrator:
             )
 ```
 
-### 3.2 结果合并策略
+### 结果合并策略
 
 ```mermaid
 flowchart LR
@@ -176,9 +176,9 @@ flowchart LR
     Merge -->|"投票/评审"| Vote["多数投票<br/>取一致/最优结果"]
 ```
 
-## 四、Subagent 生命周期管理
+## Subagent 生命周期管理
 
-### 4.1 状态机
+### 状态机
 
 ```mermaid
 stateDiagram-v2
@@ -197,7 +197,7 @@ stateDiagram-v2
     Terminated --> [*]
 ```
 
-### 4.2 资源限制与超时
+### 资源限制与超时
 
 ```python
 # Subagent 的资源限制配置
@@ -215,16 +215,16 @@ SUBAGENT_LIMITS = {
 2. 如果仍未完成 → `hard_timeout` → 强制终止并收集已有的部分结果
 3. 返回部分结果 + 标注 "任务未完成"
 
-## 五、设计决策框架
+## 设计决策框架
 
-### 5.1 何时使用 Subagent
+### 何时使用 Subagent
 
 使用 Subagent 的三个信号：
 1. **上下文压力**：当前任务的信息量已经接近上下文窗口限制
 2. **独立子任务**：存在可自然分解的独立子问题
 3. **并行机会**：多个子任务之间没有数据依赖
 
-### 5.2 任务分解原则
+### 任务分解原则
 
 | 原则 | 说明 | 反例 |
 |------|------|------|
@@ -233,7 +233,7 @@ SUBAGENT_LIMITS = {
 | **可验证** | 每个 Subagent 的输出可独立验证 | 输出是"代码看起来不错" |
 | **有限范围** | 明确的任务边界和时间/资源限制 | "探索所有可能的优化方案" |
 
-### 5.3 安全性检查清单
+### 安全性检查清单
 
 - [ ] Subagent 的工具白名单是否最小化？
 - [ ] 文件系统访问是否限制在必需路径？

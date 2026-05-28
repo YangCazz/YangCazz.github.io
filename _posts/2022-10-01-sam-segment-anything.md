@@ -143,7 +143,7 @@ graph LR
 
 ### 关键组件
 
-#### 1. Image Encoder
+#### Image Encoder
 
 ```python
 # 使用ViT-H（Huge）作为图像编码器
@@ -170,7 +170,7 @@ class ImageEncoder(nn.Module):
 - 输出256通道的64×64特征图
 - 参数量：约630M（占SAM总参数的99%）<cite>[1]</cite>
 
-#### 2. Prompt Encoder
+#### Prompt Encoder
 
 ```python
 class PromptEncoder(nn.Module):
@@ -223,7 +223,7 @@ class PromptEncoder(nn.Module):
 - **稀疏Prompt**（点、框）：使用位置编码 + 学习嵌入
 - **密集Prompt**（mask）：使用卷积网络编码
 
-#### 3. Mask Decoder
+#### Mask Decoder
 
 ```python
 class MaskDecoder(nn.Module):
@@ -493,7 +493,7 @@ for epoch in range(10, 30):
 
 ### ✅ 优势
 
-#### 1. Zero/Few-shot能力
+#### Zero/Few-shot能力
 
 ```
 传统UNet：
@@ -506,7 +506,7 @@ MedSAM：
 任务B → 5例fine-tune → 完成
 ```
 
-#### 2. 交互式分割
+#### 交互式分割
 
 ```python
 # 用户交互流程
@@ -538,7 +538,7 @@ def interactive_segmentation(image, user_clicks):
 - 病理学家辅助诊断
 - 研究人员数据准备
 
-#### 3. 通用性
+#### 通用性
 
 ```
 一个MedSAM模型支持：
@@ -553,7 +553,7 @@ vs.
 
 ### ❌ 局限
 
-#### 1. 计算资源需求
+#### 计算资源需求
 
 ```
 MedSAM参数量：636M
@@ -575,7 +575,7 @@ GPU内存：约2GB
 - MobileSAM（5.7M参数，60×加速）
 - FastSAM（基于YOLO，实时推理）
 
-#### 2. 精度仍有差距
+#### 精度仍有差距
 
 ```
 复杂任务（如小器官、边界模糊）：
@@ -585,7 +585,7 @@ MedSAM Dice: 0.68-0.75
 差距：约5-10%
 ```
 
-#### 3. 需要Prompt
+#### 需要Prompt
 
 ```
 MedSAM不能：
@@ -602,7 +602,7 @@ MedSAM不能：
 
 ## 实用技巧
 
-### 1. Prompt工程
+### Prompt工程
 
 ```python
 # 策略1：Box Prompt最稳定
@@ -635,7 +635,7 @@ def get_fg_bg_points(mask_gt):
     return np.concatenate([fg_point, bg_point], axis=0)
 ```
 
-### 2. Fine-tuning最佳实践
+### Fine-tuning最佳实践
 
 ```python
 # 针对特定模态/任务fine-tune
@@ -675,7 +675,7 @@ for epoch in range(50):
             break
 ```
 
-### 3. 后处理优化
+### 后处理优化
 
 ```python
 def refine_prediction(pred_mask):

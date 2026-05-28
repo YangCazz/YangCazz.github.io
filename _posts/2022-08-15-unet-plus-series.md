@@ -455,7 +455,7 @@ class UNet3Plus(nn.Module):
 
 ### UNet 3+的独特优势
 
-#### 1. Classification-Guided Module（CGM） <cite>[2]</cite>
+#### Classification-Guided Module（CGM） <cite>[2]</cite>
 
 UNet 3+添加了一个**分类分支**，用于图像级别的监督：
 
@@ -483,7 +483,7 @@ total_loss = seg_loss + 0.5 * cls_loss
 - 减少假阳性（避免在空白图像中分割）
 - 作为质量控制机制
 
-#### 2. Hybrid Loss Function <cite>[2]</cite>
+#### Hybrid Loss Function <cite>[2]</cite>
 
 $$
 \mathcal{L}_{\text{total}} = \mathcal{L}_{\text{seg}} + \lambda_1 \mathcal{L}_{\text{ms-ssim}} + \lambda_2 \mathcal{L}_{\text{IoU}} + \lambda_3 \mathcal{L}_{\text{cls}}
@@ -595,7 +595,7 @@ graph LR
 
 ## 训练技巧
 
-### 1. 深度监督训练策略
+### 深度监督训练策略
 
 ```python
 def train_with_deep_supervision(model, data_loader):
@@ -624,7 +624,7 @@ def train_with_deep_supervision(model, data_loader):
         optimizer.step()
 ```
 
-### 2. 渐进式解冻训练
+### 渐进式解冻训练
 
 ```python
 # UNet 3+由于参数量大，容易过拟合
@@ -655,7 +655,7 @@ for epoch in range(50, 100):
     train_epoch()
 ```
 
-### 3. 混合损失权重调优
+### 混合损失权重调优
 
 ```python
 # UNet 3+的混合损失需要仔细调优

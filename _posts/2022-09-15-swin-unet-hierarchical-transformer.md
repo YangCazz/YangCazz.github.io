@@ -41,7 +41,7 @@ image: /assets/images/covers/medical-segmentation.jpg
 
 ## Swin Transformer核心思想<cite>[2]</cite>
 
-### 1. Window-based Self-Attention
+### Window-based Self-Attention
 
 **标准自注意力**：每个token与所有token交互（\( O(N^2) \)）
 
@@ -82,7 +82,7 @@ graph LR
     MERGE --> OUT["Global RF<br/>after L+L+1"]
 ```
 
-### 2. Shifted Window Mechanism
+### Shifted Window Mechanism
 
 **问题**：单纯的Window Attention割裂了窗口之间的信息流。
 
@@ -142,7 +142,7 @@ $$
 - SW-MSA：Shifted Window Multi-Head Self-Attention
 - LN：Layer Normalization
 
-### 3. 层级化架构
+### 层级化架构
 
 Swin Transformer采用类似CNN的**特征金字塔**：
 
@@ -464,7 +464,7 @@ class SwinUNet(nn.Module):
 
 ## Swin-UNet的优势
 
-### 1. 计算效率
+### 计算效率
 
 ```
 512×512图像分割任务：
@@ -483,7 +483,7 @@ Swin-UNet：
 加速比：2.5×
 ```
 
-### 2. 层级化特征
+### 层级化特征
 
 ```
 Swin-UNet的多尺度特征：
@@ -498,7 +498,7 @@ Swin-UNet的多尺度特征：
 ✓ 适配多尺度目标
 ```
 
-### 3. 全局感受野
+### 全局感受野
 
 ```
 通过shifted windows：
@@ -517,7 +517,7 @@ Layer 3（常规窗口）：感受野扩大
 
 ## 训练技巧
 
-### 1. 窗口大小调优
+### 窗口大小调优
 
 ```python
 # 窗口大小影响性能
@@ -535,7 +535,7 @@ for ws in window_sizes:
 # window_size=14: Dice=82.1% (大窗口，计算量大)
 ```
 
-### 2. 数据增强
+### 数据增强
 
 ```python
 # Swin-UNet对旋转敏感（位置编码）
@@ -554,7 +554,7 @@ transforms = A.Compose([
 ])
 ```
 
-### 3. 学习率调度
+### 学习率调度
 
 ```python
 # Swin-UNet使用AdamW + Cosine Annealing

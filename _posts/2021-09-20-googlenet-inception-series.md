@@ -36,7 +36,7 @@ graph LR
     style V4 fill:#f3e5f5,stroke:#6a1b9a
 ```
 
-## 1. InceptionNet V1 (2014)
+## InceptionNet V1 (2014)
 
 {% include paper-info.html 
    authors="Christian Szegedy et al. (Google)"
@@ -95,11 +95,11 @@ graph LR
 
 ### 主要贡献
 
-#### 1. Inception结构
+#### Inception结构
 
 提出多尺度特征并行提取与融合的思想，这一思想深刻影响了后续研究。
 
-#### 2. 辅助输出层
+#### 辅助输出层
 
 ![辅助输出层](/assets/images/posts/deep-learning/googlenet-auxiliary-classifier.png)
 
@@ -117,7 +117,7 @@ graph LR
 total_loss = main_loss + 0.3 * aux_loss1 + 0.3 * aux_loss2
 ```
 
-#### 3. 参数量大幅减少
+#### 参数量大幅减少
 
 * 丢弃全连接层，使用全局平均池化
 * 参数量是VGG的**1/20**
@@ -127,7 +127,7 @@ total_loss = main_loss + 0.3 * aux_loss1 + 0.3 * aux_loss2
 
 * **代码地址**：[GitHub - DeepLearning/model_classification/GoogleNet](https://github.com/YangCazz/DeepLearning/tree/master/model_classification/GoogleNet)
 
-## 2. InceptionNet V2 (2015)
+## InceptionNet V2 (2015)
 
 ### 核心创新：Batch Normalization
 
@@ -181,7 +181,7 @@ class InceptionV2(nn.Module):
 
 BatchNorm成为深度学习的**标准组件**，几乎所有现代CNN架构都使用了BatchNorm或其变体。
 
-## 3. InceptionNet V3 (2015)
+## InceptionNet V3 (2015)
 
 ### 设计准则
 
@@ -245,7 +245,7 @@ reduction = (9 - 6) / 9 = 33%
 
 **参考论文**：[Discovering and Explaining the Representation Bottleneck of DNNs (2021)](https://arxiv.org/abs/2111.06236)
 
-## 4. InceptionNet V4 (2016)
+## InceptionNet V4 (2016)
 
 ### 背景：残差连接的引入
 
@@ -330,7 +330,7 @@ Inception的本质是**Split-Transform-Merge**：
 
 ## 实践建议
 
-### 1. 何时使用GoogLeNet？
+### 何时使用GoogLeNet？
 
 ✅ **适用场景**：
 * 计算资源受限
@@ -341,7 +341,7 @@ Inception的本质是**Split-Transform-Merge**：
 * 网络结构复杂，实现和调试较难
 * 对精度要求极高的场景（不如ResNet）
 
-### 2. 训练技巧
+### 训练技巧
 
 ```python
 # 1. 辅助损失的权重通常设为0.3
@@ -356,7 +356,7 @@ model.train()  # 训练模式：使用batch统计量
 model.eval()   # 推理模式：使用全局统计量
 ```
 
-### 3. BatchNorm的注意事项
+### BatchNorm的注意事项
 
 ```python
 # 注意：batch size太小时BatchNorm效果不好

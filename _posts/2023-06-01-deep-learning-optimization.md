@@ -16,7 +16,7 @@ image: /assets/images/covers/dl-practice.jpg
 
 ## 模型压缩技术
 
-### 1. 知识蒸馏
+### 知识蒸馏
 
 知识蒸馏<cite>[1]</cite>是一种有效的模型压缩方法，通过让小模型学习大模型的知识来提升性能：
 
@@ -42,7 +42,7 @@ class DistillationLoss(nn.Module):
         return self.alpha * soft_loss + (1 - self.alpha) * hard_loss
 ```
 
-### 2. 模型剪枝
+### 模型剪枝
 
 结构化剪枝<cite>[2]</cite>在保持模型结构的同时减少参数量：
 
@@ -77,7 +77,7 @@ def structured_pruning(model, sparsity=0.5):
 
 ## 量化技术
 
-### 1. 动态量化
+### 动态量化
 
 PyTorch的动态量化<cite>[3]</cite>可以快速减少模型大小：
 
@@ -95,7 +95,7 @@ quantized_model = torch.quantization.quantize_dynamic(
 torch.save(quantized_model.state_dict(), 'quantized_model.pth')
 ```
 
-### 2. 静态量化
+### 静态量化
 
 静态量化需要校准数据集：
 
@@ -121,7 +121,7 @@ quantized_model = torch.quantization.convert(prepared_model)
 
 ## 推理优化
 
-### 1. TensorRT优化
+### TensorRT优化
 
 使用TensorRT<cite>[4]</cite>进行GPU推理优化：
 
@@ -151,7 +151,7 @@ def build_engine(onnx_path, engine_path):
     return engine
 ```
 
-### 2. ONNX转换
+### ONNX转换
 
 将PyTorch模型转换为ONNX格式<cite>[5]</cite>：
 
@@ -178,7 +178,7 @@ def convert_to_onnx(model, input_shape, onnx_path):
 
 ## 部署实践
 
-### 1. Docker容器化
+### Docker容器化
 
 ```dockerfile
 FROM nvidia/cuda:11.8-devel-ubuntu20.04
@@ -198,7 +198,7 @@ RUN pip3 install -r requirements.txt
 CMD ["python3", "app.py"]
 ```
 
-### 2. 模型服务化
+### 模型服务化
 
 使用Flask创建模型服务：
 

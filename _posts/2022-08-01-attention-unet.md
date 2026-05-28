@@ -75,7 +75,7 @@ CT图像：512×512
 
 ## Attention Gate详解
 
-### 1. 整体架构
+### 整体架构
 
 Attention UNet基于标准UNet，在每个Skip Connection处添加Attention Gate：
 
@@ -108,7 +108,7 @@ Bottleneck ──┘                  │
 - Attention Gate使用**编码器特征作为key/value**（"我有哪些信息？"）
 - 输出加权的编码器特征，传递给解码器
 
-### 2. Attention Gate的数学定义
+### Attention Gate的数学定义
 
 设编码器特征为 \(x^l \in \mathbb{R}^{H \times W \times C}\)，解码器特征为 \(g \in \mathbb{R}^{H' \times W' \times C'}\)。
 
@@ -152,7 +152,7 @@ $$
 
 逐元素相乘，重要区域 \(\alpha \approx 1\)，不重要区域 \(\alpha \approx 0\)。
 
-### 3. 完整公式
+### 完整公式
 
 将上述步骤整合：
 
@@ -171,7 +171,7 @@ $$
 \hat{x}^l = x^l \odot \alpha^l
 $$
 
-### 4. PyTorch实现
+### PyTorch实现
 
 ```python
 class AttentionGate(nn.Module):
@@ -309,7 +309,7 @@ class AttentionUNet(nn.Module):
         return out
 ```
 
-### 5. 注意力机制的直观理解
+### 注意力机制的直观理解
 
 **可视化注意力权重**：
 
@@ -443,7 +443,7 @@ Layer 4注意力图（最深层）：
 
 ### ✅ 优势
 
-#### 1. 提升小目标分割
+#### 提升小目标分割
 
 **对比UNet**：
 ```
@@ -462,7 +462,7 @@ Attention UNet：
 - Dice: 0.86（+4%）<cite>[1]</cite>
 ```
 
-#### 2. 可解释性
+#### 可解释性
 
 ```python
 # 可视化注意力，理解网络决策
@@ -478,13 +478,13 @@ Layer 3: 关注区域比例 = 8%   （高度聚焦）
 Layer 4: 关注区域比例 = 3%   （精确定位）
 ```
 
-#### 3. 无需额外标注
+#### 无需额外标注
 
 - ✅ 仅用分割mask训练，无需ROI标注
 - ✅ 注意力权重自动学习
 - ✅ 端到端优化
 
-#### 4. 计算效率高
+#### 计算效率高
 
 **参数量对比**<cite>[1]</cite>：
 ```
@@ -500,7 +500,7 @@ Attention UNet: 34.5M 参数（+11%）
 
 ### ❌ 局限
 
-#### 1. 多类别分割挑战
+#### 多类别分割挑战
 
 ```
 问题：注意力是全局的，难以同时关注多个目标
@@ -518,7 +518,7 @@ Attention UNet倾向于：
 - 或分别训练两个网络
 ```
 
-#### 2. 依赖解码器质量
+#### 依赖解码器质量
 
 ```
 注意力门控依赖解码器特征g作为query
@@ -539,7 +539,7 @@ Later Epoch: 解码器收敛
 → 性能超越UNet
 ```
 
-#### 3. 训练不稳定
+#### 训练不稳定
 
 ```python
 # 注意力门控可能导致梯度问题
@@ -577,7 +577,7 @@ class StableAttentionGate(nn.Module):
 
 ## 变种与扩展
 
-### 1. Dual Attention UNet
+### Dual Attention UNet
 
 **思想**: 空间注意力 + 通道注意力
 
@@ -608,7 +608,7 @@ class DualAttentionGate(nn.Module):
         return x_channel
 ```
 
-### 2. 3D Attention UNet
+### 3D Attention UNet
 
 扩展到3D医学图像：
 
@@ -629,7 +629,7 @@ class AttentionGate3D(nn.Module):
         return x * psi
 ```
 
-### 3. Multi-scale Attention
+### Multi-scale Attention
 
 **思想**: 不同尺度的注意力
 
@@ -661,7 +661,7 @@ class MultiScaleAttention(nn.Module):
 
 ## 训练技巧
 
-### 1. 损失函数
+### 损失函数
 
 ```python
 # 组合损失
@@ -681,7 +681,7 @@ class CombinedLoss(nn.Module):
         return 0.4 * dice_loss + 0.3 * ce_loss + 0.3 * focal_loss
 ```
 
-### 2. 数据增强
+### 数据增强
 
 胰腺等小器官分割需要强数据增强：
 
@@ -710,7 +710,7 @@ transforms = A.Compose([
 ])
 ```
 
-### 3. 学习率调度
+### 学习率调度
 
 ```python
 # Warm-up + Cosine Annealing
@@ -738,7 +738,7 @@ scheduler = torch.optim.lr_scheduler.SequentialLR(
 )
 ```
 
-### 4. 渐进式训练
+### 渐进式训练
 
 ```python
 # 先训练标准UNet，再fine-tune Attention

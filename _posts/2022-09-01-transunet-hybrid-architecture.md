@@ -201,7 +201,7 @@ graph LR
 
 ### 关键组件详解
 
-#### 1. Patch Embedding
+#### Patch Embedding
 
 **问题**：Transformer处理序列，如何将2D图像转换为序列？
 
@@ -244,7 +244,7 @@ $$
 
 **TransUNet的选择**：patch_size = 1（每个像素一个token）
 
-#### 2. Positional Encoding
+#### Positional Encoding
 
 **问题**：Transformer是排列不变的（permutation-invariant），无法区分位置。
 
@@ -284,7 +284,7 @@ $$
 
 其中 \( E_{\text{pos}} \in \mathbb{R}^{N \times D} \) 是可学习参数。
 
-#### 3. Transformer Encoder
+#### Transformer Encoder
 
 ```python
 class TransformerEncoder(nn.Module):
@@ -326,7 +326,7 @@ class TransformerBlock(nn.Module):
         return x
 ```
 
-#### 4. 完整TransUNet实现
+#### 完整TransUNet实现
 
 ```python
 class TransUNet(nn.Module):
@@ -505,7 +505,7 @@ class TransUNet(nn.Module):
 
 ### ✅ 优势
 
-#### 1. 全局建模能力
+#### 全局建模能力
 
 **示例：主动脉分割**
 
@@ -546,7 +546,7 @@ def visualize_attention(model, image):
 - 浅层head：关注局部邻域（类似卷积）
 - 深层head：关注远距离依赖（独特优势）
 
-#### 2. 处理多尺度目标
+#### 处理多尺度目标
 
 ```
 场景：同时分割大器官（肝脏94%）和小器官（胆囊2%）
@@ -562,7 +562,7 @@ Transformer的优势：
 - 胆囊Dice: 68.60% → 77.42%（+8.8%）
 ```
 
-#### 3. 更少的归纳偏置
+#### 更少的归纳偏置
 
 **CNN的归纳偏置**：
 - 局部性（locality）：卷积只看局部
@@ -575,7 +575,7 @@ Transformer的优势：
 
 ### ❌ 挑战
 
-#### 1. 计算复杂度高
+#### 计算复杂度高
 
 **自注意力的复杂度**：\( O(N^2 D) \)
 
@@ -607,7 +607,7 @@ $$
 \text{Memory} = 4 \times 12 \times 784 \times 784 \times 4 \approx 118 \text{ MB（仅注意力矩阵）}
 $$
 
-#### 2. 需要大量数据
+#### 需要大量数据
 
 **Transformer缺乏归纳偏置，需要更多数据**：
 
@@ -626,7 +626,7 @@ ImageNet预训练（1.2M图像）：
 - 数据增强（旋转、翻转、弹性变形）
 - 正则化（Dropout、StochasticDepth）
 
-#### 3. 高分辨率图像困难
+#### 高分辨率图像困难
 
 **问题**：医学图像通常很大（512×512或更大）
 
@@ -651,7 +651,7 @@ Batch=2, Heads=12, N=4096
 
 ## TransUNet的变种
 
-### 1. MedT（Medical Transformer）
+### MedT（Medical Transformer）
 
 **改进**：Gated Axial Attention（门控轴向注意力）
 
@@ -678,7 +678,7 @@ class GatedAxialAttention(nn.Module):
 - 计算量降低：\( O(N^2) \rightarrow O(N\sqrt{N}) \)
 - 适合高分辨率医学图像
 
-### 2. UNETR
+### UNETR
 
 **改进**：纯Transformer编码器，无CNN
 
@@ -695,7 +695,7 @@ class GatedAxialAttention(nn.Module):
 - 性能与TransUNet相当
 - 参数量略小
 
-### 3. CoTr (Contextual Transformer)
+### CoTr (Contextual Transformer)
 
 **改进**：多尺度Transformer
 
@@ -712,7 +712,7 @@ class GatedAxialAttention(nn.Module):
 
 ## 训练技巧
 
-### 1. 预训练策略
+### 预训练策略
 
 ```python
 # 使用ImageNet预训练的ViT权重
@@ -738,7 +738,7 @@ def load_pretrained_vit(model, vit_name='vit_base_patch16_224'):
     print(f"Loaded {len(pretrained_dict)} layers from {vit_name}")
 ```
 
-### 2. 两阶段训练
+### 两阶段训练
 
 ```python
 # 阶段1：冻结Transformer，训练CNN部分
@@ -761,7 +761,7 @@ for epoch in range(50, 150):
     train_epoch(model, train_loader)
 ```
 
-### 3. 混合精度训练
+### 混合精度训练
 
 ```python
 from torch.cuda.amp import autocast, GradScaler

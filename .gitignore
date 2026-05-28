@@ -42,6 +42,7 @@ presentation.pptx
 # 备份文件
 *.bak
 *.backup
+_posts_backup/
 
 # 参考资料目录
 ref/

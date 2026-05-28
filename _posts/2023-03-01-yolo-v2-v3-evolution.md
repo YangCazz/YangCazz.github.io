@@ -40,7 +40,7 @@ R-CNN系列 → YOLO v1 → YOLO v2/v3（本文） → YOLO v4 → YOLO v5 → Y
 
 ### 核心改进
 
-#### 1. 锚框机制（Anchor Boxes）
+#### 锚框机制（Anchor Boxes）
 
 **YOLO v2引入锚框机制**<cite>[1]</cite>：
 
@@ -81,7 +81,7 @@ print(f"生成了 {len(anchors)} 个锚框")
 print(f"锚框形状: {anchors.shape}")  # (9, 4)
 ```
 
-#### 2. 边界框预测改进
+#### 边界框预测改进
 
 **YOLO v2边界框预测**：
 
@@ -141,7 +141,7 @@ class YOLOv2BBox:
         return (x1, y1, x2, y2)
 ```
 
-#### 3. Darknet-19网络架构
+#### Darknet-19网络架构
 
 **YOLO v2使用Darknet-19作为特征提取网络**<cite>[1]</cite>：
 
@@ -237,7 +237,7 @@ class Darknet19(nn.Module):
         return x
 ```
 
-#### 4. 多尺度训练
+#### 多尺度训练
 
 **YOLO v2多尺度训练策略**<cite>[1]</cite>：
 
@@ -302,7 +302,7 @@ def resize_images(images, target_size):
 
 ### 核心改进
 
-#### 1. 多尺度检测
+#### 多尺度检测
 
 **YOLO v3使用三个不同尺度的特征图**<cite>[2]</cite>：
 
@@ -363,7 +363,7 @@ class DetectionHead(nn.Module):
         return x
 ```
 
-#### 2. 特征金字塔网络（FPN）
+#### 特征金字塔网络（FPN）
 
 **YOLO v3使用FPN进行特征融合**<cite>[2]</cite>：
 
@@ -408,7 +408,7 @@ class FeaturePyramidNetwork(nn.Module):
         return [P5, P4, P3]
 ```
 
-#### 3. Darknet-53网络架构
+#### Darknet-53网络架构
 
 **YOLO v3使用Darknet-53作为特征提取网络**<cite>[2]</cite>：
 
@@ -489,7 +489,7 @@ class ResidualBlock(nn.Module):
         return x
 ```
 
-#### 4. 多尺度锚框
+#### 多尺度锚框
 
 **YOLO v3使用不同尺度的锚框**：
 
@@ -582,7 +582,7 @@ graph LR
 
 ### ✅ 主要优势
 
-#### 1. 精度大幅提升 <cite>[1][2]</cite>
+#### 精度大幅提升 <cite>[1][2]</cite>
 
 ```
 精度提升：
@@ -591,7 +591,7 @@ graph LR
 - 小目标检测: +13.5% mAP
 ```
 
-#### 2. 多尺度检测 <cite>[2]</cite>
+#### 多尺度检测 <cite>[2]</cite>
 
 ```
 多尺度检测优势：
@@ -600,7 +600,7 @@ graph LR
 - 密集目标检测能力增强
 ```
 
-#### 3. 锚框机制 <cite>[1]</cite>
+#### 锚框机制 <cite>[1]</cite>
 
 ```
 锚框机制优势：
@@ -611,7 +611,7 @@ graph LR
 
 ### ❌ 主要局限
 
-#### 1. 速度略有下降
+#### 速度略有下降
 
 ```
 速度问题：
@@ -620,7 +620,7 @@ graph LR
 - 网络复杂度增加
 ```
 
-#### 2. 小目标检测仍有局限
+#### 小目标检测仍有局限
 
 ```
 小目标检测问题：
@@ -629,7 +629,7 @@ graph LR
 - 密集小目标检测困难
 ```
 
-#### 3. 训练复杂度增加
+#### 训练复杂度增加
 
 ```
 训练复杂度：
