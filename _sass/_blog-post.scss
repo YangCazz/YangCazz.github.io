@@ -183,6 +183,13 @@
     font-size: 1.3rem;
 }
 
+/* 自动编号标签 */
+.blog-post .post-content .heading-num {
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-right: 0.25em;
+}
+
 .blog-post .post-content h4 {
     font-size: 1.1rem;
 }

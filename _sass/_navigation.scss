@@ -155,7 +155,7 @@
     position: sticky;
     top: 80px;
     height: fit-content;
-    width: 240px;
+    width: 280px;
     background: rgba(255, 255, 255, 0.85);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
@@ -163,6 +163,12 @@
     padding: 0.8rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.sidebar-nav .nav-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .sidebar-nav .nav-link {

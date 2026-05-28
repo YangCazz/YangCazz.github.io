@@ -589,6 +589,9 @@
     line-height: 1.35;
     transition: var(--transition);
     border-left: 2px solid transparent;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .toc-item:hover {
