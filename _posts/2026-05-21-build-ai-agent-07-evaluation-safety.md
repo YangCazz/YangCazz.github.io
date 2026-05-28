@@ -22,7 +22,7 @@ image: /assets/images/covers/ai-dev-tools.jpg
 
 ---
 
-## 一、评测维度体系
+## 评测维度体系
 
 ```mermaid
 graph LR
@@ -55,9 +55,9 @@ graph LR
 
 ---
 
-## 二、构建评测集
+## 构建评测集
 
-### 2.1 评测用例结构
+### 评测用例结构
 
 ```python
 @dataclass
@@ -113,7 +113,7 @@ EVAL_SET = [
 ]
 ```
 
-### 2.2 评测运行器
+### 评测运行器
 
 ```python
 import time
@@ -211,9 +211,9 @@ class AgentEvaluator:
 
 ---
 
-## 三、LLM-as-Judge：自动评分
+## LLM-as-Judge：自动评分
 
-### 3.1 Judge 的 Prompt 设计
+### Judge 的 Prompt 设计
 
 ```python
 def _llm_judge(self, case: EvalCase, output: str) -> dict:
@@ -269,7 +269,7 @@ def _llm_judge(self, case: EvalCase, output: str) -> dict:
     return json.loads(response.choices[0].message.content)
 ```
 
-### 3.2 LLM-as-Judge 的可靠性分析
+### LLM-as-Judge 的可靠性分析
 
 **定义 1（评分者间一致性）**：设人类评分向量为 \\(\\mathbf{h}\\)，LLM 评分向量为 \\(\\mathbf{l}\\)。两者的一致性用 Spearman 秩相关系数度量：
 
@@ -289,9 +289,9 @@ t = \\frac{\\bar{d}}{s_d / \\sqrt{n}}
 
 ---
 
-## 四、安全护栏
+## 安全护栏
 
-### 4.1 三层防护架构
+### 三层防护架构
 
 ```mermaid
 graph LR
@@ -316,7 +316,7 @@ graph LR
     style L3 fill:#f87171,color:#fff
 ```
 
-### 4.2 第 1 层：输入过滤
+### 第 1 层：输入过滤
 
 ```python
 class InputFilter:
@@ -367,7 +367,7 @@ class InputFilter:
         return {"safe": True, "reason": "", "severity": "none"}
 ```
 
-### 4.3 第 2 层：工具调用审查
+### 第 2 层：工具调用审查
 
 ```python
 class ToolGuard:
@@ -418,7 +418,7 @@ class ToolGuard:
         return {"allowed": False, "reason": f"未知工具: {tool_name}"}
 ```
 
-### 4.4 第 3 层：输出过滤
+### 第 3 层：输出过滤
 
 ```python
 class OutputFilter:
@@ -465,7 +465,7 @@ class OutputFilter:
         return "***"
 ```
 
-### 4.5 集成安全过滤到 Agent
+### 集成安全过滤到 Agent
 
 ```python
 class SecureAgent:
@@ -519,9 +519,9 @@ class SecureAgent:
 
 ---
 
-## 五、成本控制
+## 成本控制
 
-### 5.1 模型降级策略
+### 模型降级策略
 
 并非所有任务都需要最强的模型。引入任务复杂度评估，自动降级：
 
@@ -564,7 +564,7 @@ class CostController:
         return (estimated_tokens / 1000) * cost_per_1k
 ```
 
-### 5.2 成本-质量的帕累托前沿
+### 成本-质量的帕累托前沿
 
 ```
 质量
@@ -588,7 +588,7 @@ class CostController:
 
 ---
 
-## 六、评测报告生成
+## 评测报告生成
 
 ```python
 def generate_report(results: list[EvalResult]) -> str:
@@ -638,7 +638,7 @@ def generate_report(results: list[EvalResult]) -> str:
 
 ---
 
-## 七、本章小结
+## 本章小结
 
 1. **评测集构建**：50 个用例覆盖 math/code/tool/reasoning 四个类别
 2. **LLM-as-Judge**：Spearman 相关系数 \\(\\rho \\approx 0.83\\)，与人类评分高度一致

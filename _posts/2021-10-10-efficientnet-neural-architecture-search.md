@@ -28,7 +28,7 @@ image: /assets/images/covers/cnn-pioneers.jpg
 * **[2019] EfficientNet V1**：[EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946)
 * **[2021] EfficientNet V2**：[EfficientNetV2: Smaller Models and Faster Training](https://arxiv.org/abs/2104.00298)
 
-## 1. EfficientNet V1 (2019)
+## EfficientNet V1 (2019)
 
 ### 核心问题
 
@@ -238,7 +238,7 @@ class Swish(nn.Module):
 
 * **代码地址**：[GitHub - DeepLearning/model_classification/EfficientNet](https://github.com/YangCazz/DeepLearning/tree/master/model_classification/EfficientNet)
 
-## 2. EfficientNet V2 (2021)
+## EfficientNet V2 (2021)
 
 ### V1的问题
 
@@ -259,7 +259,7 @@ graph LR
 
 ### 核心创新
 
-#### 1. Fused-MBConv
+#### Fused-MBConv
 
 ![Fused-MBConv](/assets/images/posts/deep-learning/efficientnet-v2-fused-mbconv.png)
 
@@ -303,7 +303,7 @@ class FusedMBConvBlock(nn.Module):
 * 标准卷积可以更好利用硬件加速
 * 减少内存访问，提高速度
 
-#### 2. Progressive Learning
+#### Progressive Learning
 
 **渐进式学习策略**<cite>[2]</cite>：
 
@@ -390,7 +390,7 @@ for epoch in range(total_epochs):
 
 ## 实践经验
 
-### 1. 选择合适的版本
+### 选择合适的版本
 
 ```python
 from torchvision.models import efficientnet_b0, efficientnet_b7, efficientnet_v2_s
@@ -405,7 +405,7 @@ model = efficientnet_b7(pretrained=True)
 model = efficientnet_v2_s(pretrained=True)
 ```
 
-### 2. 迁移学习
+### 迁移学习
 
 ```python
 import torch.nn as nn
@@ -423,7 +423,7 @@ for param in model.features.parameters():
     param.requires_grad = False
 ```
 
-### 3. 混合精度训练
+### 混合精度训练
 
 ```python
 from torch.cuda.amp import autocast, GradScaler
@@ -442,7 +442,7 @@ for data, target in train_loader:
     scaler.update()
 ```
 
-### 4. 渐进式学习实现
+### 渐进式学习实现
 
 ```python
 def get_progressive_image_size(epoch, total_epochs):

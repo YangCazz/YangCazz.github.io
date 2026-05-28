@@ -14,9 +14,9 @@ image: /assets/images/covers/ai-dev-tools.jpg
 
 DeepSeek 的 Harness 岗位描述中，Prompt Engineering 与 Context Engineering、Harness Engineering 并列。这不是巧合——三者共同构成了 Agent 与 LLM 之间的**接口层**。
 
-## 一、Prompt 的信息论视角
+## Prompt 的信息论视角
 
-### 1.1 Prompt 作为有损压缩
+### Prompt 作为有损压缩
 
 一个反直觉的认知：**Prompt 的本质是有损压缩**。你需要将复杂任务的全部信息压缩到几千 token 中，而 LLM 需要解压这些信息来完成任务。
 
@@ -26,7 +26,7 @@ DeepSeek 的 Harness 岗位描述中，Prompt Engineering 与 Context Engineerin
 
 这揭示了 Prompt Engineering 的核心矛盾：**信息密度 vs 可理解性**。
 
-### 1.2 信息损失的三个来源
+### 信息损失的三个来源
 
 ```mermaid
 flowchart LR
@@ -41,9 +41,9 @@ flowchart LR
 
 好的 Prompt Engineering 就是**在给定 token 预算下最小化这三层信息损失**。
 
-## 二、System Prompt 架构设计
+## System Prompt 架构设计
 
-### 2.1 结构分层
+### 结构分层
 
 一个生产级的 System Prompt 应该有清晰的分层结构：
 
@@ -63,7 +63,7 @@ flowchart LR
 └─────────────────────────────────────┘
 ```
 
-### 2.2 各层的设计原则
+### 各层的设计原则
 
 **Layer 1 — 角色定义**：精确描述 Agent 的身份边界
 
@@ -90,7 +90,7 @@ flowchart LR
 
 **Layer 6 — Few-Shot 示例**：见下节
 
-### 2.3 Token 预算分配
+### Token 预算分配
 
 一个典型的 4000-token System Prompt 的预算分配建议：
 
@@ -103,15 +103,15 @@ flowchart LR
 | 知识注入 | 15-25% | 取决于领域复杂度 |
 | Few-Shot | 10-20% | 质量高但边际收益递减 |
 
-## 三、Few-Shot 选择的数学策略
+## Few-Shot 选择的数学策略
 
-### 3.1 随机选择的局限
+### 随机选择的局限
 
 最简单的 Few-Shot 是随机选几个示例。但这有两个问题：
 - **冗余**：选了高度相似的示例
 - **遗漏**：没覆盖边缘情况
 
-### 3.2 MMR（最大边际相关性）采样
+### MMR（最大边际相关性）采样
 
 借用信息检索中的 MMR 算法 <cite>[1]</cite> 来选择多样性高的示例：
 
@@ -147,7 +147,7 @@ def mmr_select(examples, query_embedding, k, lambda_=0.7):
     return selected
 ```
 
-### 3.3 Few-Shot 的边际收益递减
+### Few-Shot 的边际收益递减
 
 实验表明，Few-Shot 示例数量与性能提升不是线性关系：
 
@@ -157,9 +157,9 @@ def mmr_select(examples, query_embedding, k, lambda_=0.7):
 
 通常 **3-5 个精心选择的示例** 就可以捕获大部分收益。更多的示例不仅消耗 token，还可能导致模型过度拟合示例中的特定模式。
 
-## 四、Context Engineering
+## Context Engineering
 
-### 4.1 什么应该进入上下文窗口？
+### 什么应该进入上下文窗口？
 
 Context Engineering 是 Prompt Engineering 的延伸——它关注的是**信息选择**。Liu et al. 的研究 <cite>[3]</cite> 表明，LLM 对上下文中间位置的信息利用效率最低（"Lost in the Middle" 现象），这进一步强化了信息排序和选择的重要性：
 
@@ -183,7 +183,7 @@ flowchart LR
 - **择入**：相关性高但体积大的信息（用 RAG 替代直接放入）
 - **不入**：已过期、已解决、或与新任务无关的信息
 
-### 4.2 信息密度的优化
+### 信息密度的优化
 
 不是最小化 token 数，而是**最大化信息密度**：
 
@@ -196,9 +196,9 @@ flowchart LR
 - 去除礼貌用语和冗余修饰（对 LLM 而言，"请"和"谢谢"不增加信息量）
 - 工具返回结果做摘要后再放入上下文
 
-## 五、DSPy 式自动优化
+## DSPy 式自动优化
 
-### 5.1 手动 Prompt Engineering 的问题
+### 手动 Prompt Engineering 的问题
 
 手动调 prompt 是**不可复现、不可扩展、不可迁移**的。一个 prompt 在 GPT-4 上表现好，在 Claude 上可能完全不行。
 
@@ -210,7 +210,7 @@ DSPy <cite>[2]</cite> 的核心思想：**将 Prompt Engineering 转化为优化
 
 其中 \\( \theta \\) 是 prompt 的参数（如 Few-Shot 示例的选择、指令的措辞），\\( f_\theta \\) 是 LLM 在 prompt \\( \theta \\) 下的行为。
 
-### 5.2 自动优化的层次
+### 自动优化的层次
 
 | 层次 | 优化内容 | 方法 |
 |------|---------|------|

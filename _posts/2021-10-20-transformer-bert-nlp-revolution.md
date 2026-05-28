@@ -16,7 +16,7 @@ image: /assets/images/covers/attention-transformers.jpg
 
 **"Attention Is All You Need"** —— 你只需要注意力机制，不需要RNN和CNN！
 
-## 1. Transformer (2017)
+## Transformer (2017)
 
 {% include paper-info.html 
    authors="Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Łukasz Kaiser, Illia Polosukhin (Google Brain)"
@@ -84,7 +84,7 @@ graph LR
 
 ### 核心组件详解
 
-#### 1. Multi-Head Self-Attention
+#### Multi-Head Self-Attention
 
 ![Self-Attention](/assets/images/posts/deep-learning/transformer-self-attention.png)
 
@@ -186,7 +186,7 @@ class MultiHeadAttention(nn.Module):
         return x, attention
 ```
 
-#### 2. Position-wise Feed-Forward Network
+#### Position-wise Feed-Forward Network
 
 **前馈网络**：两层全连接，第一层带ReLU激活。
 
@@ -213,7 +213,7 @@ class PositionwiseFeedForward(nn.Module):
         return x
 ```
 
-#### 3. Positional Encoding
+#### Positional Encoding
 
 **位置编码**<cite>[1]</cite>：由于Self-Attention本身不考虑位置，需要添加位置信息。
 
@@ -249,7 +249,7 @@ class PositionalEncoding(nn.Module):
         return self.dropout(x)
 ```
 
-#### 4. Layer Normalization
+#### Layer Normalization
 
 **层归一化**：在特征维度上归一化。
 
@@ -272,7 +272,7 @@ class LayerNorm(nn.Module):
         return self.gamma * (x - mean) / (std + self.eps) + self.beta
 ```
 
-#### 5. 残差连接
+#### 残差连接
 
 **Add & Norm**：每个子层都有残差连接和层归一化。
 
@@ -432,7 +432,7 @@ class Transformer(nn.Module):
 * ✅ **代码生成**：Codex, GitHub Copilot
 * ✅ **计算机视觉**：Vision Transformer
 
-## 2. BERT (2018)
+## BERT (2018)
 
 {% include paper-info.html 
    authors="Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova (Google AI Language)"
@@ -445,7 +445,7 @@ class Transformer(nn.Module):
 
 ### BERT的创新
 
-#### 1. 双向Transformer
+#### 双向Transformer
 
 ![BERT结构](/assets/images/posts/deep-learning/bert-architecture.png)
 
@@ -455,13 +455,13 @@ class Transformer(nn.Module):
 
 **优势**<cite>[2]</cite>：更好地理解上下文。
 
-#### 2. 预训练 + 微调范式
+#### 预训练 + 微调范式
 
 **两阶段训练**：
 1. **Pre-training**：在大规模无标注数据上预训练
 2. **Fine-tuning**：在下游任务上微调
 
-#### 3. 三种嵌入
+#### 三种嵌入
 
 **Token Embedding + Segment Embedding + Position Embedding**
 
@@ -523,7 +523,7 @@ graph LR
 
 ### BERT的使用
 
-#### 1. 句子分类
+#### 句子分类
 
 ```python
 # 使用[CLS]的输出
@@ -540,7 +540,7 @@ class BERTClassifier(nn.Module):
         return logits
 ```
 
-#### 2. Token分类（NER）
+#### Token分类（NER）
 
 ```python
 # 使用每个token的输出
@@ -557,7 +557,7 @@ class BERTTokenClassifier(nn.Module):
         return logits
 ```
 
-#### 3. 问答系统
+#### 问答系统
 
 ```python
 # 预测答案的起始和结束位置
@@ -615,7 +615,7 @@ BERT在11个NLP任务上刷新SOTA<cite>[2]</cite>：
 
 ## 实践建议
 
-### 1. 使用预训练BERT
+### 使用预训练BERT
 
 ```python
 from transformers import BertModel, BertTokenizer
@@ -634,7 +634,7 @@ with torch.no_grad():
     last_hidden_state = outputs.last_hidden_state
 ```
 
-### 2. 微调技巧
+### 微调技巧
 
 ```python
 # 1. 使用较小的学习率
@@ -653,7 +653,7 @@ scheduler = get_linear_schedule_with_warmup(
 torch.nn.utils.clip_grad_norm_(model.parameters(), max_norm=1.0)
 ```
 
-### 3. 节省内存
+### 节省内存
 
 ```python
 # 1. 梯度累积

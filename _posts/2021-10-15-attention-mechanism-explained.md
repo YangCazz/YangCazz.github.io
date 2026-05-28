@@ -186,7 +186,7 @@ class BasicAttention(nn.Module):
 
 ## Attention的变体
 
-### 1. Self-Attention（自注意力）
+### Self-Attention（自注意力）
 
 **特点**<cite>[2]</cite>：Query、Key、Value来自同一个序列。
 
@@ -205,7 +205,7 @@ class SelfAttention(nn.Module):
 
 **应用**：Transformer、BERT、GPT等。
 
-### 2. Multi-Head Attention（多头注意力）
+### Multi-Head Attention（多头注意力）
 
 **思想**<cite>[2]</cite>：使用多组不同的Q、K、V矩阵，捕获不同的关系。
 
@@ -264,7 +264,7 @@ class MultiHeadAttention(nn.Module):
         return output, attention_weights
 ```
 
-### 3. Cross-Attention（交叉注意力）
+### Cross-Attention（交叉注意力）
 
 **特点**：Query来自一个序列，Key和Value来自另一个序列。
 
@@ -307,19 +307,19 @@ Attention帮助模型：
 
 ## Attention的优势
 
-### 1. 解决长依赖问题
+### 解决长依赖问题
 
 **RNN的问题**：信息经过多步传递会衰减。
 
 **Attention的解决**：直接建立任意两个位置的连接。
 
-### 2. 提高并行性
+### 提高并行性
 
 **RNN的问题**：必须顺序计算。
 
 **Attention的解决**：所有位置可以并行计算。
 
-### 3. 可解释性
+### 可解释性
 
 **可视化注意力权重**：
 
@@ -342,23 +342,23 @@ def visualize_attention(attention_weights, source_tokens, target_tokens):
     plt.show()
 ```
 
-### 4. 性能提升
+### 性能提升
 
 在各类NLP任务上，Attention都带来了显著的性能提升。
 
 ## Attention的缺点
 
-### 1. 计算复杂度高
+### 计算复杂度高
 
 对于长度为n的序列：
 * **空间复杂度**：O(n²)
 * **时间复杂度**：O(n²·d)
 
-### 2. 缺少位置信息
+### 缺少位置信息
 
 Attention本身不考虑顺序，需要额外的位置编码。
 
-### 3. 训练数据需求
+### 训练数据需求
 
 需要更多数据才能充分训练。
 
@@ -475,7 +475,7 @@ Attention机制：
 
 ## 实践建议
 
-### 1. 何时使用Attention？
+### 何时使用Attention？
 
 ✅ **适用场景**：
 * 序列到序列任务
@@ -488,7 +488,7 @@ Attention机制：
 * 计算资源受限
 * 位置信息极其重要
 
-### 2. Attention的调优
+### Attention的调优
 
 ```python
 # 1. 调整注意力头数

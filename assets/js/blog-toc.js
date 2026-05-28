@@ -54,7 +54,7 @@ function initBlogToc() {
             .trim();
         const displayText = numSpan ? numSpan.textContent + bodyText : bodyText;
 
-        tocHtml += '<a href="#' + id + '" class="toc-item h' + tagName(level) + '" data-level="' + level + '">' + escapeHtml(displayText) + '</a>';
+        tocHtml += '<a href="#' + id + '" class="toc-item ' + tagName(level) + '" data-level="' + level + '">' + escapeHtml(displayText) + '</a>';
     });
 
     tocContainer.innerHTML = tocHtml;

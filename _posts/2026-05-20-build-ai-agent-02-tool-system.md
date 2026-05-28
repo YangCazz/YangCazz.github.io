@@ -30,7 +30,7 @@ image: /assets/images/covers/ai-dev-tools.jpg
 
 ---
 
-## 一、工具系统的三层架构
+## 工具系统的三层架构
 
 ```mermaid
 graph LR
@@ -59,9 +59,9 @@ graph LR
 
 ---
 
-## 二、类型映射：Python → JSON Schema
+## 类型映射：Python → JSON Schema
 
-### 2.1 基础类型映射表
+### 基础类型映射表
 
 LLM 的 tool calling API 使用 JSON Schema 描述参数类型。我们需要建立 Python 类型到 JSON Schema 的映射：
 
@@ -75,7 +75,7 @@ LLM 的 tool calling API 使用 JSON Schema 描述参数类型。我们需要建
 | `Literal["a","b"]` | `"string" + enum` | `mode: Literal["fast","slow"]` | `{"type": "string", "enum": ["fast", "slow"]}` |
 | `Optional[int]` | 添加到 required 之外 | `limit: Optional[int]` | schema 加入 `"type": "integer"`，不加入 required |
 
-### 2.2 形式化定义
+### 形式化定义
 
 **定义 1（类型映射函数）**：定义映射 \\(\\Phi: \\mathcal{T}_{\\text{Python}} \\to \\mathcal{T}_{\\text{JSON Schema}}\\) 将 Python 类型系统映射到 JSON Schema 类型系统：
 
@@ -98,7 +98,7 @@ LLM 的 tool calling API 使用 JSON Schema 描述参数类型。我们需要建
 
 其中 \\(\\subseteq\\) 表示 schema 子集关系（所有必填字段都已包含）。
 
-### 2.3 docstring 作为语义描述
+### docstring 作为语义描述
 
 类型映射提供了**语法层**的 schema，但 LLM 还需要**语义层**的理解。我们将函数的 docstring 作为 JSON Schema 的 `description` 字段：
 
@@ -139,9 +139,9 @@ def get_weather(city: str, date: str = "today") -> dict:
 
 ---
 
-## 三、@tool 装饰器实现
+## @tool 装饰器实现
 
-### 3.1 完整代码
+### 完整代码
 
 ```python
 import inspect
@@ -334,7 +334,7 @@ def search_code(query: str, file_pattern: str = "*.py") -> list[str]:
 print(json.dumps(registry.get_schemas(), indent=2, ensure_ascii=False))
 ```
 
-### 3.2 设计要点
+### 设计要点
 
 **(1) 装饰器即注册**：`@tool` 装饰器在函数定义时自动完成注册，零额外代码。这是"约定优于配置"的体现。
 
@@ -349,9 +349,9 @@ print(json.dumps(registry.get_schemas(), indent=2, ensure_ascii=False))
 
 ---
 
-## 四、工具选择的数学分析
+## 工具选择的数学分析
 
-### 4.1 工具选择作为多分类问题
+### 工具选择作为多分类问题
 
 当 LLM 面对 \\(K\\) 个可用工具时，工具选择本质上是一个 \\(K\\)-类分类问题：
 
@@ -361,7 +361,7 @@ P(\\text{tool} = k \\mid h_t, \\mathcal{T}) = \\frac{\\exp(\\mathbf{e}_{h_t} \\c
 
 其中 \\(\\mathbf{e}_{h_t}\\) 是对话历史的嵌入表示，\\(\\mathbf{e}_{f_k}\\) 是工具 \\(f_k\\) 的语义嵌入（由 name + description 决定），\\(\\tau\\) 是温度参数。
 
-### 4.2 工具描述对选择准确率的影响
+### 工具描述对选择准确率的影响
 
 **定理 1（描述区分度）**：设两个工具的 description 嵌入相似度为 \\(\\cos(\\theta)\\)，则 LLM 区分它们的难度为：
 
@@ -379,7 +379,7 @@ D(f_i, f_j) = \\frac{2}{\\pi} \\arccos(\\cos(\\theta)) \\in [0, 1]
 - `"在代码库中搜索包含特定关键词的文件，返回匹配的文件路径和行号列表"`
 - `"执行 Shell 命令并返回 stdout/stderr 输出"`
 
-### 4.3 工具数量对准确率的影响
+### 工具数量对准确率的影响
 
 设 LLM 在 \\(K\\) 个工具中选择的 top-1 准确率为：
 
@@ -400,9 +400,9 @@ D(f_i, f_j) = \\frac{2}{\\pi} \\arccos(\\cos(\\theta)) \\in [0, 1]
 
 ---
 
-## 五、错误恢复：LLM 的自我修正能力
+## 错误恢复：LLM 的自我修正能力
 
-### 5.1 错误类型分类
+### 错误类型分类
 
 工具执行可能产生三类错误：
 
@@ -413,7 +413,7 @@ D(f_i, f_j) = \\frac{2}{\\pi} \\arccos(\\cos(\\theta)) \\in [0, 1]
 | 逻辑错误 | 调用 `read_file` 而非 `search_code` 来找代码 | ⚠️ 有时能修复 |
 | 工具不可用 | 调用了不存在的工具 | ❌ 需要重新设计 prompt |
 
-### 5.2 自修正循环
+### 自修正循环
 
 ```mermaid
 graph LR
@@ -434,7 +434,7 @@ graph LR
 2. 正确签名（人类+LLM 可读）：`"get_weather(city: str, date: str = 'today')"`
 3. 修正建议（可选）：`"请提供城市名称"`
 
-### 5.3 自修正的数学模型
+### 自修正的数学模型
 
 设第一次工具调用失败的概率为 \\(P_f\\)，给定高质量错误信息后第二次尝试成功的条件概率为 \\(P_{s|f}\\)。则最终成功率：
 
@@ -451,9 +451,9 @@ P_{\\text{final}} = (1 - P_f) + P_f \\cdot P_{s|f}
 
 ---
 
-## 六、工具链：多工具串行调用
+## 工具链：多工具串行调用
 
-### 6.1 工具编排模式
+### 工具编排模式
 
 单个工具调用是最简单的情况。实际上，复杂任务需要**工具链**——多个工具按依赖关系串行调用：
 
@@ -473,7 +473,7 @@ graph LR
     style Answer fill:#4299e1,color:#fff
 ```
 
-### 6.2 工具依赖图
+### 工具依赖图
 
 定义工具间的**依赖关系**为有向无环图（DAG）：
 
@@ -490,7 +490,7 @@ LLM 在每步推理时需要：
 
 ---
 
-## 七、与 SimpleAgent 的集成
+## 与 SimpleAgent 的集成
 
 将 ToolRegistry 集成到第一篇的 SimpleAgent 中：
 
@@ -545,7 +545,7 @@ class SimpleAgent:
 
 ---
 
-## 八、本章小结
+## 本章小结
 
 本文构建了一个完整的工具系统，核心贡献：
 

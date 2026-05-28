@@ -546,7 +546,7 @@ def analyze_yolo_v4_contributions():
 
 ### ✅ 主要优势
 
-#### 1. 精度大幅提升 <cite>[1]</cite>
+#### 精度大幅提升 <cite>[1]</cite>
 
 ```
 精度提升：
@@ -555,7 +555,7 @@ def analyze_yolo_v4_contributions():
 - 小目标检测: +8.7%
 ```
 
-#### 2. 速度保持
+#### 速度保持
 
 ```
 速度优势：
@@ -564,7 +564,7 @@ def analyze_yolo_v4_contributions():
 - 计算效率提升
 ```
 
-#### 3. 技术集成
+#### 技术集成
 
 ```
 技术集成：
@@ -575,7 +575,7 @@ def analyze_yolo_v4_contributions():
 
 ### ❌ 主要局限
 
-#### 1. 复杂度增加
+#### 复杂度增加
 
 ```
 复杂度问题：
@@ -584,7 +584,7 @@ def analyze_yolo_v4_contributions():
 - 调参复杂
 ```
 
-#### 2. 内存占用
+#### 内存占用
 
 ```
 内存问题：
@@ -593,7 +593,7 @@ def analyze_yolo_v4_contributions():
 - 内存占用增加
 ```
 
-#### 3. 训练时间
+#### 训练时间
 
 ```
 训练时间：

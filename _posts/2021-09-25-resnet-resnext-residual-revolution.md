@@ -16,7 +16,7 @@ image: /assets/images/covers/cnn-pioneers.jpg
 
 这不是过拟合，也不是梯度消失，而是一种新的问题——**退化(Degradation)** <cite>[1]</cite>。2015年，何凯明团队提出的**残差学习(Residual Learning)**，优雅地解决了这个问题。
 
-## 1. ResNet (2015)
+## ResNet (2015)
 
 {% include paper-info.html 
    authors="Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun (Microsoft Research Asia)"
@@ -225,21 +225,21 @@ ResNet相比VGG的优势：
 
 ## 主要贡献
 
-### 1. 残差学习框架
+### 残差学习框架
 
 提出了优雅的残差学习框架，解决了深度网络的退化问题。
 
-### 2. 超深网络
+### 超深网络
 
 突破了200层，证明了残差连接能支持极深的网络。
 
-### 3. 简化设计
+### 简化设计
 
 * 采用BatchNorm加速训练
 * 丢弃Dropout结构
 * 结构简单统一
 
-### 4. 高效性
+### 高效性
 
 参数量和计算量都远小于VGG，但效果更好。
 
@@ -278,7 +278,7 @@ $$
 * **数据集**：Oxford Flower102花分类数据集
 * **代码地址**：[GitHub - DeepLearning/model_classification/ResNet_ResNeXt](https://github.com/YangCazz/DeepLearning/tree/master/model_classification/ResNet_ResNeXt)
 
-## 2. ResNeXt (2016)
+## ResNeXt (2016)
 
 {% include paper-info.html 
    authors="Saining Xie, Ross Girshick, Piotr Dollár, Zhuowen Tu, Kaiming He (Microsoft Research Asia)"
@@ -428,7 +428,7 @@ graph LR
 
 ## 实践经验
 
-### 1. 残差连接的实现细节
+### 残差连接的实现细节
 
 ```python
 # ❌ 错误的实现
@@ -440,7 +440,7 @@ out = self.conv(x)
 out = out + identity  # 先保存identity，再相加
 ```
 
-### 2. 预训练模型的使用
+### 预训练模型的使用
 
 ```python
 import torchvision.models as models
@@ -459,7 +459,7 @@ model.fc.weight.requires_grad = True
 model.fc.bias.requires_grad = True
 ```
 
-### 3. 学习率策略
+### 学习率策略
 
 ```python
 # ResNet适合使用余弦退火学习率
@@ -471,19 +471,19 @@ scheduler = CosineAnnealingLR(optimizer, T_max=200)
 
 ## 为什么残差网络如此成功？
 
-### 1. 解决退化问题
+### 解决退化问题
 
 通过残差连接，网络可以轻松学习恒等映射。
 
-### 2. 梯度传播顺畅
+### 梯度传播顺畅
 
 残差连接提供了梯度的"高速公路"，缓解梯度消失。
 
-### 3. 集成学习的视角
+### 集成学习的视角
 
 ResNet可以看作是多个不同深度网络的集成。
 
-### 4. 简单而有效
+### 简单而有效
 
 设计简单，易于实现，效果卓越。
 

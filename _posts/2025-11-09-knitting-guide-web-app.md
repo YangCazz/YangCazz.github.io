@@ -27,7 +27,7 @@ image: /assets/images/covers/pixelknit.jpg
 
 ## 核心功能
 
-### 1. 双地图显示系统
+### 双地图显示系统
 
 应用采用双地图显示设计，提供多层次的视觉反馈：
 
@@ -50,7 +50,7 @@ image: /assets/images/covers/pixelknit.jpg
 ![双地图显示系统](/assets/images/posts/pixelknit/dual-map-display.png)
 *图2：双地图显示系统，左侧为地图列表，中间为主网格编织图*
 
-### 2. 编织状态管理
+### 编织状态管理
 
 应用提供了清晰的状态可视化：
 
@@ -60,7 +60,7 @@ image: /assets/images/covers/pixelknit.jpg
 - **悬停高亮**：鼠标悬停时显示蓝色高亮边框
 - **完成标志**：地图完成时在右上角显示绿色圆形完成标志
 
-### 3. 路径选择模式
+### 路径选择模式
 
 应用支持两种路径选择模式：
 
@@ -83,7 +83,7 @@ image: /assets/images/covers/pixelknit.jpg
 ![对角预设模式](/assets/images/posts/pixelknit/diagonal-mode.png)
 *图4：对角预设模式，展示对角线路径和导航功能*
 
-### 4. 进度跟踪系统
+### 进度跟踪系统
 
 应用提供了全面的进度跟踪功能：
 
@@ -106,7 +106,7 @@ image: /assets/images/covers/pixelknit.jpg
 - 选中状态显示蓝色边框和放大效果
 - 单行显示，无滚动条
 
-### 5. 交互功能
+### 交互功能
 
 **放大镜功能**：
 
@@ -128,7 +128,7 @@ image: /assets/images/covers/pixelknit.jpg
 ![工具提示](/assets/images/posts/pixelknit/tooltip.png)
 *图6：工具提示功能，显示方块详细信息和颜色统计*
 
-### 6. 数据持久化
+### 数据持久化
 
 应用支持完整的数据持久化功能：
 

@@ -580,13 +580,10 @@
 
 .toc-item {
     display: block;
-    padding: 0.3rem 0.8rem;
-    margin: 0.1rem 0;
+    padding: 0.2rem 0.6rem;
+    margin: 0.05rem 0;
     border-radius: 6px;
     text-decoration: none;
-    color: var(--secondary-color);
-    font-size: 0.9rem;
-    line-height: 1.35;
     transition: var(--transition);
     border-left: 2px solid transparent;
     white-space: nowrap;
@@ -595,57 +592,105 @@
 }
 
 .toc-item:hover {
-    background: rgba(66, 153, 225, 0.1);
-    color: var(--accent-color);
-    border-left-color: var(--accent-color);
+    background: rgba(59, 130, 246, 0.08);
     transform: translateX(4px);
 }
 
 .toc-item.active {
-    background: rgba(66, 153, 225, 0.15);
-    color: var(--accent-color);
-    border-left-color: var(--accent-color);
+    background: rgba(59, 130, 246, 0.12);
     font-weight: 500;
 }
 
+// ── 层级：字号递进 + 蓝色渐变 + 左侧缩进 ──
+// 颜色从 #2b6cb0（接近正文深色）平滑过渡到 #bee3f8（浅天蓝）
+
 .toc-item.h1 {
-    font-weight: 600;
     font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #2b6cb0;
+    padding-top: 0.4rem;
+    padding-bottom: 0.35rem;
+    padding-left: 0.3rem;
+    padding-right: 0.6rem;
     margin-top: 0.35rem;
-    padding-top: 0.45rem;
     border-top: 1px solid var(--border-light);
 }
 
 .toc-item.h1:first-child {
     margin-top: 0;
-    padding-top: 0.3rem;
+    padding-top: 0.2rem;
     border-top: none;
 }
 
 .toc-item.h2 {
+    font-size: 0.88rem;
     font-weight: 500;
-    font-size: 0.9rem;
+    line-height: 1.45;
+    color: #3182ce;
+    padding-top: 0.3rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.9rem;
+    padding-right: 0.6rem;
 }
 
 .toc-item.h3 {
-    font-weight: 400;
-    font-size: 0.85rem;
-}
-
-.toc-item.h4 {
-    font-weight: 400;
     font-size: 0.8rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #4299e1;
+    padding-top: 0.25rem;
+    padding-bottom: 0.2rem;
+    padding-left: 1.5rem;
+    padding-right: 0.6rem;
 }
 
-.toc-item.h3,
 .toc-item.h4 {
-    color: rgba(74, 85, 104, 0.7);
+    font-size: 0.74rem;
+    font-weight: 400;
+    line-height: 1.35;
+    color: #63b3ed;
+    padding-top: 0.2rem;
+    padding-bottom: 0.15rem;
+    padding-left: 2.1rem;
+    padding-right: 0.6rem;
 }
 
-.toc-item.h3.active,
-.toc-item.h4.active {
-    color: var(--accent-color);
+.toc-item.h5 {
+    font-size: 0.7rem;
+    font-weight: 400;
+    line-height: 1.3;
+    color: #90cdf4;
+    padding-top: 0.15rem;
+    padding-bottom: 0.1rem;
+    padding-left: 2.7rem;
+    padding-right: 0.6rem;
 }
+
+.toc-item.h6 {
+    font-size: 0.68rem;
+    font-weight: 400;
+    line-height: 1.25;
+    color: #bee3f8;
+    padding-top: 0.1rem;
+    padding-bottom: 0.08rem;
+    padding-left: 3.3rem;
+    padding-right: 0.6rem;
+}
+
+// hover / active 时用各自的颜色点亮左边框
+.toc-item.h1:hover,
+.toc-item.h1.active { color: #2b6cb0; border-left-color: #2b6cb0; }
+.toc-item.h2:hover,
+.toc-item.h2.active { color: #3182ce; border-left-color: #3182ce; }
+.toc-item.h3:hover,
+.toc-item.h3.active { color: #4299e1; border-left-color: #4299e1; }
+.toc-item.h4:hover,
+.toc-item.h4.active { color: #63b3ed; border-left-color: #63b3ed; }
+.toc-item.h5:hover,
+.toc-item.h5.active { color: #90cdf4; border-left-color: #90cdf4; }
+.toc-item.h6:hover,
+.toc-item.h6.active { color: #bee3f8; border-left-color: #bee3f8; }
 
 /* 博客文章导航 */
 .blog-post-navigation {

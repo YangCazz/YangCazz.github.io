@@ -91,7 +91,7 @@ graph LR
 
 ### 核心创新
 
-#### 1. 网格划分策略
+#### 网格划分策略
 
 **YOLO v1将图像划分为S×S网格**：
 
@@ -134,7 +134,7 @@ grid = create_grid(image, grid_size=7)
 print(f"创建了 {len(grid)} 个网格单元")
 ```
 
-#### 2. 边界框预测
+#### 边界框预测
 
 **每个网格单元预测B个边界框**：
 
@@ -183,7 +183,7 @@ class YOLOv1BBox:
         return (x1, y1, x2, y2)
 ```
 
-#### 3. 类别预测
+#### 类别预测
 
 **每个网格单元预测C个类别概率**：
 
@@ -655,7 +655,7 @@ avg_time, fps = benchmark_yolo_speed(model, test_images)
 
 ### ✅ 主要优势
 
-#### 1. 实时检测
+#### 实时检测
 
 ```
 实时检测优势：
@@ -666,7 +666,7 @@ avg_time, fps = benchmark_yolo_speed(model, test_images)
 
 <cite>[1]</cite>
 
-#### 2. 全局信息
+#### 全局信息
 
 ```
 全局信息优势：
@@ -675,7 +675,7 @@ avg_time, fps = benchmark_yolo_speed(model, test_images)
 - 更好的空间理解
 ```
 
-#### 3. 端到端训练
+#### 端到端训练
 
 ```
 端到端训练优势：
@@ -686,7 +686,7 @@ avg_time, fps = benchmark_yolo_speed(model, test_images)
 
 ### ❌ 主要局限
 
-#### 1. 精度相对较低
+#### 精度相对较低
 
 ```
 精度问题：
@@ -695,7 +695,7 @@ avg_time, fps = benchmark_yolo_speed(model, test_images)
 - 密集目标检测困难
 ```
 
-#### 2. 小目标检测差
+#### 小目标检测差
 
 ```
 小目标检测问题：
@@ -704,7 +704,7 @@ avg_time, fps = benchmark_yolo_speed(model, test_images)
 - 特征表达能力有限
 ```
 
-#### 3. 密集目标检测困难
+#### 密集目标检测困难
 
 ```
 密集目标检测问题：

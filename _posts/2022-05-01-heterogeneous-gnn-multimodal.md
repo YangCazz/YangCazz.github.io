@@ -304,7 +304,7 @@ graph LR
 
 ## 实际应用案例
 
-### 1. 推荐系统中的异构图
+### 推荐系统中的异构图
 
 ```python
 class RecommendationHeteroGNN(nn.Module):
@@ -350,7 +350,7 @@ class RecommendationHeteroGNN(nn.Module):
         return torch.sigmoid(score)
 ```
 
-### 2. 知识图谱补全
+### 知识图谱补全
 
 ```python
 class KnowledgeGraphCompletion(nn.Module):
@@ -390,7 +390,7 @@ class KnowledgeGraphCompletion(nn.Module):
         return F.softmax(relation_pred, dim=1)
 ```
 
-### 3. 多模态内容理解
+### 多模态内容理解
 
 ```python
 class MultiModalContentUnderstanding(nn.Module):
@@ -439,7 +439,7 @@ class MultiModalContentUnderstanding(nn.Module):
 
 ## 训练策略与优化
 
-### 1. 分层训练策略
+### 分层训练策略
 
 ```python
 class HierarchicalTraining:
@@ -500,7 +500,7 @@ class HierarchicalTraining:
         return total_loss
 ```
 
-### 2. 多任务学习
+### 多任务学习
 
 ```python
 class MultiTaskHeteroGNN(nn.Module):
@@ -541,7 +541,7 @@ class MultiTaskHeteroGNN(nn.Module):
 
 ## 性能评估与可视化
 
-### 1. 异构图可视化
+### 异构图可视化
 
 ```python
 import matplotlib.pyplot as plt

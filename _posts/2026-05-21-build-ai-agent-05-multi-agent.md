@@ -19,7 +19,7 @@ image: /assets/images/covers/ai-dev-tools.jpg
 
 ---
 
-## 一、Anthropic 6 种单流程模式
+## Anthropic 6 种单流程模式
 
 Anthropic 在其官方 Agent 设计指南中提出了 6 种基础模式 <cite>[1]</cite>：
 
@@ -58,9 +58,9 @@ graph LR
 
 ---
 
-## 二、5 大多 Agent 协调模式
+## 5 大多 Agent 协调模式
 
-### 2.1 模式总览
+### 模式总览
 
 ```mermaid
 graph LR
@@ -88,7 +88,7 @@ graph LR
     style Bus fill:#4299e1,color:#fff
 ```
 
-### 2.2 五种模式对比
+### 五种模式对比
 
 | 模式 | 拓扑 | 通信方式 | 适用场景 |
 |------|------|---------|---------|
@@ -100,9 +100,9 @@ graph LR
 
 ---
 
-## 三、Generator-Verifier：代码审查双 Agent
+## Generator-Verifier：代码审查双 Agent
 
-### 3.1 算法设计
+### 算法设计
 
 ```mermaid
 graph LR
@@ -120,7 +120,7 @@ graph LR
     style Accept fill:#4299e1,color:#fff
 ```
 
-### 3.2 完整实现
+### 完整实现
 
 ```python
 import json
@@ -240,9 +240,9 @@ class GeneratorVerifierTeam:
 
 ---
 
-## 四、Orchestrator-Workers：任务分解与调度
+## Orchestrator-Workers：任务分解与调度
 
-### 4.1 模式说明
+### 模式说明
 
 Orchestrator 接收复杂任务 → 分解为子任务 → 分配给 Workers → 汇总结果：
 
@@ -268,7 +268,7 @@ graph LR
     style Merge fill:#4299e1,color:#fff
 ```
 
-### 4.2 核心实现
+### 核心实现
 
 ```python
 from concurrent.futures import ThreadPoolExecutor, as_completed
@@ -357,9 +357,9 @@ class OrchestratorWorkers:
 
 ---
 
-## 五、多 Agent 的数学分析
+## 多 Agent 的数学分析
 
-### 5.1 并行加速比
+### 并行加速比
 
 **定理 1（Orchestrator-Workers 加速比）**：设任务可分解为 \\(K\\) 个独立子任务，每个子任务执行时间为 \\(T_i\\)，Orchestrator 调度开销为 \\(T_o\\)，汇总开销为 \\(T_s\\)。则总执行时间为：
 
@@ -375,7 +375,7 @@ S = \\frac{\\sum_i T_i}{T_o + \\max_i T_i + T_s} \\leq K
 
 **实际加速比**：当子任务均匀时 \\(S \\approx K / (1 + \\epsilon)\\) 其中 \\(\\epsilon \\approx 0.2\\) 是通信开销比例。4 个 Worker 的实际加速比约为 3.3×。
 
-### 5.2 Generator-Verifier 的可靠性增益
+### Generator-Verifier 的可靠性增益
 
 **定理 2（审查可靠性）**：设 Generator 单次生成正确解的概率为 \\(p_g\\)，Verifier 正确识别错误的概率为 \\(p_v\\)（召回率），错误识别准确的概率为 \\(p_f\\)（假阳性率为 \\(1 - p_f\\)）。经过最多 \\(N\\) 轮修正后，最终输出正确的概率为：
 
@@ -387,7 +387,7 @@ P_{\\text{correct}} = 1 - (1 - p_g) \\cdot \\prod_{i=1}^{N} \\left(1 - p_v \\cdo
 
 这解释了为什么 Generator-Verifier 能显著提升代码质量——单 Agent 70% 的正确率经两轮审查后可达 94%。
 
-### 5.3 可靠性 vs 成本的权衡
+### 可靠性 vs 成本的权衡
 
 | 策略 | 正确率 | LLM 调用次数 | 延迟 |
 |------|--------|-------------|------|
@@ -406,9 +406,9 @@ P_{\\text{vote}} = p^3 + 3p^2(1-p) = 3p^2 - 2p^3
 
 ---
 
-## 六、Agent Teams：角色扮演协作
+## Agent Teams：角色扮演协作
 
-### 6.1 设计理念
+### 设计理念
 
 让多个 Agent 扮演不同角色进行对话式协作。例如：
 
@@ -471,9 +471,9 @@ class AgentTeam:
 
 ---
 
-## 七、多 Agent 系统中的博弈论视角
+## 多 Agent 系统中的博弈论视角
 
-### 7.1 协调博弈
+### 协调博弈
 
 多 Agent 协作可以建模为**协调博弈**：每个 Agent \\(i\\) 选择一个行动 \\(a_i\\)，获得效用 \\(U_i(a_1, \\ldots, a_n)\\)。
 
@@ -482,7 +482,7 @@ class AgentTeam:
 - **信息共享**：Agent 间通过消息交换私有信息
 - **Nash 均衡**：在没有 Agent 能通过单方面改变策略来提高效用时达到
 
-### 7.2 去中心化决策的挑战
+### 去中心化决策的挑战
 
 当 Agent 被授予独立决策权时，可能出现：
 
@@ -494,7 +494,7 @@ class AgentTeam:
 
 ---
 
-## 八、本章小结
+## 本章小结
 
 本文构建了多 Agent 协作系统：
 

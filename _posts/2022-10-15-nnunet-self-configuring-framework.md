@@ -211,7 +211,7 @@ Fingerprint：
 
 nnU-Net为每个数据集训练**3种配置**，自动选择最优：
 
-#### 1. 2D UNet
+#### 2D UNet
 
 ```python
 class UNet2D(nn.Module):
@@ -261,7 +261,7 @@ class StackedConvLayers(nn.Module):
 - Z轴spacing很大（如CT，Z方向分辨率低）
 - 内存受限
 
-#### 2. 3D Full Resolution UNet
+#### 3D Full Resolution UNet
 
 ```python
 class UNet3D(nn.Module):
@@ -286,7 +286,7 @@ class UNet3D(nn.Module):
 - GPU内存充足
 - 需要3D上下文（如MRI）
 
-#### 3. 3D Cascade（级联）
+#### 3D Cascade（级联）
 
 ```
 第一阶段：3D Low Resolution UNet
@@ -465,7 +465,7 @@ def get_augmentation_pipeline(dataset_properties):
 
 ## nnU-Net的优势
 
-### 1. 零调参
+### 零调参
 
 ```
 传统方法：
@@ -486,7 +486,7 @@ nnU-Net：
 - 达到SOTA
 ```
 
-### 2. 可复现
+### 可复现
 
 ```
 问题：论文声称Dice=0.85
@@ -504,7 +504,7 @@ nnU-Net：
 → 100%可复现
 ```
 
-### 3. 鲁棒性
+### 鲁棒性
 
 ```
 传统UNet：
@@ -517,7 +517,7 @@ nnU-Net：
 → 任何任务都稳定
 ```
 
-### 4. 集成学习
+### 集成学习
 
 ```python
 # nnU-Net自动集成多个模型
@@ -646,7 +646,7 @@ nnUNet_predict -i ./test_images -o ./predictions \
 
 ## 进阶技巧
 
-### 1. 自定义Trainer
+### 自定义Trainer
 
 ```python
 from nnunet.training.network_training.nnUNetTrainerV2 import nnUNetTrainerV2
@@ -678,7 +678,7 @@ class CustomTrainer(nnUNetTrainerV2):
         )
 ```
 
-### 2. 后处理优化
+### 后处理优化
 
 ```python
 # nnU-Net自动学习后处理策略
@@ -702,7 +702,7 @@ def custom_postprocessing(pred_mask, remove_small_lesions_threshold=100):
     return pred_mask
 ```
 
-### 3. 处理不平衡数据
+### 处理不平衡数据
 
 ```python
 class ImbalancedTrainer(nnUNetTrainerV2):

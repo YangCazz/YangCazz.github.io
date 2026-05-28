@@ -119,7 +119,7 @@ R-CNN思路：
 
 ### R-CNN架构详解
 
-#### 1. Region Proposal生成
+#### Region Proposal生成
 
 **Selective Search算法**：
 
@@ -170,7 +170,7 @@ print(f"生成了 {len(regions)} 个候选区域")
 - ✅ 计算效率较高
 - ✅ 召回率较高
 
-#### 2. CNN特征提取
+#### CNN特征提取
 
 **AlexNet作为特征提取器**：
 
@@ -205,7 +205,7 @@ class RCNNFeatureExtractor(nn.Module):
 model = RCNNFeatureExtractor(num_classes=20)  # VOC 20类
 ```
 
-#### 3. 训练过程
+#### 训练过程
 
 **R-CNN训练步骤**：
 
@@ -269,7 +269,7 @@ def calculate_iou(box1, boxes2):
     return intersection / union
 ```
 
-#### 4. 边界框回归
+#### 边界框回归
 
 **Bounding Box Regression**：
 
@@ -329,7 +329,7 @@ class BBoxRegressor(nn.Module):
 
 ### R-CNN的局限性
 
-#### 1. 计算效率低
+#### 计算效率低
 
 ```
 问题分析：
@@ -344,7 +344,7 @@ CNN：AlexNet (约1GFLOPs)
 总计算量：2000 × 1GFLOPs = 2000GFLOPs
 ```
 
-#### 2. 训练复杂
+#### 训练复杂
 
 ```
 训练步骤：
@@ -359,7 +359,7 @@ CNN：AlexNet (约1GFLOPs)
 - 训练时间长
 ```
 
-#### 3. 速度慢
+#### 速度慢
 
 ```
 推理时间：
@@ -399,7 +399,7 @@ Fast R-CNN解决方案：
 
 ### 关键组件
 
-#### 1. ROI Pooling
+#### ROI Pooling
 
 **ROI Pooling的作用**：将不同尺寸的候选区域转换为固定尺寸的特征
 
@@ -456,7 +456,7 @@ pooled_features = roi_pooling(feature_map, rois)
 print(f"池化后特征尺寸: {pooled_features.shape}")  # (2, 256, 7, 7)
 ```
 
-#### 2. 端到端训练
+#### 端到端训练
 
 **Fast R-CNN网络架构**：
 
@@ -522,7 +522,7 @@ class FastRCNN(nn.Module):
         return cls_scores, bbox_preds
 ```
 
-#### 3. 多任务损失函数
+#### 多任务损失函数
 
 **Fast R-CNN损失函数**：
 
@@ -564,7 +564,7 @@ class FastRCNNLoss(nn.Module):
 
 ### Fast R-CNN的优势
 
-#### 1. 速度提升
+#### 速度提升
 
 ```
 计算对比：
@@ -581,7 +581,7 @@ Fast R-CNN：
 
 <cite>[2]</cite>
 
-#### 2. 端到端训练
+#### 端到端训练
 
 ```
 训练流程：
@@ -594,7 +594,7 @@ Fast R-CNN：
 - 端到端优化
 ```
 
-#### 3. 精度提升
+#### 精度提升
 
 ```
 VOC 2007数据集结果：
@@ -631,7 +631,7 @@ Faster R-CNN解决方案：
 
 ### 关键组件
 
-#### 1. Region Proposal Network (RPN)
+#### Region Proposal Network (RPN)
 
 **RPN的作用**：用CNN替代Selective Search生成候选区域
 
@@ -672,7 +672,7 @@ class RPN(nn.Module):
         return cls_scores, bbox_preds
 ```
 
-#### 2. Anchor机制
+#### Anchor机制
 
 **Anchor的作用**：为每个位置预设多个尺度和宽高比的候选框
 
@@ -713,7 +713,7 @@ print(f"生成了 {len(anchors)} 个Anchor")
 print(f"Anchor形状: {anchors.shape}")  # (9, 4)
 ```
 
-#### 3. 完整Faster R-CNN架构
+#### 完整Faster R-CNN架构
 
 ```python
 class FasterRCNN(nn.Module):
@@ -777,7 +777,7 @@ class FasterRCNN(nn.Module):
         return cls_scores, rois
 ```
 
-#### 4. 训练策略
+#### 训练策略
 
 **交替训练（Alternating Training）**：
 
@@ -845,7 +845,7 @@ def compute_rpn_loss(model, images, gt_boxes):
 
 ### Faster R-CNN的优势
 
-#### 1. 端到端训练
+#### 端到端训练
 
 ```
 训练流程：
@@ -858,7 +858,7 @@ def compute_rpn_loss(model, images, gt_boxes):
 - 简化训练流程
 ```
 
-#### 2. 速度大幅提升
+#### 速度大幅提升
 
 ```
 速度对比：
@@ -871,7 +871,7 @@ def compute_rpn_loss(model, images, gt_boxes):
 
 <cite>[3]</cite>
 
-#### 3. 精度保持
+#### 精度保持
 
 ```
 VOC 2007数据集结果：
@@ -920,7 +920,7 @@ VOC 2007数据集结果：
 
 ### ✅ 主要贡献
 
-#### 1. 开创性工作
+#### 开创性工作
 
 ```
 R-CNN系列的开创性：
@@ -929,7 +929,7 @@ R-CNN系列的开创性：
 - 为后续工作奠定了基础
 ```
 
-#### 2. 技术演进
+#### 技术演进
 
 ```
 技术演进路径：
@@ -938,7 +938,7 @@ R-CNN → Fast R-CNN → Faster R-CNN
 CNN特征   共享计算    端到端训练
 ```
 
-#### 3. 精度优势
+#### 精度优势
 
 ```
 两阶段检测的优势：
@@ -949,7 +949,7 @@ CNN特征   共享计算    端到端训练
 
 ### ❌ 主要局限
 
-#### 1. 速度限制
+#### 速度限制
 
 ```
 速度瓶颈：
@@ -958,7 +958,7 @@ CNN特征   共享计算    端到端训练
 - 计算复杂度高：O(N²)
 ```
 
-#### 2. 架构复杂
+#### 架构复杂
 
 ```
 架构复杂性：
@@ -967,7 +967,7 @@ CNN特征   共享计算    端到端训练
 - 调参困难：超参数多
 ```
 
-#### 3. 小目标检测差
+#### 小目标检测差
 
 ```
 小目标检测问题：
@@ -982,7 +982,7 @@ CNN特征   共享计算    端到端训练
 
 ### R-CNN系列的启示
 
-#### 1. 精度与速度的权衡
+#### 精度与速度的权衡
 
 ```
 R-CNN系列启示：
@@ -991,7 +991,7 @@ R-CNN系列启示：
 - 需要新的检测范式
 ```
 
-#### 2. 端到端训练的重要性
+#### 端到端训练的重要性
 
 ```
 端到端训练优势：
@@ -1000,7 +1000,7 @@ R-CNN系列启示：
 - 简化训练流程
 ```
 
-#### 3. 实时检测的需求
+#### 实时检测的需求
 
 ```
 实时检测需求：

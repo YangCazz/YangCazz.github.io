@@ -24,7 +24,7 @@ image: /assets/images/covers/gnn-series.jpg
 
 ### 图结构在医学图像中的表示
 
-#### 1. 像素级图结构
+#### 像素级图结构
 
 将医学图像中的像素或体素作为节点，空间邻接关系作为边<cite>[2]</cite>：
 
@@ -81,7 +81,7 @@ class MedicalImageGraph:
         return neighbors
 ```
 
-#### 2. 解剖结构图
+#### 解剖结构图
 
 基于医学解剖知识构建的图结构：
 
@@ -450,7 +450,7 @@ class TemporalMedicalGNN(nn.Module):
 
 ## 实际应用案例
 
-### 1. 脑部MRI图像分割
+### 脑部MRI图像分割
 
 ```python
 # 脑部MRI图像分割示例
@@ -484,7 +484,7 @@ def brain_mri_segmentation():
             print(f'Epoch {epoch}, Loss: {loss.item():.4f}')
 ```
 
-### 2. 多模态阿尔茨海默病预测<cite>[4]</cite>
+### 多模态阿尔茨海默病预测<cite>[4]</cite>
 
 ```python
 # 阿尔茨海默病预测示例
@@ -521,7 +521,7 @@ def alzheimer_prediction():
 
 ## 性能优化与挑战
 
-### 1. 计算效率优化
+### 计算效率优化
 
 ```python
 # 使用梯度检查点减少内存使用
@@ -550,7 +550,7 @@ class MemoryEfficientMedicalGNN(nn.Module):
         return F.softmax(x, dim=1)
 ```
 
-### 2. 数据不平衡处理
+### 数据不平衡处理
 
 ```python
 # 处理医学数据中的类别不平衡
