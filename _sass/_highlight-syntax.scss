@@ -1,0 +1,541 @@
+/* ========================================
+   代码语法高亮 - VS Code Dark+ 主题
+   ======================================== */
+
+.highlight {
+    background: #1e1e1e;
+    color: #d4d4d4;
+    border-radius: 12px;
+    overflow: hidden;
+    margin: 2rem 0;
+    position: relative;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.1);
+
+    /* 代码头部栏 */
+    .code-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 1rem;
+        height: 38px;
+        background: #252526;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        user-select: none;
+    }
+
+    .code-header-left {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+    }
+
+    .code-dots {
+        display: flex;
+        gap: 6px;
+        flex-shrink: 0;
+    }
+
+    .code-dot {
+        width: 11px;
+        height: 11px;
+        border-radius: 50%;
+    }
+
+    .code-dot--red    { background: #ff5f57; }
+    .code-dot--yellow { background: #febc2e; }
+    .code-dot--green  { background: #28c840; }
+
+    .code-lang {
+        font-size: 0.75rem;
+        color: #999;
+        font-family: 'Inter', -apple-system, sans-serif;
+        font-weight: 500;
+        letter-spacing: 0.02em;
+    }
+
+    .code-header-actions {
+        display: flex;
+        align-items: center;
+    }
+
+    /* 头部内的复制按钮 */
+    .code-header .copy-code-button {
+        position: static;
+        opacity: 0;
+        transform: none;
+        padding: 0.25rem 0.6rem;
+        font-size: 0.7rem;
+        border-radius: 4px;
+    }
+
+    .code-header:hover .copy-code-button,
+    .code-header .copy-code-button.copied,
+    .code-header .copy-code-button.copy-error {
+        opacity: 1;
+    }
+
+    pre {
+        margin: 0;
+        padding: 1.25rem 1.5rem;
+        overflow-x: auto;
+        background: transparent;
+        border: none !important;
+        box-shadow: none !important;
+
+        code {
+            background: transparent;
+            padding: 0;
+            color: inherit;
+            font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+            font-size: 0.8rem;
+            line-height: 1.4;
+        }
+    }
+    
+    /* 通用语法元素 */
+    .c,     /* Comment */
+    .cm,    /* Comment.Multiline */
+    .cp,    /* Comment.Preproc */
+    .c1,    /* Comment.Single */
+    .cs {   /* Comment.Special */
+        color: #6a9955;
+        font-style: italic;
+    }
+    
+    .err {  /* Error */
+        color: #f48771;
+        background-color: rgba(244, 135, 113, 0.1);
+    }
+    
+    .k,     /* Keyword */
+    .kc,    /* Keyword.Constant */
+    .kd,    /* Keyword.Declaration */
+    .kn,    /* Keyword.Namespace */
+    .kp,    /* Keyword.Pseudo */
+    .kr,    /* Keyword.Reserved */
+    .kt {   /* Keyword.Type */
+        color: #569cd6;
+        font-weight: 600;
+    }
+    
+    .o,     /* Operator */
+    .ow {   /* Operator.Word */
+        color: #d4d4d4;
+    }
+    
+    .m,     /* Number */
+    .mb,    /* Number.Bin */
+    .mf,    /* Number.Float */
+    .mh,    /* Number.Hex */
+    .mi,    /* Number.Integer */
+    .mo,    /* Number.Oct */
+    .il {   /* Number.Integer.Long */
+        color: #b5cea8;
+    }
+    
+    .s,     /* String */
+    .sb,    /* String.Backtick */
+    .sc,    /* String.Char */
+    .sd,    /* String.Doc */
+    .s2,    /* String.Double */
+    .se,    /* String.Escape */
+    .sh,    /* String.Heredoc */
+    .si,    /* String.Interpol */
+    .sx,    /* String.Other */
+    .sr,    /* String.Regex */
+    .s1,    /* String.Single */
+    .ss {   /* String.Symbol */
+        color: #ce9178;
+    }
+    
+    .n,     /* Name */
+    .na,    /* Name.Attribute */
+    .nb,    /* Name.Builtin */
+    .nc,    /* Name.Class */
+    .no,    /* Name.Constant */
+    .nd,    /* Name.Decorator */
+    .ni,    /* Name.Entity */
+    .ne,    /* Name.Exception */
+    .nf,    /* Name.Function */
+    .nl,    /* Name.Label */
+    .nn,    /* Name.Namespace */
+    .nx,    /* Name.Other */
+    .py,    /* Name.Property */
+    .nt,    /* Name.Tag */
+    .nv,    /* Name.Variable */
+    .bp,    /* Name.Builtin.Pseudo */
+    .vc,    /* Name.Variable.Class */
+    .vg,    /* Name.Variable.Global */
+    .vi {   /* Name.Variable.Instance */
+        color: #9cdcfe;
+    }
+    
+    /* 特殊类名和函数名 */
+    .nc {   /* Name.Class */
+        color: #4ec9b0;
+        font-weight: 600;
+    }
+    
+    .nf {   /* Name.Function */
+        color: #dcdcaa;
+    }
+    
+    /* Python特定 */
+    .nd {   /* Name.Decorator */
+        color: #dcdcaa;
+    }
+    
+    /* 内置函数 */
+    .nb {   /* Name.Builtin */
+        color: #4ec9b0;
+    }
+    
+    /* 变量 */
+    .nv,
+    .vc,
+    .vg,
+    .vi {
+        color: #9cdcfe;
+    }
+    
+    /* HTML/XML 标签 */
+    .nt {   /* Name.Tag */
+        color: #569cd6;
+    }
+    
+    /* HTML/XML 属性 */
+    .na {   /* Name.Attribute */
+        color: #9cdcfe;
+    }
+    
+    /* 常量 */
+    .kc,
+    .no {
+        color: #569cd6;
+        font-weight: 600;
+    }
+    
+    /* 布尔值 */
+    .kc {
+        color: #569cd6;
+    }
+    
+    /* 注释 */
+    .c,
+    .cm,
+    .c1,
+    .cs {
+        color: #6a9955;
+        font-style: italic;
+    }
+    
+    /* Docstring */
+    .sd {
+        color: #6a9955;
+        font-style: italic;
+    }
+    
+    /* 正则表达式 */
+    .sr {
+        color: #d16969;
+    }
+    
+    /* 转义字符 */
+    .se {
+        color: #d7ba7d;
+    }
+    
+    /* 占位符 */
+    .si {
+        color: #d7ba7d;
+    }
+    
+    /* 通用删除 */
+    .gd {   /* Generic.Deleted */
+        color: #f48771;
+        background-color: rgba(244, 135, 113, 0.15);
+    }
+    
+    /* 通用插入 */
+    .gi {   /* Generic.Inserted */
+        color: #b5cea8;
+        background-color: rgba(181, 206, 168, 0.15);
+    }
+    
+    /* 通用标题 */
+    .gh {   /* Generic.Heading */
+        color: #569cd6;
+        font-weight: 700;
+    }
+    
+    /* 通用子标题 */
+    .gu {   /* Generic.Subheading */
+        color: #4ec9b0;
+        font-weight: 700;
+    }
+    
+    /* 通用提示 */
+    .gp {   /* Generic.Prompt */
+        color: #858585;
+        font-weight: 700;
+    }
+    
+    /* 通用输出 */
+    .go {   /* Generic.Output */
+        color: #d4d4d4;
+    }
+    
+    /* 通用追踪 */
+    .gt {   /* Generic.Traceback */
+        color: #f48771;
+    }
+    
+    /* YAML/JSON 特殊处理 */
+    .p {    /* Punctuation */
+        color: #d4d4d4;
+    }
+    
+    /* 属性值（YAML/JSON） */
+    .s2,
+    .s1 {
+        color: #ce9178;
+    }
+    
+    /* Shell/Bash 特殊处理 */
+    .nb {
+        color: #4ec9b0;
+    }
+    
+    /* 终端提示符 */
+    .gp {
+        color: #858585;
+        user-select: none;
+    }
+    
+    /* 代码块语言标签 */
+    &::before {
+        content: attr(data-lang);
+        display: none; /* 先隐藏，通过JavaScript动态添加 */
+    }
+}
+
+/* Python 代码高亮增强 */
+.language-python {
+    .k {
+        color: #569cd6; /* 关键字: def, class, import, etc. */
+    }
+    
+    .nf {
+        color: #dcdcaa; /* 函数名 */
+    }
+    
+    .nc {
+        color: #4ec9b0; /* 类名 */
+    }
+    
+    .nd {
+        color: #dcdcaa; /* 装饰器 @decorator */
+    }
+    
+    .nb {
+        color: #4ec9b0; /* 内置函数 print, len, etc. */
+    }
+    
+    .bp {
+        color: #569cd6; /* self, cls */
+        font-style: italic;
+    }
+    
+    .kc {
+        color: #569cd6; /* True, False, None */
+    }
+}
+
+/* JavaScript 代码高亮增强 */
+.language-javascript,
+.language-js {
+    .k,
+    .kd {
+        color: #569cd6; /* var, let, const, function */
+    }
+    
+    .nx {
+        color: #9cdcfe; /* 变量名 */
+    }
+    
+    .nf {
+        color: #dcdcaa; /* 函数名 */
+    }
+    
+    .s2,
+    .s1 {
+        color: #ce9178; /* 字符串 */
+    }
+    
+    .k {
+        color: #c586c0; /* this, new, return */
+    }
+}
+
+/* HTML 代码高亮增强 */
+.language-html {
+    .nt {
+        color: #569cd6; /* 标签名 */
+    }
+    
+    .na {
+        color: #9cdcfe; /* 属性名 */
+    }
+    
+    .s {
+        color: #ce9178; /* 属性值 */
+    }
+}
+
+/* CSS 代码高亮增强 */
+.language-css,
+.language-scss {
+    .nc,
+    .nf {
+        color: #d7ba7d; /* 选择器 */
+    }
+    
+    .k {
+        color: #569cd6; /* 属性名 */
+    }
+    
+    .s2,
+    .s1 {
+        color: #ce9178; /* 属性值 */
+    }
+    
+    .m,
+    .mf {
+        color: #b5cea8; /* 数值 */
+    }
+}
+
+/* Bash/Shell 代码高亮增强 */
+.language-bash,
+.language-shell {
+    .nb {
+        color: #4ec9b0; /* 命令 */
+    }
+    
+    .nv {
+        color: #9cdcfe; /* 变量 */
+    }
+    
+    .s2,
+    .s1 {
+        color: #ce9178; /* 字符串 */
+    }
+}
+
+/* YAML 代码高亮增强 */
+.language-yaml,
+.language-yml {
+    .na {
+        color: #9cdcfe; /* 键 */
+    }
+    
+    .s,
+    .s1,
+    .s2 {
+        color: #ce9178; /* 值 */
+    }
+    
+    .no {
+        color: #569cd6; /* true, false, null */
+    }
+}
+
+/* JSON 代码高亮增强 */
+.language-json {
+    .na {
+        color: #9cdcfe; /* 键 */
+    }
+    
+    .s2 {
+        color: #ce9178; /* 字符串值 */
+    }
+    
+    .mi,
+    .mf {
+        color: #b5cea8; /* 数字 */
+    }
+    
+    .kc {
+        color: #569cd6; /* true, false, null */
+    }
+}
+
+/* Markdown 代码高亮增强 */
+.language-markdown {
+    .gh {
+        color: #569cd6; /* 标题 */
+        font-weight: 700;
+    }
+    
+    .gu {
+        color: #4ec9b0; /* 子标题 */
+    }
+    
+    .s {
+        color: #ce9178; /* 链接 */
+    }
+    
+    .ge {
+        font-style: italic; /* 斜体 */
+    }
+    
+    .gs {
+        font-weight: 700; /* 粗体 */
+    }
+}
+
+/* 行号支持（可选） */
+.highlight .lineno {
+    color: #858585;
+    user-select: none;
+    padding-right: 1em;
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    margin-right: 1em;
+}
+
+/* 滚动条样式 */
+.highlight pre::-webkit-scrollbar {
+    height: 8px;
+}
+
+.highlight pre::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+}
+
+.highlight pre::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+}
+
+.highlight pre::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+/* 响应式优化 */
+@media (max-width: 768px) {
+    .highlight {
+        margin: 1.25rem 0;
+    }
+
+    .highlight pre {
+        padding: 0.75rem 1rem;
+    }
+
+    .highlight pre code {
+        font-size: 0.72rem;
+        line-height: 1.35;
+    }
+}
