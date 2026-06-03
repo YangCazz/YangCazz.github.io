@@ -49,6 +49,7 @@ ref/
 
 # Claude Code
 .claude/
+CLAUDE.md
 
 # 编辑器本地历史记录
 .history/
