@@ -197,7 +197,7 @@
                 
                 <!-- 博客内容导航 - 仅在博客文章页面显示 -->
                 {% if page.layout == 'post' %}
-                <div class="blog-toc-widget">
+                <div class="blog-toc-widget" id="blogTocWidget">
                     <h3 class="toc-title">文章目录</h3>
                     <div class="toc-content" id="blogToc"></div>
                 </div>
@@ -439,5 +439,20 @@
     <div class="back-to-top" id="backToTop">
         <span class="back-to-top-icon">↑</span>
   </div>
+
+<!-- 移动端浮动目录（仅博文页面） -->
+{% if page.layout == 'post' %}
+<button class="mobile-toc-toggle" id="mobileTocToggle" aria-label="目录">
+    {% octicon list-unordered height:20 %}
+</button>
+<div class="mobile-toc-overlay" id="mobileTocOverlay"></div>
+<div class="mobile-toc-panel" id="mobileTocPanel">
+    <div class="mobile-toc-header">
+        <span class="mobile-toc-title">文章目录</span>
+        <button class="mobile-toc-close" id="mobileTocClose">✕</button>
+    </div>
+    <div class="mobile-toc-content" id="mobileToc"></div>
+</div>
+{% endif %}
 </body>
 </html>

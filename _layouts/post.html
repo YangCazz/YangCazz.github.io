@@ -106,9 +106,94 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
         gantt: { useMaxWidth: true }
     });
 
+    // LaTeX → Unicode 转换表，用于在 Mermaid 中渲染数学符号
+    function sanitizeMathForMermaid(text) {
+        var greek = {
+            '\\alpha':'α','\\beta':'β','\\gamma':'γ','\\delta':'δ',
+            '\\epsilon':'ε','\\zeta':'ζ','\\eta':'η','\\theta':'θ',
+            '\\iota':'ι','\\kappa':'κ','\\lambda':'λ','\\mu':'μ',
+            '\\nu':'ν','\\xi':'ξ','\\pi':'π','\\rho':'ρ',
+            '\\sigma':'σ','\\tau':'τ','\\upsilon':'υ','\\phi':'φ',
+            '\\chi':'χ','\\psi':'ψ','\\omega':'ω',
+            '\\Gamma':'Γ','\\Delta':'Δ','\\Theta':'Θ','\\Lambda':'Λ',
+            '\\Sigma':'Σ','\\Phi':'Φ','\\Omega':'Ω',
+            '\\infty':'∞','\\cdot':'·','\\times':'×','\\div':'÷',
+            '\\rightarrow':'→','\\leftarrow':'←','\\Rightarrow':'⇒',
+            '\\mathbb{R}':'ℝ','\\mathbb{N}':'ℕ','\\mathcal{L}':'ℒ',
+            '\\ell':'ℓ','\\partial':'∂','\\nabla':'∇','\\pm':'±',
+            '\\cap':'∩','\\cup':'∪','\\in':'∈','\\notin':'∉',
+            '\\subset':'⊂','\\subseteq':'⊆','\\approx':'≈',
+            '\\neq':'≠','\\leq':'≤','\\geq':'≥','\\equiv':'≡',
+            '\\sim':'∼','\\propto':'∝','\\sum':'∑','\\prod':'∏',
+            '\\int':'∫','\\forall':'∀','\\exists':'∃','\\mapsto':'↦',
+            '\\longrightarrow':'⟶','\\Longrightarrow':'⟹'
+        };
+        var numSub = {'0':'₀','1':'₁','2':'₂','3':'₃','4':'₄','5':'₅','6':'₆','7':'₇','8':'₈','9':'₉'};
+        var numSup = {'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
+        var latinSub = {'a':'ₐ','e':'ₑ','h':'ₕ','i':'ᵢ','k':'ₖ','l':'ₗ','m':'ₘ','n':'ₙ','o':'ₒ','p':'ₚ','r':'ᵣ','s':'ₛ','t':'ₜ','u':'ᵤ','v':'ᵥ','x':'ₓ'};
+
+        function toUnicodeSub(c) { return numSub[c] || latinSub[c] || c; }
+        function toUnicodeSup(c) { return numSup[c] || c; }
+
+        return text.replace(/\$([^$]+)\$/g, function(m, math) {
+            var result = math;
+            // 1. LaTeX commands → Unicode (before brace handling)
+            for (var key in greek) {
+                result = result.split(key).join(greek[key]);
+            }
+            // 2. Multi-char subscripts: _{abc} → ₐ♭꜀ (only if ALL chars convertible)
+            result = result.replace(/_\{([^}]+)\}/g, function(_, chars) {
+                var allConvertible = true;
+                for (var j = 0; j < chars.length; j++) {
+                    if (toUnicodeSub(chars[j]) === chars[j] && chars[j] !== '_') {
+                        allConvertible = false; break;
+                    }
+                }
+                if (!allConvertible) return '_' + chars;  // keep as _text
+                var out = '';
+                for (var j = 0; j < chars.length; j++) {
+                    out += toUnicodeSub(chars[j]);
+                }
+                return out;
+            });
+            // 3. Multi-char superscripts: ^{abc} (only if ALL chars convertible)
+            result = result.replace(/\^\{([^}]+)\}/g, function(_, chars) {
+                var allConvertible = true;
+                for (var j = 0; j < chars.length; j++) {
+                    if (toUnicodeSup(chars[j]) === chars[j]) {
+                        allConvertible = false; break;
+                    }
+                }
+                if (!allConvertible) return '^' + chars;
+                var out = '';
+                for (var j = 0; j < chars.length; j++) {
+                    out += toUnicodeSup(chars[j]);
+                }
+                return out;
+            });
+            // 4. Strip \text{...} / \mathrm{...} wrappers (keep content)
+            result = result.replace(/\\text\{([^}]*)\}/g, '$1');
+            result = result.replace(/\\mathrm\{([^}]*)\}/g, '$1');
+            // 5. Single-char sub/superscripts: _x, ^x (only convert if Unicode exists)
+            result = result.replace(/_([0-9a-zA-Z])/g, function(_, c) {
+                var sub = toUnicodeSub(c);
+                return sub !== c ? sub : '_' + c;
+            });
+            result = result.replace(/\^([0-9a-zA-Z])/g, function(_, c) {
+                var sup = toUnicodeSup(c);
+                return sup !== c ? sup : '^' + c;
+            });
+            // 6. Strip remaining braces
+            result = result.replace(/[{}]/g, '');
+            // 7. Clean up
+            result = result.replace(/\s+/g, ' ').trim();
+            return result;
+        });
+    }
+
     mermaidBlocks.forEach((block, i) => {
         const pre = block.parentElement;
-        const graphDefinition = block.textContent;
+        const graphDefinition = sanitizeMathForMermaid(block.textContent);
         const container = document.createElement('div');
         container.className = 'mermaid-container';
         container.id = 'mermaid-' + i;
@@ -144,6 +229,24 @@ MathJax = {
   },
   startup: {
     pageReady: () => {
+      // 全局修复：kramdown 表格内 $...$ 中的 _ 被转为 <em> 标签，破坏 MathJax 解析
+      // 在所有页面的表格 <td>/<th> 内，$...<em>...</em>...$ 还原为 \(...\) 格式
+      document.querySelectorAll('td, th').forEach(function(cell) {
+        var html = cell.innerHTML;
+        if (html.indexOf('$') === -1) return;
+        var prev = '';
+        while (prev !== html) {
+          prev = html;
+          html = html.replace(
+            /\$([^$]*?)<em>([^<]*?)<\/em>([^$]*?)\$/g,
+            function(m, before, em, after) {
+              return '\\(' + before + em + after + '\\)';
+            }
+          );
+        }
+        cell.innerHTML = html;
+      });
+
       return MathJax.startup.defaultPageReady().then(() => {
         console.log('MathJax 渲染完成');
       });

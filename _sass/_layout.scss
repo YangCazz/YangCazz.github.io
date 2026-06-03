@@ -54,6 +54,11 @@ body {
 }
 
 @media (max-width: 768px) {
+    body {
+        font-size: 0.9375rem;  // 15px on default 16px base
+        line-height: 1.55;
+    }
+
     #particleCanvas {
         opacity: 0.5;
     }
