@@ -59,16 +59,72 @@ function initBlogToc() {
 
     tocContainer.innerHTML = tocHtml;
 
+    // ---- 移动端浮动目录 ----
+    const mobileTocContainer = document.getElementById('mobileToc');
+    const mobilePanel = document.getElementById('mobileTocPanel');
+    const mobileOverlay = document.getElementById('mobileTocOverlay');
+    const mobileToggle = document.getElementById('mobileTocToggle');
+    const mobileClose = document.getElementById('mobileTocClose');
+
+    if (mobileTocContainer) {
+        mobileTocContainer.innerHTML = tocHtml;
+
+        let mobileTocItems = mobileTocContainer.querySelectorAll('.toc-item');
+
+        function openMobileToc() {
+            mobilePanel.classList.add('open');
+            mobileOverlay.classList.add('open');
+            mobileToggle.style.opacity = '0';
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeMobileToc() {
+            mobilePanel.classList.remove('open');
+            mobileOverlay.classList.remove('open');
+            mobileToggle.style.opacity = '1';
+            document.body.style.overflow = '';
+        }
+
+        mobileToggle.addEventListener('click', openMobileToc);
+        mobileOverlay.addEventListener('click', closeMobileToc);
+        mobileClose.addEventListener('click', closeMobileToc);
+
+        // 移动端目录项点击后关闭面板
+        mobileTocItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = item.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+                closeMobileToc();
+            });
+        });
+    }
+
     // ---- 滚动监听 ----
     const tocItems = tocContainer.querySelectorAll('.toc-item');
+    const mobileTocItems = mobileTocContainer ? mobileTocContainer.querySelectorAll('.toc-item') : [];
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                // 桌面端目录
                 tocItems.forEach(item => item.classList.remove('active'));
-                const correspondingTocItem = tocContainer.querySelector('a[href="#' + entry.target.id + '"]');
-                if (correspondingTocItem) {
-                    correspondingTocItem.classList.add('active');
-                    scrollToActiveItem(correspondingTocItem, tocContainer);
+                const desktopItem = tocContainer.querySelector('a[href="#' + entry.target.id + '"]');
+                if (desktopItem) {
+                    desktopItem.classList.add('active');
+                    scrollToActiveItem(desktopItem, tocContainer);
+                }
+                // 移动端目录
+                if (mobileTocContainer) {
+                    mobileTocItems.forEach(item => item.classList.remove('active'));
+                    const mobileItem = mobileTocContainer.querySelector('a[href="#' + entry.target.id + '"]');
+                    if (mobileItem) {
+                        mobileItem.classList.add('active');
+                        scrollToActiveItem(mobileItem, mobileTocContainer);
+                    }
                 }
             }
         });

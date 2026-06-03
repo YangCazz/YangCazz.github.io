@@ -207,7 +207,7 @@
     padding: 0.2em 0.5em;
     border-radius: 4px;
     font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
-    font-size: 0.88em;
+    font-size: 0.85em;
     font-weight: 500;
     letter-spacing: -0.02em;
     box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
@@ -582,23 +582,33 @@
     }
 
     .blog-post .post-title {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
     }
 
     .blog-post .post-content {
         padding: 1.25rem;
+        line-height: 1.7;
+    }
+
+    .blog-post .post-content p {
+        margin: 0.9rem 0;
+        font-size: 0.95rem;
     }
 
     .blog-post .post-content h1 {
-        font-size: 1.3rem;
+        font-size: 1.25rem;
     }
 
     .blog-post .post-content h2 {
-        font-size: 1.15rem;
+        font-size: 1.1rem;
     }
 
     .blog-post .post-content h3 {
-        font-size: 1.05rem;
+        font-size: 1rem;
+    }
+
+    .blog-post .post-content h4 {
+        font-size: 0.95rem;
     }
 
     .blog-post .post-content h1,
@@ -607,11 +617,7 @@
     .blog-post .post-content h4,
     .blog-post .post-content h5,
     .blog-post .post-content h6 {
-        margin: 1.25rem 0 0.75rem 0;
-    }
-
-    .blog-post .post-content p {
-        margin: 1rem 0;
+        margin: 1.1rem 0 0.6rem 0;
     }
 
     .blog-post .post-content img {
@@ -687,5 +693,20 @@
         max-width: 260px;
         font-size: 0.78rem;
         padding: 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-post .post-title {
+        font-size: 1.35rem;
+    }
+
+    .blog-post .post-content {
+        padding: 1rem;
+        line-height: 1.65;
+    }
+
+    .blog-post .post-content p {
+        font-size: 0.9rem;
     }
 }
