@@ -120,10 +120,6 @@
                     <span class="nav-icon">{% octicon note height:18 %}</span>
                     <span class="nav-text">博客</span>
                 </a>
-                <a href="{{ '/resume' | relative_url }}" class="nav-link">
-                    <span class="nav-icon">{% octicon person height:18 %}</span>
-                    <span class="nav-text">简历</span>
-                </a>
                 <a href="{{ '/showcase' | relative_url }}" class="nav-link">
                     <span class="nav-icon">{% octicon rocket height:18 %}</span>
                     <span class="nav-text">展示</span>
@@ -302,7 +298,7 @@
                     </svg>
                     <span>关于我</span>
                 </h3>
-                <p class="footer-desc">医疗机器人算法工程师</p>
+                <p class="footer-desc"><a href="{{ '/resume' | relative_url }}" class="footer-owner">医疗机器人算法工程师</a></p>
                 <p class="footer-desc">专注医学图像处理、深度学习与机器人控制</p>
                 <div class="tech-stack">
                     <span class="tech-badge">Python</span>
@@ -336,15 +332,6 @@
                             <line x1="16" y1="17" x2="8" y2="17"></line>
                         </svg>
                         <span>博客</span>
-                    </a>
-                    <a href="{{ '/resume' | relative_url }}" class="footer-nav-card">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="12" y1="18" x2="12" y2="12"></line>
-                            <line x1="9" y1="15" x2="15" y2="15"></line>
-                        </svg>
-                        <span>简历</span>
                     </a>
                     <a href="{{ '/showcase' | relative_url }}" class="footer-nav-card">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -421,7 +408,7 @@
         <div class="footer-bottom">
             <div class="footer-divider"></div>
             <p class="copyright">
-                © {{ 'now' | date: "%Y" }} YangCazz
+                © {{ 'now' | date: "%Y" }} <a href="{{ '/resume' | relative_url }}" class="footer-owner">YangCazz</a>
                 <span class="dot">•</span>
                 <span class="footer-motto">用心打造</span>
                 <span class="dot">•</span>
