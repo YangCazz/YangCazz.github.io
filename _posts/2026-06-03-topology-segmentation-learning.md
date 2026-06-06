@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "图像分割中的拓扑结构学习：从 clDice 到 Betti Matching 再到血管分割实战"
-date: 2026-06-01 16:00:00 +0800
+date: 2026-06-03 10:00:00 +0800
 categories: [深度学习, 医学图像]
 tags: [拓扑结构学习, 血管分割, 持久同调, clDice, Betti Matching, 拓扑感知损失, 医学图像分割]
 excerpt: "深入解析图像分割中的拓扑结构保持方法——从持久同调和 Betti 数的数学基础，到 clDice 和 Betti Matching 等前沿拓扑感知损失函数，再到血管分割中的实战应用与代码实现。"

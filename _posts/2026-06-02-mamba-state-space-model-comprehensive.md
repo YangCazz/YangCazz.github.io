@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Mamba 全栈解析：从状态空间模型到视觉 Mamba 再到医学图像应用"
-date: 2026-06-01 14:00:00 +0800
+date: 2026-06-02 10:00:00 +0800
 categories: [深度学习, 计算机视觉]
 tags: [Mamba, 状态空间模型, SSM, Vision Mamba, 医学图像分割, Transformer, S4, VMamba]
 excerpt: "由浅入深全面解析 Mamba 架构——从 S4 的线性时不变系统到 Mamba 的选择性状态空间模型 S6，再到 Vision Mamba 家族和医学图像应用，涵盖数学原理、架构对比和实战代码。"
