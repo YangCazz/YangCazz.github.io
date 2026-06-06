@@ -1,0 +1,182 @@
+---
+layout: default
+title: YangCazz - 个人博客
+description: 医疗机器人算法工程师的技术博客，分享医学图像处理、深度学习、机器人控制等技术心得
+navigation: home_navigation
+---
+
+<!-- 欢迎区域 -->
+<section id="hero" class="hero-section">
+    <div class="hero-content">
+        <div class="hero-left">
+            <h1 class="hero-title">欢迎来到我的技术博客</h1>
+            <p class="hero-subtitle">医疗机器人算法工程师 | 医学图像处理专家 | 深度学习研究者</p>
+            <div class="hero-actions">
+                <a href="/blog" class="btn btn-primary">阅读博客</a>
+                <a href="/showcase" class="btn btn-secondary">查看展示</a>
+            </div>
+        </div>
+        
+        <div class="hero-right">
+            <div class="blog-stats">
+                <h3 class="stats-title">{% octicon book height:20 %} 博客统计</h3>
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-number">{{ site.posts.size }}</span>
+                        <span class="stat-label">技术文章</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ site.tags.size }}</span>
+                        <span class="stat-label">技术标签</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">{{ site.categories.size }}</span>
+                        <span class="stat-label">技术分类</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 最新博客文章 -->
+<section id="blog" class="blog-section">
+    <h2 class="section-title">{% octicon note height:24 %} 最新博客文章</h2>
+    <div class="blog-grid">
+        {% for post in site.posts limit:6 %}
+        <article class="blog-card">
+            <div class="blog-card-header">
+                <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+                <time class="blog-date">{{ post.date | date: "%Y年%m月%d日" }}</time>
+            </div>
+            <div class="blog-card-content">
+                <p>{{ post.excerpt | default: post.content | strip_html | truncate: 150 }}</p>
+            </div>
+            <div class="blog-card-footer">
+                <a href="{{ post.url }}" class="read-more">阅读更多 →</a>
+            </div>
+        </article>
+        {% endfor %}
+    </div>
+    
+    <div class="blog-actions">
+        <a href="/blog" class="btn btn-outline">查看所有文章</a>
+    </div>
+</section>
+
+<!-- 技术栈展示 -->
+<section id="tech" class="tech-section">
+    <h2 class="section-title">{% octicon tools height:24 %} 技术专长</h2>
+    <div class="tech-grid">
+        <div class="tech-category">
+            <h3>编程语言</h3>
+            <div class="tech-tags">
+                <span class="tech-tag">C++</span>
+                <span class="tech-tag">Python</span>
+                <span class="tech-tag">JavaScript</span>
+                <span class="tech-tag">MATLAB</span>
+            </div>
+        </div>
+        
+        <div class="tech-category">
+            <h3>医学图像处理</h3>
+            <div class="tech-tags">
+                <span class="tech-tag">ITK</span>
+                <span class="tech-tag">VTK</span>
+                <span class="tech-tag">OpenCV</span>
+                <span class="tech-tag">DICOM</span>
+            </div>
+        </div>
+        
+        <div class="tech-category">
+            <h3>深度学习</h3>
+            <div class="tech-tags">
+                <span class="tech-tag">PyTorch</span>
+                <span class="tech-tag">TensorFlow</span>
+                <span class="tech-tag">医学图像分割</span>
+                <span class="tech-tag">3D重建</span>
+            </div>
+        </div>
+        
+        <div class="tech-category">
+            <h3>机器人控制</h3>
+            <div class="tech-tags">
+                <span class="tech-tag">ROS</span>
+                <span class="tech-tag">运动控制</span>
+                <span class="tech-tag">路径规划</span>
+                <span class="tech-tag">传感器融合</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 项目展示 -->
+<section id="projects" class="projects-section">
+    <h2 class="section-title">{% octicon rocket height:24 %} 精选项目</h2>
+    <div class="projects-grid">
+        <div class="project-card">
+            <h3>智能手术导航系统</h3>
+            <p>基于深度学习的医学图像处理与机器人控制集成系统，已申请三类医疗器械注册证。</p>
+            <div class="project-tags">
+                <span class="project-tag">C++</span>
+                <span class="project-tag">深度学习</span>
+                <span class="project-tag">机器人控制</span>
+            </div>
+        </div>
+        
+        <div class="project-card">
+            <h3>医学图像分割算法</h3>
+            <p>基于U-Net架构的3D医学图像分割算法，在多个公开数据集上达到SOTA性能。</p>
+            <div class="project-tags">
+                <span class="project-tag">Python</span>
+                <span class="project-tag">PyTorch</span>
+                <span class="project-tag">医学图像</span>
+            </div>
+        </div>
+        
+        <div class="project-card">
+            <h3>点云配准算法</h3>
+            <p>高精度点云配准算法，用于手术导航中的实时定位与配准。</p>
+            <div class="project-tags">
+                <span class="project-tag">C++</span>
+                <span class="project-tag">PCL</span>
+                <span class="project-tag">点云处理</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.fromTo('.hero-title',
+        { opacity: 0, y: 40 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' }
+    );
+    gsap.fromTo('.hero-subtitle',
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.7, delay: 0.12, ease: 'power2.out' }
+    );
+    gsap.fromTo('.hero-actions .btn',
+        { opacity: 0, y: 20 },
+        { opacity: 1, y: 0, duration: 0.5, stagger: 0.1, delay: 0.25, ease: 'power2.out' }
+    );
+    gsap.fromTo('.stats-grid .stat-item',
+        { opacity: 0, scale: 0.9 },
+        { opacity: 1, scale: 1, duration: 0.5, stagger: 0.08, delay: 0.45, ease: 'back.out(1.3)' }
+    );
+
+    gsap.utils.toArray('.section-title').forEach(function(title) {
+        gsap.fromTo(title,
+            { opacity: 0, x: -20 },
+            {
+                opacity: 1, x: 0, duration: 0.6, ease: 'power2.out',
+                scrollTrigger: { trigger: title, start: 'top 85%', toggleActions: 'play none none none' }
+            }
+        );
+    });
+
+    ScrollTrigger.refresh();
+});
+</script>
