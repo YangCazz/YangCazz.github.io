@@ -1,0 +1,748 @@
+/* ========================================
+   赛博朋克 × 玻璃拟态 — Showcase 样式
+   作用域: body.showcase-cyber
+   ======================================== */
+
+body.showcase-cyber {
+  --cyber-bg: #0a0a18;
+  --cyber-card-bg: rgba(255,255,255,0.03);
+  --cyber-card-border: rgba(255,255,255,0.08);
+  --cyber-neon-blue: #7ee7f5;
+  --cyber-neon-purple: #c084fc;
+  --cyber-neon-green: #4ade80;
+  --cyber-neon-orange: #fb923c;
+  --cyber-text: #e8edf5;
+  --cyber-text-dim: #7a8aa8;
+
+  background: var(--cyber-bg);
+  overflow: hidden;
+
+  #particleCanvas { display: none; }
+  .main-content { margin-top: 60px; height: calc(100vh - 60px); padding: 0; flex: 0 0 auto; }
+  .content-wrapper { display: block; height: 100%; max-width: none; padding: 0; }
+  .page-content { height: 100%; min-height: 0; }
+  .sidebar-nav { display: none; }
+  .site-footer { display: none; }
+
+  /* ---- 扫描线叠加 ---- */
+  .scanlines {
+    position: fixed; inset: 0; z-index: 100; pointer-events: none;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(120, 180, 255, 0.012) 2px,
+      rgba(120, 180, 255, 0.012) 4px
+    );
+  }
+
+  /* ---- 滚动容器 ---- */
+  .showcase-cyber {
+    height: 100%;
+    overflow-y: auto;
+    overscroll-behavior: none;
+
+    &::-webkit-scrollbar { width: 0; }
+  }
+
+  /* ---- 背景发光球体 ---- */
+  .cyber-bg-orb {
+    position: absolute; border-radius: 50%; filter: blur(100px); pointer-events: none; z-index: 0;
+    will-change: transform;
+  }
+
+  .cyber-orb-1 {
+    width: 500px; height: 500px;
+    background: rgba(0, 180, 255, 0.08);
+    top: -150px; left: -150px;
+  }
+
+  .cyber-orb-2 {
+    width: 400px; height: 400px;
+    background: rgba(160, 80, 255, 0.07);
+    bottom: -100px; right: -100px;
+  }
+
+  .cyber-orb-3 {
+    width: 300px; height: 300px;
+    background: rgba(0, 220, 160, 0.06);
+    top: 60%; left: 50%;
+  }
+
+  /* ---- 浮动粒子 ---- */
+  .cyber-particles {
+    position: absolute; inset: 0; z-index: 1; pointer-events: none;
+  }
+
+  .cyber-particle {
+    position: absolute;
+    width: 2px; height: 2px;
+    border-radius: 50%;
+    animation: cyberFloat 5s ease-in-out infinite;
+  }
+
+  .cyber-particle:nth-child(1) {
+    top: 20%; left: 10%;
+    background: rgba(120, 200, 255, 0.7);
+    animation-delay: 0s; width: 3px; height: 3px;
+  }
+  .cyber-particle:nth-child(2) {
+    top: 40%; left: 80%;
+    background: rgba(200, 120, 255, 0.6);
+    animation-delay: 1.5s;
+  }
+  .cyber-particle:nth-child(3) {
+    top: 70%; left: 30%;
+    background: rgba(100, 255, 200, 0.5);
+    animation-delay: 3s;
+  }
+  .cyber-particle:nth-child(4) {
+    top: 15%; left: 60%;
+    background: rgba(255, 150, 100, 0.5);
+    animation-delay: 0.8s;
+    width: 1px; height: 1px;
+  }
+  .cyber-particle:nth-child(5) {
+    top: 80%; left: 70%;
+    background: rgba(120, 180, 255, 0.6);
+    animation-delay: 2.2s;
+  }
+  .cyber-particle:nth-child(6) {
+    top: 50%; left: 45%;
+    background: rgba(200, 160, 255, 0.5);
+    animation-delay: 3.8s;
+    width: 2.5px; height: 2.5px;
+  }
+
+  @keyframes cyberFloat {
+    0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+    33%  { transform: translateY(-40px) translateX(10px); opacity: 0.9; }
+    66%  { transform: translateY(-15px) translateX(-8px); opacity: 0.5; }
+  }
+
+  /* ---- Section 基础 ---- */
+  .showcase-cyber-section {
+    scroll-snap-align: start;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* ---- 巨幅编号 ---- */
+  .cyber-section-num {
+    position: absolute;
+    top: 2rem; right: 2rem;
+    font-family: 'Fira Code', monospace;
+    font-size: clamp(5rem, 12vw, 10rem);
+    font-weight: 900;
+    color: rgba(120, 200, 255, 0.025);
+    pointer-events: none;
+    line-height: 1;
+    z-index: 0;
+  }
+
+  /* ---- Hero ---- */
+  .cyber-hero {
+    background: var(--cyber-bg);
+    text-align: center;
+  }
+
+  .cyber-hero-content {
+    max-width: 750px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .cyber-hero-eyebrow {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.4em;
+    color: var(--cyber-neon-blue);
+    text-shadow: 0 0 20px rgba(126, 231, 245, 0.3);
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: inline-block;
+  }
+
+  .cyber-hero-title {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    color: var(--cyber-text);
+    margin-bottom: 1rem;
+    letter-spacing: -0.03em;
+    line-height: 1.15;
+  }
+
+  .cyber-hero-subtitle {
+    font-size: 1.05rem;
+    color: var(--cyber-text-dim);
+    margin-bottom: 0.75rem;
+  }
+
+  .cyber-hero-desc {
+    font-size: 0.9rem;
+    color: #5a6a88;
+    line-height: 1.8;
+    max-width: 500px;
+    margin: 0 auto 2.5rem;
+  }
+
+  .cyber-hero-stats {
+    display: flex; gap: 3rem; justify-content: center; margin-bottom: 3rem;
+  }
+
+  .cyber-hero-stat {
+    display: flex; flex-direction: column; align-items: center; gap: 0.25rem;
+  }
+
+  .cyber-stat-num {
+    font-size: clamp(2rem, 3vw, 2.8rem);
+    font-weight: 700;
+    color: var(--cyber-text);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .cyber-stat-label {
+    font-size: 0.7rem;
+    color: #5a6a88;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .cyber-hero-stat:nth-child(1) .cyber-stat-num { color: var(--cyber-neon-blue); }
+  .cyber-hero-stat:nth-child(2) .cyber-stat-num { color: var(--cyber-neon-purple); }
+  .cyber-hero-stat:nth-child(3) .cyber-stat-num { color: var(--cyber-neon-green); }
+
+  /* ---- 滚动引导 ---- */
+  .cyber-scroll-hint {
+    display: flex; flex-direction: column; align-items: center; gap: 0.6rem;
+    color: #3a4a68; font-size: 0.7rem; letter-spacing: 0.1em;
+  }
+
+  .cyber-scroll-line {
+    width: 1px; height: 40px;
+    background: linear-gradient(to bottom, var(--cyber-neon-blue), transparent);
+    position: relative; overflow: hidden;
+
+    &::after {
+      content: '';
+      position: absolute; top: -50%; left: 0; width: 100%; height: 50%;
+      background: var(--cyber-neon-blue);
+      animation: cyberScrollPulse 2s ease infinite;
+    }
+  }
+
+  @keyframes cyberScrollPulse {
+    0%, 100% { top: -50%; opacity: 0; }
+    50% { top: 0%; opacity: 1; }
+  }
+
+  /* ---- 玻璃拟态卡片 ---- */
+  .glass-card {
+    background: var(--cyber-card-bg);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--cyber-card-border);
+    border-radius: 16px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.04);
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 15%; right: 15%; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(126, 231, 245, 0.3), transparent);
+    }
+  }
+
+  /* ---- 项目章节 ---- */
+  .cyber-project-section {
+    background: var(--cyber-bg);
+  }
+
+  .cyber-project-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    max-width: 1100px;
+    width: 100%;
+    align-items: center;
+    position: relative;
+    z-index: 2;
+
+    &.flip { direction: rtl; > * { direction: ltr; } }
+  }
+
+  /* ---- 视觉区 ---- */
+  .cyber-visual {
+    aspect-ratio: 4/3;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    .cyber-visual-media {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; border-radius: inherit; z-index: 1;
+    }
+
+    .cyber-visual-placeholder {
+      width: 100%; height: 100%;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 1rem;
+      position: relative; z-index: 1;
+    }
+
+    .cyber-visual-icon {
+      width: 80px; height: 80px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 50%;
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
+    }
+
+    .cyber-visual-label {
+      font-family: 'Fira Code', monospace;
+      font-size: 0.7rem; letter-spacing: 0.2em;
+      text-transform: uppercase; opacity: 0.5;
+    }
+
+    &:hover .cyber-visual-icon {
+      transform: scale(1.08);
+    }
+  }
+
+  /* 视觉区颜色主题 */
+  .cyber-theme-medical {
+    .cyber-visual-icon { color: var(--cyber-neon-blue); background: rgba(126,231,245,0.08); box-shadow: 0 0 60px rgba(126,231,245,0.08); }
+    .cyber-visual-label { color: #93d8f5; }
+    border: 1px solid rgba(126,231,245,0.1);
+  }
+
+  .cyber-theme-web {
+    .cyber-visual-icon { color: var(--cyber-neon-purple); background: rgba(192,132,252,0.08); box-shadow: 0 0 60px rgba(192,132,252,0.08); }
+    .cyber-visual-label { color: #d8b4fe; }
+    border: 1px solid rgba(192,132,252,0.1);
+  }
+
+  .cyber-theme-ai {
+    .cyber-visual-icon { color: var(--cyber-neon-green); background: rgba(74,222,128,0.06); box-shadow: 0 0 60px rgba(74,222,128,0.06); }
+    .cyber-visual-label { color: #86efac; }
+    border: 1px solid rgba(74,222,128,0.1);
+  }
+
+  .cyber-theme-3d {
+    .cyber-visual-icon { color: var(--cyber-neon-orange); background: rgba(251,146,60,0.08); box-shadow: 0 0 60px rgba(251,146,60,0.08); }
+    .cyber-visual-label { color: #fdba74; }
+    border: 1px solid rgba(251,146,60,0.1);
+  }
+
+  /* ---- 项目内容 ---- */
+  .cyber-project-content {
+    h2 {
+      font-size: clamp(1.4rem, 2.5vw, 1.9rem);
+      font-weight: 700;
+      color: var(--cyber-text);
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.02em;
+    }
+  }
+
+  .cyber-badge {
+    display: inline-block;
+    padding: 0.2rem 0.7rem;
+    border-radius: 99px;
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+
+    &.badge-blue {
+      color: var(--cyber-neon-blue);
+      background: rgba(126,231,245,0.08);
+      border: 1px solid rgba(126,231,245,0.15);
+      text-shadow: 0 0 10px rgba(126,231,245,0.3);
+    }
+    &.badge-purple {
+      color: var(--cyber-neon-purple);
+      background: rgba(192,132,252,0.08);
+      border: 1px solid rgba(192,132,252,0.15);
+      text-shadow: 0 0 10px rgba(192,132,252,0.3);
+    }
+    &.badge-green {
+      color: var(--cyber-neon-green);
+      background: rgba(74,222,128,0.06);
+      border: 1px solid rgba(74,222,128,0.12);
+      text-shadow: 0 0 10px rgba(74,222,128,0.2);
+    }
+  }
+
+  .cyber-tagline {
+    color: var(--cyber-text-dim);
+    font-size: 0.95rem;
+    line-height: 1.7;
+    margin-bottom: 1.25rem;
+  }
+
+  .cyber-features {
+    list-style: none; padding: 0; margin: 0 0 1.25rem;
+
+    li {
+      color: #8899bb; padding: 0.35rem 0 0.35rem 1.5rem;
+      position: relative; font-size: 0.85rem; line-height: 1.6;
+
+      &::before {
+        content: ''; position: absolute; left: 0; top: 0.7rem;
+        width: 6px; height: 2px; border-radius: 2px;
+        background: var(--cyber-neon-blue); opacity: 0.6;
+      }
+    }
+  }
+
+  .cyber-tags {
+    display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem;
+
+    span {
+      font-size: 0.7rem;
+      padding: 0.15rem 0.55rem;
+      border-radius: 99px;
+      background: rgba(255,255,255,0.03);
+      color: #8899bb;
+      border: 1px solid rgba(120,180,255,0.08);
+      transition: all 0.3s ease;
+
+      &:hover {
+        border-color: rgba(126,231,245,0.3);
+        box-shadow: 0 0 10px rgba(126,231,245,0.1);
+        color: #c0d0e8;
+      }
+    }
+  }
+
+  .cyber-status {
+    font-family: 'Fira Code', monospace;
+    font-size: 0.7rem;
+    padding: 0.12rem 0.55rem;
+    border-radius: 99px;
+    display: inline-block;
+    margin-bottom: 1rem;
+
+    &.status-prod {
+      color: var(--cyber-neon-green);
+      background: rgba(74,222,128,0.06);
+      border: 1px solid rgba(74,222,128,0.12);
+    }
+    &.status-research {
+      color: var(--cyber-neon-orange);
+      background: rgba(251,146,60,0.06);
+      border: 1px solid rgba(251,146,60,0.12);
+    }
+  }
+
+  .cyber-links {
+    display: flex; gap: 0.75rem; flex-wrap: wrap;
+  }
+
+  .cyber-link {
+    font-size: 0.82rem; font-weight: 500; text-decoration: none;
+    padding: 0.4rem 1.1rem; border-radius: 8px;
+    transition: all 0.3s ease;
+    color: var(--cyber-text-dim);
+    border: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+
+    &:hover {
+      color: var(--cyber-text);
+      border-color: rgba(126,231,245,0.25);
+      box-shadow: 0 0 12px rgba(126,231,245,0.08);
+      background: rgba(126,231,245,0.05);
+    }
+
+    &.primary {
+      background: var(--cyber-neon-blue);
+      color: #0a0a18;
+      border-color: var(--cyber-neon-blue);
+      font-weight: 600;
+
+      &:hover {
+        box-shadow: 0 0 20px rgba(126,231,245,0.3);
+        background: #93f0f8;
+      }
+    }
+  }
+
+  /* ---- Bento Gallery ---- */
+  .cyber-gallery-section {
+    background: #080814;
+    display: flex; flex-direction: column; align-items: center;
+    padding: 5rem 2rem; position: relative;
+  }
+
+  .cyber-gallery-title {
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--cyber-text);
+    margin-bottom: 2rem;
+    letter-spacing: -0.01em;
+    position: relative; z-index: 2;
+  }
+
+  .cyber-bento-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 0.75rem;
+    max-width: 1100px; width: 100%;
+    position: relative; z-index: 2;
+
+    .cyber-bento-item:first-child {
+      grid-column: span 2;
+    }
+  }
+
+  .cyber-bento-item {
+    background: rgba(255,255,255,0.02);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 1.2rem;
+    transition: all 0.35s ease;
+    position: relative;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+
+    .bento-accent {
+      position: absolute; top: 0; left: 0; right: 0; height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(126,231,245,0.2), transparent);
+      opacity: 0; transition: opacity 0.35s ease;
+    }
+
+    .bento-icon {
+      color: #4a5a78;
+      margin-bottom: 0.85rem;
+      transition: color 0.35s ease, transform 0.35s ease;
+    }
+
+    h3 {
+      color: #c0cce0;
+      font-size: 1rem; font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    > p {
+      color: #6a7a98;
+      font-size: 0.8rem; line-height: 1.6;
+      margin-bottom: 0.85rem; flex: 1;
+    }
+
+    .cyber-tags {
+      margin-bottom: 0;
+      span {
+        font-size: 0.65rem;
+        padding: 0.12rem 0.4rem;
+      }
+    }
+
+    &:hover {
+      border-color: rgba(126,231,245,0.15);
+      background: rgba(126,231,245,0.03);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.3), 0 0 20px rgba(126,231,245,0.05);
+
+      .bento-accent { opacity: 1; }
+      .bento-icon { color: var(--cyber-neon-blue); transform: scale(1.06); }
+    }
+  }
+
+  /* ---- GitHub Section ---- */
+  .cyber-github-section {
+    background: var(--cyber-bg);
+    display: flex; flex-direction: column; align-items: center;
+    padding: 5rem 2rem; position: relative;
+  }
+
+  .cyber-github-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 0.75rem;
+    max-width: 1100px; width: 100%;
+    position: relative; z-index: 2;
+  }
+
+  .cyber-github-section .github-project-card {
+    background: rgba(255,255,255,0.015);
+    border-color: rgba(255,255,255,0.05);
+    box-shadow: none;
+
+    &:hover {
+      background: rgba(255,255,255,0.03);
+      border-color: rgba(126,231,245,0.15);
+    }
+  }
+
+  .cyber-github-section .gh-card-name { color: #c0cce0; }
+  .cyber-github-section .gh-card-desc,
+  .cyber-github-section .gh-card-lang,
+  .cyber-github-section .gh-card-stars { color: #6a7a98; }
+
+  /* ---- Contact CTA ---- */
+  .cyber-contact-section {
+    background: var(--cyber-bg);
+    min-height: 50vh; position: relative; overflow: hidden;
+  }
+
+  .cyber-contact-glow {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px; height: 600px;
+    border-radius: 50%;
+    background: radial-gradient(circle,
+      rgba(126,231,245,0.04) 0%,
+      rgba(192,132,252,0.02) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+
+  .cyber-contact-cta {
+    text-align: center; max-width: 560px; position: relative; z-index: 2;
+
+    h2 {
+      font-size: 2rem; font-weight: 700;
+      color: var(--cyber-text);
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+
+    p {
+      color: var(--cyber-text-dim);
+      line-height: 1.8; margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+  }
+
+  .cyber-contact-methods {
+    display: flex; gap: 0.75rem;
+    justify-content: center; flex-wrap: wrap;
+  }
+
+  .cyber-contact-method {
+    display: flex; align-items: center; gap: 0.5rem;
+    color: var(--cyber-text-dim); text-decoration: none;
+    font-size: 0.82rem;
+    padding: 0.65rem 1.2rem;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.06);
+    transition: all 0.3s ease;
+    background: rgba(255,255,255,0.01);
+    position: relative; overflow: hidden;
+
+    .contact-icon { color: #4a5a78; display: flex; transition: color 0.3s ease; }
+    .contact-arrow {
+      margin-left: 0.1rem; font-size: 0.7rem;
+      opacity: 0; transform: translateX(-4px);
+      transition: all 0.3s ease;
+      color: var(--cyber-neon-blue);
+    }
+
+    &:hover {
+      border-color: rgba(126,231,245,0.25);
+      background: rgba(126,231,245,0.05);
+      color: var(--cyber-text);
+      box-shadow: 0 0 15px rgba(126,231,245,0.06);
+
+      .contact-icon { color: var(--cyber-neon-blue); }
+      .contact-arrow { opacity: 1; transform: translateX(0); }
+    }
+  }
+
+  /* ---- 右侧导航点 ---- */
+  .cyber-dots {
+    position: fixed; right: 1.25rem; top: 50%;
+    transform: translateY(-50%); z-index: 200;
+    display: flex; flex-direction: column; align-items: center; gap: 8px;
+  }
+
+  .cyber-dot {
+    width: 10px; height: 10px; flex-shrink: 0;
+    border-radius: 50%;
+    border: 2px solid rgba(255,255,255,0.15);
+    background: transparent; cursor: pointer;
+    transition: all 0.3s ease; position: relative;
+
+    &:hover {
+      border-color: var(--cyber-neon-blue);
+      box-shadow: 0 0 8px rgba(126,231,245,0.3);
+    }
+
+    &.active {
+      border-color: var(--cyber-neon-blue);
+      background: var(--cyber-neon-blue);
+      box-shadow: 0 0 16px rgba(126,231,245,0.5);
+      transform: scale(1.2);
+      animation: cyberDotPulse 2s ease infinite;
+    }
+
+    &::after {
+      content: attr(data-label);
+      position: absolute; right: 1.5rem; top: 50%;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      font-size: 0.65rem; font-weight: 500;
+      font-family: 'Fira Code', monospace;
+      color: var(--cyber-text-dim);
+      background: rgba(10,10,24,0.95);
+      backdrop-filter: blur(8px);
+      padding: 0.25rem 0.7rem;
+      border-radius: 6px;
+      border: 1px solid rgba(126,231,245,0.12);
+      opacity: 0; pointer-events: none;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+
+    &:hover::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(-3px);
+    }
+  }
+
+  @keyframes cyberDotPulse {
+    0%, 100% { box-shadow: 0 0 16px rgba(126,231,245,0.5); }
+    50% { box-shadow: 0 0 28px rgba(126,231,245,0.7); transform: scale(1.35); }
+  }
+
+  /* ---- 响应式 ---- */
+  @media (max-width: 1024px) {
+    .cyber-project-row {
+      grid-template-columns: 1fr; gap: 2rem;
+      &.flip { direction: ltr; }
+    }
+    .cyber-visual { aspect-ratio: 16/9; max-height: 250px; }
+    .cyber-bento-grid {
+      grid-template-columns: repeat(2, 1fr);
+      .cyber-bento-item:first-child { grid-column: span 1; }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .showcase-cyber-section { padding: 3rem 1rem; }
+    .cyber-section-num { font-size: 4rem; top: 1.5rem; right: 1rem; }
+    .cyber-hero-stats { gap: 1.5rem; }
+    .cyber-bento-grid { grid-template-columns: 1fr; }
+    .cyber-github-grid { grid-template-columns: 1fr; }
+    .cyber-contact-glow { width: 300px; height: 300px; }
+
+    .glass-card {
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+      background: rgba(10,10,24,0.85);
+    }
+  }
+
+} /* body.showcase-cyber */
