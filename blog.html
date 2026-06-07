@@ -66,6 +66,7 @@ navigation: blog_navigation
         {% for tag in all_tags %}
         {
             "name": "{{ tag }}",
+            "type": "{% assign te = site.data.tags | where: 'name', tag | first %}{{ te.type | default: 'method' }}",
             "count": {{ site.tags[tag].size }},
             "posts": [
                 {% for post in site.tags[tag] %}
