@@ -53,3 +53,10 @@ CLAUDE.md
 
 # 编辑器本地历史记录
 .history/
+
+# Superpowers 工作文档
+docs/superpowers/
+.superpowers/
+
+# 博客模板（独立仓库）
+/template/

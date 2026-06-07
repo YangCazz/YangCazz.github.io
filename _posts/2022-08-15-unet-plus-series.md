@@ -1,14 +1,19 @@
 ---
 layout: post
-title: "UNet++与UNet 3+：密集连接重新定义Skip Connections"
-date: 2022-08-15 10:00:00 +0800
-categories: [医学影像, 图像分割]
-tags: [UNet, 深度学习]
-excerpt: "深入探讨UNet++的嵌套Skip Connections和UNet 3+的全尺度特征融合，理解密集连接如何弥合编码器和解码器之间的语义鸿沟。"
+title: UNet++与UNet 3+：密集连接重新定义Skip Connections
+date: 2022-08-15 10:00:00.000000000 +08:00
+categories:
+- 医学影像
+- 图像分割
+tags:
+- UNet
+- 深度学习
+excerpt: 深入探讨UNet++的嵌套Skip Connections和UNet 3+的全尺度特征融合，理解密集连接如何弥合编码器和解码器之间的语义鸿沟。
 author: YangCazz
 math: true
-image: /assets/images/covers/medical-segmentation.jpg
+image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+
 
 ## 引言
 

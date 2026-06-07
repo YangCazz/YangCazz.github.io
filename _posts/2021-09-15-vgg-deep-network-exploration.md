@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "VGG：深度网络的探索之旅"
-date: 2021-09-15 10:00:00 +0800
-categories: [深度学习, 经典网络]
-tags: [CNN, 计算机视觉, PyTorch]
-excerpt: "深入解析VGG网络的设计哲学：更深的网络、更小的卷积核、模块化的设计思想。了解VGG如何系统性地研究网络深度对性能的影响。"
-image: /assets/images/covers/cnn-pioneers.jpg
+title: VGG：深度网络的探索之旅
+date: 2021-09-15 10:00:00.000000000 +08:00
+categories:
+- 深度学习
+- 经典网络
+tags:
+- CNN
+- 计算机视觉
+- PyTorch
+excerpt: 深入解析VGG网络的设计哲学：更深的网络、更小的卷积核、模块化的设计思想。了解VGG如何系统性地研究网络深度对性能的影响。
+image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+
 
 # VGG：深度网络的探索之旅
 

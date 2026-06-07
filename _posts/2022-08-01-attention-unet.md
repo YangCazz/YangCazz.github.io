@@ -1,14 +1,20 @@
 ---
 layout: post
-title: "Attention UNet：注意力机制引领医学分割新纪元"
-date: 2022-08-01 10:00:00 +0800
-categories: [医学影像, 图像分割]
-tags: [UNet, Attention, 医学图像]
-excerpt: "深入解析Attention UNet如何通过注意力门控机制让网络自动学习关注重要区域，在胰腺等小器官分割任务上取得突破性进展。"
+title: Attention UNet：注意力机制引领医学分割新纪元
+date: 2022-08-01 10:00:00.000000000 +08:00
+categories:
+- 医学影像
+- 图像分割
+tags:
+- UNet
+- Attention
+- 医学图像
+excerpt: 深入解析Attention UNet如何通过注意力门控机制让网络自动学习关注重要区域，在胰腺等小器官分割任务上取得突破性进展。
 author: YangCazz
 math: true
-image: /assets/images/covers/medical-segmentation.jpg
+image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+
 
 ## 引言
 

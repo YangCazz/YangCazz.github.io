@@ -1,12 +1,21 @@
 ---
 layout: post
-title: "Harness Engineering：Agent 的执行内核 — 从沙箱到 ACI"
-date: 2026-05-22 10:00:00 +0800
-categories: [AI, 软件工程]
-tags: [Harness Engineering, Agent, 沙箱, ACI, 工具执行, Sandbox, Agent基础设施]
-excerpt: "DeepSeek Harness 岗位的核心命题：Model + Harness = Agent。深入 Agent 执行内核的工程设计——工具沙箱的三层隔离模型（Process / Container / VM）、ACI（Agent-Computer Interface）设计原则、MCP Server 作为标准化 Harness 的实现，以及 Harness 如何实现与模型的共同进化。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: Harness Engineering：Agent 的执行内核 — 从沙箱到 ACI
+date: 2026-05-22 10:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- Harness Engineering
+- AI Agent
+- 安全
+- Tool Calling
+excerpt: DeepSeek Harness 岗位的核心命题：Model + Harness = Agent。深入 Agent 执行内核的工程设计——工具沙箱的三层隔离模型（Process
+  / Container / VM）、ACI（Agent-Computer Interface）设计原则、MCP Server 作为标准化 Harness 的实现，以及
+  Harness 如何实现与模型的共同进化。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

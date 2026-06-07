@@ -1,0 +1,466 @@
+# Canonical Tag Registry — single source of truth for all post tags
+# type: domain (problem area) or method (technique/tool/framework)
+# aliases: legacy names that map to this canonical tag
+
+# ── Domain: Deep Learning & Computer Vision ──
+- name: "深度学习"
+  type: domain
+  aliases: []
+  description: "深度神经网络模型训练与优化"
+  references:
+    - "https://en.wikipedia.org/wiki/Deep_learning"
+
+- name: "计算机视觉"
+  type: domain
+  aliases: []
+  description: "图像识别、目标检测、语义分割等视觉任务"
+  references:
+    - "https://en.wikipedia.org/wiki/Computer_vision"
+
+- name: "目标检测"
+  type: domain
+  aliases: []
+  description: "图像中定位并分类目标物体的技术"
+  references:
+    - "https://en.wikipedia.org/wiki/Object_detection"
+
+- name: "医学图像"
+  type: domain
+  aliases: []
+  description: "医学影像分析与计算机辅助诊断"
+  references:
+    - "https://en.wikipedia.org/wiki/Medical_imaging"
+
+- name: "医学图像分割"
+  type: domain
+  aliases: ["3D分割"]
+  description: "医学影像中器官、病灶区域的像素级分割"
+  references:
+    - "https://en.wikipedia.org/wiki/Image_segmentation"
+
+- name: "医疗信息化"
+  type: domain
+  aliases: []
+  description: "DICOM/PACS/HL7 等医疗数据标准与系统集成"
+  references:
+    - "https://en.wikipedia.org/wiki/Health_informatics"
+
+- name: "NLP"
+  type: domain
+  aliases: []
+  description: "自然语言处理，文本理解与生成"
+  references:
+    - "https://en.wikipedia.org/wiki/Natural_language_processing"
+
+- name: "多模态"
+  type: domain
+  aliases: []
+  description: "融合图像、文本、语音等多种数据模态的AI系统"
+  references:
+    - "https://en.wikipedia.org/wiki/Multimodal_learning"
+
+# ── Domain: Graph & Sequence Models ──
+- name: "GNN"
+  type: domain
+  aliases: []
+  description: "图神经网络，处理图结构数据的深度学习方法"
+  references:
+    - "https://en.wikipedia.org/wiki/Graph_neural_network"
+
+- name: "Mamba"
+  type: domain
+  aliases: ["状态空间模型", "SSM", "S4"]
+  description: "基于状态空间模型的序列建模架构"
+  references:
+    - "https://en.wikipedia.org/wiki/State-space_representation"
+
+- name: "拓扑结构学习"
+  type: domain
+  aliases: ["持久同调", "Betti Matching"]
+  description: "基于拓扑数据分析的几何结构学习方法"
+  references:
+    - "https://en.wikipedia.org/wiki/Topological_data_analysis"
+
+# ── Domain: AI Agents ──
+- name: "AI Agent"
+  type: domain
+  aliases: ["Agent", "Agent架构", "Agent基础设施", "Agent产品", "Agent工程", "多Agent", "并行Agent"]
+  description: "基于大语言模型的自主智能体系统"
+  references:
+    - "https://en.wikipedia.org/wiki/Intelligent_agent"
+
+- name: "Agent Skills"
+  type: domain
+  aliases: []
+  description: "Claude Code Agent Skills 框架及其设计模式"
+  references:
+    - "https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills"
+
+# ── Domain: Surgery AI ──
+- name: "手术智能识别"
+  type: domain
+  aliases: []
+  description: "手术视频中的器械、操作阶段实时智能识别"
+  references:
+    - "https://en.wikipedia.org/wiki/Computer-assisted_surgery"
+
+# ── Domain: Robotics ──
+- name: "机器人"
+  type: domain
+  aliases: ["ROS", "运动控制"]
+  description: "机器人操作系统与自主运动控制"
+  references:
+    - "https://en.wikipedia.org/wiki/Robot_operating_system"
+
+# ── Domain: Frontend & Tools ──
+- name: "前端开发"
+  type: domain
+  aliases: []
+  description: "Web前端应用开发与交互设计"
+  references:
+    - "https://en.wikipedia.org/wiki/Front-end_web_development"
+
+- name: "工程实践"
+  type: domain
+  aliases: []
+  description: "软件工程实践、架构设计与系统优化"
+  references:
+    - "https://en.wikipedia.org/wiki/Software_engineering"
+
+- name: "效率工具"
+  type: domain
+  aliases: []
+  description: "提升开发效率的工具、方法与工作流"
+  references:
+    - "https://en.wikipedia.org/wiki/Programming_tool"
+
+- name: "学术写作"
+  type: domain
+  aliases: []
+  description: "学术论文写作方法与规范"
+  references:
+    - "https://en.wikipedia.org/wiki/Academic_writing"
+
+- name: "架构设计"
+  type: domain
+  aliases: ["系统架构", "架构图", "Plugin架构", "Pipeline"]
+  description: "软件系统架构设计与可视化"
+  references:
+    - "https://en.wikipedia.org/wiki/Software_architecture"
+
+- name: "安全"
+  type: domain
+  aliases: ["沙箱", "Sandbox", "沙箱隔离"]
+  description: "AI系统安全、沙箱隔离与权限控制"
+  references:
+    - "https://en.wikipedia.org/wiki/Sandbox_(computer_security)"
+
+- name: "语音助手"
+  type: domain
+  aliases: ["对话管理", "打断检测", "流式管道"]
+  description: "语音交互助手系统的设计与实现"
+  references:
+    - "https://en.wikipedia.org/wiki/Virtual_assistant"
+
+# ── Method: Classical Deep Learning ──
+- name: "CNN"
+  type: method
+  aliases: []
+  description: "卷积神经网络，计算机视觉的基础架构"
+  references:
+    - "https://en.wikipedia.org/wiki/Convolutional_neural_network"
+
+- name: "RNN"
+  type: method
+  aliases: []
+  description: "循环神经网络，序列数据处理经典架构"
+  references:
+    - "https://en.wikipedia.org/wiki/Recurrent_neural_network"
+
+- name: "Transformer"
+  type: method
+  aliases: []
+  description: "基于自注意力机制的序列建模架构"
+  references:
+    - "https://en.wikipedia.org/wiki/Transformer_(deep_learning_architecture)"
+
+- name: "Attention"
+  type: method
+  aliases: []
+  description: "注意力机制，动态加权输入特征的技术"
+  references:
+    - "https://en.wikipedia.org/wiki/Attention_(machine_learning)"
+
+- name: "NAS"
+  type: method
+  aliases: ["AutoML"]
+  description: "神经架构搜索，自动化神经网络结构设计"
+  references:
+    - "https://en.wikipedia.org/wiki/Neural_architecture_search"
+
+# ── Method: Vision Models ──
+- name: "YOLO"
+  type: method
+  aliases: []
+  description: "You Only Look Once，实时目标检测框架"
+  references:
+    - "https://en.wikipedia.org/wiki/You_Only_Look_Once"
+
+- name: "UNet"
+  type: method
+  aliases: []
+  description: "U型编码器-解码器架构，医学图像分割基础模型"
+  references:
+    - "https://en.wikipedia.org/wiki/U-Net"
+
+- name: "nnUNet"
+  type: method
+  aliases: []
+  description: "自适应的医学图像分割框架"
+  references:
+    - "https://github.com/MIC-DKFZ/nnUNet"
+
+- name: "SAM"
+  type: method
+  aliases: ["Foundation Model"]
+  description: "Segment Anything Model，通用图像分割基础模型"
+  references:
+    - "https://en.wikipedia.org/wiki/Segment_Anything"
+
+- name: "Vision Mamba"
+  type: method
+  aliases: ["VMamba"]
+  description: "基于状态空间模型的视觉架构"
+  references:
+    - "https://arxiv.org/abs/2401.09417"
+
+# ── Method: Graph Models ──
+- name: "GCN"
+  type: method
+  aliases: []
+  description: "图卷积网络，图神经网络的经典实现"
+  references:
+    - "https://en.wikipedia.org/wiki/Graph_neural_network#Graph_convolutional_network"
+
+# ── Method: Frameworks & Languages ──
+- name: "PyTorch"
+  type: method
+  aliases: []
+  description: "Facebook开源的深度学习框架"
+  references:
+    - "https://en.wikipedia.org/wiki/PyTorch"
+
+- name: "Python"
+  type: method
+  aliases: ["asyncio", "PyQt6"]
+  description: "Python编程语言及其异步/UI生态"
+  references:
+    - "https://en.wikipedia.org/wiki/Python_(programming_language)"
+
+- name: "FastAPI"
+  type: method
+  aliases: []
+  description: "高性能Python Web API框架"
+  references:
+    - "https://en.wikipedia.org/wiki/FastAPI"
+
+- name: "Docker"
+  type: method
+  aliases: ["生产部署"]
+  description: "容器化部署与运维"
+  references:
+    - "https://en.wikipedia.org/wiki/Docker_(software)"
+
+# ── Method: Medical Standards ──
+- name: "DICOM"
+  type: method
+  aliases: ["DICOMweb", "pydicom", "pynetdicom", "Orthanc"]
+  description: "医学数字成像与通信标准"
+  references:
+    - "https://en.wikipedia.org/wiki/DICOM"
+
+- name: "PACS"
+  type: method
+  aliases: []
+  description: "医学影像归档与通信系统"
+  references:
+    - "https://en.wikipedia.org/wiki/Picture_archiving_and_communication_system"
+
+- name: "HL7"
+  type: method
+  aliases: []
+  description: "医疗信息交换标准"
+  references:
+    - "https://en.wikipedia.org/wiki/Health_Level_7"
+
+# ── Method: LLM & Agent Technologies ──
+- name: "LLM"
+  type: method
+  aliases: ["Token", "tiktoken", "显存管理", "成本控制"]
+  description: "大语言模型的推理、优化与成本管理"
+  references:
+    - "https://en.wikipedia.org/wiki/Large_language_model"
+
+- name: "Claude Code"
+  type: method
+  aliases: ["VS Code", "Cursor", "Copilot", "IDE", "Vibe Coding"]
+  description: "Anthropic Claude Code CLI 及 AI 辅助编程工具"
+  references:
+    - "https://docs.anthropic.com/en/docs/claude-code"
+
+- name: "SKILL.md"
+  type: method
+  aliases: ["Skill"]
+  description: "Claude Code Agent Skills 的技能定义文件格式"
+  references:
+    - "https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills"
+
+- name: "MCP"
+  type: method
+  aliases: []
+  description: "Model Context Protocol，LLM与外部工具的标准协议"
+  references:
+    - "https://en.wikipedia.org/wiki/Model_Context_Protocol"
+
+- name: "RAG"
+  type: method
+  aliases: ["向量数据库", "Embedding", "ChromaDB", "记忆系统"]
+  description: "检索增强生成，结合外部知识库的LLM应用"
+  references:
+    - "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+
+- name: "Tool Calling"
+  type: method
+  aliases: ["工具执行", "JSON Schema", "类型系统"]
+  description: "LLM的工具调用能力与函数执行框架"
+  references:
+    - "https://en.wikipedia.org/wiki/Function_calling"
+
+- name: "Subagent"
+  type: method
+  aliases: ["委派"]
+  description: "子智能体架构，任务委派与并行执行模式"
+  references:
+    - "https://docs.anthropic.com/en/docs/agents-and-tools"
+
+- name: "Prompt Engineering"
+  type: method
+  aliases: ["System Prompt", "Few-Shot", "Context Engineering"]
+  description: "提示词工程，设计与优化LLM输入提示"
+  references:
+    - "https://en.wikipedia.org/wiki/Prompt_engineering"
+
+- name: "Reasoning"
+  type: method
+  aliases: ["推理规划", "CoT", "ToT", "ReAct", "Planning"]
+  description: "LLM推理与规划技术，思维链及其变体"
+  references:
+    - "https://en.wikipedia.org/wiki/Chain-of-thought_reasoning"
+
+- name: "KV Cache"
+  type: method
+  aliases: []
+  description: "LLM推理中的键值缓存优化技术"
+  references:
+    - "https://arxiv.org/abs/2211.05102"
+
+- name: "LLM-as-Judge"
+  type: method
+  aliases: ["评测", "置信区间", "护栏"]
+  description: "使用LLM作为评估裁判的质量保证方法"
+  references:
+    - "https://arxiv.org/abs/2306.05685"
+
+# ── Method: Agent Frameworks ──
+- name: "LangChain"
+  type: method
+  aliases: ["CrewAI", "AutoGen", "框架选型"]
+  description: "主流AI Agent应用开发框架"
+  references:
+    - "https://en.wikipedia.org/wiki/LangChain"
+
+- name: "Harness Engineering"
+  type: method
+  aliases: ["ACI", "Hermes Agent", "Nous Research", "GEPA", "自进化", "EvoMap"]
+  description: "Agent编排基础设施与工程化方法"
+  references:
+    - "https://github.com/agent-harness"
+
+# ── Method: Frontend ──
+- name: "JavaScript"
+  type: method
+  aliases: []
+  description: "JavaScript编程语言及浏览器运行时"
+  references:
+    - "https://en.wikipedia.org/wiki/JavaScript"
+
+- name: "Canvas"
+  type: method
+  aliases: ["SVG", "Web应用"]
+  description: "HTML5 Canvas / SVG Web图形编程"
+  references:
+    - "https://en.wikipedia.org/wiki/Canvas_element"
+
+- name: "GSAP"
+  type: method
+  aliases: ["前端动画", "动画工程"]
+  description: "GreenSock动画平台，Web高性能动画库"
+  references:
+    - "https://en.wikipedia.org/wiki/GreenSock_Animation_Platform"
+
+- name: "Jekyll"
+  type: method
+  aliases: []
+  description: "静态网站生成器，本博客构建工具"
+  references:
+    - "https://en.wikipedia.org/wiki/Jekyll_(software)"
+
+# ── Method: Software Engineering ──
+- name: "从零构建"
+  type: method
+  aliases: []
+  description: "从零开始构建完整系统或项目的实践教程"
+  references: []
+
+- name: "设计模式"
+  type: method
+  aliases: ["渐进式披露"]
+  description: "软件设计模式与架构最佳实践"
+  references:
+    - "https://en.wikipedia.org/wiki/Software_design_pattern"
+
+- name: "代码重构"
+  type: method
+  aliases: ["架构重构", "技术债务", "代码分析"]
+  description: "代码重构技术与技术债务管理"
+  references:
+    - "https://en.wikipedia.org/wiki/Code_refactoring"
+
+- name: "CI"
+  type: method
+  aliases: ["工程规范", "测试"]
+  description: "持续集成与软件工程规范"
+  references:
+    - "https://en.wikipedia.org/wiki/Continuous_integration"
+
+# ── Method: Misc ──
+- name: "TTS"
+  type: method
+  aliases: []
+  description: "文本转语音技术"
+  references:
+    - "https://en.wikipedia.org/wiki/Speech_synthesis"
+
+- name: "A2A"
+  type: method
+  aliases: ["Agent-to-Agent"]
+  description: "Agent间通信协议与多Agent协作"
+  references:
+    - "https://github.com/google/A2A"
+
+- name: "多模型调度"
+  type: method
+  aliases: ["Generator-Verifier", "博弈论"]
+  description: "多模型协作调度与投票决策机制"
+  references:
+    - "https://en.wikipedia.org/wiki/Ensemble_learning"

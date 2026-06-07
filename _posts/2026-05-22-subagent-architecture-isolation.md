@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "Subagent 架构与隔离设计：Agent 的委派、并行与安全边界"
-date: 2026-05-22 11:00:00 +0800
-categories: [AI, 软件工程]
-tags: [Subagent, Agent架构, 沙箱隔离, 并行Agent, 委派, Claude Code]
-excerpt: "Subagent 是 Agent 工程中最强大的模式之一——将复杂任务委派给专门的子代理，在隔离环境中并行执行。本文深入 Subagent 的三层隔离模型、生命周期管理、委派-收集-合并模式，以及 Worktree 隔离在 Claude Code 中的工程实现。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: Subagent 架构与隔离设计：Agent 的委派、并行与安全边界
+date: 2026-05-22 11:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- Subagent
+- AI Agent
+- 安全
+- Claude Code
+excerpt: Subagent 是 Agent 工程中最强大的模式之一——将复杂任务委派给专门的子代理，在隔离环境中并行执行。本文深入 Subagent 的三层隔离模型、生命周期管理、委派-收集-合并模式，以及
+  Worktree 隔离在 Claude Code 中的工程实现。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "推理与规划：从思维链到树搜索，Agent 如何「想清楚」"
-date: 2026-05-21 11:00:00 +0800
-categories: [AI, 软件工程]
-tags: [Reasoning, Planning, CoT, ToT, ReAct, Agent, 推理规划]
-excerpt: "系统对比 LLM 推理与规划的核心范式：Chain-of-Thought、Tree-of-Thoughts、ReAct、Plan-and-Execute。从信息论的视角分析「推理时计算」的数学本质，深入蒙特卡洛树搜索在 LLM 推理中的应用，并给出实际 Agent 场景中的选型指南。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: 推理与规划：从思维链到树搜索，Agent 如何「想清楚」
+date: 2026-05-21 11:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- Reasoning
+- AI Agent
+excerpt: 系统对比 LLM 推理与规划的核心范式：Chain-of-Thought、Tree-of-Thoughts、ReAct、Plan-and-Execute。从信息论的视角分析「推理时计算」的数学本质，深入蒙特卡洛树搜索在
+  LLM 推理中的应用，并给出实际 Agent 场景中的选型指南。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

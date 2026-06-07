@@ -1,12 +1,25 @@
 ---
 layout: post
-title: "CazzAi 渐进重构：从事务管道到事件驱动的流式语音助手"
-date: 2026-05-26 22:00:00 +0800
-categories: [AI, 软件工程, 语音助手]
-tags: [语音助手, 流式管道, 打断检测, 架构重构, LLM, RAG, TTS, Python, asyncio, FastAPI, 工程实践]
-excerpt: "将 CazzAi 从一个 450 行的 God Object 串行管道重构为模块化的流式事件驱动架构。核心交付：流式 ASR→LLM→TTS 管道、打断检测、三层记忆系统、统一组件工厂和真实 WebSocket 服务端。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: CazzAi 渐进重构：从事务管道到事件驱动的流式语音助手
+date: 2026-05-26 22:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+- 语音助手
+tags:
+- 语音助手
+- 代码重构
+- LLM
+- RAG
+- TTS
+- Python
+- FastAPI
+- 工程实践
+excerpt: 将 CazzAi 从一个 450 行的 God Object 串行管道重构为模块化的流式事件驱动架构。核心交付：流式 ASR→LLM→TTS 管道、打断检测、三层记忆系统、统一组件工厂和真实
+  WebSocket 服务端。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

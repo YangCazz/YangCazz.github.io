@@ -1,14 +1,20 @@
 ---
 layout: post
-title: "FCN与UNet：医学图像分割的奠基之作"
-date: 2022-07-01 10:00:00 +0800
-categories: [医学影像, 图像分割]
-tags: [UNet, 医学图像, 深度学习]
-excerpt: "深入探讨FCN和UNet两个开创性网络，理解全卷积网络和编码器-解码器结构如何奠定现代医学图像分割的基础。"
+title: FCN与UNet：医学图像分割的奠基之作
+date: 2022-07-01 10:00:00.000000000 +08:00
+categories:
+- 医学影像
+- 图像分割
+tags:
+- UNet
+- 医学图像
+- 深度学习
+excerpt: 深入探讨FCN和UNet两个开创性网络，理解全卷积网络和编码器-解码器结构如何奠定现代医学图像分割的基础。
 author: YangCazz
 math: true
-image: /assets/images/covers/medical-segmentation.jpg
+image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+
 
 ## 引言
 

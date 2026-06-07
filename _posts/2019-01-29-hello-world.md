@@ -1,8 +1,11 @@
 ---
-title: "Welcome to Jekyll!"
+title: Welcome to Jekyll!
 published: false
-image: /assets/images/covers/blog-intro.jpg
+image: "/assets/images/covers/blog-intro.jpg"
+tags: []
 ---
+
+
 
 **Hello world**, this is my first Jekyll blog post.
 

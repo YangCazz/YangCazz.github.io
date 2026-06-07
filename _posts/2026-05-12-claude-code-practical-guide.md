@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "Claude Code 实战指南：用 AI 智能体驱动全栈开发"
-date: 2026-05-12 12:00:00 +0800
-categories: [开发工具, AI]
-tags: [Claude Code, AI Agent, 工程实践, 效率工具]
-excerpt: "深入介绍 Claude Code 的核心概念、实战工作流和高级技巧。以 YangCazz.github.io 博客项目的真实开发场景为例，展示如何用 AI 智能体完成页面重构、样式系统设计、PPT 生成等复杂任务。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: Claude Code 实战指南：用 AI 智能体驱动全栈开发
+date: 2026-05-12 12:00:00.000000000 +08:00
+categories:
+- 开发工具
+- AI
+tags:
+- Claude Code
+- AI Agent
+- 工程实践
+- 效率工具
+excerpt: 深入介绍 Claude Code 的核心概念、实战工作流和高级技巧。以 YangCazz.github.io 博客项目的真实开发场景为例，展示如何用
+  AI 智能体完成页面重构、样式系统设计、PPT 生成等复杂任务。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

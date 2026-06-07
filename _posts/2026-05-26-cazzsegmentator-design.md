@@ -1,12 +1,22 @@
 ---
 layout: post
-title: "WiseSegmentator 设计：统一多模型调度的 CT 多器官分割框架"
-date: 2026-05-26 23:30:00 +0800
-categories: [AI, 医学图像, 软件工程]
-tags: [医学图像分割, nnUNet, CT影像, 架构设计, Python, 多模型调度, 后处理, 工程实践]
-excerpt: "将 CADS、TotalSegmentator 与自训练 nnUNet 模型统一调度，设计两级目标体系、ROI 裁剪推理、Predictor 生命周期管理和结构特定后处理管线，以配置驱动的方式交付规范化的多器官分割输出。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: WiseSegmentator 设计：统一多模型调度的 CT 多器官分割框架
+date: 2026-05-26 23:30:00.000000000 +08:00
+categories:
+- AI
+- 医学图像
+- 软件工程
+tags:
+- 医学图像分割
+- nnUNet
+- 架构设计
+- Python
+- 多模型调度
+- 工程实践
+excerpt: 将 CADS、TotalSegmentator 与自训练 nnUNet 模型统一调度，设计两级目标体系、ROI 裁剪推理、Predictor 生命周期管理和结构特定后处理管线，以配置驱动的方式交付规范化的多器官分割输出。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

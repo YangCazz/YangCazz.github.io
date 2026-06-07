@@ -1,14 +1,20 @@
 ---
 layout: post
-title: "SAM与MedSAM：基础模型引领医学分割新范式"
-date: 2022-10-01 10:00:00 +0800
-categories: [医学影像, 图像分割]
-tags: [UNet, 医学图像, Foundation Model]
-excerpt: "深入探讨Meta AI的Segment Anything Model（SAM）如何通过prompt机制实现通用分割，以及MedSAM如何将其成功迁移到医学影像领域。"
+title: SAM与MedSAM：基础模型引领医学分割新范式
+date: 2022-10-01 10:00:00.000000000 +08:00
+categories:
+- 医学影像
+- 图像分割
+tags:
+- UNet
+- 医学图像
+- SAM
+excerpt: 深入探讨Meta AI的Segment Anything Model（SAM）如何通过prompt机制实现通用分割，以及MedSAM如何将其成功迁移到医学影像领域。
 author: YangCazz
 math: true
-image: /assets/images/covers/medical-segmentation.jpg
+image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+
 
 ## 引言
 

@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "图神经网络基础概念与历史发展"
-date: 2022-02-01 10:00:00 +0800
-categories: [图神经网络, 深度学习]
-tags: [GNN, 深度学习, 机器学习]
-excerpt: "深入解析图神经网络的基础概念、发展历程和核心原理，为后续的实战应用打下坚实的理论基础。"
-image: /assets/images/covers/gnn-series.jpg
+title: 图神经网络基础概念与历史发展
+date: 2022-02-01 10:00:00.000000000 +08:00
+categories:
+- 图神经网络
+- 深度学习
+tags:
+- GNN
+- 深度学习
+- PyTorch
+excerpt: 深入解析图神经网络的基础概念、发展历程和核心原理，为后续的实战应用打下坚实的理论基础。
+image: "/assets/images/covers/gnn-series.jpg"
 ---
+
 
 # 图神经网络基础概念与历史发展
 

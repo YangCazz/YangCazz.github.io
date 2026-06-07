@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "Prompt Engineering 系统工程：从 Few-Shot 到 Context Engineering"
-date: 2026-05-21 12:00:00 +0800
-categories: [AI, 软件工程]
-tags: [Prompt Engineering, Context Engineering, System Prompt, Few-Shot, Agent, LLM]
-excerpt: "Prompt Engineering 不只是「写提示词」。本文从信息论视角分析 prompt 如何压缩任务描述，系统讲解 System Prompt 架构设计、Few-Shot 选择策略（含 MMR 多样性采样）、DSPy 式自动优化，以及 Context Engineering 的核心原则——什么信息应该进入 Agent 的上下文窗口。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: Prompt Engineering 系统工程：从 Few-Shot 到 Context Engineering
+date: 2026-05-21 12:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- Prompt Engineering
+- AI Agent
+- LLM
+excerpt: Prompt Engineering 不只是「写提示词」。本文从信息论视角分析 prompt 如何压缩任务描述，系统讲解 System Prompt
+  架构设计、Few-Shot 选择策略（含 MMR 多样性采样）、DSPy 式自动优化，以及 Context Engineering 的核心原则——什么信息应该进入
+  Agent 的上下文窗口。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

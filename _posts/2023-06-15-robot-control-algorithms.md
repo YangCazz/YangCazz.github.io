@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "医疗机器人控制系统设计与实现"
-date: 2023-06-15 10:00:00 +0800
-categories: [机器人控制, 医疗器械]
-tags: [机器人, 运动控制, ROS]
-excerpt: "分享医疗机器人控制系统的设计思路和实现细节，包括运动控制、路径规划和实时定位等关键技术。"
-image: /assets/images/covers/dl-practice.jpg
+title: 医疗机器人控制系统设计与实现
+date: 2023-06-15 10:00:00.000000000 +08:00
+categories:
+- 机器人控制
+- 医疗器械
+tags:
+- 机器人
+- Python
+excerpt: 分享医疗机器人控制系统的设计思路和实现细节，包括运动控制、路径规划和实时定位等关键技术。
+image: "/assets/images/covers/dl-practice.jpg"
 ---
+
 
 # 医疗机器人控制系统设计与实现
 

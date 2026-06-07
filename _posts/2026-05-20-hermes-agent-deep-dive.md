@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "Hermes Agent 深度解析：自进化 AI 智能体的架构创新、GEPA 算法与开源争议"
-date: 2026-05-20 14:00:00 +0800
-categories: [AI, 软件工程]
-tags: [Hermes Agent, Nous Research, GEPA, 自进化, AI Agent, Agent Skills, EvoMap]
-excerpt: "深度解析 Nous Research 的 Hermes Agent——2026 年增长最快的开源 AI Agent 框架。从六层架构、预算驱动同步循环、三层自学习系统（Memory/Skill/Curator）到 GEPA 遗传-帕累托提示进化算法（ICLR 2026 Oral），同时审视 EvoMap 抄袭争议与 Skill 架构的自信任问题。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: Hermes Agent 深度解析：自进化 AI 智能体的架构创新、GEPA 算法与开源争议
+date: 2026-05-20 14:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- Harness Engineering
+- AI Agent
+- Agent Skills
+excerpt: 深度解析 Nous Research 的 Hermes Agent——2026 年增长最快的开源 AI Agent 框架。从六层架构、预算驱动同步循环、三层自学习系统（Memory/Skill/Curator）到
+  GEPA 遗传-帕累托提示进化算法（ICLR 2026 Oral），同时审视 EvoMap 抄袭争议与 Skill 架构的自信任问题。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

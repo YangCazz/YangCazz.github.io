@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "像素织梦 (PixelKnit) v1.1：像素地图编辑器与完整地图管理系统"
-date: 2025-11-09 18:00:00 +0800
-categories: [Web开发, 前端应用]
-tags: [JavaScript, Canvas, Web应用]
-excerpt: "介绍像素织梦 (PixelKnit) v1.1 的重大更新：完整的像素地图编辑器、智能地图管理系统、Logo展示等新功能。从编辑模式到地图管理，探索应用的最新特性。"
-image: /assets/images/covers/pixelknit.jpg
+title: 像素织梦 (PixelKnit) v1.1：像素地图编辑器与完整地图管理系统
+date: 2025-11-09 18:00:00.000000000 +08:00
+categories:
+- Web开发
+- 前端应用
+tags:
+- 前端开发
+- JavaScript
+- Canvas
+excerpt: 介绍像素织梦 (PixelKnit) v1.1 的重大更新：完整的像素地图编辑器、智能地图管理系统、Logo展示等新功能。从编辑模式到地图管理，探索应用的最新特性。
+image: "/assets/images/covers/pixelknit.jpg"
 ---
+
 
 ## 引言
 

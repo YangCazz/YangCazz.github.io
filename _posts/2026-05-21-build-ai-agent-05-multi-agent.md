@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "构建自己的 AI Agent · 第五篇：多 Agent 协作 — 从单打独斗到团队协作的数学原理"
-date: 2026-05-21 10:00:00 +0800
-categories: [AI, 软件工程, AI Agent 系列]
-tags: [AI Agent, 多Agent, Generator-Verifier, 博弈论, 从零构建]
-excerpt: "超越单 Agent 的局限。详解 Anthropic 6 种单流程模式 + 5 大多 Agent 协调模式，用博弈论和排队论分析多 Agent 的加速比和可靠性增益。含完整 Generator-Verifier 代码实现。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: 构建自己的 AI Agent · 第五篇：多 Agent 协作 — 从单打独斗到团队协作的数学原理
+date: 2026-05-21 10:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+- AI Agent 系列
+tags:
+- AI Agent
+- 多模型调度
+- 从零构建
+excerpt: 超越单 Agent 的局限。详解 Anthropic 6 种单流程模式 + 5 大多 Agent 协调模式，用博弈论和排队论分析多 Agent 的加速比和可靠性增益。含完整
+  Generator-Verifier 代码实现。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

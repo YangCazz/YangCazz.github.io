@@ -1,12 +1,21 @@
 ---
 layout: post
-title: "拆解 nature-skills：从一篇论文到 Agent 技能设计的工程化范式"
-date: 2026-06-04 10:00:00 +0800
-categories: [AI, 软件工程]
-tags: [Agent, Skill, Claude Code, nature-skills, 设计模式, SKILL.md, 学术写作, Agent 工程]
-excerpt: "以 Agent 工程师的视角深度拆解 nature-skills 项目——不仅是学术写作工具的科普，更是一次对 Agent Skill 设计模式、SKILL.md 规范、渐进披露架构和可复用工作流的系统性工程分析。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: 拆解 nature-skills：从一篇论文到 Agent 技能设计的工程化范式
+date: 2026-06-04 10:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- AI Agent
+- SKILL.md
+- Claude Code
+- 设计模式
+- 学术写作
+excerpt: 以 Agent 工程师的视角深度拆解 nature-skills 项目——不仅是学术写作工具的科普，更是一次对 Agent Skill 设计模式、SKILL.md
+  规范、渐进披露架构和可复用工作流的系统性工程分析。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

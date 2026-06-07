@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "异构图神经网络与多模态学习：处理复杂图结构数据"
-date: 2022-05-01 10:00:00 +0800
-categories: [图神经网络, 异构图, 多模态学习]
-tags: [GNN, 多模态]
-excerpt: "深入探讨异构图神经网络的理论基础、实现方法和在多模态学习中的应用，处理包含多种节点和边类型的复杂图结构。"
-image: /assets/images/covers/gnn-series.jpg
+title: 异构图神经网络与多模态学习：处理复杂图结构数据
+date: 2022-05-01 10:00:00.000000000 +08:00
+categories:
+- 图神经网络
+- 异构图
+- 多模态学习
+tags:
+- GCN
+- GNN
+- 多模态
+excerpt: 深入探讨异构图神经网络的理论基础、实现方法和在多模态学习中的应用，处理包含多种节点和边类型的复杂图结构。
+image: "/assets/images/covers/gnn-series.jpg"
 ---
+
 
 # 异构图神经网络与多模态学习：处理复杂图结构数据
 

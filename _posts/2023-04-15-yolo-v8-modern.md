@@ -1,14 +1,19 @@
 ---
 layout: post
-title: "YOLO v8：Ultralytics的现代架构"
-date: 2023-04-15 10:00:00 +0800
-categories: [计算机视觉, 目标检测]
-tags: [YOLO, 目标检测]
-excerpt: "深入解析YOLO v8如何通过现代架构设计和先进技术，进一步提升YOLO系列的性能。从网络架构到训练策略，探索YOLO v8的技术创新。"
+title: YOLO v8：Ultralytics的现代架构
+date: 2023-04-15 10:00:00.000000000 +08:00
+categories:
+- 计算机视觉
+- 目标检测
+tags:
+- YOLO
+- 目标检测
+excerpt: 深入解析YOLO v8如何通过现代架构设计和先进技术，进一步提升YOLO系列的性能。从网络架构到训练策略，探索YOLO v8的技术创新。
 author: YangCazz
 math: true
-image: /assets/images/covers/object-detection.jpg
+image: "/assets/images/covers/object-detection.jpg"
 ---
+
 
 ## 引言
 

@@ -1,12 +1,22 @@
 ---
 layout: post
-title: "拆解 Architecture-Diagram-Generator：用 SKILL.md 替代拖拽，用 SVG 替代画布"
-date: 2026-06-05 10:00:00 +0800
-categories: [AI, 软件工程]
-tags: [Agent, Skill, Claude Code, 架构图, SVG, 系统架构, SKILL.md, 代码分析]
-excerpt: "深入拆解 Cocoon-AI/architecture-diagram-generator——一个 5.3k star 的开源项目如何用一份 SKILL.md 文件替代 Visio/draw.io，以及其背后的 SVG 生成引擎、语义色彩系统和 npm CLI 代码分析工具的设计哲学。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: 拆解 Architecture-Diagram-Generator：用 SKILL.md 替代拖拽，用 SVG 替代画布
+date: 2026-06-05 10:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- AI Agent
+- SKILL.md
+- Claude Code
+- 架构设计
+- Canvas
+- 代码重构
+excerpt: 深入拆解 Cocoon-AI/architecture-diagram-generator——一个 5.3k star 的开源项目如何用一份 SKILL.md
+  文件替代 Visio/draw.io，以及其背后的 SVG 生成引擎、语义色彩系统和 npm CLI 代码分析工具的设计哲学。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "Claude Code VS Code 插件配置指南：从安装到 API Key 设置"
-date: 2026-05-12 18:00:00 +0800
-categories: [开发工具, AI]
-tags: [Claude Code, VS Code, 工程实践, 效率工具]
-excerpt: "手把手教你配置 Claude Code VS Code 插件：安装、API Key 设置、DeepSeek V4 模型切换、自定义端点配置，以及 Windows 环境下常见问题的解决。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: Claude Code VS Code 插件配置指南：从安装到 API Key 设置
+date: 2026-05-12 18:00:00.000000000 +08:00
+categories:
+- 开发工具
+- AI
+tags:
+- Claude Code
+- 工程实践
+- 效率工具
+excerpt: 手把手教你配置 Claude Code VS Code 插件：安装、API Key 设置、DeepSeek V4 模型切换、自定义端点配置，以及
+  Windows 环境下常见问题的解决。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

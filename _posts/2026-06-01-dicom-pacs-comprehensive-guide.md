@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "DICOM 与 PACS 协议全栈解析：从文件格式到网络传输再到系统架构"
-date: 2026-06-01 12:00:00 +0800
-categories: [医学影像, 系统架构]
-tags: [DICOM, PACS, 医疗信息化, Orthanc, pydicom, pynetdicom, DICOMweb, HL7]
-excerpt: "由浅入深全面解析 DICOM 协议栈与 PACS 系统架构——从信息模型、文件格式、网络传输到实战部署，涵盖 DIMSE、DICOMweb、Orthanc 本地部署与 Python 代码示例。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: DICOM 与 PACS 协议全栈解析：从文件格式到网络传输再到系统架构
+date: 2026-06-01 12:00:00.000000000 +08:00
+categories:
+- 医学影像
+- 系统架构
+tags:
+- DICOM
+- PACS
+- 医疗信息化
+- HL7
+excerpt: 由浅入深全面解析 DICOM 协议栈与 PACS 系统架构——从信息模型、文件格式、网络传输到实战部署，涵盖 DIMSE、DICOMweb、Orthanc
+  本地部署与 Python 代码示例。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

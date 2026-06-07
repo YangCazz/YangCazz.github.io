@@ -1,14 +1,19 @@
 ---
 layout: post
-title: "YOLO v1：实时目标检测的革命"
-date: 2023-02-15 10:00:00 +0800
-categories: [计算机视觉, 目标检测]
-tags: [YOLO, 目标检测]
-excerpt: "深入解析YOLO v1如何通过一阶段检测实现实时目标检测的革命。从You Only Look Once的核心思想到端到端训练，见证目标检测从两阶段到一阶段的历史性转变。"
+title: YOLO v1：实时目标检测的革命
+date: 2023-02-15 10:00:00.000000000 +08:00
+categories:
+- 计算机视觉
+- 目标检测
+tags:
+- YOLO
+- 目标检测
+excerpt: 深入解析YOLO v1如何通过一阶段检测实现实时目标检测的革命。从You Only Look Once的核心思想到端到端训练，见证目标检测从两阶段到一阶段的历史性转变。
 author: YangCazz
 math: true
-image: /assets/images/covers/object-detection.jpg
+image: "/assets/images/covers/object-detection.jpg"
 ---
+
 
 ## 引言
 

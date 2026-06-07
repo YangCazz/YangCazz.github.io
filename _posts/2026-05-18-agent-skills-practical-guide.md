@@ -1,13 +1,20 @@
 ---
 layout: post
-title: "AI Agent Skills 实用指南：让 AI 真正干活的 12 个技能"
-date: 2026-05-18 10:00:00 +0800
-categories: [工具效率, AI开发]
-tags: [Claude Code, Agent Skills, 效率工具]
-excerpt: "从 1000+ 个社区 Agent Skills 中精选 12 个真正提升日常效率的技能。覆盖文档办公、代码审查、前端设计、PPT 制作、Web 测试等高频场景，附带安装配置和组合使用方案。"
+title: AI Agent Skills 实用指南：让 AI 真正干活的 12 个技能
+date: 2026-05-18 10:00:00.000000000 +08:00
+categories:
+- 工具效率
+- AI开发
+tags:
+- Claude Code
+- Agent Skills
+- 效率工具
+excerpt: 从 1000+ 个社区 Agent Skills 中精选 12 个真正提升日常效率的技能。覆盖文档办公、代码审查、前端设计、PPT 制作、Web
+  测试等高频场景，附带安装配置和组合使用方案。
 author: YangCazz
-image: /assets/images/covers/ai-dev-tools.jpg
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

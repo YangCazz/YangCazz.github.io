@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "Agent 产品形态对比 & Vibe Coding：从 IDE 插件到自主 Agent"
-date: 2026-05-22 12:00:00 +0800
-categories: [AI, 软件工程]
-tags: [Agent产品, Vibe Coding, Claude Code, Cursor, Copilot, Manus, OpenClaw, IDE]
-excerpt: "深度对比 2026 年主流 AI Agent 产品的架构差异与设计哲学：Claude Code、Cursor、GitHub Copilot、Codex、OpenCode、Manus、OpenClaw。从交互模式、自主程度、安全边界三个维度建立产品评估框架，并探讨 Vibe Coding 的本质——它到底改变了什么？"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: Agent 产品形态对比 & Vibe Coding：从 IDE 插件到自主 Agent
+date: 2026-05-22 12:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- AI Agent
+- Claude Code
+excerpt: 深度对比 2026 年主流 AI Agent 产品的架构差异与设计哲学：Claude Code、Cursor、GitHub Copilot、Codex、OpenCode、Manus、OpenClaw。从交互模式、自主程度、安全边界三个维度建立产品评估框架，并探讨
+  Vibe Coding 的本质——它到底改变了什么？
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

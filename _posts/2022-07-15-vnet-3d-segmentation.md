@@ -1,14 +1,20 @@
 ---
 layout: post
-title: "V-Net：3D医学图像分割的突破"
-date: 2022-07-15 10:00:00 +0800
-categories: [医学影像, 图像分割]
-tags: [UNet, 医学图像, 3D分割]
-excerpt: "探索V-Net如何将UNet扩展到3D域，通过残差连接和Dice Loss实现前列腺MRI的精确体积分割。"
+title: V-Net：3D医学图像分割的突破
+date: 2022-07-15 10:00:00.000000000 +08:00
+categories:
+- 医学影像
+- 图像分割
+tags:
+- UNet
+- 医学图像
+- 医学图像分割
+excerpt: 探索V-Net如何将UNet扩展到3D域，通过残差连接和Dice Loss实现前列腺MRI的精确体积分割。
 author: YangCazz
 math: true
-image: /assets/images/covers/medical-segmentation.jpg
+image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+
 
 ## 引言
 
