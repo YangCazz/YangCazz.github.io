@@ -7,6 +7,7 @@
 [![Ruby](https://img.shields.io/badge/Ruby-3.0+-cc342d?style=flat-square&logo=ruby)](https://www.ruby-lang.org)
 [![Posts](https://img.shields.io/badge/posts-72-3b82f6?style=flat-square)](https://yangcazz.github.io/blog)
 [![Tags](https://img.shields.io/badge/tags-64-8b5cf6?style=flat-square)](https://yangcazz.github.io/tag-network-v2)
+[![Template](https://img.shields.io/badge/template-可用-8b5cf6?style=flat-square)](https://github.com/YangCazz/YangCazz-jekyll-blog-template)
 [![License](https://img.shields.io/badge/license-MIT-22c55e?style=flat-square)](LICENSE)
 
 个人技术博客 &middot; 医疗AI · 深度学习 · 开源工程
