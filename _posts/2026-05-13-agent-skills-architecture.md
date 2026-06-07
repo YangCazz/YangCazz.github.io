@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "AI Agent Skills 深度解析：设计哲学、架构模式与形成逻辑"
-date: 2026-05-13 10:00:00 +0800
-categories: [AI, 软件工程]
-tags: [Agent Skills, Claude Code, AI架构, 渐进式披露, AI Agent]
-excerpt: "从 Anthropic 官方设计哲学、agentskills.io 开放标准到学术论文的系统分析，深入探讨 AI Agent Skills 的核心设计模式：渐进式披露、结构化认知约束、Plan-Execute-Verify 循环，以及 Skills 在 AI 智能体生态中的架构定位。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: AI Agent Skills 深度解析：设计哲学、架构模式与形成逻辑
+date: 2026-05-13 10:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- Agent Skills
+- Claude Code
+- 设计模式
+- AI Agent
+excerpt: 从 Anthropic 官方设计哲学、agentskills.io 开放标准到学术论文的系统分析，深入探讨 AI Agent Skills 的核心设计模式：渐进式披露、结构化认知约束、Plan-Execute-Verify
+  循环，以及 Skills 在 AI 智能体生态中的架构定位。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

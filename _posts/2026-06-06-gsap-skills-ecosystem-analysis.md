@@ -1,12 +1,21 @@
 ---
 layout: post
-title: "拆解 GSAP Skills 生态：当动画库作者开始为 AI Agent 写操作手册"
-date: 2026-06-06 10:00:00 +0800
-categories: [AI, 前端, 软件工程]
-tags: [Agent, Skill, GSAP, 前端动画, Claude Code, SKILL.md, 前端设计, 动画工程]
-excerpt: "从 Agent 工程师视角深度拆解 GSAP Skills 生态——官方 8 模块技能包、社区 9 技能 cookbook、56 万安装量的 frontend-design Skill、以及约束驱动设计哲学如何让 AI 生成「不像 AI 做的」前端动画。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: 拆解 GSAP Skills 生态：当动画库作者开始为 AI Agent 写操作手册
+date: 2026-06-06 10:00:00.000000000 +08:00
+categories:
+- AI
+- 前端
+- 软件工程
+tags:
+- AI Agent
+- SKILL.md
+- GSAP
+- Claude Code
+excerpt: 从 Agent 工程师视角深度拆解 GSAP Skills 生态——官方 8 模块技能包、社区 9 技能 cookbook、56 万安装量的 frontend-design
+  Skill、以及约束驱动设计哲学如何让 AI 生成「不像 AI 做的」前端动画。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

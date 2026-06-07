@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "ResNet与ResNeXt：残差网络的革命"
-date: 2021-09-25 10:00:00 +0800
-categories: [深度学习, 经典网络]
-tags: [CNN, 深度学习, PyTorch]
-excerpt: "深入解析残差网络ResNet的设计哲学：如何通过简单的残差连接解决深度网络的退化问题？以及ResNeXt如何将Inception思想融入残差结构。"
-image: /assets/images/covers/cnn-pioneers.jpg
+title: ResNet与ResNeXt：残差网络的革命
+date: 2021-09-25 10:00:00.000000000 +08:00
+categories:
+- 深度学习
+- 经典网络
+tags:
+- CNN
+- 深度学习
+- PyTorch
+excerpt: 深入解析残差网络ResNet的设计哲学：如何通过简单的残差连接解决深度网络的退化问题？以及ResNeXt如何将Inception思想融入残差结构。
+image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+
 
 # ResNet与ResNeXt：残差网络的革命
 

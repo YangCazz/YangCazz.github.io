@@ -1,12 +1,20 @@
 ---
 layout: post
-title: "KV Cache 深度解析：Agent 高效推理的数学与工程"
-date: 2026-05-21 10:00:00 +0800
-categories: [AI, 软件工程]
-tags: [KV Cache, LLM, 推理优化, Agent, Transformer, 显存管理]
-excerpt: "深入 LLM 推理的核心优化——KV Cache。从自注意力机制的矩阵运算出发，推导 KV Cache 的显存占用公式，解析 PagedAttention、vLLM 的显存管理策略，以及量化（INT8/INT4）对 Agent 高频调用的实际影响。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: KV Cache 深度解析：Agent 高效推理的数学与工程
+date: 2026-05-21 10:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- KV Cache
+- LLM
+- AI Agent
+- Transformer
+excerpt: 深入 LLM 推理的核心优化——KV Cache。从自注意力机制的矩阵运算出发，推导 KV Cache 的显存占用公式，解析 PagedAttention、vLLM
+  的显存管理策略，以及量化（INT8/INT4）对 Agent 高频调用的实际影响。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "深度学习先驱：LeNet与AlexNet的开创之路"
-date: 2021-09-10 10:00:00 +0800
-categories: [深度学习, 经典网络]
-tags: [CNN, 计算机视觉, PyTorch]
-excerpt: "深入探讨计算机视觉领域的两大开山之作：LeNet和AlexNet。从手写数字识别到ImageNet挑战赛冠军，了解卷积神经网络如何改变了AI的历史进程。"
-image: /assets/images/covers/cnn-pioneers.jpg
+title: 深度学习先驱：LeNet与AlexNet的开创之路
+date: 2021-09-10 10:00:00.000000000 +08:00
+categories:
+- 深度学习
+- 经典网络
+tags:
+- CNN
+- 计算机视觉
+- PyTorch
+excerpt: 深入探讨计算机视觉领域的两大开山之作：LeNet和AlexNet。从手写数字识别到ImageNet挑战赛冠军，了解卷积神经网络如何改变了AI的历史进程。
+image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+
 
 # 深度学习先驱：LeNet与AlexNet的开创之路
 

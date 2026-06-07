@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "OpenClaw 深度解析：全球最大 AI Agent 框架的架构、生态与争议"
-date: 2026-05-20 10:00:00 +0800
-categories: [AI, 软件工程]
-tags: [OpenClaw, Claude Code, AI Agent, 开源框架, 安全]
-excerpt: "深入剖析 OpenClaw 的三层架构设计（Gateway/Agent/Application）、ClawHub 技能生态（13,729+ Skills）、claw-code 逆向工程事件，以及学术论文对 Claude Code 源码的 512K 行分析。探讨 AI Agent 框架的开源治理、安全边界与生态演化。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: OpenClaw 深度解析：全球最大 AI Agent 框架的架构、生态与争议
+date: 2026-05-20 10:00:00.000000000 +08:00
+categories:
+- AI
+- 软件工程
+tags:
+- Claude Code
+- AI Agent
+- 安全
+excerpt: 深入剖析 OpenClaw 的三层架构设计（Gateway/Agent/Application）、ClawHub 技能生态（13,729+ Skills）、claw-code
+  逆向工程事件，以及学术论文对 Claude Code 源码的 512K 行分析。探讨 AI Agent 框架的开源治理、安全边界与生态演化。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

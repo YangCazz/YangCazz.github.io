@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "像素织梦 (PixelKnit) v2.0：模块化架构重构与用户体验全面升级"
-date: 2025-12-03 18:00:00 +0800
-categories: [Web开发, 前端应用]
-tags: [JavaScript, Canvas, Web应用]
-excerpt: "介绍像素织梦 (PixelKnit) v2.0 的重大更新：完整的模块化架构重构、三栏布局设计、侧边栏显示/隐藏、悬浮mini菜单等新功能。从代码架构到用户体验，全面探索应用的最新升级。"
-image: /assets/images/covers/pixelknit.jpg
+title: 像素织梦 (PixelKnit) v2.0：模块化架构重构与用户体验全面升级
+date: 2025-12-03 18:00:00.000000000 +08:00
+categories:
+- Web开发
+- 前端应用
+tags:
+- 前端开发
+- JavaScript
+- Canvas
+excerpt: 介绍像素织梦 (PixelKnit) v2.0 的重大更新：完整的模块化架构重构、三栏布局设计、侧边栏显示/隐藏、悬浮mini菜单等新功能。从代码架构到用户体验，全面探索应用的最新升级。
+image: "/assets/images/covers/pixelknit.jpg"
 ---
+
 
 ## 引言
 

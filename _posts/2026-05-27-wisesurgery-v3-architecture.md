@@ -1,12 +1,23 @@
 ---
 layout: post
-title: "WiseSurgery v3：从单体应用到 Plugin+Pipeline 架构的全面重构"
-date: 2026-05-27 23:30:00 +0800
-categories: [AI, 医学图像, 软件工程]
-tags: [手术智能识别, YOLO, PyQt6, 架构重构, Plugin架构, Pipeline, 计算机视觉, 实时检测]
-excerpt: "记录 WiseSurgery v3.0.0 的架构重构过程——从 GUI 与业务逻辑混杂的单体应用，到基于 Plugin + Pipeline + Controller 三层解耦的可维护系统。涵盖检测插件抽象、配置驱动注册表、可编排流水线、以及线程安全的视频源设计。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: WiseSurgery v3：从单体应用到 Plugin+Pipeline 架构的全面重构
+date: 2026-05-27 23:30:00.000000000 +08:00
+categories:
+- AI
+- 医学图像
+- 软件工程
+tags:
+- 手术智能识别
+- YOLO
+- Python
+- 代码重构
+- 架构设计
+- 计算机视觉
+excerpt: 记录 WiseSurgery v3.0.0 的架构重构过程——从 GUI 与业务逻辑混杂的单体应用，到基于 Plugin + Pipeline +
+  Controller 三层解耦的可维护系统。涵盖检测插件抽象、配置驱动注册表、可编排流水线、以及线程安全的视频源设计。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

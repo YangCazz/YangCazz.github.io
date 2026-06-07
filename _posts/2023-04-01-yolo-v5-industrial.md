@@ -1,14 +1,20 @@
 ---
 layout: post
-title: "YOLO v5：工业化的成功"
-date: 2023-04-01 10:00:00 +0800
-categories: [计算机视觉, 目标检测]
-tags: [YOLO, 目标检测, 工程实践]
-excerpt: "深入解析YOLO v5如何通过工业化的设计理念和工程实践，成为最成功的YOLO版本。从PyTorch实现到工程化部署，探索YOLO v5的成功之道。"
+title: YOLO v5：工业化的成功
+date: 2023-04-01 10:00:00.000000000 +08:00
+categories:
+- 计算机视觉
+- 目标检测
+tags:
+- YOLO
+- 目标检测
+- 工程实践
+excerpt: 深入解析YOLO v5如何通过工业化的设计理念和工程实践，成为最成功的YOLO版本。从PyTorch实现到工程化部署，探索YOLO v5的成功之道。
 author: YangCazz
 math: true
-image: /assets/images/covers/object-detection.jpg
+image: "/assets/images/covers/object-detection.jpg"
 ---
+
 
 ## 引言
 

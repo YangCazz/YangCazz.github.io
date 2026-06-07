@@ -1,14 +1,20 @@
 ---
 layout: post
-title: "Swin-UNet：层级化Transformer破解医学分割效率困局"
-date: 2022-09-15 10:00:00 +0800
-categories: [医学影像, 图像分割]
-tags: [UNet, Transformer, 医学图像]
-excerpt: "深入剖析Swin-UNet如何通过shifted windows和层级设计，在保持全局建模能力的同时大幅降低计算复杂度，成为医学图像分割的实用Transformer方案。"
+title: Swin-UNet：层级化Transformer破解医学分割效率困局
+date: 2022-09-15 10:00:00.000000000 +08:00
+categories:
+- 医学影像
+- 图像分割
+tags:
+- UNet
+- Transformer
+- 医学图像
+excerpt: 深入剖析Swin-UNet如何通过shifted windows和层级设计，在保持全局建模能力的同时大幅降低计算复杂度，成为医学图像分割的实用Transformer方案。
 author: YangCazz
 math: true
-image: /assets/images/covers/medical-segmentation.jpg
+image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+
 
 ## 引言
 

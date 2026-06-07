@@ -1,14 +1,20 @@
 ---
 layout: post
-title: "nnU-Net：自配置医学分割框架，让UNet发挥极致"
-date: 2022-10-15 10:00:00 +0800
-categories: [医学影像, 图像分割]
-tags: [UNet, 医学图像, AutoML]
-excerpt: "深入解析nnU-Net如何通过自适应配置消除手工调参，仅用标准UNet就在23个医学分割任务上达到SOTA，成为医学图像分割的事实标准。"
+title: nnU-Net：自配置医学分割框架，让UNet发挥极致
+date: 2022-10-15 10:00:00.000000000 +08:00
+categories:
+- 医学影像
+- 图像分割
+tags:
+- UNet
+- 医学图像
+- NAS
+excerpt: 深入解析nnU-Net如何通过自适应配置消除手工调参，仅用标准UNet就在23个医学分割任务上达到SOTA，成为医学图像分割的事实标准。
 author: YangCazz
 math: true
-image: /assets/images/covers/medical-segmentation.jpg
+image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+
 
 ## 引言
 

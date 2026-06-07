@@ -1,12 +1,18 @@
 ---
 layout: post
-title: "像素织梦 (PixelKnit)：一个功能完整的Web编织辅助工具"
-date: 2025-11-09 12:00:00 +0800
-categories: [Web开发, 前端应用]
-tags: [JavaScript, Canvas, Web应用]
-excerpt: "介绍像素织梦 (PixelKnit) - 一个功能完整的Web编织引导应用，通过可视化网格地图帮助用户跟踪编织进度。涵盖双地图显示、智能路径规划、进度跟踪、性能优化等核心功能。"
-image: /assets/images/covers/pixelknit.jpg
+title: 像素织梦 (PixelKnit)：一个功能完整的Web编织辅助工具
+date: 2025-11-09 12:00:00.000000000 +08:00
+categories:
+- Web开发
+- 前端应用
+tags:
+- 前端开发
+- JavaScript
+- Canvas
+excerpt: 介绍像素织梦 (PixelKnit) - 一个功能完整的Web编织引导应用，通过可视化网格地图帮助用户跟踪编织进度。涵盖双地图显示、智能路径规划、进度跟踪、性能优化等核心功能。
+image: "/assets/images/covers/pixelknit.jpg"
 ---
+
 ## 引言
 
 编织是一项需要精确跟踪进度的工作，特别是在处理复杂的像素图案时。传统的编织方法往往需要手动记录进度，容易出错且效率低下。为了解决这个问题，我开发了 **像素织梦 (PixelKnit)** - 一个功能完整的 Web 编织引导应用，通过可视化网格地图帮助用户跟踪编织进度，支持多种编织模式和智能路径规划。

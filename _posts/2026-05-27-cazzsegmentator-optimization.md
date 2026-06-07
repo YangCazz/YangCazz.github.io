@@ -1,12 +1,21 @@
 ---
 layout: post
-title: "WiseSegmentator 工程优化：消除僵尸代码、静默错误与副作用"
-date: 2026-05-27 23:00:00 +0800
-categories: [AI, 医学图像, 软件工程]
-tags: [医学图像分割, nnUNet, Python, 代码重构, 工程规范, 技术债务, CI]
-excerpt: "从 P0 僵尸抽象和静默吞错，到 P3 CI 烟雾测试——记录 WiseSegmentator 四轮工程优化中踩过的坑、做出的取舍，以及研究代码走向生产级必须解决的六类问题。"
-image: /assets/images/covers/ai-dev-tools.jpg
+title: WiseSegmentator 工程优化：消除僵尸代码、静默错误与副作用
+date: 2026-05-27 23:00:00.000000000 +08:00
+categories:
+- AI
+- 医学图像
+- 软件工程
+tags:
+- 医学图像分割
+- nnUNet
+- Python
+- 代码重构
+- CI
+excerpt: 从 P0 僵尸抽象和静默吞错，到 P3 CI 烟雾测试——记录 WiseSegmentator 四轮工程优化中踩过的坑、做出的取舍，以及研究代码走向生产级必须解决的六类问题。
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

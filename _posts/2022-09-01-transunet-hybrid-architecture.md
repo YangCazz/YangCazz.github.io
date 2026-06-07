@@ -1,14 +1,20 @@
 ---
 layout: post
-title: "TransUNet：当Transformer遇见医学图像分割"
-date: 2022-09-01 10:00:00 +0800
-categories: [医学影像, 图像分割]
-tags: [UNet, Transformer, 医学图像]
-excerpt: "探索TransUNet如何将Transformer的全局建模能力与CNN的局部特征提取相结合，开启医学图像分割的Transformer时代。"
+title: TransUNet：当Transformer遇见医学图像分割
+date: 2022-09-01 10:00:00.000000000 +08:00
+categories:
+- 医学影像
+- 图像分割
+tags:
+- UNet
+- Transformer
+- 医学图像
+excerpt: 探索TransUNet如何将Transformer的全局建模能力与CNN的局部特征提取相结合，开启医学图像分割的Transformer时代。
 author: YangCazz
 math: true
-image: /assets/images/covers/medical-segmentation.jpg
+image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+
 
 ## 引言
 

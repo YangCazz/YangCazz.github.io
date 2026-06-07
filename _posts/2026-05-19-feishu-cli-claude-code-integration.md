@@ -1,13 +1,21 @@
 ---
 layout: post
-title: "飞书 CLI 完全指南：从安装到 Claude Code 深度集成"
-date: 2026-05-19 10:00:00 +0800
-categories: [工具效率, AI开发]
-tags: [效率工具, Claude Code, Agent Skills, MCP]
-excerpt: "飞书官方 CLI (lark-cli) 开源：200+ 命令、23 个 AI Agent Skills、覆盖 11 大业务域。本文从安装配置到 Claude Code 深度集成，涵盖双向通信桥接、MCP Server 对接、实战工作流和常见问题排查。"
+title: 飞书 CLI 完全指南：从安装到 Claude Code 深度集成
+date: 2026-05-19 10:00:00.000000000 +08:00
+categories:
+- 工具效率
+- AI开发
+tags:
+- 效率工具
+- Claude Code
+- Agent Skills
+- MCP
+excerpt: 飞书官方 CLI (lark-cli) 开源：200+ 命令、23 个 AI Agent Skills、覆盖 11 大业务域。本文从安装配置到 Claude
+  Code 深度集成，涵盖双向通信桥接、MCP Server 对接、实战工作流和常见问题排查。
 author: YangCazz
-image: /assets/images/covers/ai-dev-tools.jpg
+image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+
 
 ## 引言
 

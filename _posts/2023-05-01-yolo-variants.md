@@ -1,14 +1,19 @@
 ---
 layout: post
-title: "YOLO变种：RT-DETR、YOLO-NAS等"
-date: 2023-05-01 10:00:00 +0800
-categories: [计算机视觉, 目标检测]
-tags: [YOLO, 目标检测]
-excerpt: "深入解析YOLO系列的各种变种和衍生技术，从RT-DETR到YOLO-NAS，探索YOLO生态的多样性和技术创新。了解不同变种的特点、优势和应用场景。"
+title: YOLO变种：RT-DETR、YOLO-NAS等
+date: 2023-05-01 10:00:00.000000000 +08:00
+categories:
+- 计算机视觉
+- 目标检测
+tags:
+- YOLO
+- 目标检测
+excerpt: 深入解析YOLO系列的各种变种和衍生技术，从RT-DETR到YOLO-NAS，探索YOLO生态的多样性和技术创新。了解不同变种的特点、优势和应用场景。
 author: YangCazz
 math: true
-image: /assets/images/covers/object-detection.jpg
+image: "/assets/images/covers/object-detection.jpg"
 ---
+
 
 ## 引言
 

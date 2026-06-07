@@ -1,12 +1,17 @@
 ---
 layout: post
-title: "Transformer与BERT：自然语言处理的革命"
-date: 2021-10-20 10:00:00 +0800
-categories: [深度学习, Transformer]
-tags: [Transformer, NLP]
-excerpt: "深入解析Transformer和BERT的原理与创新。从'Attention Is All You Need'到预训练语言模型，探索NLP领域的范式转变。"
-image: /assets/images/covers/attention-transformers.jpg
+title: Transformer与BERT：自然语言处理的革命
+date: 2021-10-20 10:00:00.000000000 +08:00
+categories:
+- 深度学习
+- Transformer
+tags:
+- Transformer
+- NLP
+excerpt: 深入解析Transformer和BERT的原理与创新。从'Attention Is All You Need'到预训练语言模型，探索NLP领域的范式转变。
+image: "/assets/images/covers/attention-transformers.jpg"
 ---
+
 
 # Transformer与BERT：自然语言处理的革命
 

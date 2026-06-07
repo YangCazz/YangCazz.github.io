@@ -1,14 +1,20 @@
 ---
 layout: post
-title: "YOLO v4：CSPNet与数据增强的艺术"
-date: 2023-03-15 10:00:00 +0800
-categories: [计算机视觉, 目标检测]
-tags: [YOLO, 目标检测]
-excerpt: "深入解析YOLO v4如何通过CSPNet架构和先进的数据增强技术，在精度和速度之间找到更好的平衡。从Bag of Freebies到Bag of Specials，探索YOLO v4的技术创新。"
+title: YOLO v4：CSPNet与数据增强的艺术
+date: 2023-03-15 10:00:00.000000000 +08:00
+categories:
+- 计算机视觉
+- 目标检测
+tags:
+- YOLO
+- 目标检测
+excerpt: 深入解析YOLO v4如何通过CSPNet架构和先进的数据增强技术，在精度和速度之间找到更好的平衡。从Bag of Freebies到Bag of
+  Specials，探索YOLO v4的技术创新。
 author: YangCazz
 math: true
-image: /assets/images/covers/object-detection.jpg
+image: "/assets/images/covers/object-detection.jpg"
 ---
+
 
 ## 引言
 

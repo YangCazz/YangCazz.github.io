@@ -1,12 +1,19 @@
 ---
 layout: post
-title: "图神经网络综述写作指南：从文献调研到论文撰写"
-date: 2022-05-15 10:00:00 +0800
-categories: [图神经网络, 学术写作, 文献综述]
-tags: [GNN, 学术写作]
-excerpt: "系统介绍图神经网络综述的写作方法，从文献检索、分类整理到论文撰写的完整流程，为学术研究提供实用指导。"
-image: /assets/images/covers/gnn-series.jpg
+title: 图神经网络综述写作指南：从文献调研到论文撰写
+date: 2022-05-15 10:00:00.000000000 +08:00
+categories:
+- 图神经网络
+- 学术写作
+- 文献综述
+tags:
+- GCN
+- GNN
+- 学术写作
+excerpt: 系统介绍图神经网络综述的写作方法，从文献检索、分类整理到论文撰写的完整流程，为学术研究提供实用指导。
+image: "/assets/images/covers/gnn-series.jpg"
 ---
+
 
 # 图神经网络综述写作指南：从文献调研到论文撰写
 
