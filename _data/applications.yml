@@ -1,0 +1,219 @@
+# 应用程序和项目配置
+
+# 专业项目
+professional:
+  - name: "智能手术导航系统"
+    description: "基于深度学习的医学图像处理与机器人控制集成系统，已申请三类医疗器械注册证"
+    category: "医疗机器人"
+    tech_stack: ["C++", "深度学习", "机器人控制", "医学图像"]
+    status: "生产环境"
+    highlight: true
+    features:
+      - "实时图像配准与导航"
+      - "深度学习图像分割"
+      - "高精度机器人控制"
+      - "多模态影像融合"
+    link: ""
+    github: ""
+    demo: ""
+    
+  - name: "医学图像分割系统"
+    description: "基于U-Net架构的3D医学图像分割算法，在多个公开数据集上达到SOTA性能"
+    category: "医学图像处理"
+    tech_stack: ["Python", "PyTorch", "医学图像", "深度学习"]
+    status: "研究中"
+    highlight: true
+    features:
+      - "3D U-Net分割网络"
+      - "多器官自动分割"
+      - "数据增强策略"
+      - "迁移学习优化"
+    link: ""
+    github: ""
+    demo: ""
+    
+  - name: "点云配准算法库"
+    description: "高精度点云配准算法，用于手术导航中的实时定位与配准"
+    category: "3D视觉"
+    tech_stack: ["C++", "PCL", "点云处理", "ICP"]
+    status: "生产环境"
+    highlight: true
+    features:
+      - "基于ICP的快速配准"
+      - "特征点提取与匹配"
+      - "实时性能优化"
+      - "鲁棒性增强"
+    link: ""
+    github: ""
+    demo: ""
+
+# 开源项目
+opensource:
+  - name: "CazzAi AI 语音助手"
+    description: "本地优先的 AI 语音助手，支持流式管道、打断检测、三层记忆系统和混合知识检索。采用事件驱动架构，asyncio.Queue 并发管道，7 状态回合机管理对话生命周期。"
+    category: "AI 应用"
+    tech_stack: ["Python", "asyncio", "faster-whisper", "ChatTTS", "ChromaDB", "FastAPI", "WebSocket", "Gradio"]
+    status: "活跃维护"
+    highlight: true
+    features:
+      - "流式 ASR → LLM → TTS 管道，首响延迟 <1 秒"
+      - "打断检测：VAD 持续监听，>300ms 语音触发 barge-in"
+      - "三层记忆系统：工作记忆 + 摘要记忆 + SQLite 持久化"
+      - "混合 RAG 检索：向量检索 + BM25 + RRF 融合 + 重排序"
+      - "统一 ComponentFactory，消除 CLI/UI/Server 重复组装"
+      - "WebSocket 协议支持，为 ESP32 硬件客户端准备"
+      - "多 LLM 提供商兼容：DeepSeek/OpenAI/Qwen/Claude"
+    link: ""
+    github: "https://github.com/YangCazz/CazzAi"
+    demo: ""
+
+  - name: "WiseSegmentator CT 分割框架"
+    description: "腹部/胸部 CT 多器官自动分割框架。统一调度 CADS、TotalSegmentator 与自训练 nnUNet 模型，两级目标体系精确控制，ROI 裁剪推理性能优化，结构特定后处理管线。配置驱动设计，CLI + Python API 双接口。"
+    category: "医学图像处理"
+    tech_stack: ["Python", "PyTorch", "nnUNetv2", "nibabel", "scipy", "TotalSegmentator", "CADS"]
+    status: "活跃开发"
+    highlight: true
+    features:
+      - "统一调度 9 个模型：自动去重、依赖分析、拓扑排序"
+      - "两级目标体系：4 个一级目标 + 30+ 二级结构精确筛选"
+      - "ROI 智能裁剪：推理区域缩小 5-30 倍，12GB 显卡可用"
+      - "Predictor 生命周期管理：每模型完成即释放，VRAM 不累积"
+      - "结构特定后处理：器官（最大连通域+填孔）、血管（近邻过滤）、肿瘤（包含约束）"
+      - "推理与后处理重叠：目标齐备即后台提取，节省 ~30s"
+      - "配置驱动扩展：JSON 管理目标/模型/标签映射，扩展无需改代码"
+    link: ""
+    github: "https://github.com/YangCazz/CazzSegmentator"
+    demo: ""
+
+  - name: "个人技术博客网站"
+    description: "基于Jekyll构建的现代化个人技术博客，展示技术文章和项目经历"
+    category: "Web开发"
+    tech_stack: ["Jekyll", "JavaScript", "SCSS", "GitHub Pages"]
+    status: "活跃维护"
+    highlight: false
+    features:
+      - "粒子背景动画系统"
+      - "关键词网络可视化"
+      - "响应式设计"
+      - "博客文章管理"
+    link: "https://yangcazz.github.io"
+    github: "https://github.com/YangCazz/YangCazz.github.io"
+    demo: "https://yangcazz.github.io"
+
+  - name: "CazzKB 个人知识库助手"
+    description: "轻量级自托管 RAG 知识库聊天助手。语义 Markdown 分块、稠密+BM25 混合检索、RRF 融合、BGE/LLM 重排序、SSE 流式生成。Provider 工厂架构，嵌入和 LLM 可热切换。"
+    category: "AI 应用"
+    tech_stack: ["Python", "FastAPI", "ChromaDB", "React", "TypeScript", "Peewee", "SSE", "RAG"]
+    status: "活跃开发"
+    highlight: true
+    features:
+      - "语义 Markdown 分块：保护代码/公式/表格/图表不被截断"
+      - "混合检索：稠密向量 + BM25 稀疏检索 + RRF 融合"
+      - "三级重排序：Noop / BGE Cross-Encoder / LLM-as-Judge 可切换"
+      - "SSE 流式响应：逐 token 推送，<1 秒首 Token 延迟"
+      - "Provider 工厂模式：OpenAI / Ollama 嵌入，Anthropic / DeepSeek LLM 热切换"
+      - "YAML 配置驱动 + ${ENV} 安全注入，无密钥泄露风险"
+      - "零外部服务依赖：ChromaDB 嵌入式运行，SQLite 元数据，单进程部署"
+    link: ""
+    github: "https://github.com/YangCazz/CazzKB"
+    demo: ""
+
+  - name: "医学图像处理工具箱"
+    description: "医学图像处理常用算法的Python实现，包含分割、配准、可视化等功能"
+    category: "工具库"
+    tech_stack: ["Python", "NumPy", "ITK", "VTK"]
+    status: "开发中"
+    highlight: false
+    features:
+      - "DICOM图像读写"
+      - "图像预处理工具"
+      - "3D可视化"
+      - "常用算法实现"
+    link: ""
+    github: ""
+    demo: ""
+
+# 实用工具
+tools:
+  - name: "PixelKnit 像素织梦"
+    description: "功能完整的Web编织引导应用，通过可视化网格地图帮助用户跟踪编织进度。支持双地图显示、智能路径规划、实时进度跟踪和性能优化。采用模块化架构设计，支持侧边栏显示/隐藏和悬浮mini菜单。"
+    category: "Web开发"
+    tech_stack: ["JavaScript", "Canvas API", "localStorage", "Bresenham算法", "ES6模块化"]
+    status: "活跃维护"
+    highlight: true
+    features:
+      - "双地图显示系统（地图列表+主网格）"
+      - "智能路径规划（手动+对角预设模式）"
+      - "实时进度跟踪（进度条+颜色统计）"
+      - "性能优化（离屏Canvas+事件节流）"
+      - "数据持久化（保存/加载/重置）"
+      - "交互功能（放大镜+工具提示）"
+      - "模块化架构（可维护、可扩展）"
+      - "侧边栏显示/隐藏（专注模式）"
+      - "悬浮mini菜单（可拖动）"
+    link: "/apps/PixelKnit/index.html"
+    github: "https://github.com/YangCazz/YangCazz.github.io/tree/main/apps/PixelKnit"
+    demo: "/apps/PixelKnit/index.html"
+    
+  - name: "博客文章创建助手"
+    description: "快速创建Jekyll博客文章的批处理脚本，自动生成Front Matter"
+    category: "工具库"
+    tech_stack: ["Batch", "Shell", "Node.js"]
+    status: "稳定"
+    highlight: false
+    features:
+      - "跨平台支持"
+      - "自动生成元数据"
+      - "交互式输入"
+      - "模板自定义"
+    link: ""
+    github: ""
+    demo: ""
+    
+  - name: "DICOM图像查看器"
+    description: "轻量级DICOM医学图像查看工具，支持窗宽窗位调整和多平面重建"
+    category: "医学图像处理"
+    tech_stack: ["Python", "PyQt5", "pydicom", "VTK"]
+    status: "开发中"
+    highlight: false
+    features:
+      - "DICOM文件解析"
+      - "窗宽窗位调整"
+      - "MPR多平面重建"
+      - "测量标注功能"
+    link: ""
+    github: ""
+    demo: ""
+
+# 研究项目
+research:
+  - name: "基于深度学习的器官分割研究"
+    description: "探索Transformer在医学图像分割中的应用，提升分割精度和效率"
+    category: "学术研究"
+    tech_stack: ["Python", "PyTorch", "Transformer", "医学图像"]
+    status: "研究中"
+    highlight: true
+    features:
+      - "Vision Transformer架构"
+      - "注意力机制优化"
+      - "多尺度特征融合"
+      - "小样本学习"
+    link: ""
+    github: ""
+    demo: ""
+    
+  - name: "机器人路径规划算法"
+    description: "研究医疗机器人在复杂环境下的自主导航和路径规划"
+    category: "医疗机器人"
+    tech_stack: ["C++", "ROS", "路径规划", "运动控制"]
+    status: "研究中"
+    highlight: false
+    features:
+      - "A*路径规划"
+      - "动态避障"
+      - "运动学逆解"
+      - "轨迹优化"
+    link: ""
+    github: ""
+    demo: ""
+
