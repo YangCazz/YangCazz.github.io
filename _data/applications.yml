@@ -100,6 +100,24 @@ opensource:
     github: "https://github.com/YangCazz/YangCazz.github.io"
     demo: "https://yangcazz.github.io"
 
+  - name: "CazzKB 个人知识库助手"
+    description: "轻量级自托管 RAG 知识库聊天助手。语义 Markdown 分块、稠密+BM25 混合检索、RRF 融合、BGE/LLM 重排序、SSE 流式生成。Provider 工厂架构，嵌入和 LLM 可热切换。"
+    category: "AI 应用"
+    tech_stack: ["Python", "FastAPI", "ChromaDB", "React", "TypeScript", "Peewee", "SSE", "RAG"]
+    status: "活跃开发"
+    highlight: true
+    features:
+      - "语义 Markdown 分块：保护代码/公式/表格/图表不被截断"
+      - "混合检索：稠密向量 + BM25 稀疏检索 + RRF 融合"
+      - "三级重排序：Noop / BGE Cross-Encoder / LLM-as-Judge 可切换"
+      - "SSE 流式响应：逐 token 推送，<1 秒首 Token 延迟"
+      - "Provider 工厂模式：OpenAI / Ollama 嵌入，Anthropic / DeepSeek LLM 热切换"
+      - "YAML 配置驱动 + ${ENV} 安全注入，无密钥泄露风险"
+      - "零外部服务依赖：ChromaDB 嵌入式运行，SQLite 元数据，单进程部署"
+    link: ""
+    github: "https://github.com/YangCazz/CazzKB"
+    demo: ""
+
   - name: "医学图像处理工具箱"
     description: "医学图像处理常用算法的Python实现，包含分割、配准、可视化等功能"
     category: "工具库"
