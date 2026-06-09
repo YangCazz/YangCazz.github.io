@@ -22,8 +22,11 @@
       return;
     }
 
-    // Ignore clicks on already-zoomed image
-    if (overlay && e.target.closest('.image-zoom-overlay')) return;
+    // Click on overlay background or zoomed image → close
+    if (overlay && e.target.closest('.image-zoom-overlay')) {
+      close();
+      return;
+    }
 
     var img = e.target.closest('.post-content img');
     if (!img) return;

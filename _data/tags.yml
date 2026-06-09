@@ -422,6 +422,13 @@
   references:
     - "https://en.wikipedia.org/wiki/Jekyll_(software)"
 
+- name: "Zustand"
+  type: method
+  aliases: ["状态管理"]
+  description: "React 轻量状态管理库"
+  references:
+    - "https://github.com/pmndrs/zustand"
+
 # ── Method: Software Engineering ──
 - name: "从零构建"
   type: method
