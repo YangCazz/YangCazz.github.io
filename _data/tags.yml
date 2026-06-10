@@ -134,6 +134,13 @@
   references:
     - "https://en.wikipedia.org/wiki/Software_engineering"
 
+- name: "知识管理"
+  type: domain
+  aliases: ["模块化", "知识网络"]
+  description: "个人与团队的知识策展、内化、组织与复用方法论"
+  references:
+    - "https://en.wikipedia.org/wiki/Personal_knowledge_management"
+
 - name: "效率工具"
   type: domain
   aliases: []
