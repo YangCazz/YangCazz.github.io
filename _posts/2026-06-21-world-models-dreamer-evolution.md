@@ -305,7 +305,7 @@ $$
 \text{symlog}(x) = \text{sign}(x) \cdot \log(|x| + 1)
 $$
 
-对正数和负数对称处理，原点附近近似线性（$\text{symlog}(x) \approx x$ 当 $|x|$ 很小），远处压缩为对数尺度。
+对正数和负数对称处理，原点附近近似线性（$\text{symlog}(x) \approx x$ 当 $\lvert x\rvert$ 很小），远处压缩为对数尺度。
 
 逆变换：
 

@@ -80,53 +80,121 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
         startOnLoad: false,
         theme: 'base',
         themeVariables: {
-            primaryColor: '#1e2444',
+            primaryColor: '#1a237e',
             primaryTextColor: '#e8edf5',
             primaryBorderColor: '#4299e1',
-            lineColor: '#667eea',
-            secondaryColor: '#252d4a',
-            secondaryTextColor: '#c8d2e3',
-            secondaryBorderColor: '#4a5599',
-            tertiaryColor: '#1a2038',
-            tertiaryTextColor: '#b0bdd4',
-            tertiaryBorderColor: '#3d4780',
+            lineColor: '#4a5fd0',
+            secondaryColor: '#1b2d3a',
+            secondaryTextColor: '#d0d8eb',
+            secondaryBorderColor: '#5568d0',
+            tertiaryColor: '#1a1f3a',
+            tertiaryTextColor: '#b8c4dd',
+            tertiaryBorderColor: '#6b4fd0',
             background: 'transparent',
             mainBkg: '#1e2444',
+            nodeBorder: '#4a5fd0',
             nodeTextColor: '#e8edf5',
             clusterBkg: 'rgba(102,126,234,0.06)',
             clusterBorder: 'rgba(102,126,234,0.25)',
             titleColor: '#c8d2e3',
-            edgeLabelBackground: 'rgba(30,36,68,0.85)',
-            fontFamily: 'Inter, Segoe UI, system-ui, sans-serif',
+            edgeLabelBackground: 'rgba(255,255,255,0.95)',
+            fontFamily: 'Inter, "Segoe UI", system-ui, sans-serif',
             fontSize: '15px',
             darkMode: true
         },
-        flowchart: { useMaxWidth: true, htmlLabels: true, curve: 'basis', padding: 20 },
-        sequence: { useMaxWidth: true },
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis',
+            padding: 28,
+            nodeSpacing: 70,
+            rankSpacing: 80
+        },
+        sequence: { useMaxWidth: true, mirrorActors: false },
         gantt: { useMaxWidth: true }
     });
+
+    // 六种节点 classDef，与 CLAUDE.md 色板一致
+    const CLASS_DEFS = [
+        'classDef core fill:#1a237e,stroke:#4299e1,color:#e8edf5,stroke-width:2.5px',
+        'classDef mid fill:#1b2d3a,stroke:#667eea,color:#e8edf5,stroke-width:2px',
+        'classDef proc fill:#1a1f3a,stroke:#7c3aed,color:#e8edf5,stroke-width:2px',
+        'classDef out fill:#1a2a1a,stroke:#48bb78,color:#e8edf5,stroke-width:2.5px',
+        'classDef hl fill:#2a1a2e,stroke:#ed64a6,color:#e8edf5,stroke-width:2.5px',
+        'classDef dim fill:#2d3748,stroke:#718096,color:#cbd5e0,stroke-width:1.5px'
+    ].join('\n');
 
     // LaTeX → Unicode 转换表，用于在 Mermaid 中渲染数学符号
     function sanitizeMathForMermaid(text) {
         var greek = {
+            // Greek lowercase
             '\\alpha':'α','\\beta':'β','\\gamma':'γ','\\delta':'δ',
-            '\\epsilon':'ε','\\zeta':'ζ','\\eta':'η','\\theta':'θ',
-            '\\iota':'ι','\\kappa':'κ','\\lambda':'λ','\\mu':'μ',
-            '\\nu':'ν','\\xi':'ξ','\\pi':'π','\\rho':'ρ',
-            '\\sigma':'σ','\\tau':'τ','\\upsilon':'υ','\\phi':'φ',
-            '\\chi':'χ','\\psi':'ψ','\\omega':'ω',
+            '\\epsilon':'ε','\\varepsilon':'ε','\\zeta':'ζ','\\eta':'η',
+            '\\theta':'θ','\\vartheta':'ϑ','\\iota':'ι','\\kappa':'κ',
+            '\\lambda':'λ','\\mu':'µ','\\nu':'ν','\\xi':'ξ',
+            '\\pi':'π','\\varpi':'ϖ','\\rho':'ρ','\\varrho':'ϱ',
+            '\\sigma':'σ','\\varsigma':'ς','\\tau':'τ','\\upsilon':'υ',
+            '\\phi':'φ','\\varphi':'ϕ','\\chi':'χ','\\psi':'ψ','\\omega':'ω',
+            // Greek uppercase
             '\\Gamma':'Γ','\\Delta':'Δ','\\Theta':'Θ','\\Lambda':'Λ',
-            '\\Sigma':'Σ','\\Phi':'Φ','\\Omega':'Ω',
-            '\\infty':'∞','\\cdot':'·','\\times':'×','\\div':'÷',
-            '\\rightarrow':'→','\\leftarrow':'←','\\Rightarrow':'⇒',
-            '\\mathbb{R}':'ℝ','\\mathbb{N}':'ℕ','\\mathcal{L}':'ℒ',
-            '\\ell':'ℓ','\\partial':'∂','\\nabla':'∇','\\pm':'±',
-            '\\cap':'∩','\\cup':'∪','\\in':'∈','\\notin':'∉',
-            '\\subset':'⊂','\\subseteq':'⊆','\\approx':'≈',
-            '\\neq':'≠','\\leq':'≤','\\geq':'≥','\\equiv':'≡',
-            '\\sim':'∼','\\propto':'∝','\\sum':'∑','\\prod':'∏',
-            '\\int':'∫','\\forall':'∀','\\exists':'∃','\\mapsto':'↦',
-            '\\longrightarrow':'⟶','\\Longrightarrow':'⟹'
+            '\\Xi':'Ξ','\\Pi':'Π','\\Sigma':'Σ','\\Upsilon':'Υ',
+            '\\Phi':'Φ','\\Psi':'Ψ','\\Omega':'Ω',
+            // Operators
+            '\\times':'×','\\cdot':'·','\\div':'÷','\\pm':'±','\\mp':'∓',
+            '\\otimes':'⊗','\\oplus':'⊕','\\ominus':'⊖','\\odot':'⊙','\\oslash':'⊘',
+            '\\star':'⋆','\\circ':'∘','\\bullet':'•','\\diamond':'⋄',
+            '\\bigcirc':'○','\\bigtriangleup':'△','\\bigtriangledown':'▽','\\square':'□',
+            // Relations
+            '\\leq':'≤','\\geq':'≥','\\neq':'≠','\\equiv':'≡',
+            '\\approx':'≈','\\cong':'≅','\\sim':'∼','\\propto':'∝',
+            '\\ll':'≪','\\gg':'≫','\\doteq':'≐','\\simeq':'≃',
+            '\\parallel':'∥','\\perp':'⊥','\\mid':'∣','\\nmid':'∤',
+            '\\models':'⊨','\\vdash':'⊢','\\dashv':'⊣',
+            // Set / Logic
+            '\\forall':'∀','\\exists':'∃','\\nexists':'∄',
+            '\\neg':'¬','\\lnot':'¬',
+            '\\wedge':'∧','\\land':'∧','\\vee':'∨','\\lor':'∨',
+            '\\in':'∈','\\notin':'∉','\\ni':'∋','\\owns':'∋',
+            '\\subset':'⊂','\\supset':'⊃','\\subseteq':'⊆','\\supseteq':'⊇',
+            '\\subsetneq':'⊊','\\supsetneq':'⊋',
+            '\\cup':'∪','\\cap':'∩','\\setminus':'∖',
+            '\\emptyset':'∅','\\varnothing':'∅',
+            '\\top':'⊤','\\bot':'⊥',
+            // Arrows
+            '\\rightarrow':'→','\\to':'→','\\leftarrow':'←','\\gets':'←',
+            '\\leftrightarrow':'↔','\\uparrow':'↑','\\downarrow':'↓',
+            '\\Rightarrow':'⇒','\\Leftarrow':'⇐','\\Leftrightarrow':'⇔',
+            '\\mapsto':'↦','\\longmapsto':'⟼',
+            '\\longrightarrow':'⟶','\\longleftarrow':'⟵',
+            '\\Longrightarrow':'⟹','\\Longleftarrow':'⟸','\\Longleftrightarrow':'⟺',
+            '\\implies':'⟹','\\impliedby':'⟸','\\iff':'⟺',
+            '\\rightleftharpoons':'⇌','\\leadsto':'⇝',
+            // Ellipsis
+            '\\cdots':'⋯','\\vdots':'⋮','\\ddots':'⋱','\\ldots':'…',
+            // Delimiters
+            '\\langle':'⟨','\\rangle':'⟩',
+            '\\lfloor':'⌊','\\rfloor':'⌋',
+            '\\lceil':'⌈','\\rceil':'⌉',
+            '\\vert':'|','\\lvert':'|','\\rvert':'|',
+            '\\Vert':'‖','\\lVert':'‖','\\rVert':'‖',
+            // Misc symbols
+            '\\infty':'∞','\\partial':'∂','\\nabla':'∇','\\hbar':'ℏ',
+            '\\ell':'ℓ','\\Re':'ℜ','\\Im':'ℑ','\\aleph':'ℵ',
+            '\\angle':'∠','\\measuredangle':'∡','\\sphericalangle':'∢',
+            '\\triangle':'△','\\triangledown':'▽',
+            '\\surd':'√','\\checkmark':'✓',
+            '\\dag':'†','\\ddag':'‡',
+            '\\therefore':'∴','\\because':'∵',
+            // Blackboard bold
+            '\\mathbb{R}':'ℝ','\\mathbb{N}':'ℕ','\\mathbb{Z}':'ℤ',
+            '\\mathbb{Q}':'ℚ','\\mathbb{C}':'ℂ','\\mathbb{P}':'ℙ',
+            // Script / Calligraphic
+            '\\mathcal{L}':'ℒ','\\mathcal{l}':'ℓ',
+            // Spacing / text (keep content, strip command)
+            '\\,':'','\\;':'','\\:':'','\\!':'',
+            '\\quad':' ','\\qquad':'  ',
+            '\\textbackslash':'\\','\\%':'%','\\&':'&','\\#':'#',
+            '\\_':'_','\\{':'{','\\}':'}'
         };
         var numSub = {'0':'₀','1':'₁','2':'₂','3':'₃','4':'₄','5':'₅','6':'₆','7':'₇','8':'₈','9':'₉'};
         var numSup = {'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹'};
@@ -137,11 +205,9 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
 
         return text.replace(/\$([^$]+)\$/g, function(m, math) {
             var result = math;
-            // 1. LaTeX commands → Unicode (before brace handling)
             for (var key in greek) {
                 result = result.split(key).join(greek[key]);
             }
-            // 2. Multi-char subscripts: _{abc} → ₐ♭꜀ (only if ALL chars convertible)
             result = result.replace(/_\{([^}]+)\}/g, function(_, chars) {
                 var allConvertible = true;
                 for (var j = 0; j < chars.length; j++) {
@@ -149,14 +215,11 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
                         allConvertible = false; break;
                     }
                 }
-                if (!allConvertible) return '_' + chars;  // keep as _text
+                if (!allConvertible) return '_' + chars;
                 var out = '';
-                for (var j = 0; j < chars.length; j++) {
-                    out += toUnicodeSub(chars[j]);
-                }
+                for (var j = 0; j < chars.length; j++) out += toUnicodeSub(chars[j]);
                 return out;
             });
-            // 3. Multi-char superscripts: ^{abc} (only if ALL chars convertible)
             result = result.replace(/\^\{([^}]+)\}/g, function(_, chars) {
                 var allConvertible = true;
                 for (var j = 0; j < chars.length; j++) {
@@ -166,15 +229,23 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
                 }
                 if (!allConvertible) return '^' + chars;
                 var out = '';
-                for (var j = 0; j < chars.length; j++) {
-                    out += toUnicodeSup(chars[j]);
-                }
+                for (var j = 0; j < chars.length; j++) out += toUnicodeSup(chars[j]);
                 return out;
             });
-            // 4. Strip \text{...} / \mathrm{...} wrappers (keep content)
+            // Strip \text / \mathrm / \operatorname wrappers (keep content)
             result = result.replace(/\\text\{([^}]*)\}/g, '$1');
             result = result.replace(/\\mathrm\{([^}]*)\}/g, '$1');
-            // 5. Single-char sub/superscripts: _x, ^x (only convert if Unicode exists)
+            result = result.replace(/\\operatorname\{([^}]*)\}/g, '$1');
+            // Strip backslash from common function names
+            result = result.replace(/\\(log|ln|lg|sin|cos|tan|cot|sec|csc|exp|max|min|det|dim|gcd|hom|inf|ker|lim|Pr|sup|arg|deg)\b/g, '$1');
+            // Accents on single chars: \hat{x}→x̂  \tilde{x}→x̃  \bar{x}→x̄  \vec{x}→x⃗  \dot{x}→ẋ  \ddot{x}→ẍ
+            result = result.replace(/\\hat\{([^}])\}/g, '$1̂');
+            result = result.replace(/\\tilde\{([^}])\}/g, '$1̃');
+            result = result.replace(/\\bar\{([^}])\}/g, '$1̄');
+            result = result.replace(/\\vec\{([^}])\}/g, '$1⃗');
+            result = result.replace(/\\dot\{([^}])\}/g, '$1̇');
+            result = result.replace(/\\ddot\{([^}])\}/g, '$1̈');
+            // Single-char sub/superscripts: _x, ^x
             result = result.replace(/_([0-9a-zA-Z])/g, function(_, c) {
                 var sub = toUnicodeSub(c);
                 return sub !== c ? sub : '_' + c;
@@ -183,17 +254,61 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
                 var sup = toUnicodeSup(c);
                 return sup !== c ? sup : '^' + c;
             });
-            // 6. Strip remaining braces
             result = result.replace(/[{}]/g, '');
-            // 7. Clean up
             result = result.replace(/\s+/g, ' ').trim();
             return result;
         });
     }
 
+    // 自动注入 classDef（在 graph/flowchart 声明行之后，内容之前）
+    function injectClassDefs(text) {
+        var match = text.match(/^(\s*(?:graph|flowchart)\s+(?:LR|RL|TB|TD|BT).*)$/m);
+        if (match && text.indexOf('classDef') === -1) {
+            var idx = match.index + match[0].length;
+            return text.slice(0, idx) + '\n' + CLASS_DEFS + '\n' + text.slice(idx);
+        }
+        return text;
+    }
+
+    // 自动修正节点文字对比度：浅底给黑字，深底给白字
+    function fixTextContrast(container) {
+        var nodes = container.querySelectorAll('.node');
+        nodes.forEach(function(node) {
+            // 找节点主体形状（not label, not edge）
+            var shape = node.querySelector(':scope > rect, :scope > circle, :scope > ellipse, :scope > polygon, :scope > path');
+            if (!shape) shape = node.querySelector('rect, circle, ellipse, polygon');
+            if (!shape) return;
+
+            var fill = shape.getAttribute('fill') || shape.style.fill;
+            if (!fill || fill === 'none' || fill === 'transparent') return;
+
+            // 解析颜色 → 计算亮度
+            var rgb = fill.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+            if (!rgb) {
+                var hex = fill.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+                if (!hex) return;
+                rgb = [1, parseInt(hex[1],16), parseInt(hex[2],16), parseInt(hex[3],16)];
+            }
+            var r = parseInt(rgb[1]), g = parseInt(rgb[2]), b = parseInt(rgb[3]);
+            var lum = 0.299 * r + 0.587 * g + 0.114 * b;
+
+            if (lum <= 60 || lum >= 140) {
+                var textColor = lum > 140 ? '#1a1a1a' : '#ffffff';
+                var labels = node.querySelectorAll('.label text, .label tspan, .label foreignObject div, .nodeLabel');
+                if (labels.length === 0) {
+                    labels = node.querySelectorAll('text, tspan, foreignObject div');
+                }
+                labels.forEach(function(label) {
+                    label.style.fill = textColor;
+                    label.style.color = textColor;
+                });
+            }
+        });
+    }
+
     mermaidBlocks.forEach((block, i) => {
         const pre = block.parentElement;
-        const graphDefinition = sanitizeMathForMermaid(block.textContent);
+        const graphDefinition = injectClassDefs(sanitizeMathForMermaid(block.textContent));
         const container = document.createElement('div');
         container.className = 'mermaid-container';
         container.id = 'mermaid-' + i;
@@ -201,6 +316,8 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
 
         mermaid.render('mermaid-svg-' + i, graphDefinition).then(({ svg }) => {
             container.innerHTML = svg;
+            fixTextContrast(container);
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
         }).catch((err) => {
             container.innerHTML = '<pre class="mermaid-error">Mermaid 渲染失败: ' + err.message + '</pre>';
         });

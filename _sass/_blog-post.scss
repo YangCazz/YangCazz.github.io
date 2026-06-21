@@ -541,19 +541,115 @@
     margin: 3rem 0;
 }
 
-/* Mermaid 图表容器 */
+/* Mermaid 图表容器 — 视觉增强 */
 .blog-post .post-content .mermaid-container {
     margin: 2rem 0;
     display: flex;
     justify-content: center;
     overflow-x: auto;
-    padding: 0.5rem;
-}
+    padding: 1rem 0.25rem;
 
-.blog-post .post-content .mermaid-container svg {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
+    svg {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+
+        // 节点阴影
+        .node rect,
+        .node circle,
+        .node polygon,
+        .node path {
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18));
+            transition: filter 0.2s ease;
+        }
+
+        // 标签文本
+        .nodeLabel {
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        // 修复中文/多行文本截断（不破坏居中）
+        .label foreignObject,
+        .node foreignObject {
+            overflow: visible;
+        }
+
+        // 边线
+        .edgePath .path {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        // 箭头
+        .arrowheadPath {
+            fill: #4a5fd0;
+        }
+
+        // 边标签 — 白底黑字
+        .edgeLabel {
+            rect {
+                rx: 6px;
+                ry: 6px;
+                fill: rgba(255,255,255,0.95) !important;
+                stroke: rgba(0,0,0,0.08) !important;
+                filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.12));
+            }
+
+            span, foreignObject div, text, tspan {
+                font-size: 13px;
+                font-weight: 500;
+                color: #2b2d42 !important;
+                fill: #2b2d42 !important;
+                letter-spacing: 0.02em;
+            }
+        }
+
+        // 分群（subgraph）样式
+        .cluster rect {
+            rx: 6px;
+            ry: 6px;
+            stroke: rgba(102, 126, 234, 0.3) !important;
+            stroke-width: 1px !important;
+            fill: #ffffff !important;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
+        }
+
+        .cluster-label {
+            .nodeLabel, span, foreignObject div, text {
+                font-weight: 600;
+                letter-spacing: 0.03em;
+                fill: #2b2d42 !important;
+                color: #2b2d42 !important;
+                font-size: 14px;
+            }
+        }
+
+        // 序列图增强
+        .actor rect {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .messageLine0, .messageLine1 {
+            stroke-dasharray: none;
+        }
+
+        .messageText {
+            fill: #d0d8eb;
+            stroke: none;
+        }
+
+        .labelText {
+            fill: #b8c4dd;
+            font-size: 13px;
+        }
+
+        // 甘特图
+        .taskText {
+            fill: #e8edf5;
+            font-size: 12px;
+        }
+    }
 }
 
 .blog-post .post-content .mermaid-error {
