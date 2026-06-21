@@ -14,6 +14,7 @@ author: YangCazz
 math: true
 image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+{% include series-nav.html series="medical-segmentation" position="top" %}
 
 
 ## 引言
@@ -1025,5 +1026,5 @@ V-Net<cite>[3]</cite>在2016年开创性地将UNet扩展到3D，并引入了两�
 
 ---
 
-{% include series-nav.html series="medical-segmentation" %}
+{% include series-nav.html series="medical-segmentation" position="bottom" %}
 

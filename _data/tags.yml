@@ -91,7 +91,7 @@
 # ── Domain: AI Agents ──
 - name: "AI Agent"
   type: domain
-  aliases: ["Agent", "Agent架构", "Agent基础设施", "Agent产品", "Agent工程", "多Agent", "并行Agent"]
+  aliases: ["Agent", "Agent架构", "Agent基础设施", "Agent产品", "Agent工程", "多Agent", "并行Agent", "AIXI", "认知架构", "Cognitive Architecture", "CoALA"]
   description: "基于大语言模型的自主智能体系统"
   references:
     - "https://en.wikipedia.org/wiki/Intelligent_agent"
@@ -102,6 +102,14 @@
   description: "Claude Code Agent Skills 框架及其设计模式"
   references:
     - "https://docs.anthropic.com/en/docs/agents-and-tools/agent-skills"
+
+# ── Domain: World Models ──
+- name: "世界模型"
+  type: domain
+  aliases: ["内部表征", "World Models", "World Model", "Mental Models", "Dreamer", "RSSM", "JEPA", "认知架构", "Cognitive Architecture", "CoALA"]
+  description: "智能体对环境动态规律的内部表征与预测模型，涵盖RL、认知科学与Agent架构"
+  references:
+    - "https://arxiv.org/abs/1803.10122"
 
 # ── Domain: Surgery AI ──
 - name: "手术智能识别"
@@ -307,6 +315,14 @@
   references:
     - "https://en.wikipedia.org/wiki/Health_Level_7"
 
+# ── Method: Generative Models ──
+- name: "视频生成"
+  type: method
+  aliases: ["Sora", "Genie", "Video Diffusion", "UniSim", "GameNGen", "DiT", "Diffusion Transformer"]
+  description: "基于扩散/自回归模型的视频生成技术及其作为世界模拟器的应用"
+  references:
+    - "https://arxiv.org/abs/2402.15319"
+
 # ── Method: LLM & Agent Technologies ──
 - name: "LLM"
   type: method
@@ -366,7 +382,7 @@
 
 - name: "Reasoning"
   type: method
-  aliases: ["推理规划", "CoT", "ToT", "ReAct", "Planning"]
+  aliases: ["推理规划", "CoT", "ToT", "ReAct", "Planning", "MCTS", "World State"]
   description: "LLM推理与规划技术，思维链及其变体"
   references:
     - "https://en.wikipedia.org/wiki/Chain-of-thought_reasoning"

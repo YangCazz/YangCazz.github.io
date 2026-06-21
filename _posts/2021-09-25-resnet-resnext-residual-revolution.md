@@ -12,6 +12,7 @@ tags:
 excerpt: 深入解析残差网络ResNet的设计哲学：如何通过简单的残差连接解决深度网络的退化问题？以及ResNeXt如何将Inception思想融入残差结构。
 image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+{% include series-nav.html series="deep-learning-classics" position="top" %}
 
 
 # ResNet与ResNeXt：残差网络的革命
@@ -535,5 +536,5 @@ ResNet自提出以来：
 
 ---
 
-{% include series-nav.html series="deep-learning-classics" %}
+{% include series-nav.html series="deep-learning-classics" position="bottom" %}
 

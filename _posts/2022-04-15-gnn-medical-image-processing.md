@@ -14,6 +14,7 @@ tags:
 excerpt: 深入探讨图神经网络在医学图像处理中的应用，包括医学图像分割、多模态数据融合、疾病预测等实际应用案例。
 image: "/assets/images/covers/gnn-series.jpg"
 ---
+{% include series-nav.html series="gnn" position="top" %}
 
 
 # 图神经网络在医学图像处理中的应用：从理论到实践
@@ -608,6 +609,7 @@ class BalancedMedicalGNN(nn.Module):
 
 ---
 
+{% include series-nav.html series="gnn" position="bottom" %}
 ## 参考文献
 
 <ol class="references">

@@ -12,6 +12,7 @@ tags:
 excerpt: 介绍像素织梦 (PixelKnit) v1.1 的重大更新：完整的像素地图编辑器、智能地图管理系统、Logo展示等新功能。从编辑模式到地图管理，探索应用的最新特性。
 image: "/assets/images/covers/pixelknit.jpg"
 ---
+{% include series-nav.html series="pixelknit" position="top" %}
 
 
 ## 引言
@@ -415,6 +416,7 @@ function saveMapToFile() {
 - ✅ 进度跟踪系统
 - ✅ 放大镜和工具提示
 
+{% include series-nav.html series="pixelknit" position="bottom" %}
 ## 总结
 
 **像素织梦 (PixelKnit) v1.1** 是一个重大更新版本，从单纯的编织引导工具升级为完整的像素地图创作和编织平台。新增的编辑器和地图管理系统，让用户可以：

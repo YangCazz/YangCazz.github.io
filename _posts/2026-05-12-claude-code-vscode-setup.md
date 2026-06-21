@@ -13,6 +13,7 @@ excerpt: 手把手教你配置 Claude Code VS Code 插件：安装、API Key 设
   Windows 环境下常见问题的解决。
 image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+{% include series-nav.html series="claude-code" position="top" %}
 
 
 ## 引言
@@ -423,6 +424,7 @@ export HTTPS_PROXY=http://127.0.0.1:7890
 
 它们共享 `~/.claude/` 目录（Windows 下为 `%USERPROFILE%\.claude\`），包括 Memory 和全局设置。项目级 `.claude/` 在当前工作目录下。
 
+{% include series-nav.html series="claude-code" position="bottom" %}
 ## 总结
 
 Claude Code 的 VS Code 插件让 AI 编程体验更加原生——不需要离开编辑器、不需要复制粘贴代码、修改结果以 Diff 形式预览。配好 API Key 后，它就像一个坐在你旁边的 senior engineer，随时等待调用。

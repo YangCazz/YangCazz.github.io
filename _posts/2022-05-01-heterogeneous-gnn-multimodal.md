@@ -13,6 +13,7 @@ tags:
 excerpt: 深入探讨异构图神经网络的理论基础、实现方法和在多模态学习中的应用，处理包含多种节点和边类型的复杂图结构。
 image: "/assets/images/covers/gnn-series.jpg"
 ---
+{% include series-nav.html series="gnn" position="top" %}
 
 
 # 异构图神经网络与多模态学习：处理复杂图结构数据
@@ -630,6 +631,7 @@ class HeteroGraphVisualizer:
         plt.show()
 ```
 
+{% include series-nav.html series="gnn" position="bottom" %}
 ## 总结
 
 异构图神经网络为处理复杂的多模态数据提供了强大的工具<cite>[4]</cite><cite>[5]</cite>：

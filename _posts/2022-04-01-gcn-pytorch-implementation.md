@@ -13,6 +13,7 @@ tags:
 excerpt: 通过PyTorch和PyTorch Geometric实现图卷积网络，包含完整的代码示例和实际应用案例。
 image: "/assets/images/covers/gnn-series.jpg"
 ---
+{% include series-nav.html series="gnn" position="top" %}
 
 
 # GCN实战：PyTorch实现图卷积网络
@@ -446,6 +447,7 @@ GCN作为图神经网络的基础模型<cite>[1]</cite>，为后续学习更复�
 
 ---
 
+{% include series-nav.html series="gnn" position="bottom" %}
 ## 参考文献
 
 <ol class="references">

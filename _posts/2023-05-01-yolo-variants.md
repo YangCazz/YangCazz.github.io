@@ -13,6 +13,7 @@ author: YangCazz
 math: true
 image: "/assets/images/covers/object-detection.jpg"
 ---
+{% include series-nav.html series="object-detection" position="top" %}
 
 
 ## 引言
@@ -1048,4 +1049,4 @@ YOLO变种通过技术融合和应用导向，为YOLO系列的发展提供了新
 
 ---
 
-{% include series-nav.html series="object-detection" %}
+{% include series-nav.html series="object-detection" position="bottom" %}

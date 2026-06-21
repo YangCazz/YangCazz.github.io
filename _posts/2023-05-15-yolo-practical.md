@@ -14,6 +14,7 @@ author: YangCazz
 math: true
 image: "/assets/images/covers/object-detection.jpg"
 ---
+{% include series-nav.html series="object-detection" position="top" %}
 
 
 ## 引言
@@ -1572,4 +1573,4 @@ YOLO实战通过完整的工程实践，为YOLO系列的实际应用提供了重
 
 ---
 
-{% include series-nav.html series="object-detection" %}
+{% include series-nav.html series="object-detection" position="bottom" %}

@@ -14,6 +14,7 @@ author: YangCazz
 math: true
 image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+{% include series-nav.html series="medical-segmentation" position="top" %}
 
 
 ## 引言
@@ -837,5 +838,5 @@ Attention UNet开启了医学图像分割中的"注意力时代"：
 
 ---
 
-{% include series-nav.html series="medical-segmentation" %}
+{% include series-nav.html series="medical-segmentation" position="bottom" %}
 

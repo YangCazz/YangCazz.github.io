@@ -14,6 +14,7 @@ author: YangCazz
 math: true
 image: "/assets/images/covers/object-detection.jpg"
 ---
+{% include series-nav.html series="object-detection" position="top" %}
 
 
 ## 引言
@@ -694,4 +695,4 @@ YOLO v4通过CSPNet架构和先进的数据增强技术，在精度和速度之�
 
 ---
 
-{% include series-nav.html series="object-detection" %}
+{% include series-nav.html series="object-detection" position="bottom" %}

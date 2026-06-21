@@ -12,6 +12,7 @@ tags:
 excerpt: 深入解析Attention注意力机制的原理、发展历程和应用。从Seq2Seq到Self-Attention，理解如何让模型关注重要信息。
 image: "/assets/images/covers/attention-transformers.jpg"
 ---
+{% include series-nav.html series="deep-learning-classics" position="top" %}
 
 
 # Attention机制详解：深度学习的注意力革命
@@ -520,5 +521,5 @@ scheduler = get_linear_schedule_with_warmup(optimizer, num_warmup_steps, num_tra
 
 ---
 
-{% include series-nav.html series="deep-learning-classics" %}
+{% include series-nav.html series="deep-learning-classics" position="bottom" %}
 

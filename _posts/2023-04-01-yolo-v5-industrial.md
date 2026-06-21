@@ -14,6 +14,7 @@ author: YangCazz
 math: true
 image: "/assets/images/covers/object-detection.jpg"
 ---
+{% include series-nav.html series="object-detection" position="top" %}
 
 
 ## 引言
@@ -749,4 +750,4 @@ YOLO v5通过工业化的设计理念和工程实践，成为最成功的YOLO版
 
 ---
 
-{% include series-nav.html series="object-detection" %}
+{% include series-nav.html series="object-detection" position="bottom" %}

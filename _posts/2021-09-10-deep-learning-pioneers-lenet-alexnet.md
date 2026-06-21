@@ -12,6 +12,7 @@ tags:
 excerpt: 深入探讨计算机视觉领域的两大开山之作：LeNet和AlexNet。从手写数字识别到ImageNet挑战赛冠军，了解卷积神经网络如何改变了AI的历史进程。
 image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+{% include series-nav.html series="deep-learning-classics" position="top" %}
 
 
 # 深度学习先驱：LeNet与AlexNet的开创之路
@@ -233,5 +234,5 @@ LeNet和AlexNet是深度学习历史上的两座里程碑：
 <li>Papers with Code. <em>Image Classification Benchmarks</em>. <a href="https://paperswithcode.com/task/image-classification">paperswithcode.com/task/image-classification</a></li>
 </ol>
 
-{% include series-nav.html series="deep-learning-classics" %}
+{% include series-nav.html series="deep-learning-classics" position="bottom" %}
 

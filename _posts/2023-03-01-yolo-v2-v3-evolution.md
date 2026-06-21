@@ -13,6 +13,7 @@ author: YangCazz
 math: true
 image: "/assets/images/covers/object-detection.jpg"
 ---
+{% include series-nav.html series="object-detection" position="top" %}
 
 
 ## 引言
@@ -734,4 +735,4 @@ YOLO v2/v3通过锚框机制和多尺度检测，在保持实时性的同时大�
 
 ---
 
-{% include series-nav.html series="object-detection" %}
+{% include series-nav.html series="object-detection" position="bottom" %}

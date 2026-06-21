@@ -12,6 +12,7 @@ tags:
 excerpt: 介绍像素织梦 (PixelKnit) v2.0 的重大更新：完整的模块化架构重构、三栏布局设计、侧边栏显示/隐藏、悬浮mini菜单等新功能。从代码架构到用户体验，全面探索应用的最新升级。
 image: "/assets/images/covers/pixelknit.jpg"
 ---
+{% include series-nav.html series="pixelknit" position="top" %}
 
 
 ## 引言
@@ -413,6 +414,7 @@ window.PixelKnit = {
 
 ---
 
+{% include series-nav.html series="pixelknit" position="bottom" %}
 ## 总结
 
 **像素织梦 (PixelKnit) v2.0** 是一次全面的架构重构和用户体验升级。通过模块化架构，我们为应用的长期发展奠定了坚实的基础；通过三栏布局和侧边栏显示/隐藏功能，我们提升了用户的工作效率；通过悬浮mini菜单，我们确保了功能的完整性和便捷性。

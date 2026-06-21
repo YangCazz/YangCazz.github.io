@@ -12,6 +12,7 @@ tags:
 excerpt: 深入解析MobileNet系列（V1-V3）的演进历程。从深度可分离卷积到逆残差结构，从ReLU6到H-Swish，探索如何设计高效的移动端深度学习模型。
 image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+{% include series-nav.html series="deep-learning-classics" position="top" %}
 
 
 # MobileNet系列：移动端的深度学习革命
@@ -555,5 +556,5 @@ MobileNet系列：
 
 ---
 
-{% include series-nav.html series="deep-learning-classics" %}
+{% include series-nav.html series="deep-learning-classics" position="bottom" %}
 

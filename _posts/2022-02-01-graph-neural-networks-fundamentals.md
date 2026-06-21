@@ -12,6 +12,7 @@ tags:
 excerpt: 深入解析图神经网络的基础概念、发展历程和核心原理，为后续的实战应用打下坚实的理论基础。
 image: "/assets/images/covers/gnn-series.jpg"
 ---
+{% include series-nav.html series="gnn" position="top" %}
 
 
 # 图神经网络基础概念与历史发展
@@ -223,6 +224,7 @@ GNN能够处理不同大小的图，具有良好的泛化能力。
 
 ---
 
+{% include series-nav.html series="gnn" position="bottom" %}
 ## 参考文献
 
 <ol class="references">

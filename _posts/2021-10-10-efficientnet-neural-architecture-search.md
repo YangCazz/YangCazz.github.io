@@ -13,6 +13,7 @@ tags:
 excerpt: 深入解析Google的EfficientNet系列（V1-V2）。探索网络深度、宽度、分辨率三维度的复合缩放策略，以及如何通过NAS找到最优网络架构。
 image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+{% include series-nav.html series="deep-learning-classics" position="top" %}
 
 
 # EfficientNet：神经架构搜索的艺术
@@ -531,5 +532,5 @@ EfficientNet系列：
 
 ---
 
-{% include series-nav.html series="deep-learning-classics" %}
+{% include series-nav.html series="deep-learning-classics" position="bottom" %}
 

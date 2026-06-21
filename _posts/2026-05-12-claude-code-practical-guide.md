@@ -14,6 +14,7 @@ excerpt: 深入介绍 Claude Code 的核心概念、实战工作流和高级技�
   AI 智能体完成页面重构、样式系统设计、PPT 生成等复杂任务。
 image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+{% include series-nav.html series="claude-code" position="top" %}
 
 
 ## 引言
@@ -274,6 +275,7 @@ Claude Code 有丰富的 Skill 生态：
 
 **成本管理**：Claude Code 按 token 计费，大型任务可能消耗较多。Plan 模式能帮你在一开始就对齐方案，减少无效 token 消耗。
 
+{% include series-nav.html series="claude-code" position="bottom" %}
 ## 总结
 
 Claude Code 代表了 AI 编程工具的一个重要演化方向——从**代码建议器**到**开发智能体**。它最强大的地方不是"写得快"，而是能够**理解项目全局、系统性地执行任务、记住偏好持续优化**。

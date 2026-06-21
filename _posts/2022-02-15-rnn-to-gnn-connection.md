@@ -13,6 +13,7 @@ tags:
 excerpt: 深入探讨循环神经网络与图神经网络的内在联系，理解从序列学习到图学习的演进过程，掌握梯度消失问题的解决方案。
 image: "/assets/images/covers/gnn-series.jpg"
 ---
+{% include series-nav.html series="gnn" position="top" %}
 
 
 # 循环神经网络与图神经网络的联系：从序列到图的学习
@@ -239,6 +240,7 @@ RNN和GNN虽然在处理的数据类型上不同，但在核心思想上有着�
 
 ---
 
+{% include series-nav.html series="gnn" position="bottom" %}
 ## 参考文献
 
 <ol class="references">

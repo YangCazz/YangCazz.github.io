@@ -1,49 +1,81 @@
-<!-- 系列文章导航 -->
-{% assign current_slug = page.slug %}
-{% assign series_id = include.series %}
-{% assign series = site.data.series | where: 'id', series_id | first %}
+<!-- 系列文章导航: position="top" → 完整横幅; position="bottom" → 紧凑前后导航 -->
+{%- assign current_slug = page.slug -%}
+{%- assign series_id = include.series -%}
+{%- assign series = site.data.series | where: 'id', series_id | first -%}
 
-{% if series %}
-  {% assign posts = series.posts %}
-  {% assign found = false %}
-  {% assign prev = false %}
-  {% assign next = false %}
+{%- if series -%}
+{%- assign posts = series.posts -%}
+{%- assign total = posts | size -%}
+{%- assign current_index = -1 -%}
+{%- assign prev_post_data = false -%}
+{%- assign next_post_data = false -%}
 
-  {% for post_data in posts %}
-    {% if found and next == false %}
-      {% assign next = post_data %}
-    {% endif %}
-    {% if post_data.slug == current_slug %}
-      {% assign found = true %}
-    {% else %}
-      {% unless found %}
-        {% assign prev = post_data %}
-      {% endunless %}
-    {% endif %}
-  {% endfor %}
+{%- for post_data in posts -%}
+  {%- if post_data.slug == current_slug -%}
+    {%- assign current_index = forloop.index -%}
+  {%- elsif current_index == -1 -%}
+    {%- assign prev_post_data = post_data -%}
+  {%- elsif next_post_data == false -%}
+    {%- assign next_post_data = post_data -%}
+  {%- endif -%}
+{%- endfor -%}
 
-  {% if prev or next %}
-  <nav class="series-nav">
-    <div class="series-nav-title">{{ series.name }} 系列</div>
-    <div class="series-nav-links">
-      {% if prev %}
-        {% assign prev_post = site.posts | where: 'slug', prev.slug | first %}
-        <a class="series-nav-link prev" href="{{ prev_post.url | relative_url }}">
-          <span class="nav-arrow">←</span>
-          <span class="nav-label">{{ prev_post.title | truncate: 30 }}</span>
-        </a>
-      {% else %}
-        <span></span>
-      {% endif %}
+{%- assign position = include.position | default: 'bottom' -%}
 
-      {% if next %}
-        {% assign next_post = site.posts | where: 'slug', next.slug | first %}
-        <a class="series-nav-link next" href="{{ next_post.url | relative_url }}">
-          <span class="nav-label">{{ next_post.title | truncate: 30 }}</span>
-          <span class="nav-arrow">→</span>
-        </a>
-      {% endif %}
-    </div>
-  </nav>
-  {% endif %}
-{% endif %}
+{%- if position == 'top' -%}
+<div class="series-banner">
+  <div class="series-banner-header">
+    <span class="series-banner-badge">系列文章</span>
+    <span class="series-banner-name">{{ series.name }}</span>
+    {%- if current_index > 0 -%}
+    <span class="series-banner-index">第 {{ current_index }} 篇 / 共 {{ total }} 篇</span>
+    {%- endif -%}
+  </div>
+
+  {%- if series.description -%}
+  <p class="series-banner-desc">{{ series.description }}</p>
+  {%- endif -%}
+
+  <ol class="series-banner-posts">
+    {%- for post_data in posts -%}
+    {%- assign p = site.posts | where: 'slug', post_data.slug | first -%}
+    {%- if post_data.slug == current_slug -%}
+    <li class="series-banner-post current">
+      <span class="series-banner-post-title">{{ p.title }}</span>
+    </li>
+    {%- else -%}
+    <li class="series-banner-post">
+      <a href="{{ p.url | relative_url }}">{{ p.title }}</a>
+    </li>
+    {%- endif -%}
+    {%- endfor -%}
+  </ol>
+</div>
+{%- endif -%}
+
+{%- if position == 'bottom' -%}
+{%- if prev_post_data or next_post_data -%}
+<nav class="series-nav">
+  <div class="series-nav-title">{{ series.name }} 系列</div>
+  <div class="series-nav-links">
+    {%- if prev_post_data -%}
+    {%- assign prev_post = site.posts | where: 'slug', prev_post_data.slug | first -%}
+    <a class="series-nav-link prev" href="{{ prev_post.url | relative_url }}">
+      <span class="nav-arrow">←</span>
+      <span class="nav-label">{{ prev_post.title | truncate: 30 }}</span>
+    </a>
+    {%- else -%}
+    <span></span>
+    {%- endif -%}
+    {%- if next_post_data -%}
+    {%- assign next_post = site.posts | where: 'slug', next_post_data.slug | first -%}
+    <a class="series-nav-link next" href="{{ next_post.url | relative_url }}">
+      <span class="nav-label">{{ next_post.title | truncate: 30 }}</span>
+      <span class="nav-arrow">→</span>
+    </a>
+    {%- endif -%}
+  </div>
+</nav>
+{%- endif -%}
+{%- endif -%}
+{%- endif -%}

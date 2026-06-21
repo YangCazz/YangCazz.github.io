@@ -14,6 +14,7 @@ author: YangCazz
 math: true
 image: "/assets/images/covers/medical-segmentation.jpg"
 ---
+{% include series-nav.html series="medical-segmentation" position="top" %}
 
 
 ## 引言
@@ -623,5 +624,5 @@ scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(
 
 ---
 
-{% include series-nav.html series="medical-segmentation" %}
+{% include series-nav.html series="medical-segmentation" position="bottom" %}
 

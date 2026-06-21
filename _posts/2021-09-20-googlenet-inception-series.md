@@ -12,6 +12,7 @@ tags:
 excerpt: 深入解析GoogLeNet/InceptionNet系列（V1-V4）的演进历程。从Inception结构到BatchNorm，从设计准则到Inception-ResNet，探索网络在宽度维度上的创新。
 image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+{% include series-nav.html series="deep-learning-classics" position="top" %}
 
 
 # GoogLeNet/InceptionNet系列：网络宽度的探索
@@ -405,5 +406,5 @@ GoogLeNet/InceptionNet系列的主要贡献：
 
 ---
 
-{% include series-nav.html series="deep-learning-classics" %}
+{% include series-nav.html series="deep-learning-classics" position="bottom" %}
 

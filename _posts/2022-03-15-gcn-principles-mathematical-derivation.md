@@ -12,6 +12,7 @@ tags:
 excerpt: 深入解析图卷积网络(GCN)的数学原理，从图信号处理到拉普拉斯矩阵，完整推导GCN的理论基础。
 image: "/assets/images/covers/gnn-series.jpg"
 ---
+{% include series-nav.html series="gnn" position="top" %}
 
 
 # GCN原理详解：图卷积网络的数学推导与理论基础
@@ -254,6 +255,7 @@ GCN的成功在于：
 
 ---
 
+{% include series-nav.html series="gnn" position="bottom" %}
 ## 参考文献
 
 <ol class="references">

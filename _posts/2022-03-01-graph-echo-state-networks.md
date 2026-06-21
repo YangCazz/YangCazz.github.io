@@ -13,6 +13,7 @@ tags:
 excerpt: 深入解析图回声状态网络的原理、数学推导和应用，理解这一图神经网络重要先驱的思想和贡献。
 image: "/assets/images/covers/gnn-series.jpg"
 ---
+{% include series-nav.html series="gnn" position="top" %}
 
 
 # 图回声状态网络(GESN)：图神经网络的重要先驱
@@ -298,6 +299,7 @@ print(f"输出形状: {output.shape}")  # [100, 5]
 
 ---
 
+{% include series-nav.html series="gnn" position="bottom" %}
 ## 参考文献
 
 <ol class="references">

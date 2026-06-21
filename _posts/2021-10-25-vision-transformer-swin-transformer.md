@@ -12,6 +12,7 @@ tags:
 excerpt: 深入解析Vision Transformer和Swin Transformer。探索Transformer如何从NLP跨界到CV，以及如何通过窗口注意力机制实现高效的图像处理。
 image: "/assets/images/covers/attention-transformers.jpg"
 ---
+{% include series-nav.html series="deep-learning-classics" position="top" %}
 
 
 # Vision Transformer：Transformer在计算机视觉的革命
@@ -579,5 +580,5 @@ for layer_id, (name, param) in enumerate(model.named_parameters()):
 
 ---
 
-{% include series-nav.html series="deep-learning-classics" %}
+{% include series-nav.html series="deep-learning-classics" position="bottom" %}
 

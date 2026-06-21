@@ -12,6 +12,7 @@ tags:
 excerpt: 深入解析VGG网络的设计哲学：更深的网络、更小的卷积核、模块化的设计思想。了解VGG如何系统性地研究网络深度对性能的影响。
 image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+{% include series-nav.html series="deep-learning-classics" position="top" %}
 
 
 # VGG：深度网络的探索之旅
@@ -348,5 +349,5 @@ VGG为后续更深的网络（如ResNet）铺平了道路，同时其简洁的�
 
 ---
 
-{% include series-nav.html series="deep-learning-classics" %}
+{% include series-nav.html series="deep-learning-classics" position="bottom" %}
 

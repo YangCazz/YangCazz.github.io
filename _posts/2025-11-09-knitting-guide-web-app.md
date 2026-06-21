@@ -12,6 +12,7 @@ tags:
 excerpt: 介绍像素织梦 (PixelKnit) - 一个功能完整的Web编织引导应用，通过可视化网格地图帮助用户跟踪编织进度。涵盖双地图显示、智能路径规划、进度跟踪、性能优化等核心功能。
 image: "/assets/images/covers/pixelknit.jpg"
 ---
+{% include series-nav.html series="pixelknit" position="top" %}
 
 ## 引言
 
@@ -306,6 +307,7 @@ knitting-guide/
 4. **更多模式**：支持更多编织模式（螺旋、圆形等）
 5. **移动端优化**：进一步优化移动端触摸交互
 
+{% include series-nav.html series="pixelknit" position="bottom" %}
 ## 总结
 
 **像素织梦 (PixelKnit)** 是一个功能完整、性能优化的 Web 应用程序。它通过可视化界面和智能路径规划，帮助用户高效地完成编织工作。应用采用了多种性能优化技术，确保流畅的用户体验。同时，应用的设计风格与博客项目保持一致，提供了美观的视觉体验。

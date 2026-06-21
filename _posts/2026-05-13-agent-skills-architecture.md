@@ -14,6 +14,7 @@ excerpt: 从 Anthropic 官方设计哲学、agentskills.io 开放标准到学术
   循环，以及 Skills 在 AI 智能体生态中的架构定位。
 image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+{% include series-nav.html series="claude-code" position="top" %}
 
 
 ## 引言
@@ -379,6 +380,7 @@ Liu 等人的论文指出了六个开放方向 <cite>[13]</cite>，其中两个�
 
 ---
 
+{% include series-nav.html series="claude-code" position="bottom" %}
 ## 参考文献
 
 <ol class="references">

@@ -13,6 +13,7 @@ tags:
 excerpt: 系统介绍图神经网络综述的写作方法，从文献检索、分类整理到论文撰写的完整流程，为学术研究提供实用指导。
 image: "/assets/images/covers/gnn-series.jpg"
 ---
+{% include series-nav.html series="gnn" position="top" %}
 
 
 # 图神经网络综述写作指南：从文献调研到论文撰写
@@ -520,6 +521,7 @@ def analyze_literature():
 - 优点：交互性强，可定制性高
 - 缺点：学习成本高
 
+{% include series-nav.html series="gnn" position="bottom" %}
 ## 总结
 
 撰写高质量的图神经网络综述<cite>[1]</cite><cite>[2]</cite>需要：

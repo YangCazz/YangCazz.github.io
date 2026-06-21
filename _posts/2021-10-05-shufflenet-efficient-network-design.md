@@ -12,6 +12,7 @@ tags:
 excerpt: 深入解析旷视科技的ShuffleNet系列（V1-V2）。从Channel Shuffle到设计准则，探索如何设计真正高效的轻量化网络。
 image: "/assets/images/covers/cnn-pioneers.jpg"
 ---
+{% include series-nav.html series="deep-learning-classics" position="top" %}
 
 
 # ShuffleNet：高效网络设计的艺术
@@ -488,5 +489,5 @@ ShuffleNet系列：
 
 ---
 
-{% include series-nav.html series="deep-learning-classics" %}
+{% include series-nav.html series="deep-learning-classics" position="bottom" %}
 
