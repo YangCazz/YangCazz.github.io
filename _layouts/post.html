@@ -69,6 +69,17 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
 </article>
 
 
+<!-- 图像对比叠加以 mobile tap 切换 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.image-compare').forEach(function(el) {
+        el.addEventListener('click', function() {
+            el.classList.toggle('tapped');
+        });
+    });
+});
+</script>
+
 <!-- Mermaid 图表渲染 -->
 <script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
 <script>

@@ -318,7 +318,7 @@
 # ── Method: Generative Models ──
 - name: "视频生成"
   type: method
-  aliases: ["Sora", "Genie", "Video Diffusion", "UniSim", "GameNGen", "DiT", "Diffusion Transformer"]
+  aliases: ["Sora", "Genie", "Video Diffusion", "UniSim", "GameNGen", "DiT", "Diffusion Transformer", "图像生成", "Vision Banana"]
   description: "基于扩散/自回归模型的视频生成技术及其作为世界模拟器的应用"
   references:
     - "https://arxiv.org/abs/2402.15319"

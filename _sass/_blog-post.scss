@@ -889,6 +889,86 @@
     }
 }
 
+/* ── 图像对比叠加（hover 揭示预测结果）── */
+.image-compare {
+    position: relative;
+    display: block;
+    margin: 2rem auto;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border-light, rgba(0,0,0,0.08));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.image-compare img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.image-compare .compare-base {
+    position: relative;
+    z-index: 1;
+}
+
+.image-compare .compare-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+}
+
+.image-compare:hover .compare-overlay,
+.image-compare.tapped .compare-overlay {
+    opacity: 1;
+}
+
+.image-compare .compare-label {
+    position: absolute;
+    bottom: 10px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    pointer-events: none;
+    z-index: 3;
+    transition: opacity 0.3s ease;
+}
+
+.image-compare .compare-label.label-input {
+    left: 10px;
+}
+
+.image-compare .compare-label.label-pred {
+    right: 10px;
+    opacity: 0;
+}
+
+.image-compare:hover .compare-label.label-input,
+.image-compare.tapped .compare-label.label-input {
+    opacity: 0;
+}
+
+.image-compare:hover .compare-label.label-pred,
+.image-compare.tapped .compare-label.label-pred {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .image-compare {
+        margin: 1.25rem auto;
+        border-radius: 8px;
+    }
+}
+
 .post-footer {
     margin-top: 3rem;
     padding-top: 2rem;
