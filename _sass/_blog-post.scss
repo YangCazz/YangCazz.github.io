@@ -1,0 +1,1116 @@
+/* 博客文章页面 */
+.blog-post {
+    position: relative;
+    z-index: 1;
+    max-width: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.page-content .blog-post {
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border: none;
+    padding: 0;
+}
+
+/* ---- 文章封面图（背景 + 渐变叠加）---- */
+.blog-post .post-header--cover {
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    min-height: 320px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 3rem 2rem 2rem;
+    border-radius: 12px;
+    overflow: hidden;
+    isolation: isolate;
+
+    // 渐变遮罩层：底部深色保证标题可读
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        z-index: -1;
+        background:
+            linear-gradient(180deg,
+                rgba(43, 45, 66, 0.1) 0%,
+                rgba(43, 45, 66, 0.4) 40%,
+                rgba(43, 45, 66, 0.85) 75%,
+                rgba(43, 45, 66, 0.95) 100%);
+    }
+
+    .post-title {
+        color: #ffffff;
+        text-shadow: 0 2px 12px rgba(0, 0, 0, 0.5);
+    }
+
+    .post-meta,
+    .post-date,
+    .category-tag {
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .category-tag {
+        background: rgba(255, 255, 255, 0.15);
+        color: rgba(255, 255, 255, 0.9);
+    }
+
+    .tag {
+        background: rgba(255, 255, 255, 0.12);
+        color: rgba(255, 255, 255, 0.8);
+    }
+}
+
+/* 无封面图时保持默认外观 */
+.blog-post .post-header:not(.post-header--cover) {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.blog-post .post-title {
+    color: var(--primary-color);
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    line-height: 1.3;
+}
+
+.blog-post .post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.blog-post .post-date {
+    color: var(--secondary-color);
+    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.blog-post .post-categories {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+}
+
+.blog-post .category-tag {
+    background: rgba(66, 153, 225, 0.1);
+    color: var(--accent-color);
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    border: 1px solid rgba(66, 153, 225, 0.3);
+}
+
+.blog-post .post-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: 0.5rem;
+}
+
+.blog-post .tag {
+    background: rgba(102, 126, 234, 0.1);
+    color: #667eea;
+    padding: 0.2rem 0.6rem;
+    border-radius: 15px;
+    font-size: 0.75rem;
+    font-weight: 400;
+    border: 1px solid rgba(102, 126, 234, 0.3);
+}
+
+.blog-post .post-content {
+    background: var(--glass-bg);
+    border-radius: 12px;
+    padding: 2.5rem;
+    box-shadow: var(--shadow);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    line-height: 1.8;
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+.blog-post .post-content a {
+    word-break: break-word;
+}
+
+/* 文章标题样式 */
+.blog-post .post-content h1,
+.blog-post .post-content h2,
+.blog-post .post-content h3,
+.blog-post .post-content h4,
+.blog-post .post-content h5,
+.blog-post .post-content h6 {
+    color: var(--primary-color);
+    margin: 2rem 0 1rem 0;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.blog-post .post-content h1 {
+    font-size: 1.8rem;
+    border-bottom: 2px solid var(--accent-color);
+    padding-bottom: 0.5rem;
+}
+
+.blog-post .post-content h2 {
+    font-size: 1.5rem;
+    border-left: 4px solid var(--accent-color);
+    padding-left: 1rem;
+}
+
+.blog-post .post-content h3 {
+    font-size: 1.3rem;
+}
+
+/* 自动编号标签 */
+.blog-post .post-content .heading-num {
+    color: var(--accent-color);
+    font-weight: 600;
+    margin-right: 0.25em;
+}
+
+.blog-post .post-content h4 {
+    font-size: 1.1rem;
+}
+
+.blog-post .post-content p {
+    margin: 1.2rem 0;
+    text-align: justify;
+}
+
+
+/* 行内代码 */
+.blog-post .post-content code:not(.highlight code):not(pre code) {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 0.2em 0.5em;
+    border-radius: 4px;
+    font-family: 'Fira Code', 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.85em;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    box-shadow: 0 2px 4px rgba(102, 126, 234, 0.2);
+}
+
+/* 图片 */
+.blog-post .post-content img {
+    max-width: 100%;
+    max-height: 75vh;
+    height: auto;
+    display: block;
+    margin: 2rem auto;
+    border: 1px solid var(--border-light, rgba(0,0,0,0.08));
+    border-radius: var(--radius-md, 6px);
+    background: #fff;
+    padding: 0.5rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.2s ease;
+    cursor: zoom-in;
+    object-fit: scale-down;
+}
+
+.blog-post .post-content img:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    border-color: rgba(102, 126, 234, 0.3);
+    transform: scale(1.01);
+}
+
+/* 图表容器 */
+.blog-post .post-content figure {
+    margin: 2rem auto;
+    text-align: center;
+}
+
+.blog-post .post-content figure img {
+    margin-bottom: 0.25rem;
+}
+
+.blog-post .post-content figcaption {
+    font-size: 0.9rem;
+    color: var(--text-secondary, #4a5568);
+    font-style: italic;
+    margin-top: 0.5rem;
+}
+
+/* 点击放大浮层（body 直接子元素，绕过 backdrop-filter 包含块） */
+.image-zoom-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 99999;
+    background: rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+    animation: fadeIn 0.2s ease;
+}
+
+.image-zoom-overlay img {
+    max-width: 90vw;
+    max-height: 90vh;
+    object-fit: contain;
+    border-radius: 6px;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+    background: #fff;
+    padding: 0.5rem;
+}
+
+/* 增强表格 */
+.blog-post .post-content table {
+    width: 100%;
+    table-layout: auto;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin: 2rem 0;
+    background: rgba(255, 255, 255, 0.9);
+    -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow:
+        0 10px 40px rgba(0, 0, 0, 0.1),
+        0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+.blog-post .post-content th,
+.blog-post .post-content td {
+    word-break: break-word;
+}
+
+.blog-post .post-content thead {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.blog-post .post-content thead th {
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 1rem 1.5rem;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border: none;
+}
+
+.blog-post .post-content tbody tr {
+    transition: all 0.2s ease;
+}
+
+.blog-post .post-content tbody tr:nth-child(even) {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+.blog-post .post-content tbody tr:hover {
+    background: rgba(102, 126, 234, 0.08);
+    transform: scale(1.01);
+}
+
+.blog-post .post-content tbody td {
+    padding: 1rem 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+.blog-post .post-content tbody tr:last-child td {
+    border-bottom: none;
+}
+
+/* ---- 行内引用标记 ---- */
+.blog-post .post-content cite {
+    font-style: normal;
+    font-size: 0.78em;
+    font-weight: 600;
+    color: var(--accent-color);
+    vertical-align: super;
+    line-height: 0;
+    white-space: nowrap;
+    transition: color 0.15s ease;
+    position: relative;
+
+    // 扩大悬停命中区域
+    &::after {
+        content: '';
+        position: absolute;
+        top: -6px;
+        right: -4px;
+        bottom: -6px;
+        left: -4px;
+    }
+}
+
+.blog-post .post-content a cite {
+    color: inherit;
+}
+
+/* ── 引用角标悬浮预览 ── */
+.cite-tooltip {
+    position: absolute;
+    max-width: 320px;
+    padding: 0.75rem 1rem;
+    background: rgba(255, 255, 255, 0.97);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(66, 153, 225, 0.25);
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15), 0 0 0 1px rgba(66, 153, 225, 0.08);
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: #2d3748;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 1000;
+
+    &.show {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.cite-tooltip-ref {
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-right: 0.35em;
+}
+
+.cite-tooltip-body {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.cite-tooltip-link {
+    display: inline-block;
+    margin-top: 0.4rem;
+    font-size: 0.78rem;
+    color: var(--accent-color);
+    opacity: 0.8;
+}
+
+/* ---- 增强引用块 ---- */
+.blog-post .post-content blockquote {
+    border-left: 4px solid;
+    border-image: linear-gradient(180deg, #667eea 0%, #764ba2 100%) 1;
+    padding: 1.5rem 2rem;
+    margin: 2rem 0;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%);
+    border-radius: 0 12px 12px 0;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.1);
+}
+
+.blog-post .post-content blockquote::before {
+    content: '"';
+    position: absolute;
+    top: -10px;
+    left: 10px;
+    font-size: 4rem;
+    color: rgba(102, 126, 234, 0.15);
+    font-family: Georgia, serif;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.blog-post .post-content blockquote p {
+    margin: 0;
+    font-style: italic;
+    color: rgba(45, 55, 72, 0.85);
+}
+
+.blog-post .post-content blockquote p:last-child {
+    margin-bottom: 0;
+}
+
+/* 引用块中的署名行 */
+.blog-post .post-content blockquote footer,
+.blog-post .post-content blockquote .quote-attribution {
+    display: block;
+    margin-top: 0.75rem;
+    font-style: normal;
+    font-size: 0.85rem;
+    color: var(--secondary-color);
+    text-align: right;
+}
+
+.blog-post .post-content blockquote footer::before,
+.blog-post .post-content blockquote .quote-attribution::before {
+    content: "— ";
+    color: var(--accent-color);
+}
+
+.blog-post .post-content blockquote code {
+    background: rgba(255, 255, 255, 0.8);
+    color: #667eea;
+}
+
+/* 信息型引用块（非语录） */
+.blog-post .post-content blockquote.info-callout {
+    font-style: normal;
+    border-image: linear-gradient(180deg, var(--accent-color) 0%, #667eea 100%) 1;
+    background: linear-gradient(135deg, rgba(66, 153, 225, 0.04) 0%, rgba(102, 126, 234, 0.04) 100%);
+}
+
+.blog-post .post-content blockquote.info-callout p {
+    font-style: normal;
+}
+
+/* ---- 参考文献列表 ---- */
+.blog-post .post-content ol.references {
+    list-style: none;
+    counter-reset: ref-counter;
+    padding-left: 0;
+    margin: 2rem 0 1rem;
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: var(--secondary-color);
+}
+
+.blog-post .post-content ol.references li {
+    counter-increment: ref-counter;
+    margin: 0.5rem 0;
+    padding-left: 2.6rem;
+    position: relative;
+}
+
+.blog-post .post-content ol.references li::before {
+    content: "[" counter(ref-counter) "]";
+    position: absolute;
+    left: 0;
+    top: 0;
+    font-weight: 600;
+    color: var(--accent-color);
+}
+
+.blog-post .post-content ol.references a {
+    font-family: var(--font-mono);
+    font-size: 0.82em;
+    word-break: break-word;
+}
+
+.blog-post .post-content ol.references em {
+    font-style: italic;
+    color: var(--primary-color);
+}
+
+/* 列表 */
+.blog-post .post-content ul, .blog-post .post-content ol {
+    padding-left: 2rem;
+    margin: 1.5rem 0;
+}
+
+.blog-post .post-content li {
+    margin: 0.8rem 0;
+    line-height: 1.8;
+}
+
+.blog-post .post-content li::marker {
+    color: #667eea;
+    font-weight: 600;
+}
+
+/* 分割线 */
+.blog-post .post-content hr {
+    border: none;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(102, 126, 234, 0.3), transparent);
+    margin: 3rem 0;
+}
+
+/* Mermaid 图表容器 — 视觉增强 */
+.blog-post .post-content .mermaid-container {
+    margin: 2rem 0;
+    display: flex;
+    justify-content: center;
+    overflow-x: auto;
+    padding: 1rem 0.25rem;
+
+    svg {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+
+        // 节点阴影
+        .node rect,
+        .node circle,
+        .node polygon,
+        .node path {
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.18));
+            transition: filter 0.2s ease;
+        }
+
+        // 标签文本
+        .nodeLabel {
+            font-weight: 500;
+            letter-spacing: 0.01em;
+        }
+
+        // 修复中文/多行文本截断（不破坏居中）
+        .label foreignObject,
+        .node foreignObject {
+            overflow: visible;
+        }
+
+        // 边线
+        .edgePath .path {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        // 箭头
+        .arrowheadPath {
+            fill: #4a5fd0;
+        }
+
+        // 边标签 — 白底黑字
+        .edgeLabel {
+            rect {
+                rx: 6px;
+                ry: 6px;
+                fill: rgba(255,255,255,0.95) !important;
+                stroke: rgba(0,0,0,0.08) !important;
+                filter: drop-shadow(0 1px 3px rgba(0, 0, 0, 0.12));
+            }
+
+            span, foreignObject div, text, tspan {
+                font-size: 13px;
+                font-weight: 500;
+                color: #2b2d42 !important;
+                fill: #2b2d42 !important;
+                letter-spacing: 0.02em;
+            }
+        }
+
+        // 分群（subgraph）样式
+        .cluster rect {
+            rx: 6px;
+            ry: 6px;
+            stroke: rgba(102, 126, 234, 0.3) !important;
+            stroke-width: 1px !important;
+            fill: #ffffff !important;
+            filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.12));
+        }
+
+        .cluster-label {
+            .nodeLabel, span, foreignObject div, text {
+                font-weight: 600;
+                letter-spacing: 0.03em;
+                fill: #2b2d42 !important;
+                color: #2b2d42 !important;
+                font-size: 14px;
+            }
+        }
+
+        // 序列图增强
+        .actor rect {
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .messageLine0, .messageLine1 {
+            stroke-dasharray: none;
+        }
+
+        .messageText {
+            fill: #d0d8eb;
+            stroke: none;
+        }
+
+        .labelText {
+            fill: #b8c4dd;
+            font-size: 13px;
+        }
+
+        // 甘特图
+        .taskText {
+            fill: #e8edf5;
+            font-size: 12px;
+        }
+    }
+}
+
+.blog-post .post-content .mermaid-error {
+    color: #f87171;
+    background: rgba(248, 113, 113, 0.1);
+    border: 1px solid rgba(248, 113, 113, 0.3);
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 0.9rem;
+}
+
+/* ── 系列文章顶部横幅 ── */
+.series-banner {
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.06) 100%);
+    border: 1px solid rgba(102, 126, 234, 0.2);
+    border-radius: 12px;
+    padding: 1.25rem 1.5rem;
+    margin-bottom: 2rem;
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+}
+
+.series-banner-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+}
+
+.series-banner-badge {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: #fff;
+    padding: 0.25rem 0.75rem;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+}
+
+.series-banner-name {
+    color: var(--primary-color);
+    font-size: 1.05rem;
+    font-weight: 700;
+}
+
+.series-banner-index {
+    color: var(--accent-color);
+    font-size: 0.8rem;
+    font-weight: 500;
+    margin-left: auto;
+    white-space: nowrap;
+}
+
+.series-banner-desc {
+    color: var(--secondary-color);
+    font-size: 0.85rem;
+    line-height: 1.6;
+    margin: 0 0 0.75rem 0;
+    padding-left: 0.25rem;
+}
+
+.series-banner-posts {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 0.5rem 0;
+    counter-reset: series-counter;
+}
+
+.series-banner-post {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.25rem 0.75rem;
+    margin: 0;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    border-left: 3px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.series-banner-post::before {
+    content: counter(series-counter);
+    counter-increment: series-counter;
+    color: var(--secondary-color);
+    font-size: 0.72rem;
+    font-weight: 600;
+    min-width: 1.2rem;
+    text-align: right;
+    opacity: 0.45;
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+}
+
+.series-banner-post a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.series-banner-post a:hover {
+    color: var(--accent-color);
+}
+
+.series-banner-post:not(.current):hover {
+    background: rgba(102, 126, 234, 0.05);
+    border-left-color: rgba(102, 126, 234, 0.25);
+}
+
+.series-banner-post.current {
+    background: rgba(102, 126, 234, 0.08);
+    border-left-color: var(--accent-color);
+    font-weight: 600;
+}
+
+.series-banner-post.current::before {
+    color: var(--accent-color);
+    opacity: 1;
+}
+
+.series-banner-post-title {
+    color: var(--accent-color);
+}
+
+.series-banner-post.current::after {
+    content: "←";
+    margin-left: auto;
+    color: var(--accent-color);
+    font-size: 0.75rem;
+    opacity: 0.6;
+}
+
+.series-banner-nav {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.series-banner-link {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.82rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    background: rgba(102, 126, 234, 0.06);
+    border: 1px solid rgba(102, 126, 234, 0.12);
+    transition: all 0.2s ease;
+    max-width: 48%;
+}
+
+.series-banner-link:hover {
+    background: rgba(102, 126, 234, 0.12);
+    border-color: rgba(102, 126, 234, 0.3);
+}
+
+.banner-nav-arrow {
+    font-size: 0.9rem;
+    flex-shrink: 0;
+}
+
+.banner-nav-label {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* ── 底部系列导航（保持原有紧凑风格） ── */
+.series-nav {
+    margin: 2rem 0 1.5rem;
+    padding: 1rem 1.25rem;
+    background: linear-gradient(135deg, rgba(102, 126, 234, 0.06) 0%, rgba(118, 75, 162, 0.04) 100%);
+    border: 1px solid rgba(102, 126, 234, 0.15);
+    border-radius: 10px;
+}
+
+.series-nav-title {
+    color: var(--secondary-color);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 0.6rem;
+    text-transform: uppercase;
+}
+
+.series-nav-links {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.series-nav-link {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.series-nav-link:hover {
+    color: #764ba2;
+}
+
+.nav-arrow {
+    flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+    .series-banner {
+        padding: 1rem;
+        margin-bottom: 1.5rem;
+    }
+
+    .series-banner-posts {
+        display: none;
+    }
+
+    .series-banner-nav {
+        padding-top: 0;
+        border-top: none;
+    }
+
+    .series-banner-link {
+        font-size: 0.78rem;
+        padding: 0.35rem 0.6rem;
+    }
+
+    .banner-nav-label {
+        font-size: 0.78rem;
+    }
+}
+
+/* ── 图像对比叠加（hover 揭示预测结果）── */
+.image-compare {
+    position: relative;
+    display: block;
+    margin: 2rem auto;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    border: 1px solid var(--border-light, rgba(0,0,0,0.08));
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.image-compare img {
+    display: block;
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+}
+
+.image-compare .compare-base {
+    position: relative;
+    z-index: 1;
+}
+
+.image-compare .compare-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+}
+
+.image-compare:hover .compare-overlay,
+.image-compare.tapped .compare-overlay {
+    opacity: 1;
+}
+
+.image-compare .compare-label {
+    position: absolute;
+    bottom: 10px;
+    padding: 4px 12px;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 600;
+    background: rgba(0, 0, 0, 0.6);
+    color: #fff;
+    pointer-events: none;
+    z-index: 3;
+    transition: opacity 0.3s ease;
+}
+
+.image-compare .compare-label.label-input {
+    left: 10px;
+}
+
+.image-compare .compare-label.label-pred {
+    right: 10px;
+    opacity: 0;
+}
+
+.image-compare:hover .compare-label.label-input,
+.image-compare.tapped .compare-label.label-input {
+    opacity: 0;
+}
+
+.image-compare:hover .compare-label.label-pred,
+.image-compare.tapped .compare-label.label-pred {
+    opacity: 1;
+}
+
+@media (max-width: 768px) {
+    .image-compare {
+        margin: 1.25rem auto;
+        border-radius: 8px;
+    }
+}
+
+.post-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.post-navigation {
+    text-align: center;
+}
+
+/* 响应式 */
+@media (max-width: 768px) {
+    .blog-post {
+        padding: 2rem 1.5rem;
+    }
+
+    .blog-post .post-title {
+        font-size: 1.5rem;
+    }
+
+    .blog-post .post-content {
+        padding: 1.25rem;
+        line-height: 1.7;
+    }
+
+    .blog-post .post-content p {
+        margin: 0.9rem 0;
+        font-size: 0.95rem;
+    }
+
+    .blog-post .post-content h1 {
+        font-size: 1.25rem;
+    }
+
+    .blog-post .post-content h2 {
+        font-size: 1.1rem;
+    }
+
+    .blog-post .post-content h3 {
+        font-size: 1rem;
+    }
+
+    .blog-post .post-content h4 {
+        font-size: 0.95rem;
+    }
+
+    .blog-post .post-content h1,
+    .blog-post .post-content h2,
+    .blog-post .post-content h3,
+    .blog-post .post-content h4,
+    .blog-post .post-content h5,
+    .blog-post .post-content h6 {
+        margin: 1.1rem 0 0.6rem 0;
+    }
+
+    .blog-post .post-content img {
+        margin: 1.25rem auto;
+        padding: 0.4rem;
+        max-height: 60vh;
+    }
+
+    .blog-post .post-content figure {
+        margin: 1.25rem auto;
+    }
+
+    .blog-post .post-content table {
+        font-size: 0.8rem;
+        margin: 1.25rem 0;
+    }
+
+    .blog-post .post-content thead th,
+    .blog-post .post-content tbody td {
+        padding: 0.6rem 0.75rem;
+    }
+
+    .blog-post .post-content blockquote {
+        padding: 0.75rem 1rem;
+        margin: 1.25rem 0;
+    }
+
+    .blog-post .post-content pre code {
+        font-size: 0.8rem;
+        padding: 1rem;
+        padding-top: 2.5rem;
+    }
+
+    .blog-post .post-content ul,
+    .blog-post .post-content ol {
+        padding-left: 1.5rem;
+        margin: 1rem 0;
+    }
+
+    .blog-post .post-content li {
+        margin: 0.5rem 0;
+    }
+
+    .blog-post .post-content hr {
+        margin: 2rem 0;
+    }
+
+    .blog-post .post-content ol.references {
+        font-size: 0.78rem;
+        margin: 1.25rem 0 0.75rem;
+    }
+
+    .blog-post .post-content ol.references li {
+        padding-left: 2rem;
+    }
+
+    .blog-post .post-header--cover {
+        min-height: 200px;
+        padding: 2rem 1rem 1.25rem;
+    }
+
+    .blog-post .post-header:not(.post-header--cover) {
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .post-footer {
+        margin-top: 2rem;
+        padding-top: 1.25rem;
+    }
+
+    .cite-tooltip {
+        max-width: 260px;
+        font-size: 0.78rem;
+        padding: 0.5rem 0.75rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .blog-post .post-title {
+        font-size: 1.35rem;
+    }
+
+    .blog-post .post-content {
+        padding: 1rem;
+        line-height: 1.65;
+    }
+
+    .blog-post .post-content p {
+        font-size: 0.9rem;
+    }
+}
