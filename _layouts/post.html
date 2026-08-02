@@ -1,0 +1,209 @@
+---
+layout: default
+title: "{{ page.title }}"
+description: "{{ page.excerpt | default: page.content | strip_html | truncate: 160 }}"
+---
+
+<!-- BlogPosting 结构化数据 -->
+<script type="application/ld+json">
+{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "headline": "{{ page.title | escape }}",
+    "description": "{{ page.excerpt | default: page.content | strip_html | truncate: 160 | escape }}",
+    "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+    "author": {
+        "@type": "Person",
+        "name": "杨钱俊"
+    },
+    "url": "{{ page.url | absolute_url }}"
+}
+</script>
+
+<!-- 文章头部 -->
+<article class="blog-post">
+    <header class="post-header{% if page.image %} post-header--cover{% endif %}"{% if page.image %} style="background-image: url('{{ page.image | relative_url }}');"{% endif %}>
+        <h1 class="post-title">{{ page.title }}</h1>
+        <div class="post-meta">
+            <time class="post-date">{{ page.date | date: "%Y年%m月%d日" }}</time>
+            <div class="post-categories">
+                {% for category in page.categories %}
+                <span class="category-tag">{{ category }}</span>
+                {% endfor %}
+            </div>
+            <span class="post-visitor-count">
+                {% octicon eye height:14 %}
+                <img src="https://visitor-badge.laobi.icu/badge?page_id=YangCazz.{{ page.url | slugify }}&left_color=none&right_color=none&left_text=+" alt="" class="visitor-badge-img" />
+            </span>
+        </div>
+        <div class="post-tags">
+            {% for tag in page.tags %}
+            <span class="tag">{{ tag }}</span>
+            {% endfor %}
+        </div>
+    </header>
+    
+    <!-- 文章内容 -->
+    <div class="post-content">
+        {{ content }}
+    </div>
+    
+    <!-- 文章底部 -->
+    <footer class="post-footer">
+        <div class="post-navigation">
+            <a href="{{ '/blog' | relative_url }}" class="btn btn-outline">← 返回博客列表</a>
+        </div>
+
+        <!-- GitHub 开源项目 -->
+        {% if site.data.github_projects.repos %}
+        <section class="post-github-projects">
+            <h3 class="post-section-title">{% octicon mark-github height:20 %} 相关开源项目</h3>
+            <div class="github-projects-grid">
+                {% for repo in site.data.github_projects.repos %}
+                    {% include github-project-card.html repo=repo %}
+                {% endfor %}
+            </div>
+        </section>
+        {% endif %}
+    </footer>
+</article>
+
+
+<!-- 图像对比叠加以 mobile tap 切换 -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.image-compare').forEach(function(el) {
+        el.addEventListener('click', function() {
+            el.classList.toggle('tapped');
+        });
+    });
+});
+</script>
+
+<!-- Mermaid 图表渲染 -->
+<script src="{{ '/assets/vendor/mermaid/mermaid.min.js' | relative_url }}"></script>
+<script>
+(function() {
+    const mermaidBlocks = document.querySelectorAll('pre code.language-mermaid');
+    if (mermaidBlocks.length === 0) return;
+
+    mermaid.initialize({
+        startOnLoad: false,
+        theme: 'base',
+        themeVariables: {
+            primaryColor: '#1a237e',
+            primaryTextColor: '#e8edf5',
+            primaryBorderColor: '#4299e1',
+            lineColor: '#4a5fd0',
+            secondaryColor: '#1b2d3a',
+            secondaryTextColor: '#d0d8eb',
+            secondaryBorderColor: '#5568d0',
+            tertiaryColor: '#1a1f3a',
+            tertiaryTextColor: '#b8c4dd',
+            tertiaryBorderColor: '#6b4fd0',
+            background: 'transparent',
+            mainBkg: '#1e2444',
+            nodeBorder: '#4a5fd0',
+            nodeTextColor: '#e8edf5',
+            clusterBkg: 'rgba(102,126,234,0.06)',
+            clusterBorder: 'rgba(102,126,234,0.25)',
+            titleColor: '#c8d2e3',
+            edgeLabelBackground: 'rgba(255,255,255,0.95)',
+            fontFamily: 'Inter, "Segoe UI", system-ui, sans-serif',
+            fontSize: '15px',
+            darkMode: true
+        },
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis',
+            padding: 28,
+            nodeSpacing: 70,
+            rankSpacing: 80
+        },
+        sequence: { useMaxWidth: true, mirrorActors: false },
+        gantt: { useMaxWidth: true }
+    });
+
+    // LaTeX→Unicode 映射与 classDef 注入已下沉到构建期 plugin (_plugins/markdown_fixer.rb)
+
+    // 自动修正节点文字对比度：浅底给黑字，深底给白字
+    function fixTextContrast(container) {
+        var nodes = container.querySelectorAll('.node');
+        nodes.forEach(function(node) {
+            // 找节点主体形状（not label, not edge）
+            var shape = node.querySelector(':scope > rect, :scope > circle, :scope > ellipse, :scope > polygon, :scope > path');
+            if (!shape) shape = node.querySelector('rect, circle, ellipse, polygon');
+            if (!shape) return;
+
+            var fill = shape.getAttribute('fill') || shape.style.fill;
+            if (!fill || fill === 'none' || fill === 'transparent') return;
+
+            // 解析颜色 → 计算亮度
+            var rgb = fill.match(/rgba?\((\d+),\s*(\d+),\s*(\d+)/);
+            if (!rgb) {
+                var hex = fill.match(/^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i);
+                if (!hex) return;
+                rgb = [1, parseInt(hex[1],16), parseInt(hex[2],16), parseInt(hex[3],16)];
+            }
+            var r = parseInt(rgb[1]), g = parseInt(rgb[2]), b = parseInt(rgb[3]);
+            var lum = 0.299 * r + 0.587 * g + 0.114 * b;
+
+            if (lum <= 60 || lum >= 140) {
+                var textColor = lum > 140 ? '#1a1a1a' : '#ffffff';
+                var labels = node.querySelectorAll('.label text, .label tspan, .label foreignObject div, .nodeLabel');
+                if (labels.length === 0) {
+                    labels = node.querySelectorAll('text, tspan, foreignObject div');
+                }
+                labels.forEach(function(label) {
+                    label.style.fill = textColor;
+                    label.style.color = textColor;
+                });
+            }
+        });
+    }
+
+    mermaidBlocks.forEach((block, i) => {
+        const pre = block.parentElement;
+        const graphDefinition = block.textContent; // 构建期已 sanitize + 注入 classDef
+        const container = document.createElement('div');
+        container.className = 'mermaid-container';
+        container.id = 'mermaid-' + i;
+        pre.replaceWith(container);
+
+        mermaid.render('mermaid-svg-' + i, graphDefinition).then(({ svg }) => {
+            container.innerHTML = svg;
+            fixTextContrast(container);
+            if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.refresh();
+        }).catch((err) => {
+            container.innerHTML = '<pre class="mermaid-error">Mermaid 渲染失败: ' + err.message + '</pre>';
+        });
+    });
+})();
+</script>
+
+<!-- 数学公式渲染 - MathJax 3 -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['\\(', '\\)'], ['$', '$']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true,
+    processEnvironments: true,
+    tags: 'ams',
+    packages: {'[+]': ['ams', 'newcommand', 'configmacros']}
+  },
+  svg: {
+    fontCache: 'global'
+  },
+  options: {
+    skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+    ignoreHtmlClass: 'tex2jax_ignore',
+    processHtmlClass: 'tex2jax_process'
+  },
+  startup: {
+    pageReady: () => MathJax.startup.defaultPageReady()
+  }
+};
+</script>
+<script id="MathJax-script" async src="{{ '/assets/vendor/mathjax/tex-svg.js' | relative_url }}"></script>
