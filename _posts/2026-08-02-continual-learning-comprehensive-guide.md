@@ -94,7 +94,94 @@ graph LR
 
 ## 三类主流方法
 
-<!-- 待写 -->
+理解了遗忘的机制与概念边界,接下来进入核心:如何缓解遗忘?主流方法可以划分为三大范式,它们分别从「约束旧参数」「重见旧数据」「隔离新参数」三个角度回应稳定性-可塑性困境。
+
+### 正则化方法:约束旧参数
+
+正则化方法的思路最直接:**哪些参数对旧任务重要,新任务就不要轻易动它们**。它不需要存储旧数据,只需在损失函数中附加一个「参数重要性惩罚」。
+
+**EWC(Elastic Weight Consolidation)**<cite>[10]</cite>。Kirkpatrick 等人 2017 年提出,这是持续学习复兴的标志性工作。其关键洞察是:不同参数对旧任务的重要性不同,惩罚也应不同。重要性由 **Fisher 信息矩阵**(Fisher Information Matrix)度量——它衡量参数对数据对数似然的一阶敏感度,Fisher 值大的参数,扰动它就会明显损害旧任务。
+
+EWC 的总损失是:
+
+$$
+L(\theta) = L_B(\theta) + \sum_i \frac{\lambda}{2} F_i (\theta_i - \theta^*_i)^2
+$$
+
+其中 $L_B$ 是新任务的损失,$\theta^*$ 是学完旧任务后的参数,$F_i$ 是旧任务在第 $i$ 个参数上的 Fisher 信息,$\lambda$ 权衡新旧任务。直观上,这是把参数「锚定」在旧任务最优值附近,Fisher 越大锚得越紧。PyTorch 中的概念实现如下:
+
+```python
+# EWC 的 Fisher 估计:用梯度平方近似参数重要性
+def estimate_fisher(model, dataloader):
+    fisher = {n: torch.zeros_like(p) for n, p in model.named_parameters()}
+    model.eval()
+    for x, y in dataloader:
+        model.zero_grad()
+        out = model(x)
+        loss = F.nll_loss(F.log_softmax(out, dim=1), y)
+        loss.backward()
+        for n, p in model.named_parameters():
+            if p.grad is not None:
+                fisher[n] += p.grad.detach() ** 2  # 梯度平方近似 Fisher
+    return fisher
+
+# EWC 二次惩罚:约束参数不偏离旧任务最优值
+def ewc_penalty(model, fisher, old_params, lam=1.0):
+    loss = 0.0
+    for n, p in model.named_parameters():
+        loss += (fisher[n] * (p - old_params[n]).pow(2)).sum()
+    return lam / 2.0 * loss
+```
+
+**SI(Synaptic Intelligence)**<cite>[11]</cite>。Zenke 等人同年提出,通过在线累积「每个参数在先前任务中贡献了多少损失变化」来估计重要性(路径积分),避免存储全部旧任务数据来计算 Fisher,更适合在线设定。
+
+**LwF(Learning Without Forgetting)**<cite>[12]</cite>。Li 与 Hoiem 的思路不同:用旧模型对新数据生成软标签(知识蒸馏),让新训练同时「对齐旧模型在新样本上的输出」,从而在不重放旧数据的情况下保留旧任务的决策边界。
+
+**MAS(Memory Aware Synapses)**<cite>[13]</cite>。Aljundi 等人提出无监督的重要性估计:用模型对输入的输出变化来度量参数重要性,无需任何标签,在无监督或标签稀疏场景下更实用。
+
+正则化方法的**优势**是内存开销极低(只存 Fisher 或重要性向量)且无需旧数据;**局限**是旧任务约束会限制新任务的容量,任务数一多,「约束墙」越来越紧,遗忘仍然缓慢累积。
+
+### 经验回放方法:重见旧数据
+
+经验回放(Replay / Memory)是最符合直觉、也往往最有效的一类方法:**存一些旧样本(或生成旧样本),和新数据一起训练**,让模型「不要忘记旧数据长什么样」。
+
+**iCaRL(Incremental Classifier and Representation Learning)**<cite>[14]</cite>。Rebuffi 等人 2017 年提出,是类增量学习(Class-IL)的经典:维护一个小型样本缓冲,训练时联合回放;同时用知识蒸馏保持旧类别的输出分布;分类时用**最近类均值**(NCM)而非全连接分类头,从而避免新类别更新扰动旧类别。它的三个组件——回放、蒸馏、NCM——成为后续大量工作的模板。
+
+**GEM(Gradient Episodic Memory)**<cite>[15]</cite>。Lopez-Paz 与 Ranzato 提出一种「约束」式回放:不直接混合样本训练,而是保证**新任务的梯度不会增加任何旧任务的损失**——通过投影把梯度限制在旧任务损失下降的可行域内。这从优化角度保证了旧任务不退化,但投影涉及所有旧任务的存储梯度。
+
+**A-GEM 与 ER(Efficient Replay)**<cite>[16]</cite>。Chaudhry 等人指出 GEM 的计算与存储开销较高,提出近似版本:A-GEM 只保证「梯度不平均地增加旧任务损失」,经验回放(ER)则回归最朴素的形式——把缓冲样本混进每个 mini-batch。两者在效果与效率之间取了更实用的平衡点,ER 也因此成为后续方法强力的基线。
+
+**GDumb:一个发人深省的上界**<cite>[17]</cite>。Prabhu 等人 2020 年给出一个「简单得令人不安」的基准:每当新任务到来,只用缓冲中的全部样本**从头训练一个全新模型**,不做任何复杂设计,就能在多数 Class-IL 基准上击败当时的大多数方法。它的意义在于**质疑了复杂方法的真实增益**——如果「存储 + 重训」就能接近最优,那么许多精心设计的遗忘缓解机制是否真的有效?
+
+回放方法的典型流程:
+
+```mermaid
+graph LR
+    ND[新任务数据<br/>当前批次] --> TR[联合训练<br/>mini-batch]
+    RB[重放缓冲<br/>旧样本子集] --> TR
+    TR --> UP[更新网络<br/>同时保留旧知识]
+    TR --> RB2[更新缓冲<br/>替代策略保留代表样本]
+
+    class ND proc
+    class RB mid
+    class TR core
+    class UP out
+    class RB2 mid
+```
+
+回放方法的**优势**是效果好、通用性强;**局限**同样明显:需要内存存储样本,且在某些场景(如医疗数据)受**隐私限制**无法保留原始样本,于是催生了生成式回放(用生成模型重建旧样本)等变体<cite>[23]</cite>。
+
+### 参数隔离方法:新任务新参数
+
+参数隔离(Parameter Isolation / Architecture)方法最为「奢侈」:**给每个新任务分配独立或专用的参数**,从结构上杜绝跨任务干扰。
+
+**Progressive Neural Networks**<cite>[19]</cite>。Rusu 等人 2016 年提出:为每个新任务新建一个子网络,并通过横向连接借用旧任务的隐表示,同时**冻结旧网络**。它的遗忘为零,但网络随任务数线性膨胀,推理时需运行所有子网络,开销巨大。
+
+**PackNet**<cite>[20]</cite>。Mallya 与 Lazebnik 提出一种更节俭的做法:训练完一个任务后,按重要性**剪枝**掉一部分参数,下一个任务在剪出的「空洞」里重新训练。这样网络总容量固定、参数不膨胀,但需要为每个任务保留一个「掩码」,且任务数超过容量后会饱和。
+
+**DEEPN(Dynamically Expandable Networks)**<cite>[21]</cite>。Yoon 等人引入「神经元复用 + 按需扩展」:当新任务可以复用旧神经元时复用,无法复用时才动态新增神经元,从而在容量与遗忘之间自适应。
+
+参数隔离方法**最彻底地消除了遗忘**(新旧任务参数互不干扰),但代价是参数量与计算量随任务线性增长——这在参数规模动辄数十亿的今天显得尤为昂贵,但在对安全性要求极高的医疗场景(不允许任何旧知识退化)中仍具吸引力。
 
 ## 评估基准与协议
 
