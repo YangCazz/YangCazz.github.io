@@ -1,0 +1,134 @@
+default:
+- id: hero
+  name: 首页
+  icon: home
+  url: /
+
+- id: blog
+  name: 博客
+  icon: note
+  url: /blog
+
+- id: resume
+  name: 简历
+  icon: person
+  url: /resume
+
+- id: showcase
+  name: 展示
+  icon: rocket
+  url: /showcase
+
+- id: apps
+  name: 应用
+  icon: package
+  url: /apps
+
+home_navigation:
+- id: hero
+  name: 欢迎
+  icon: ⌂
+
+- id: blog
+  name: 最新博客
+  icon: ◆
+
+- id: tech
+  name: 技术专长
+  icon: ◬
+
+- id: projects
+  name: 精选项目
+  icon: ▸
+
+blog_navigation:
+- id: tag-network
+  name: 关键词网络
+  icon: hubot
+
+- id: blog-list
+  name: 文章列表
+  icon: note
+
+- id: blog-footer
+  name: 页面底部
+  icon: info
+
+resume_navigation:
+- id: about
+  name: 自我总结
+  icon: person
+
+- id: achievements
+  name: 成果总结
+  icon: rocket
+
+- id: skills
+  name: 技术能力
+  icon: tools
+
+- id: experience
+  name: 工作经历
+  icon: briefcase
+
+- id: education
+  name: 教育背景
+  icon: mortar-board
+
+- id: innovation
+  name: 创新创业
+  icon: light-bulb
+
+showcase_navigation:
+- id: showcase-hero
+  name: 项目总览
+  icon: rocket
+
+- id: showcase-surgery-nav
+  name: 手术导航系统
+  icon: cross-reference
+
+- id: showcase-pixelknit
+  name: PixelKnit
+  icon: package
+
+- id: showcase-medical-seg
+  name: 医学图像分割
+  icon: beaker
+
+- id: showcase-pointcloud
+  name: 点云配准
+  icon: globe
+
+- id: showcase-gallery
+  name: 更多项目
+  icon: git-branch
+
+- id: showcase-github
+  name: 开源仓库
+  icon: mark-github
+
+- id: showcase-contact
+  name: 联系合作
+  icon: mail
+
+apps_navigation:
+- id: apps-header
+  name: 应用总览
+  icon: rocket
+
+- id: professional
+  name: 专业项目
+  icon: briefcase
+
+- id: opensource
+  name: 开源项目
+  icon: git-branch
+
+- id: tools
+  name: 实用工具
+  icon: tools
+
+- id: research
+  name: 研究项目
+  icon: beaker
