@@ -272,4 +272,57 @@ $$
 
 ## 参考文献
 
-<!-- 待写 -->
+1. *Catastrophic Interference in Connectionist Networks.* McCloskey M, Cohen N J. The Psychology of Learning and Motivation, 1989.  
+   <https://doi.org/10.1016/S0079-7421(08)60536-8>
+2. *Catastrophic Forgetting in Connectionist Networks.* French R M. Trends in Cognitive Sciences, 3(4), 1999.  
+   <https://doi.org/10.1016/S1364-6613(99)01294-2>
+3. *Continual Learning in Reinforcement Environments.* Ring M B. PhD Thesis, University of Texas at Austin, 1994.  
+   <https://www.cs.utexas.edu/~ring/Ring-phd.pdf>
+4. *Is Learning the n-th Thing Any Easier Than Learning the First?* Thrun S. NIPS, 1996.  
+   <https://papers.nips.cc/paper/1996/files/716e1b8c6cd17b771da77391355749f3-Paper.pdf>
+5. *Continual Lifelong Learning with Neural Networks: A Review.* Parisi G I, Kemker R, Part J L, Kanan C, Wermter S. Neural Networks, 113, 2019.  
+   <https://doi.org/10.1016/j.neunet.2019.01.012>
+6. *A Continual Learning Survey: Defying Forgetting in Classification Tasks.* De Lange M, Aljundi R, Masana M, Parisot S, Jia X, Leonardis A, Slabaugh G, Tuytelaars T. IEEE TPAMI, 43(12), 2021.  
+   <https://arxiv.org/abs/1909.08383>
+7. *Three Scenarios for Continual Learning.* van de Ven G M, Tolias A S. arXiv:1904.07734, 2019.  
+   <https://arxiv.org/abs/1904.07734>
+8. *Class-Incremental Learning: Survey and Performance Evaluation.* Masana M, Liu X, Twardowski B, Menta M, Bagdanov A D, van de Weijer J. IEEE TPAMI, 45(5), 2022.  
+   <https://arxiv.org/abs/2010.15277>
+9. *Measuring Catastrophic Forgetting in Neural Networks.* Kemker R, McClure M, Abitino A, Hayes T L, Kanan C. AAAI, 2018.  
+   <https://arxiv.org/abs/1708.02072>
+10. *Overcoming Catastrophic Forgetting in Neural Networks.* Kirkpatrick J, Pascanu R, Rabinowitz N, et al. PNAS, 114(13), 2017.  
+    <https://doi.org/10.1073/pnas.1611835114>
+11. *Continual Learning Through Synaptic Intelligence.* Zenke F, Poole B, Ganguli S. ICML, 2017.  
+    <https://arxiv.org/abs/1703.04200>
+12. *Learning Without Forgetting.* Li Z, Hoiem D. ECCV, 2017.  
+    <https://arxiv.org/abs/1606.09282>
+13. *Memory Aware Synapses: Learning What (Not) to Forget.* Aljundi R, Babiloni F, Elhoseiny M, Rohrbach M, Tuytelaars T. ECCV, 2018.  
+    <https://arxiv.org/abs/1711.09601>
+14. *iCaRL: Incremental Classifier and Representation Learning.* Rebuffi S A, Kolesnikov A, Sperl G, Lampert C H. CVPR, 2017.  
+    <https://arxiv.org/abs/1611.07725>
+15. *Gradient Episodic Memory for Continual Learning.* Lopez-Paz D, Ranzato M A. NIPS, 2017.  
+    <https://arxiv.org/abs/1706.08840>
+16. *Efficient Lifelong Learning with A-GEM.* Chaudhry A, Ranzato M, Rohrbach M, Elhoseiny M. ICLR, 2019.  
+    <https://arxiv.org/abs/1812.00420>
+17. *GDumb: A Simple Approach that Questions Our Progress in Continual Learning.* Prabhu A, Torr P H S, Dokania P K. ECCV, 2020.  
+    <https://arxiv.org/abs/1910.07113>
+18. *Large-Scale Incremental Learning.* Wu Y, Chen Y, Wang L, Ye Y, Liu Z, Guo Y, Fu Y. CVPR, 2019.  
+    <https://arxiv.org/abs/1905.13262>
+19. *Progressive Neural Networks.* Rusu A A, Rabinowitz N C, Desjardins G, Soyer H, Kirkpatrick J, Kavukcuoglu K, Pascanu R, Hadsell R. arXiv:1606.04671, 2016.  
+    <https://arxiv.org/abs/1606.04671>
+20. *PackNet: Adding Multiple Tasks to a Single Network by Iterative Pruning.* Mallya A, Lazebnik S. CVPR, 2018.  
+    <https://arxiv.org/abs/1711.05769>
+21. *Lifelong Learning with Dynamically Expandable Networks.* Yoon J, Yang E, Lee J, Hwang S J. ICLR, 2018.  
+    <https://arxiv.org/abs/1708.01547>
+22. *Continual Learning for Domain Adaptation in Chest X-ray Classification.* Lenga M, Schulz H, Saalbach A. arXiv:2011.12205, 2020.  
+    <https://arxiv.org/abs/2011.12205>
+23. *Dynamic Memory to Alleviate Catastrophic Forgetting in Continual Learning with Medical Imaging.* Perkonigg M, Hofmanninger J, Herold C J, et al. arXiv:2104.09013, 2021.  
+    <https://arxiv.org/abs/2104.09013>
+24. *Progress & Compress: A Scalable Framework for Continual Learning.* Schwarz J, Czarnecki W, Luketina J, et al. ICML, 2018.  
+    <https://arxiv.org/abs/1805.06370>
+25. *Incremental Learning of Object Detectors Without Catastrophic Forgetting.* Shmelkov K, Schmid C, Alahari K. ICCV, 2017.  
+    <https://arxiv.org/abs/1708.06977>
+26. *Continual Learning of Language Models.* Ke Z, Liu B, et al. ICLR, 2023.  
+    <https://arxiv.org/abs/2302.03241>
+
+{: .references }
