@@ -324,5 +324,4 @@ $$
     <https://arxiv.org/abs/1708.06977>
 26. *Continual Learning of Language Models.* Ke Z, Liu B, et al. ICLR, 2023.  
     <https://arxiv.org/abs/2302.03241>
-
 {: .references }
