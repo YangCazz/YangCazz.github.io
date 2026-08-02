@@ -78,10 +78,16 @@ Jekyll::Hooks.register :site, :post_read do |site|
     end
 
     # R6: 图片路径必须在 /assets/images/ 下(排除外链)
+    # 兼容 Liquid 包裹写法:![alt]({{ '/assets/images/...' | relative_url }}) —— 先解出路径再校验
     raw.scan(/!\[[^\]]*\]\(([^)]+)\)/).flatten.each do |url|
-      next if url.start_with?('/assets/images/', 'http://', 'https://')
-      next if url.strip.empty?
-      violations << "#{path}: image path '#{url}' must be under /assets/images/"
+      u = url.strip
+      if u.start_with?('{{')
+        m = u.match(/\{\{['"]?([^'"|}]+)['"]?/)
+        u = m ? m[1].strip : u
+      end
+      next if u.start_with?('/assets/images/', 'http://', 'https://')
+      next if u.empty?
+      violations << "#{path}: image path '#{u}' must be under /assets/images/"
     end
 
     # R7: 禁止 emoji

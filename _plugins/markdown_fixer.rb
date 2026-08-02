@@ -25,17 +25,24 @@ end
 
 Jekyll::Hooks.register :posts, :post_render do |post, output|
   src = (output || post.output).to_s
-  # kramdown 表格内 $..._...$ 的 _ 被转为 <em>,破坏 MathJax。
-  # 注意:em 内容用 [^<$]*? 禁止包含 $ —— 防止 kramdown 的 _ 强调跨过两个
-  # $...$ 片段(正文段落中的病态情况)时,把 (公式$正文$公式) 整体吞进一个
-  # \(...\)。表格内的正常修复不受影响。
-  prev = nil
-  while prev != src
-    prev = src
-    src = src.gsub(
-      /\$([^$]*?)<em>([^<$]*?)<\/em>([^$]*?)\$/,
-      '\\(\1\2\3\\)'
-    )
+  # 只修复 kramdown 表格单元格(<td>/<th>)内 $..._...$ 的 _ 被 kramdown 转成
+  # <em> 后破坏 MathJax 的问题 —— 作用域严格限定在 td/th 内(与原运行时
+  # document.querySelectorAll('td, th') 行为一致)。
+  # 警告:此前的全局 gsub 版本会误伤正文段落中的行内公式(正文里 kramdown 的 _
+  # 强调也可能产生 <em>,导致 $...$ 被错误吞并为 \(...\)),已回归为限定 td/th。
+  src = src.gsub(/(<t[dh][^>]*>)(.*?)(<\/t[dh]>)/m) do |_m|
+    cell_open = Regexp.last_match(1)
+    inner = Regexp.last_match(2)
+    cell_close = Regexp.last_match(3)
+    prev = nil
+    while prev != inner
+      prev = inner
+      inner = inner.gsub(
+        /\$([^$]*?)<em>([^<$]*?)<\/em>([^$]*?)\$/,
+        '\\(\1\2\3\\)'
+      )
+    end
+    cell_open + inner + cell_close
   end
   post.output = src
 end
