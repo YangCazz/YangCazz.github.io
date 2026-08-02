@@ -501,3 +501,10 @@
   description: "多模型协作调度与投票决策机制"
   references:
     - "https://en.wikipedia.org/wiki/Ensemble_learning"
+
+- name: "持续学习"
+  type: domain
+  aliases: ["Continual Learning", "Lifelong Learning", "增量学习", "终身学习", "灾难性遗忘"]
+  description: "让模型在连续到达的任务与数据上持续学习而不遗忘旧知识"
+  references:
+    - "https://arxiv.org/abs/1909.08383"
