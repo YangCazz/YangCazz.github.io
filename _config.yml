@@ -1,0 +1,57 @@
+title: YangCazz - 医疗机器人算法工程师的技术博客
+description: 分享医学图像处理、深度学习、手术机器人控制等前沿技术心得与实践经验
+url: https://yangcazz.github.io
+timezone: Asia/Shanghai
+
+sass:
+  style: compressed
+
+future: true
+show_drafts: false
+
+# 代码语法高亮配置
+highlighter: rouge
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    css_class: 'highlight'
+    span:
+      line_numbers: false
+    block:
+      line_numbers: false
+  math_engine: mathjax
+  math_engine_opts:
+    preview: true
+    preview_as_code: false
+
+# 排除不需要处理的目录和文件
+exclude:
+  - ref/
+  - ref/MarkDown_notebook/
+  - Gemfile
+  - Gemfile.lock
+  - node_modules/
+  - vendor/
+  - generate-ppt.js
+  - presentation.pptx
+  - package.json
+  - package-lock.json
+  - template/
+
+plugins:
+  - jekyll-octicons
+  - jemoji
+  - jekyll-feed
+  - jekyll-sitemap
+
+defaults:
+  -
+    scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+permalink: /:year/:month/:day/:title/
