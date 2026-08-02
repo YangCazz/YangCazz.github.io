@@ -6,8 +6,9 @@ gem 'jemoji'
 gem 'jekyll-octicons'
 gem 'jekyll-github-metadata'
 
-# Windows 文件监控优化
-gem 'wdm', '>= 0.1.0' if Gem.win_platform?
+# 注:wdm(Windows 文件监听优化)不显式声明——它由 listen gem 在 Windows
+# 平台自动引入,Linux CI 解析 lockfile 时不会尝试安装它(显式声明会导致
+# Linux bundle install 因 wdm 无 linux 变体而失败)。
 
 # Windows 时区数据
 gem 'tzinfo-data', platforms: [:windows, :jruby]

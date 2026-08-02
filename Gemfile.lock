@@ -136,7 +136,6 @@ GEM
       tzinfo (>= 1.0.0)
     unicode-display_width (1.8.0)
     uri (1.1.1)
-    wdm (0.2.0)
     webrick (1.9.1)
 
 PLATFORMS
@@ -152,7 +151,6 @@ DEPENDENCIES
   jekyll-sitemap
   jemoji
   tzinfo-data
-  wdm (>= 0.1.0)
 
 BUNDLED WITH
    2.7.2
