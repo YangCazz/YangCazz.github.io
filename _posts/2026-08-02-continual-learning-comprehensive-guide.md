@@ -233,22 +233,36 @@ $$
 
 ## 医疗/机器人应用
 
-对医学影像与手术机器人而言,持续学习不是学术消遣,而是**刚需**——因为医疗场景恰好是「数据永不停止」的极端样本。
+对医学影像与手术机器人而言,持续学习不是学术消遣,而是**刚需**——医疗场景恰好是「数据永不停止」的极端样本。更重要的是,这个领域已经有实实在在的研究积累,而不只是概念上的「应该需要」。
 
 ### 医学影像的三大动机
 
 - **新病种/新征象不断出现**。一次疫情就带来新的影像征象;新的突变、新的并发症要求模型快速学会识别,而不能因重训旧任务而丢失既有病种的知识。
-- **跨中心域漂移**。不同厂商的扫描设备、不同协议、不同患者群体构成持续的分布偏移,模型需要不断适应新域(域增量),同时保持对旧域的稳健。
+- **跨中心域漂移**。不同厂商的扫描设备、不同协议、不同患者群体构成持续的分布偏移,模型需要不断适应新域(域增量),同时保持对旧域的稳健。事实上,医学影像中最常见的持续学习设定正是**增量域场景**——语义不变、成像特征在变<cite>[27]</cite>。
 - **标注数据在各中心「各自为政」**。数据往往因隐私无法集中,各中心增量产生新标注——持续学习天然契合这种「边到边学」的联邦式积累。
 
-现有工作已经迈出第一步:Lenga 等人在胸部 X 光分类上研究了持续学习用于**域适应**<cite>[22]</cite>;Perkonigg 等人提出了**动态记忆**机制,在医学影像多任务序列上显著缓解灾难性遗忘<cite>[23]</cite>。
+### 具体研究进展
+
+近几年的医学影像持续分割研究,已经形成了几条清晰的技术路线:
+
+- **数据无关的合成回放**。由于医疗数据无法存储原始样本,研究者转向**合成伪图像**回放。MOSInversion 用 DeepInversion 从预训练模型合成多样的腹部 CT 伪图像(以分割掩码为像素级引导),在不接触真实病人数据的前提下做知识蒸馏,在 FLARE21、MSD、KiTS19 三个公开腹部数据集上达到领先——相比存储真实样本的回放方法,它彻底绕开了 3D 数据的存储与隐私问题<cite>[30]</cite>。
+- **跨站点的风格回放**。FR²Seg 面向「跨中心、跨设备」的持续分割:提取并存储旧站点的低频傅里叶振幅(代表域风格),在新站点训练时合成带旧站点风格的伪图像回放,同时用傅里叶自适应一致性正则约束域不变参数——既缓解遗忘、又不泄露旧站点的原始数据<cite>[28]</cite>。
+- **参数隔离与高效微调**。Low-Rank Mixture-of-Experts 为医学分割引入数据特定的 MoE 结构,以低秩策略抑制新增参数的开销<cite>[29]</cite>;MedPEFT-CL 则基于 CLIPSeg 用双阶段 LoRA(仅 0.24–0.39M 可训练参数,对比 150M 全参)配合双向 Fisher 记忆协调,在医学视觉语言分割上把遗忘率从基线的 6.21% 压到 1.91%。
+- **一个必要的反思**。Dounavi 等人尖锐地指出,大量医学持续学习研究只盯着「遗忘指标」,却忽视了可扩展性、隐私合规与**正向迁移**(旧域性能随时间不降反升)。他们提出 UNEG——维护多套任务专用模型、用自编码器重构误差自动选模型——作为临床更实用、也更该被当作下界的基准<cite>[27]</cite>。这与本文前面提到的 GDumb 精神一脉相承:**复杂方法先过简单基准这一关**。
+
+此外,Lenga 等人在胸部 X 光分类上研究了持续学习用于**域适应**<cite>[22]</cite>;Perkonigg 等人提出**动态记忆**机制,在医学影像多任务序列上显著缓解灾难性遗忘<cite>[23]</cite>——它们奠定了这个子领域早期的探索基调。
 
 ### 医疗场景的特殊挑战
 
-- **隐私与回放冲突**。经验回放类方法依赖存储旧样本,而医疗数据受严格监管——生成式回放或参数级正则化因此更具吸引力<cite>[23]</cite>。
+- **隐私与回放冲突**。经验回放类方法依赖存储旧样本,而医疗数据受严格监管——上述合成回放/风格回放正是为此而生的解法<cite>[28]</cite><cite>[30]</cite>。
 - **标注昂贵**。新任务的标注往往稀缺,方法必须在小样本下仍有效。
 - **临床安全**。误诊代价极高,模型更新必须**可追溯、可回滚**——这要求持续学习方法提供可验证的旧任务性能保证,而不仅是「平均不下降」。
-- **手术机器人**。技能库需要随新术式、新器械增量扩充,且不允许遗忘已掌握的技能——参数隔离类方法因其「零遗忘」特性在此有独特价值。
+
+### 手术机器人:技能积累与终身学习
+
+手术机器人是持续学习「从图像到动作」的另一片前沿。UC San Diego ARCLab 的 **SurgIRL** 首次把增量强化学习引入手术自动化:机器人通过一个可扩展的知识集与注意力网络(KIAN-ACE),把已学会的十个手术任务技能**增量地复用与累积**,并在 da Vinci Research Kit(dVRK)上成功完成 sim-to-real 迁移<cite>[31]</cite>——这是「手术技能终身学习」早期但真实的样本。
+
+而从人类外科医生的角度看,技能的**习得与遗忘**本身就是研究对象:一项对 18 名外科住院医长达六个月的纵向研究(972 次试验、同步视频与运动学数据)量化了手术技能学习中的会话内保留、换班间遗忘与离线学习,为「机器人/智能体应如何模拟人类技能积累」提供了数据基础<cite>[32]</cite>。
 
 ### 医疗大模型
 
@@ -324,4 +338,16 @@ $$
     <https://arxiv.org/abs/1708.06977>
 26. *Continual Learning of Language Models.* Ke Z, Liu B, et al. ICLR, 2023.  
     <https://arxiv.org/abs/2302.03241>
+27. *What is Wrong with Continual Learning in Medical Image Segmentation? Moving Beyond Catastrophic Forgetting and Towards Practical Knowledge Accumulation.* Dounavi L, Kordon F, Feussner H, et al. arXiv:2010.11008, 2020.  
+    <https://arxiv.org/abs/2010.11008>
+28. *FR²Seg: Continual Segmentation Across Multiple Sites via Fourier Style Replay and Adaptive Consistency Regularization.* AAAI, 2025.  
+    <https://ojs.aaai.org/index.php/AAAI/article/view/32953>
+29. *Low-Rank Mixture-of-Experts for Continual Medical Image Segmentation.* MICCAI, 2024.  
+    <https://dtic.dimensions.ai/details/publication/pub.1176312267>
+30. *MOSInversion: Knowledge Distillation-based Incremental Learning in Organ Segmentation using DeepInversion.* Computers in Biology and Medicine, 2025.  
+    <https://www.sciencedirect.com/science/article/abs/pii/S0010482525016269>
+31. *SurgIRL: Towards Life-Long Learning for Surgical Automation by Incremental Reinforcement Learning.* Ho Y, Chiu Z, Zhi Y, Yip M C. IEEE Robotics and Automation Letters, 10(12), 2025.  
+    <https://arxiv.org/abs/2409.15651>
+32. *Dataset and Analysis of Long-Term Skill Acquisition in Robot-Assisted Minimally Invasive Surgery.* arXiv:2503.21591, 2025.  
+    <https://arxiv.org/abs/2503.21591>
 {: .references }
