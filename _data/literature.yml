@@ -1,0 +1,23 @@
+# 文献索引 — 博客写作参考文献源
+
+- id: vision-banana-2026
+  title: "Image Generators are Generalist Vision Learners"
+  authors:
+    - Valentin Gabeur
+    - Shangbang Long
+    - Songyou Peng
+    - Kaiming He
+    - Saining Xie
+  year: 2026
+  venue: arXiv
+  arxiv: "2604.20329"
+  paper_url: "https://arxiv.org/abs/2604.20329"
+  project_url: "https://vision-banana.github.io/"
+  tags:
+    - 世界模型
+    - 生成即理解
+    - 通用视觉
+  local_path: "D:/YangCazz/CazzTech/literature/vision-banana-2026/"
+  status: pdf_only
+  blog_posts:
+    - "2026-06-25-vision-banana-image-generators-generalist-vision"
