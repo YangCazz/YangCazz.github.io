@@ -4,7 +4,6 @@ gem 'jekyll-sitemap'
 gem 'jekyll-feed'
 gem 'jemoji'
 gem 'jekyll-octicons'
-gem 'jekyll-github-metadata'
 
 # 注:wdm(Windows 文件监听优化)不显式声明——它由 listen gem 在 Windows
 # 平台自动引入,Linux CI 解析 lockfile 时不会尝试安装它(显式声明会导致
