@@ -20,6 +20,11 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
 }
 </script>
 
+<!-- 系列横幅(文章属某系列时显示) -->
+{% if page.series %}
+{% include series-nav.html series=page.series position='top' %}
+{% endif %}
+
 <!-- 文章头部 -->
 <article class="blog-post">
     <header class="post-header{% if page.image %} post-header--cover{% endif %}"{% if page.image %} style="background-image: url('{{ page.image | relative_url }}');"{% endif %}>
@@ -67,6 +72,11 @@ description: "{{ page.excerpt | default: page.content | strip_html | truncate: 1
         {% endif %}
     </footer>
 </article>
+
+<!-- 系列前后导航(文章属某系列时显示) -->
+{% if page.series %}
+{% include series-nav.html series=page.series position='bottom' %}
+{% endif %}
 
 
 <!-- 图像对比叠加以 mobile tap 切换 -->

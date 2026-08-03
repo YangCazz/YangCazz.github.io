@@ -79,3 +79,10 @@
     - slug: video-generation-world-simulators
     - slug: llm-world-model-debate
     - slug: agent-cognitive-architecture-world-model
+
+- id: continual-learning
+  name: 持续学习深度探索
+  description: 从全景地图到最难设定的纵深——持续学习的问题本质、三大范式、类增量学习难题与医学影像落地的系统梳理。
+  posts:
+    - slug: continual-learning-comprehensive-guide
+    - slug: class-incremental-learning-in-depth
