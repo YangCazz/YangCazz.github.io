@@ -9,10 +9,10 @@ tags:
 - 持续学习
 - 深度学习
 - PyTorch
-series: continual-learning
 excerpt: "从灾难性遗忘出发,系统梳理持续学习的三大范式——正则化、经验回放、参数隔离,并延伸阐述概念谱系与医学影像应用。"
 image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+{% include series-nav.html series="continual-learning" position="top" %}
 
 ## 引言
 
@@ -352,3 +352,5 @@ $$
 32. *Dataset and Analysis of Long-Term Skill Acquisition in Robot-Assisted Minimally Invasive Surgery.* arXiv:2503.21591, 2025.  
     <https://arxiv.org/abs/2503.21591>
 {: .references }
+
+{% include series-nav.html series="continual-learning" position="bottom" %}
