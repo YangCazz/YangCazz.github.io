@@ -420,11 +420,13 @@
         0 10px 40px rgba(0, 0, 0, 0.15),
         0 0 0 1px rgba(0, 0, 0, 0.05);
     padding: 0;
-    max-width: 320px;
-    min-width: 280px;
+    width: 320px;
+    max-width: calc(100vw - 20px);
+    max-height: min(70vh, 480px);
+    overflow-y: auto;
     font-family: 'Inter', sans-serif;
     animation: tooltipFadeIn 0.2s ease-out;
-    pointer-events: none;
+    pointer-events: auto;
 }
 
 @keyframes tooltipFadeIn {
@@ -439,6 +441,9 @@
 }
 
 .tooltip-header {
+    position: sticky;
+    top: 0;
+    z-index: 1;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -447,9 +452,40 @@
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     border-radius: 12px 12px 0 0;
+    gap: 0.5rem;
+}
+
+.calendar-tooltip-close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border: 0;
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.calendar-tooltip-close:hover,
+.calendar-tooltip-close:focus-visible {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.calendar-day.has-posts:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+.tooltip-post + .tooltip-post {
+    border-top: 1px solid rgba(0, 0, 0, 0.12);
 }
 
 .tooltip-date {
+    flex: 1;
     font-size: 0.9rem;
     font-weight: 600;
 }
@@ -534,8 +570,7 @@
     }
 
     .calendar-tooltip {
-        max-width: 280px;
-        min-width: 240px;
+        width: 280px;
     }
 
     .tooltip-content {

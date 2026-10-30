@@ -15,6 +15,8 @@ image: "/assets/images/covers/pixelknit.jpg"
 {% include series-nav.html series="pixelknit" position="top" %}
 
 
+> **版本与截图说明（2026-10-30）**：v1.0 / v1.1 对比和更新日志是历史记录。下文新增截图来自仓库当前 `apps/PixelKnit` 的真实桌面运行，不是 v1.1 发布当天的界面；“练习副本”是本次演示创建的本地数据。当前“导入图片”仍提示“开发中”，不代表已具备图片转地图功能。
+
 ## 引言
 
 在 v1.0 版本发布后，**像素织梦 (PixelKnit)** 已经成为一个功能完整的编织引导应用。但用户反馈显示，他们不仅需要跟踪编织进度，还希望能够创建和编辑自己的像素地图。因此，我们推出了 **v1.1 版本**，带来了完整的像素地图编辑器和智能地图管理系统。
@@ -34,8 +36,8 @@ image: "/assets/images/covers/pixelknit.jpg"
 - 🎯 **Logo 展示**：应用主页和应用列表页面显示 PixelKnit Logo
 - ⚡ **性能优化**：保持流畅的编辑体验
 
-<!-- TODO: add image: v1.1-main-interface.png -->
-*图2：v1.1 版本主界面，展示Logo、地图列表和编辑功能入口*
+![当前浏览界面：示例地图、用户副本与编织控制面板](/assets/images/posts/pixelknit/current-20261030/browse-current.jpg)
+*图2：当前浏览界面实拍。左侧显示“示例”与“用户”标识，示例地图可先复制为用户副本。*
 
 ## 像素地图编辑器
 
@@ -50,8 +52,8 @@ v1.1 版本引入了完整的像素地图编辑器，用户可以在应用内直
 - **尺寸灵活**：支持 10-500 像素的任意尺寸设置
 - **调色板系统**：自动解析颜色，支持自定义颜色添加
 
-<!-- TODO: add image: edit-mode-interface.png -->
-*图3：编辑模式界面，展示编辑工具栏、调色板和画布*
+![当前地图编辑器的工具栏、调色板与像素画布](/assets/images/posts/pixelknit/current-20261030/editor-current.jpg)
+*图3：当前编辑模式实拍，正在编辑示例地图的本地练习副本。*
 
 ### 调色板系统
 
@@ -62,8 +64,8 @@ v1.1 版本引入了完整的像素地图编辑器，用户可以在应用内直
 - **实时显示**：显示当前选中颜色的预览和 RGB 值
 - **颜色管理**：调色板中的颜色可以随时选择使用
 
-<!-- TODO: add image: color-palette-system.png -->
-*图4：调色板系统，展示颜色预览、RGB值和颜色选择器*
+![当前调色板中的颜色预览、RGB 数值与添加颜色入口](/assets/images/posts/pixelknit/current-20261030/palette-current.jpg)
+*图4：当前调色板局部实拍；下方为原生颜色选择器的入口，不是展开后的系统选色面板。*
 
 ### 编辑工具
 
@@ -89,8 +91,8 @@ v1.1 版本引入了完整的像素地图编辑器，用户可以在应用内直
    - 自动下载 JSON 文件
    - 智能保存机制（见下文）
 
-<!-- TODO: add image: edit-toolbar.png -->
-*图5：编辑工具栏，展示尺寸设置、保存、清空、撤销/重做等工具*
+![当前编辑工具栏：尺寸、保存、清空及撤销重做状态](/assets/images/posts/pixelknit/current-20261030/toolbar-current.jpg)
+*图5：当前工具栏局部实拍。完成一次绘制再撤销后，“重做”可用；“导入图片”按钮尚为开发中入口。*
 
 ## 智能地图管理系统
 
@@ -118,8 +120,7 @@ graph LR
     User --> Edit["编辑直接更新原图"]
 ```
 
-<!-- TODO: add image: map-type-badges.png -->
-*图6：地图类型标识，展示"示例"和"用户"标签*
+图2展示了当前页面中的“示例”与“用户”标识；用户地图的操作区见图6。
 
 ### 地图操作
 
@@ -141,8 +142,8 @@ graph LR
    - 删除前需要确认
    - 自动清理 localStorage 数据
 
-<!-- TODO: add image: map-actions.png -->
-*图7：地图操作按钮，展示复制、编辑、删除功能*
+![用户地图卡片与复制、编辑、删除三个操作按钮](/assets/images/posts/pixelknit/current-20261030/map-actions-current.jpg)
+*图6：当前用户地图卡片局部实拍，底部依次为复制、编辑和删除。*
 
 ### 智能保存机制
 
@@ -169,8 +170,8 @@ graph LR
     NewID --> NewSave["另存为新地图"]
 ```
 
-<!-- TODO: add image: save-dialog.png -->
-*图8：保存对话框，展示地图ID和显示名称输入*
+![当前保存地图对话框中的只读地图 ID 与自定义显示名称](/assets/images/posts/pixelknit/current-20261030/save-dialog-current.jpg)
+*图7：当前保存对话框实拍。已补回缺失的弹窗样式；地图 ID 自动生成，显示名称可自行填写。*
 
 ## Logo 展示系统
 
@@ -188,8 +189,8 @@ v1.1 版本添加了 PixelKnit Logo 的展示功能：
 - 居中显示，突出品牌标识
 - 响应式设计，移动端自动缩小
 
-<!-- TODO: add image: logo-display.png -->
-*图9：Logo展示效果，展示应用主页和应用列表页面的Logo位置*
+![当前应用首页的 PixelKnit Logo、标题与副标题](/assets/images/posts/pixelknit/current-20261030/logo-current.jpg)
+*图8：当前应用首页头部局部实拍；本图不包含应用列表页。*
 
 ## 技术实现细节
 
@@ -278,21 +279,21 @@ function saveMapToFile() {
 | 撤销/重做 | ❌ | ✅ |
 | 调色板 | ❌ | ✅ |
 
-<!-- TODO: add image: version-comparison.png -->
-*图10：v1.0 与 v1.1 功能对比图*
+*以上为 v1.0 / v1.1 发布时的功能对照，保留供版本回顾。*
 
 ## 使用场景
 
 ### 场景一：创建自定义地图
 
-1. 进入编辑模式（从空白或复制地图）
-2. 设置画布尺寸
-3. 使用调色板绘制像素图案
-4. 保存为新地图
-5. 开始编织引导
+当前页面可从示例地图副本开始：
 
-<!-- TODO: add image: create-custom-map.png -->
-*图11：创建自定义地图的完整流程*
+1. 复制示例地图并设置副本名称
+2. 点击用户副本的编辑按钮
+3. 设置画布尺寸；需要空白底图时先选好底色，再使用“清空”
+4. 使用调色板绘制，并保存更新该副本
+5. 返回浏览模式，开始编织引导
+
+当前操作入口与编辑布局可分别参照图2、图3和图5。
 
 ### 场景二：编辑现有地图
 
@@ -301,18 +302,16 @@ function saveMapToFile() {
 3. 使用撤销/重做调整
 4. 保存直接更新原图
 
-<!-- TODO: add image: edit-existing-map.png -->
-*图12：编辑现有地图的完整流程*
+编辑入口见图6，编辑后的工具栏与画布见图3。
 
 ### 场景三：复制和修改
 
 1. 点击示例地图的"复制"按钮
 2. 在保存对话框中输入显示名称
 3. 创建副本后进入编辑模式
-4. 修改后保存为新地图
+4. 修改后保存，更新这个用户副本（不会再次另存一份）
 
-<!-- TODO: add image: copy-and-modify.png -->
-*图13：复制和修改地图的完整流程*
+复制保存时的名称设置见图7；之后使用图6中的编辑按钮修改副本。
 
 ## 设计思考
 
@@ -358,8 +357,7 @@ function saveMapToFile() {
 - **调色板面板**：右侧浮动面板，不遮挡主画布
 - **无缝切换**：编辑模式和浏览模式平滑过渡
 
-<!-- TODO: add image: edit-mode-ui-design.png -->
-*图14：编辑模式UI设计，展示工具栏、调色板和画布的布局*
+当前布局已在图3实拍中展示，图4和图5分别提供调色板与工具栏细节。
 
 ## 性能优化
 
@@ -389,8 +387,7 @@ function saveMapToFile() {
 4. **模板库**：提供更多示例地图模板
 5. **协作功能**：支持多用户协作编辑
 
-<!-- TODO: add image: future-features.png -->
-*图15：未来功能展望，展示计划中的新功能*
+*以上为 v1.1 发布时的设想，不是当前已实现功能清单。*
 
 ## 更新日志
 
@@ -443,34 +440,6 @@ v1.1 版本不仅保持了 v1.0 的所有编织引导功能，还增加了强大
 
 *本文介绍了像素织梦 v1.1 版本的新功能和实现细节。如果你有任何问题或建议，欢迎在评论区留言。*
 
-## 图像资源说明
+## 截图来源
 
-本文使用的图像资源应放置在以下位置：
-
-```
-assets/images/knitting-guide/
-├── logo/
-│   └── PixelKnit_logo.png          # Logo图片（已存在）
-├── v1.1-main-interface.png          # v1.1版本主界面截图
-├── edit-mode-interface.png          # 编辑模式界面截图
-├── color-palette-system.png         # 调色板系统截图
-├── edit-toolbar.png                 # 编辑工具栏截图
-├── map-type-badges.png              # 地图类型标识截图
-├── map-actions.png                  # 地图操作按钮截图
-├── save-dialog.png                  # 保存对话框截图
-├── logo-display.png                 # Logo展示效果截图
-├── version-comparison.png           # 功能对比图
-├── create-custom-map.png            # 创建自定义地图流程截图
-├── edit-existing-map.png            # 编辑现有地图流程截图
-├── copy-and-modify.png              # 复制和修改流程截图
-├── edit-mode-ui-design.png          # 编辑模式UI设计图
-└── future-features.png              # 未来功能展望图
-```
-
-**图像要求**：
-
-- 格式：PNG 或 JPG
-- 尺寸：建议宽度 1200-1600px
-- 质量：清晰、高分辨率
-- 风格：与应用界面保持一致
-
+新增实拍图于 2026-10-30 在云端浏览器运行本仓库 `apps/PixelKnit/` 后取得，基线为 [`dd0a350`](https://github.com/YangCazz/YangCazz.github.io/commit/dd0a350aa9dc075bab0f6311099704e363ff5fd2)。保存弹窗图包含本次补齐的对话框样式修复，其余界面逻辑未改。图像保存在 `assets/images/posts/pixelknit/current-20261030/`，没有使用生成式图像伪造应用界面。当前截图仅覆盖桌面端；历史界面和移动端效果未重新采集。

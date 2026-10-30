@@ -19,7 +19,7 @@ image: "/assets/images/covers/medical-segmentation.jpg"
 
 ## 引言
 
-在前面的文章中，我们学习了[UNet](/2025/02/01/fcn-unet-foundation/)的对称U型结构和[V-Net](/2025/02/05/vnet-3d-segmentation/)的3D扩展。这些网络虽然强大，但存在一个问题：**Skip Connections盲目地传递所有特征**，无法区分哪些特征是重要的，哪些是噪声。
+在前面的文章中，我们学习了[UNet](/2022/07/01/fcn-unet-foundation/)的对称U型结构和[V-Net](/2022/07/15/vnet-3d-segmentation/)的3D扩展。这些网络虽然强大，但存在一个问题：**Skip Connections盲目地传递所有特征**，无法区分哪些特征是重要的，哪些是噪声。
 
 **Attention UNet**（2018）引入了**注意力门控（Attention Gates）**机制<cite>[1]</cite>，让网络学会"看哪里"——自动聚焦于与任务相关的区域，抑制无关背景。
 

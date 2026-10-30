@@ -7,8 +7,8 @@ categories:
 - 软件工程
 tags:
 - 信息检索
-- 工程化
-- 系统架构
+- 工程实践
+- 架构设计
 - RAG
 - FastAPI
 - GraphRAG

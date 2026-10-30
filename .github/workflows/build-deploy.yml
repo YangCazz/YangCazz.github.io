@@ -23,8 +23,41 @@ jobs:
         with:
           ruby-version: '3.4'
           bundler-cache: true
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+          cache: npm
+      - name: Install test dependencies
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+      - name: Unit tests
+        run: |
+          npm test
+          bundle exec ruby _scripts/test-content-validator.rb
       - name: Build
         run: bundle exec jekyll build
+      - name: Check links and metadata
+        run: |
+          npm run check:site
+          npm run check:metadata
+      - name: Browser regression
+        run: |
+          bundle exec jekyll serve --skip-initial-build --no-watch --host 127.0.0.1 --port 4000 > /tmp/jekyll-preview.log 2>&1 &
+          preview_pid=$!
+          trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
+          ready=false
+          for attempt in {1..30}; do
+            if curl --fail --silent http://127.0.0.1:4000/blog/ > /dev/null; then ready=true; break; fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then cat /tmp/jekyll-preview.log; exit 1; fi
+          npm run test:browser
+      - uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: browser-test-results
+          path: _site-verify/
       - uses: actions/upload-pages-artifact@v3
         with:
           path: _site

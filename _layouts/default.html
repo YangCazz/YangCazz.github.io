@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ page.title | default: site.title }}</title>
-    <meta name="description" content="{{ page.description | default: site.description }}">
+    {% assign seo_title = page.title | default: site.title %}
+    {% assign seo_description = page.description | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 %}
+    <title>{{ seo_title | escape }}</title>
+    <meta name="description" content="{{ seo_description | escape }}">
 
     <!-- Favicon & PWA -->
     <link rel="icon" href="{{ '/assets/images/site/favicon.svg' | relative_url }}" type="image/svg+xml">
@@ -17,18 +19,18 @@
 
     <!-- Open Graph -->
     <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
-    <meta property="og:title" content="{{ page.title | default: site.title }}">
-    <meta property="og:description" content="{{ page.description | default: site.description }}">
+    <meta property="og:title" content="{{ seo_title | escape }}">
+    <meta property="og:description" content="{{ seo_description | escape }}">
     <meta property="og:url" content="{{ page.url | absolute_url }}">
-    <meta property="og:site_name" content="{{ site.title }}">
+    <meta property="og:site_name" content="{{ site.title | escape }}">
     <meta property="og:locale" content="zh_CN">
     {% assign og_image = page.image | default: site.default_image %}
     {% if og_image %}<meta property="og:image" content="{{ og_image | absolute_url }}">{% endif %}
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="{% if og_image %}summary_large_image{% else %}summary{% endif %}">
-    <meta name="twitter:title" content="{{ page.title | default: site.title }}">
-    <meta name="twitter:description" content="{{ page.description | default: site.description }}">
+    <meta name="twitter:title" content="{{ seo_title | escape }}">
+    <meta name="twitter:description" content="{{ seo_description | escape }}">
     {% if og_image %}<meta name="twitter:image" content="{{ og_image | absolute_url }}">{% endif %}
 
     <!-- 粒子背景画布 -->
@@ -46,14 +48,9 @@
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
-        "name": "{{ site.title }}",
-        "description": "{{ site.description }}",
-        "url": "{{ site.url }}",
-        "potentialAction": {
-            "@type": "SearchAction",
-            "target": "{{ site.url }}/search?q={search_term_string}",
-            "query-input": "required name=search_term_string"
-        }
+        "name": {{ site.title | jsonify | replace: '<', '\u003c' }},
+        "description": {{ site.description | jsonify | replace: '<', '\u003c' }},
+        "url": {{ site.url | jsonify }}
     }
     </script>
     <script type="application/ld+json">
@@ -63,7 +60,7 @@
         "name": "杨钱俊",
         "alternateName": "YangCazz",
         "jobTitle": "医疗机器人算法工程师",
-        "url": "{{ site.url }}",
+        "url": {{ site.url | jsonify }},
         "sameAs": [
             "https://github.com/YangCazz",
             "https://linkedin.com/in/YangCazz",

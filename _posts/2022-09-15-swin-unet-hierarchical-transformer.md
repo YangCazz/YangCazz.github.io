@@ -19,7 +19,7 @@ image: "/assets/images/covers/medical-segmentation.jpg"
 
 ## 引言
 
-在[上一篇文章](/2025/02/20/transunet-hybrid-architecture/)中，我们学习了TransUNet<cite>[3]</cite>如何将Transformer引入医学图像分割，通过全局自注意力建模长距离依赖。然而，TransUNet存在一个致命缺陷：
+在[上一篇文章](/2022/09/01/transunet-hybrid-architecture/)中，我们学习了TransUNet<cite>[3]</cite>如何将Transformer引入医学图像分割，通过全局自注意力建模长距离依赖。然而，TransUNet存在一个致命缺陷：
 
 **自注意力的二次复杂度** \( O(N^2) \)
 

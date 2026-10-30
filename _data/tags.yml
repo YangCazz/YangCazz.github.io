@@ -91,7 +91,7 @@
 # ── Domain: AI Agents ──
 - name: "AI Agent"
   type: domain
-  aliases: ["Agent", "Agent架构", "Agent基础设施", "Agent产品", "Agent工程", "多Agent", "并行Agent", "AIXI", "认知架构", "Cognitive Architecture", "CoALA"]
+  aliases: ["Agent", "Agent架构", "Agent基础设施", "Agent产品", "Agent工程", "多Agent", "并行Agent", "AIXI"]
   description: "基于大语言模型的自主智能体系统"
   references:
     - "https://en.wikipedia.org/wiki/Intelligent_agent"
@@ -106,7 +106,7 @@
 # ── Domain: World Models ──
 - name: "世界模型"
   type: domain
-  aliases: ["内部表征", "World Models", "World Model", "Mental Models", "Dreamer", "RSSM", "JEPA", "认知架构", "Cognitive Architecture", "CoALA"]
+  aliases: ["内部表征", "World Models", "World Model", "Mental Models", "Dreamer", "RSSM", "JEPA"]
   description: "智能体对环境动态规律的内部表征与预测模型，涵盖RL、认知科学与Agent架构"
   references:
     - "https://arxiv.org/abs/1803.10122"
@@ -144,7 +144,7 @@
 
 - name: "知识管理"
   type: domain
-  aliases: ["模块化", "知识网络"]
+  aliases: ["知识网络"]
   description: "个人与团队的知识策展、内化、组织与复用方法论"
   references:
     - "https://en.wikipedia.org/wiki/Personal_knowledge_management"
@@ -354,10 +354,65 @@
 
 - name: "RAG"
   type: method
-  aliases: ["向量数据库", "Embedding", "ChromaDB", "记忆系统", "GraphRAG", "Agentic RAG", "语义分块", "混合检索", "BM25", "RRF", "重排序", "SSE"]
+  aliases: ["向量数据库", "Embedding", "记忆系统"]
   description: "检索增强生成，结合外部知识库的LLM应用"
   references:
     - "https://en.wikipedia.org/wiki/Retrieval-augmented_generation"
+
+# 这些方法/工具在文章中独立讨论，并非 RAG 的同义词；保留独立导航节点。
+- name: "GraphRAG"
+  type: method
+  aliases: []
+  description: "结合图结构与检索增强生成的方法"
+  references: []
+
+- name: "Agentic RAG"
+  type: method
+  aliases: []
+  description: "由智能体编排检索与生成步骤的方法"
+  references: []
+
+- name: "语义分块"
+  type: method
+  aliases: []
+  description: "依据内容语义划分检索文档块的方法"
+  references: []
+
+- name: "混合检索"
+  type: method
+  aliases: []
+  description: "组合稀疏与稠密检索结果的方法"
+  references: []
+
+- name: "BM25"
+  type: method
+  aliases: []
+  description: "基于词项匹配的检索排序方法"
+  references: []
+
+- name: "RRF"
+  type: method
+  aliases: []
+  description: "Reciprocal Rank Fusion，基于名次融合检索结果的方法"
+  references: []
+
+- name: "重排序"
+  type: method
+  aliases: []
+  description: "对初步召回的候选结果重新评分和排序"
+  references: []
+
+- name: "ChromaDB"
+  type: method
+  aliases: []
+  description: "用于向量存储与相似性检索的数据库工具"
+  references: []
+
+- name: "SSE"
+  type: method
+  aliases: []
+  description: "Server-Sent Events，服务端向客户端推送事件的机制"
+  references: []
 
 - name: "Tool Calling"
   type: method
@@ -453,6 +508,12 @@
     - "https://github.com/pmndrs/zustand"
 
 # ── Method: Software Engineering ──
+- name: "模块化"
+  type: method
+  aliases: []
+  description: "以清晰接口拆分和组合系统模块的设计方法"
+  references: []
+
 - name: "从零构建"
   type: method
   aliases: []

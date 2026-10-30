@@ -12,7 +12,6 @@ tags:
 - LLM
 - GraphRAG
 - Agentic RAG
-- 大语言模型
 excerpt: 系统梳理 RAG 技术从 2020 年诞生到 2026 年的完整演进脉络，深入解析 Naive RAG、Advanced RAG、Modular RAG 到 Agentic RAG 四大范式转变，以及 GraphRAG、自适应检索等前沿方向。
 image: "/assets/images/covers/ai-dev-tools.jpg"
 ---

@@ -35,8 +35,8 @@ image: "/assets/images/covers/pixelknit.jpg"
 - 📏 **智能视图放大**：隐藏侧边栏时自动扩大中间视图
 - 🔗 **智能导航链接**：自动适配不同环境的导航系统
 
-![v2.0版本主界面](/assets/images/posts/pixelknit/logo.png)
-*图2：v2.0 版本主界面，展示三栏布局和模块化架构*
+![当前仓库 PixelKnit 的地图列表、主画布与控制面板](/assets/images/posts/pixelknit/current-20261030/browse-current.jpg)
+*图2：2026-10-30 仓库当前应用的桌面实拍，展示地图列表、主画布与控制面板；不是 v2.0 发布当天截图，也不以界面图证明模块化迁移已经完成。正文保留原版本发布记录。*
 
 ## 模块化架构重构
 

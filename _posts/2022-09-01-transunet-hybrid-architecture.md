@@ -19,7 +19,7 @@ image: "/assets/images/covers/medical-segmentation.jpg"
 
 ## 引言
 
-在前面的文章中，我们学习了基于CNN的各种UNet变种：[标准UNet](/2025/02/01/fcn-unet-foundation/)、[Attention UNet](/2025/02/10/attention-unet/)、[UNet++/UNet 3+](/2025/02/15/unet-plus-series/)。这些方法虽然强大，但都存在一个根本性限制：
+在前面的文章中，我们学习了基于CNN的各种UNet变种：[标准UNet](/2022/07/01/fcn-unet-foundation/)、[Attention UNet](/2022/08/01/attention-unet/)、[UNet++/UNet 3+](/2022/08/15/unet-plus-series/)。这些方法虽然强大，但都存在一个根本性限制：
 
 **CNN的局部感受野**
 

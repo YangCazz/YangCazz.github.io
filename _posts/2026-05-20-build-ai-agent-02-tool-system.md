@@ -42,7 +42,7 @@ image: "/assets/images/covers/ai-dev-tools.jpg"
 
 ```mermaid
 graph LR
-    Fn[Python 函数<br/>+ 类型注解 + docstring] --> Decorator[@tool 装饰器]
+    Fn[Python 函数<br/>+ 类型注解 + docstring] --> Decorator["@tool 装饰器"]
     Decorator --> Schema[自动生成<br/>JSON Schema]
     Decorator --> Validator[参数校验器]
     Schema --> Registry[工具注册表<br/>ToolRegistry]

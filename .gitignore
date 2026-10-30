@@ -35,10 +35,11 @@ temp/
 node_modules/
 npm-debug.log
 yarn-error.log
-package.json
-package-lock.json
 generate-ppt.js
 presentation.pptx
+_site-verify/
+test-results/
+__pycache__/
 
 # 备份文件
 *.bak

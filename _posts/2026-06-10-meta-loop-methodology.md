@@ -10,7 +10,7 @@ tags:
 - 设计模式
 - RAG
 - AI Agent
-- 系统架构
+- 架构设计
 - 从零构建
 - 知识管理
 - 模块化
@@ -150,8 +150,8 @@ curated/yyy-eval.md
 name: hybrid-retrieval
 domain: RAG
 interface:
-  search: (query: str, top_k: int) -> list[SearchResult]
-  index: (chunks: list[Chunk]) -> None
+  search: "(query: str, top_k: int) -> list[SearchResult]"
+  index: "(chunks: list[Chunk]) -> None"
 dependencies:
   - chroma-vector-store
   - bm25-sparse-index

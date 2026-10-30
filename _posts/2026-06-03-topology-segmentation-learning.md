@@ -136,7 +136,7 @@ clDice 直观地编码了一个约束：**预测的前景必须"覆盖"标注的
 graph LR
     A[预测分割<br/>概率图] --> B[软骨架化<br/>Soft Skeletonize]
     C[标注分割<br/>二值掩码] --> D[硬骨架化<br/>Hard Skeletonize]
-    B --> E[软 clDice<br/>$2 \times V_{pred} \cap S_{gt}$<br/>除以 $(V_{pred} + S_{gt})$]
+    B --> E["软 clDice<br/>$2 \times V_{pred} \cap S_{gt}$<br/>除以 $(V_{pred} + S_{gt})$"]
     D --> E
     E --> F[与 Dice Loss 组合<br/>$\alpha \cdot clDice + \beta \cdot Dice$]
     style A fill:#1a237e,stroke:#4299e1,color:#e8edf5
@@ -310,7 +310,7 @@ if __name__ == '__main__':
     target = (torch.rand(2, 1, 256, 256) > 0.95).float()
     loss, metrics = criterion(pred, target)
     print(f'Total Loss: {loss.item():.4f}')
-    print(f'Dice: {metrics[\"dice\"]:.4f}, clDice: {metrics[\"cldice\"]:.4f}')
+    print(f'Dice: {metrics["dice"]:.4f}, clDice: {metrics["cldice"]:.4f}')
 ```
 
 ### 使用 Betti Matching 损失

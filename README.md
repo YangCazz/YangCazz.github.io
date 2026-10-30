@@ -6,7 +6,7 @@
 [![Jekyll](https://img.shields.io/badge/Jekyll-4.x-cc0000?style=flat-square&logo=jekyll)](https://jekyllrb.com)
 [![Ruby](https://img.shields.io/badge/Ruby-3.4-cc342d?style=flat-square&logo=ruby)](https://www.ruby-lang.org)
 [![Posts](https://img.shields.io/badge/posts-85-3b82f6?style=flat-square)](https://yangcazz.github.io/blog)
-[![Tags](https://img.shields.io/badge/tags-82-8b5cf6?style=flat-square)](https://yangcazz.github.io/tag-network-v2)
+[![Tags](https://img.shields.io/badge/tags-79-8b5cf6?style=flat-square)](https://yangcazz.github.io/tag-network-v2)
 [![Template](https://img.shields.io/badge/template-可用-8b5cf6?style=flat-square)](https://github.com/YangCazz/YangCazz-jekyll-blog-template)
 [![License](https://img.shields.io/badge/license-MIT-22c55e?style=flat-square)](LICENSE.txt)
 
@@ -20,12 +20,12 @@
 
 <table align="center"><tr>
 <td align="center"><b>85</b><br><sub>Posts</sub></td>
-<td align="center"><b>82</b><br><sub>Tags in Posts</sub></td>
+<td align="center"><b>79</b><br><sub>Tags in Posts</sub></td>
 <td align="center"><b>11</b><br><sub>JS Modules</sub></td>
 <td align="center"><b>19</b><br><sub>SCSS Partials</sub></td>
 </tr></table>
 
-以上为当前仓库统计：82 个文章标签包含历史标签与别名；`_data/tags.yml` 中另有 70 个规范标签。
+以上为当前仓库统计：文章使用 79 个规范标签；`_data/tags.yml` 中共注册 80 个规范标签。
 
 ---
 
@@ -96,6 +96,24 @@ bundle _2.7.2_ exec jekyll build
 
 本地构建或预览不会推送代码、发布网站。`.github/workflows/build-deploy.yml` 会在 Pull Request 时构建检查；推送到 `main` 后才会自动部署至 GitHub Pages，请在发布前完成内容审阅。
 
+### 回归测试
+
+测试还需要 **Node.js 24.x** 和 **Python 3**；Node.js 不参与网站的运行时渲染。
+
+```bash
+npm ci
+npm test
+bundle _2.7.2_ exec ruby _scripts/test-content-validator.rb
+bundle _2.7.2_ exec jekyll build
+npm run check:site
+npm run check:metadata
+npx playwright install chromium
+```
+
+另开终端启动上文的本地预览，再运行 `npm run test:browser`。脚本遍历全部文章，检查 HTTP、浏览器错误、目录、Mermaid、MathJax、本地图片，以及日历、关键词搜索和页面导航。仅外部访问量徽章使用测试替身，站内资源仍真实加载。可用 `BASE_URL` 指定预览地址；结果写入 `_site-verify/`，加 `-- --screenshot` 可保存截图。
+
+`npm run test:mermaid` 可单独遍历全部文章检查图表与公式。CI 会安装 Chromium 系统依赖，并在构建、静态资源/SEO 校验和浏览器测试通过后才上传部署产物。
+
 ---
 
 ## ▸ 项目结构
@@ -104,7 +122,7 @@ bundle _2.7.2_ exec jekyll build
 YangCazz.github.io/
 ├── _config.yml                   # Jekyll 配置
 ├── _data/                        # 数据文件
-│   ├── tags.yml                  #   标签注册表 (70 规范标签)
+│   ├── tags.yml                  #   标签注册表 (80 规范标签)
 │   ├── navigation.yml            #   全局导航配置
 │   └── applications.yml          #   应用列表数据
 ├── _layouts/                     # 布局模板

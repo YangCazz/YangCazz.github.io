@@ -19,7 +19,7 @@ image: "/assets/images/covers/medical-segmentation.jpg"
 
 ## 引言
 
-在前面的文章中，我们学习了众多UNet变种：[Attention UNet](/2025/02/10/attention-unet/)、[UNet++](/2025/02/15/unet-plus-series/)、[TransUNet](/2025/02/20/transunet-hybrid-architecture/)、[Swin-UNet](/2025/02/25/swin-unet-hierarchical-transformer/)等。这些方法通过架构创新不断刷新SOTA。
+在前面的文章中，我们学习了众多UNet变种：[Attention UNet](/2022/08/01/attention-unet/)、[UNet++](/2022/08/15/unet-plus-series/)、[TransUNet](/2022/09/01/transunet-hybrid-architecture/)、[Swin-UNet](/2022/09/15/swin-unet-hierarchical-transformer/)等。这些方法通过架构创新不断刷新SOTA。
 
 但在实际应用中，却面临一个尴尬的现实：
 

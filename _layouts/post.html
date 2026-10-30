@@ -1,22 +1,21 @@
 ---
 layout: default
-title: "{{ page.title }}"
-description: "{{ page.excerpt | default: page.content | strip_html | truncate: 160 }}"
 ---
 
+{% assign post_description = page.description | default: page.excerpt | default: site.description | strip_html | normalize_whitespace | truncate: 160 %}
 <!-- BlogPosting 结构化数据 -->
 <script type="application/ld+json">
 {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
-    "headline": "{{ page.title | escape }}",
-    "description": "{{ page.excerpt | default: page.content | strip_html | truncate: 160 | escape }}",
-    "datePublished": "{{ page.date | date: '%Y-%m-%d' }}",
+    "headline": {{ page.title | jsonify | replace: '<', '\u003c' }},
+    "description": {{ post_description | jsonify | replace: '<', '\u003c' }},
+    "datePublished": {{ page.date | date: '%Y-%m-%d' | jsonify }},
     "author": {
         "@type": "Person",
         "name": "杨钱俊"
     },
-    "url": "{{ page.url | absolute_url }}"
+    "url": {{ page.url | absolute_url | jsonify }}
 }
 </script>
 

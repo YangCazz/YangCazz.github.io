@@ -130,7 +130,7 @@ graph LR
 
 ### 完整实现
 
-```python
+````python
 import json
 from openai import OpenAI
 
@@ -244,7 +244,7 @@ class GeneratorVerifierTeam:
             temperature=0.2
         )
         return response.choices[0].message.content
-```
+````
 
 ---
 

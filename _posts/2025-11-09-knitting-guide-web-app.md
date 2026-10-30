@@ -14,6 +14,8 @@ image: "/assets/images/covers/pixelknit.jpg"
 ---
 {% include series-nav.html series="pixelknit" position="top" %}
 
+> **版本说明（2026-10-30）**：本文保留最初版本的实现记录，原有配图不作新版界面承诺。本次新增的图8是仓库当前应用的桌面实拍；新增实拍仅覆盖桌面端，不代表历史界面或移动端效果。
+
 ## 引言
 
 编织是一项需要精确跟踪进度的工作，特别是在处理复杂的像素图案时。传统的编织方法往往需要手动记录进度，容易出错且效率低下。为了解决这个问题，我开发了 **像素织梦 (PixelKnit)** - 一个功能完整的 Web 编织引导应用，通过可视化网格地图帮助用户跟踪编织进度，支持多种编织模式和智能路径规划。
@@ -183,14 +185,13 @@ function calculateBresenhamLine(start, end) {
 - 主Canvas只绘制动态部分（已完成、路径、悬停）
 - 大幅减少重绘次数，性能提升约 70-90%
 
-<!-- TODO: add image: performance-optimization.png -->
-*图7：性能优化架构图，展示离屏Canvas缓存机制*
-
 ```mermaid
 graph LR
     Static["离屏 Canvas<br/>静态网格缓存<br/>仅脏标记时重绘"] -.->|"合成叠加"| Dynamic["主 Canvas<br/>仅绘制动态层<br/>已完成/路径/悬停"]
     Dynamic --> Display["最终显示"]
 ```
+
+*图7：离屏 Canvas 缓存机制示意。此图由上方 Mermaid 源码渲染，不是运行性能测量。*
 
 **2. 事件节流**：
 
@@ -224,14 +225,12 @@ graph LR
 **粒子背景系统**：
 动态粒子背景，与博客主页保持一致，提供沉浸式体验。
 
-<!-- TODO: add image: particle-background.png -->
-*图8：粒子背景系统，动态交互式背景效果*
+![当前 PixelKnit 应用页及粒子背景的桌面实拍](/assets/images/posts/pixelknit/current-20261030/particle-background.jpg)
+*图8：2026-10-30 当前应用桌面实拍，展示渐变底色、粒子背景与玻璃态面板；静态截图不展示动画过程。*
 
 **响应式设计**：
 适配桌面、平板和移动设备，使用媒体查询优化不同屏幕尺寸的显示效果。
 
-<!-- TODO: add image: responsive-design.png -->
-*图9：响应式设计，展示不同设备上的显示效果*
 
 ## 使用体验
 

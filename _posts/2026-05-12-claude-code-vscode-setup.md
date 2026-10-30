@@ -16,6 +16,8 @@ image: "/assets/images/covers/ai-dev-tools.jpg"
 {% include series-nav.html series="claude-code" position="top" %}
 
 
+> **旧版资料提示（2026-10-30）**：本文末尾注明基于 Claude Code v1.x / VS Code 1.82+，保留作历史配置记录，不再补拍旧版扩展界面。当前官方指南要求 VS Code 1.94+，登录方式和命令也已有变化；请以 [Claude Code 官方 VS Code 指南](https://code.claude.com/docs/en/vs-code) 为准，不要直接照搬本篇旧配置。
+
 ## 引言
 
 上一篇 [Claude Code 实战指南](/2026/05/12/claude-code-practical-guide/) 介绍了 Claude Code 的核心能力和工作流设计。这篇文章聚焦于**环境搭建**——如何在 VS Code 中配置 Claude Code 插件，以及 API Key 的正确设置方式。
@@ -46,7 +48,6 @@ Claude Code 支持两种运行模式：
 3. 搜索 **"Claude Code"**
 4. 点击 **安装**
 
-<!-- TODO: add image: vscode-extension.png -->
 
 ### 方法二：命令行安装
 

@@ -19,7 +19,7 @@ image: "/assets/images/covers/medical-segmentation.jpg"
 
 ## 引言
 
-在前面的文章中，我们学习了各种专门为医学图像分割设计的网络：从[UNet](/2025/02/01/fcn-unet-foundation/)的U型结构，到[Transformer](/2025/02/20/transunet-hybrid-architecture/)的全局建模。这些方法虽然有效，但都存在一个共同问题：
+在前面的文章中，我们学习了各种专门为医学图像分割设计的网络：从[UNet](/2022/07/01/fcn-unet-foundation/)的U型结构，到[Transformer](/2022/09/01/transunet-hybrid-architecture/)的全局建模。这些方法虽然有效，但都存在一个共同问题：
 
 **需要针对每个任务单独训练**
 

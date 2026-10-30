@@ -18,7 +18,7 @@ image: "/assets/images/covers/medical-segmentation.jpg"
 
 ## 引言
 
-在前面的文章中，我们学习了[UNet](/2025/02/01/fcn-unet-foundation/)的基础架构、[V-Net](/2025/02/05/vnet-3d-segmentation/)的3D扩展，以及[Attention UNet](/2025/02/10/attention-unet/)的注意力机制。这些改进主要关注**如何选择特征**，但忽略了一个根本问题：
+在前面的文章中，我们学习了[UNet](/2022/07/01/fcn-unet-foundation/)的基础架构、[V-Net](/2022/07/15/vnet-3d-segmentation/)的3D扩展，以及[Attention UNet](/2022/08/01/attention-unet/)的注意力机制。这些改进主要关注**如何选择特征**，但忽略了一个根本问题：
 
 **编码器和解码器之间的语义鸿沟**（Semantic Gap）
 
