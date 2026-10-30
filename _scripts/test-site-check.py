@@ -78,6 +78,32 @@ class SiteCheckTests(unittest.TestCase):
         (self.site / "index.html").write_text('<img src="/%E6%B5%8B%E8%AF%95%20%E5%9B%BE%E7%89%87.png">')
         self.assertEqual(site_check.check_site(self.site)["errors"], [])
 
+    def test_resume_is_hidden_only_from_top_navigation(self):
+        (self.site / "resume.html").write_text('<main>Resume remains accessible</main>')
+        for href in ("/resume", "resume.html", "https://yangcazz.github.io/resume?from=app"):
+            with self.subTest(href=href):
+                (self.site / "index.html").write_text(f'<nav class="top-nav"><a href="{href}">Resume</a></nav>')
+                errors = site_check.check_site(self.site)["errors"]
+                self.assertTrue(any("resume must not appear in top navigation" in error for error in errors))
+        (self.site / "index.html").write_text('<nav class="top-nav"><a href="/">Home</a></nav><footer><a href="/resume">Owner</a></footer>')
+        self.assertEqual(site_check.check_site(self.site)["errors"], [])
+
+    def test_shared_layout_and_standalone_apps_keep_matching_top_navigation(self):
+        root = Path(__file__).resolve().parent.parent
+        for source in ("_layouts/default.html", "apps/PixelKnit/index.html", "apps/knitting-guide/index.html"):
+            with self.subTest(source=source):
+                parser = site_check.References()
+                parser.feed((root / source).read_text(encoding="utf-8"))
+                links = [href for href, _line in parser.top_navigation]
+                self.assertEqual(len(links), 5, "brand link plus Home, Blog, Showcase, Apps")
+                self.assertFalse(any("resume" in href for href in links))
+                if source.startswith("apps/"):
+                    paths = [site_check.local_url(source, href, "https://yangcazz.github.io").path for href in links]
+                    self.assertEqual(paths, ["/", "/", "/blog", "/showcase", "/apps"])
+        self.assertTrue((root / "resume.html").is_file())
+        self.assertIn("class=\"footer-owner\"", (root / "_layouts/default.html").read_text(encoding="utf-8"))
+        self.assertIn("layout: default", (root / "apps.html").read_text(encoding="utf-8"))
+
 
 if __name__ == "__main__":
     unittest.main()

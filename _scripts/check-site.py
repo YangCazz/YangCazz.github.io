@@ -25,9 +25,15 @@ class References(HTMLParser):
         self.ids = []
         self.named_anchors = []
         self.in_style = False
+        self.top_navigation = []
+        self.nav_stack = []
 
     def handle_starttag(self, tag, attributes):
         attrs = dict(attributes)
+        if tag == "nav":
+            self.nav_stack.append("top-nav" in attrs.get("class", "").split() or any(self.nav_stack))
+        if tag == "a" and any(self.nav_stack) and attrs.get("href"):
+            self.top_navigation.append((attrs["href"], self.getpos()[0]))
         if attrs.get("id"):
             self.ids.append(attrs["id"])
         if tag == "a" and attrs.get("name"):
@@ -49,6 +55,8 @@ class References(HTMLParser):
                 self.references.append((attrs["content"], self.getpos()[0]))
 
     def handle_endtag(self, tag):
+        if tag == "nav" and self.nav_stack:
+            self.nav_stack.pop()
         if tag == "style":
             self.in_style = False
 
@@ -98,6 +106,12 @@ def check_site(site, site_url="https://yangcazz.github.io"):
         parser.feed(file.read_text(encoding="utf-8"))
         fragment_targets[file.resolve()] = set(parser.ids + parser.named_anchors)
         references.extend((source, url, line) for url, line in parser.references)
+        # Standalone apps do not inherit the shared layout. Keep their top bars
+        # consistent without removing the resume page or its footer links.
+        for reference, line in parser.top_navigation:
+            parsed = local_url(source, reference, site_url)
+            if parsed and re.search(r"/resume(?:\.html)?/?$", parsed.path):
+                errors.append(f"{source}:{line}: resume must not appear in top navigation")
         # The blog's live navigation depends on these IDs and a single JSON dataset.
         if source == "blog/index.html":
             for identifier in ("tag-network", "blog-list", "blog-footer", "calendarData"):

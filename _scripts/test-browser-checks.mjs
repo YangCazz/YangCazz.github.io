@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { uniquePostPaths, validatePageState } from './browser-checks.mjs';
 
 const valid = {
-    main: true, post: true, headings: 2, tocLinks: 2, brokenImages: [],
+    main: true, post: true, headings: 2, tocLinks: 2, brokenImages: [], resumeNavLinks: [],
     mermaidContainers: 2, mermaidSvg: 2, mermaidErrors: 0, unprocessedMermaid: 0,
     mathReady: true, mathErrors: 0,
 };
@@ -20,7 +20,10 @@ test('article discovery deduplicates title/read-more links without losing archiv
 });
 test('valid page and article checks pass', () => {
     validatePageState(200, valid, { post: true });
-    validatePageState(200, { main: true, brokenImages: [] });
+    validatePageState(200, { main: true, brokenImages: [], resumeNavLinks: [] });
+});
+test('a resume link in the top navigation fails the run', () => {
+    assert.throws(() => validatePageState(200, { ...valid, resumeNavLinks: ['/resume/'] }), /top navigation/);
 });
 test('HTTP errors and runtime errors fail the run', () => {
     assert.throws(() => validatePageState(404, valid, { post: true }), /HTTP 200/);

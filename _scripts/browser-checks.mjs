@@ -7,6 +7,7 @@ export function uniquePostPaths(paths) {
 export function validatePageState(status, state, { post = false, errors = [] } = {}) {
     assert.equal(status, 200, 'page must return HTTP 200');
     assert.ok(state.main, 'main content is missing');
+    assert.deepEqual(state.resumeNavLinks, [], 'resume must not appear in top navigation');
     assert.deepEqual(errors, [], 'browser console/page/resource errors');
     assert.deepEqual(state.brokenImages, [], 'broken local images');
     if (!post) return;

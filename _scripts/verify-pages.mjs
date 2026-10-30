@@ -24,6 +24,9 @@ async function settleArticle(page) {
 async function readState(page) {
     return page.evaluate(() => ({
         main: Boolean(document.querySelector('.main-content')),
+        resumeNavLinks: [...document.querySelectorAll('.top-nav a[href]')]
+            .filter(link => /\/resume(?:\.html)?\/?$/.test(new URL(link.href).pathname))
+            .map(link => link.href),
         post: Boolean(document.querySelector('.post-content')),
         headings: document.querySelectorAll('.post-content h1, .post-content h2, .post-content h3, .post-content h4, .post-content h5, .post-content h6').length,
         tocLinks: document.querySelectorAll('#blogToc a').length,

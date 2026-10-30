@@ -96,6 +96,8 @@ bundle _2.7.2_ exec jekyll build
 
 本地构建或预览不会推送代码、发布网站。`.github/workflows/build-deploy.yml` 会在 Pull Request 时构建检查；推送到 `main` 后才会自动部署至 GitHub Pages，请在发布前完成内容审阅。
 
+**发布来源应只选 GitHub Actions**：仓库 `Settings → Pages → Build and deployment → Source` 选择 `GitHub Actions`，由现有 `build-deploy.yml` 构建、测试并发布 `_site/`。不要另选 `Deploy from a branch`，也不需要再创建 GitHub 建议的模板工作流。分支式 Pages 构建不能替代本项目的自定义插件与回归检查，并可能与自定义部署相互覆盖。该 Source 是仓库设置，修改本文件或删除工作流文件不会自动切换它；切换时保留现有域名和 HTTPS 设置。
+
 ### 回归测试
 
 测试还需要 **Node.js 24.x** 和 **Python 3**；Node.js 不参与网站的运行时渲染。
