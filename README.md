@@ -4,11 +4,11 @@
 
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-deployed-blue?style=flat-square&logo=github)](https://yangcazz.github.io)
 [![Jekyll](https://img.shields.io/badge/Jekyll-4.x-cc0000?style=flat-square&logo=jekyll)](https://jekyllrb.com)
-[![Ruby](https://img.shields.io/badge/Ruby-3.0+-cc342d?style=flat-square&logo=ruby)](https://www.ruby-lang.org)
-[![Posts](https://img.shields.io/badge/posts-72-3b82f6?style=flat-square)](https://yangcazz.github.io/blog)
-[![Tags](https://img.shields.io/badge/tags-64-8b5cf6?style=flat-square)](https://yangcazz.github.io/tag-network-v2)
+[![Ruby](https://img.shields.io/badge/Ruby-3.4-cc342d?style=flat-square&logo=ruby)](https://www.ruby-lang.org)
+[![Posts](https://img.shields.io/badge/posts-85-3b82f6?style=flat-square)](https://yangcazz.github.io/blog)
+[![Tags](https://img.shields.io/badge/tags-82-8b5cf6?style=flat-square)](https://yangcazz.github.io/tag-network-v2)
 [![Template](https://img.shields.io/badge/template-可用-8b5cf6?style=flat-square)](https://github.com/YangCazz/YangCazz-jekyll-blog-template)
-[![License](https://img.shields.io/badge/license-MIT-22c55e?style=flat-square)](LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-22c55e?style=flat-square)](LICENSE.txt)
 
 个人技术博客 &middot; 医疗AI · 深度学习 · 开源工程
 
@@ -19,11 +19,13 @@
 ---
 
 <table align="center"><tr>
-<td align="center"><b>72</b><br><sub>Posts</sub></td>
-<td align="center"><b>64</b><br><sub>Tags</sub></td>
-<td align="center"><b>8</b><br><sub>JS Modules</sub></td>
-<td align="center"><b>17</b><br><sub>SCSS Partials</sub></td>
+<td align="center"><b>85</b><br><sub>Posts</sub></td>
+<td align="center"><b>82</b><br><sub>Tags in Posts</sub></td>
+<td align="center"><b>11</b><br><sub>JS Modules</sub></td>
+<td align="center"><b>19</b><br><sub>SCSS Partials</sub></td>
 </tr></table>
+
+以上为当前仓库统计：82 个文章标签包含历史标签与别名；`_data/tags.yml` 中另有 70 个规范标签。
 
 ---
 
@@ -36,7 +38,7 @@
 
 **关键词网络**<br><sub>力导向图可视化 · 规范标签注册 · domain/method 双轨分类</sub>
 
-**模块化样式**<br><sub>17 个 SCSS partial · accent-color 驱动暗色主题</sub>
+**模块化样式**<br><sub>19 个 SCSS partial · accent-color 驱动暗色主题</sub>
 
 </td><td width="50%">
 
@@ -55,25 +57,44 @@
 
 | 类别 | 技术 |
 |------|------|
-| 静态站点 | Jekyll, GitHub Pages |
-| 样式 | SCSS (17 partials), CSS Variables |
-| 脚本 | Vanilla ES6+ (8 modules) |
+| 静态站点 | Jekyll 4.4.1（当前锁定版本）, GitHub Pages |
+| 样式 | SCSS (19 partials), CSS Variables |
+| 脚本 | Vanilla ES6+ (11 modules) |
 | 图标 | Octicons v19.8.0 |
 | 排版 | MathJax 3, Mermaid, Rouge |
-| 插件 | jekyll-feed, jekyll-sitemap, jemoji |
+| 插件 | jekyll-feed, jekyll-sitemap, jemoji, jekyll-octicons |
 
 ---
 
 ## ▸ 快速开始
 
+### 环境准备
+
+- 使用 **Ruby 3.4.x**，与 GitHub Actions 的构建环境保持一致。
+- 当前 `Gemfile.lock` 使用 **Bundler 2.7.2**；安装依赖时保留锁定版本，不必执行 `bundle update`。
+- 依赖含原生扩展；若安装时报编译错误，请检查 C/C++ 编译器、`make` 和 `libffi` 等开发依赖。
+
+### 本地预览
+
 ```bash
 git clone https://github.com/YangCazz/YangCazz.github.io.git
 cd YangCazz.github.io
-bundle install
-bundle exec jekyll serve
+gem install bundler -v 2.7.2
+bundle _2.7.2_ install
+bundle _2.7.2_ exec jekyll serve --host 127.0.0.1 --port 4000
 ```
 
-打开 `http://localhost:4000`
+在运行服务的同一台机器上打开 `http://127.0.0.1:4000`。服务会监听文件变化并重新构建，按 `Ctrl+C` 停止。
+
+### 构建检查与发布
+
+```bash
+bundle _2.7.2_ exec jekyll build
+```
+
+构建产物位于 `_site/`。旧文内容规范警告和 Sass `@import` 弃用警告目前不会阻断构建；内容校验错误则需修复后再构建。
+
+本地构建或预览不会推送代码、发布网站。`.github/workflows/build-deploy.yml` 会在 Pull Request 时构建检查；推送到 `main` 后才会自动部署至 GitHub Pages，请在发布前完成内容审阅。
 
 ---
 
@@ -83,20 +104,24 @@ bundle exec jekyll serve
 YangCazz.github.io/
 ├── _config.yml                   # Jekyll 配置
 ├── _data/                        # 数据文件
-│   ├── tags.yml                  #   标签注册表 (64 规范标签)
+│   ├── tags.yml                  #   标签注册表 (70 规范标签)
 │   ├── navigation.yml            #   全局导航配置
 │   └── applications.yml          #   应用列表数据
 ├── _layouts/                     # 布局模板
 │   ├── default.html              #   默认布局 (粒子背景)
 │   └── post.html                 #   文章布局 (MathJax + SEO)
 ├── _includes/                    # 可复用组件
-├── _posts/                       # 博客文章 (72 篇)
-├── _sass/                        # SCSS 模块 (17 partials)
+├── _posts/                       # 博客文章 (85 篇)
+├── _sass/                        # SCSS 模块 (19 partials)
 ├── assets/
-│   ├── js/                       # JavaScript 模块 (8 files)
-│   └── images/                   # 图片资源
+│   ├── js/                       # JavaScript 模块 (11 files)
+│   ├── images/                   # 图片资源
+│   ├── fonts/                    # 本地字体
+│   └── vendor/                   # MathJax、Mermaid、GSAP 等本地依赖
 ├── _plugins/                     # Jekyll 插件
-│   └── tag_validator.rb          #   标签校验 (domain/method 双轨)
+│   ├── content_validator.rb      #   Front matter、标签与正文规范校验
+│   └── markdown_fixer.rb         #   Mermaid 与公式表格的构建期处理
+├── _scripts/                     # 文章创建辅助与页面验证脚本
 ├── apps/                         # 子应用
 │   └── PixelKnit/                #   PixelKnit 像素织梦
 ├── blog.html                     # 博客列表 + 关键词网络
@@ -125,11 +150,15 @@ image: /assets/images/covers/ai-dev-tools.jpg
 ---
 ```
 
-### 标签规范
+### 标签与内容规范
 
-所有标签必须在 `_data/tags.yml` 注册表中注册，每条标签包含类型 (`domain` / `method`)、别名映射和参考文献链接。每篇文章上限 8 个标签，至少包含 1 个领域标签和 1 个方法标签。
+新文章的标签应使用 `_data/tags.yml` 中的规范名称，避免使用别名。注册表记录类型 (`domain` / `method`)，并可提供别名映射和参考文献链接。每篇文章上限 8 个标签，至少包含 1 个领域标签和 1 个方法标签。
 
-构建时自动校验：`bundle exec jekyll build`
+`_plugins/content_validator.rb` 在构建时检查必填 Front matter、日期、标签、标题手动编号、引用编号、本地图片路径及 emoji。**2026-08-02 起的文章严格校验**，违规会中断构建；此前的存量文章仅报告警告。
+
+发布前执行：`bundle _2.7.2_ exec jekyll build`。
+
+注意：当前 `_config.yml` 设置 `future: true`、`show_drafts: false`，未来日期的文章也会参与构建，不能仅靠未来日期隐藏待审稿。
 
 ---
 
