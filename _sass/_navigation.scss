@@ -295,7 +295,13 @@
 }
 
 .nav-link.active::before {
-    content: "➤";
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: currentColor;
+    -webkit-mask: url('icons/chevron-right.svg') center / contain no-repeat;
+    mask: url('icons/chevron-right.svg') center / contain no-repeat;
     position: absolute;
     left: -18px;
     color: var(--accent-color);

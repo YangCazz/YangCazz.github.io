@@ -1,0 +1,2 @@
+{%- assign brand = site.data.brand_icons[include.name] -%}
+{%- if brand -%}<svg class="brand-icon octicon {{ include.class | escape }}" width="{{ include.size | default: 20 }}" height="{{ include.size | default: 20 }}" viewBox="0 0 24 24" fill="currentColor" focusable="false" {% if include.label %}role="img" aria-label="{{ include.label | escape }}"{% else %}aria-hidden="true"{% endif %}><path d="{{ brand.path }}"/></svg>{%- endif -%}

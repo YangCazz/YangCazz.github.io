@@ -1,0 +1,2 @@
+{%- assign icon = site.data.icons[include.name] -%}
+{%- if icon -%}<svg class="site-icon octicon {{ include.class | escape }}" width="{{ include.size | default: 20 }}" height="{{ include.size | default: 20 }}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" focusable="false" {% if include.label %}role="img" aria-label="{{ include.label | escape }}"{% else %}aria-hidden="true"{% endif %}><path d="{{ icon.path }}"/></svg>{%- endif -%}

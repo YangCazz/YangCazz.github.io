@@ -1813,3 +1813,32 @@ body {
         display: flex;
     }
 }
+
+/* Keep icon + Chinese action labels readable when the editor column narrows. */
+.edit-toolbar .toolbar-group {
+    flex-wrap: wrap;
+    max-width: 100%;
+    min-width: 0;
+}
+.edit-toolbar .toolbar-field {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    flex: 0 0 auto;
+}
+.edit-toolbar .toolbar-label {
+    white-space: nowrap;
+    margin-right: 0;
+}
+.edit-toolbar .btn-toolbar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.4rem;
+    width: auto;
+    flex: 0 0 auto;
+    white-space: nowrap;
+    min-height: 40px;
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+}

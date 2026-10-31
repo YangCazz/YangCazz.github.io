@@ -1,3 +1,4 @@
+import './icons.js';
 // 仅保存月份首日，避免 29/30/31 日跨入短月时发生 Date.setMonth 溢出。
 export function shiftCalendarMonth(date, offset) {
     return new Date(date.getFullYear(), date.getMonth() + offset, 1);
@@ -60,7 +61,7 @@ export function renderCalendarPosts(posts) {
                 </div>
             </div>
             <div class="tooltip-footer">
-                <a href="${escapeHtml(post.url)}" class="tooltip-link" aria-label="阅读全文：${escapeHtml(post.title)}">阅读全文 →</a>
+                <a href="${escapeHtml(post.url)}" class="tooltip-link" aria-label="阅读全文：${escapeHtml(post.title)}">阅读全文 ${SiteIcons.render('arrow-right')}</a>
             </div>
         </article>
     `).join('');
@@ -107,7 +108,7 @@ export function initCalendar() {
             <div class="tooltip-header">
                 <span class="tooltip-date">${escapeHtml(dayElement.dataset.date)}</span>
                 <span class="tooltip-count">${posts.length}篇</span>
-                <button type="button" class="calendar-tooltip-close" aria-label="关闭日历文章">×</button>
+                <button type="button" class="calendar-tooltip-close" aria-label="关闭日历文章">${SiteIcons.render('close')}</button>
             </div>
             ${renderCalendarPosts(posts)}
         `;

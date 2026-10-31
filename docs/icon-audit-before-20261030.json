@@ -1,0 +1,386 @@
+{
+  "baseline_commit": "71090bd7020861829a82873a1b8170e35b22d791",
+  "scope": "UI source templates, app HTML/JS/CSS, shared JS/SCSS, navigation data; excludes historical post prose and vendored libraries",
+  "records": [
+    {
+      "file": "_data/navigation.yml",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "⌂": 1,
+        "▸": 1,
+        "◆": 1,
+        "◬": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "_includes/app-card.html",
+      "octicon_calls": [],
+      "inline_svg_count": 3,
+      "unicode_candidates_including_comments": {},
+      "external_css_imports": []
+    },
+    {
+      "file": "_includes/github-project-card.html",
+      "octicon_calls": [
+        "repo",
+        "star",
+        "link-external"
+      ],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {},
+      "external_css_imports": []
+    },
+    {
+      "file": "_includes/paper-info.html",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "📄": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "_includes/repo-link.html",
+      "octicon_calls": [],
+      "inline_svg_count": 1,
+      "unicode_candidates_including_comments": {},
+      "external_css_imports": []
+    },
+    {
+      "file": "_includes/series-nav.html",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "←": 1,
+        "→": 3
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "_layouts/default.html",
+      "octicon_calls": [
+        "home",
+        "note",
+        "rocket",
+        "package",
+        "mail",
+        "device-mobile",
+        "location",
+        "mark-github",
+        "person",
+        "rocket",
+        "tools",
+        "briefcase",
+        "mortar-board",
+        "light-bulb",
+        "book",
+        "home",
+        "note",
+        "info",
+        "package",
+        "hubot",
+        "git-branch",
+        "beaker",
+        "globe",
+        "mail",
+        "eye",
+        "list-unordered"
+      ],
+      "inline_svg_count": 12,
+      "unicode_candidates_including_comments": {
+        "‹": 1,
+        "›": 1,
+        "←": 2,
+        "↑": 1,
+        "→": 2,
+        "─": 8,
+        "✕": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "_layouts/post.html",
+      "octicon_calls": [
+        "eye",
+        "mark-github"
+      ],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "←": 1,
+        "→": 2
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "_sass/_blog-post.scss",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "←": 1,
+        "─": 16
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "_sass/_components.scss",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "─": 16
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "_sass/_footer.scss",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "→": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "_sass/_navigation.scss",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "➤": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "_sass/_showcase-cyber.scss",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "×": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "apps.html",
+      "octicon_calls": [
+        "rocket",
+        "briefcase",
+        "git-branch",
+        "tools",
+        "beaker"
+      ],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {},
+      "external_css_imports": []
+    },
+    {
+      "file": "apps/PixelKnit/assets/css/main.css",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {},
+      "external_css_imports": [
+        "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');",
+        "@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');"
+      ]
+    },
+    {
+      "file": "apps/PixelKnit/assets/js/app.js",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "⚠": 4,
+        "⚪": 1,
+        "✅": 4,
+        "✏": 1,
+        "✓": 1,
+        "🎉": 1,
+        "📋": 1,
+        "🗑": 1,
+        "🟢": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "apps/PixelKnit/index.html",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "↶": 1,
+        "↷": 1,
+        "⌂": 1,
+        "▶": 2,
+        "▼": 1,
+        "◀": 2,
+        "◆": 1,
+        "◉": 1,
+        "◐": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "apps/knitting-guide/index.html",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "⌂": 1,
+        "◆": 1,
+        "◉": 1,
+        "◐": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "apps/knitting-guide/script.js",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "⚠": 4,
+        "⚪": 1,
+        "✅": 4,
+        "✏": 1,
+        "✓": 1,
+        "🎉": 1,
+        "📋": 1,
+        "🗑": 1,
+        "🟢": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "apps/knitting-guide/style.css",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {},
+      "external_css_imports": [
+        "@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');",
+        "@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');"
+      ]
+    },
+    {
+      "file": "assets/js/blog-toc.js",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "→": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "assets/js/calendar.js",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "×": 1,
+        "→": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "assets/js/code-copy.js",
+      "octicon_calls": [],
+      "inline_svg_count": 2,
+      "unicode_candidates_including_comments": {},
+      "external_css_imports": []
+    },
+    {
+      "file": "assets/js/image-zoom.js",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "→": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "assets/js/tag-network.js",
+      "octicon_calls": [],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "×": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "blog.html",
+      "octicon_calls": [
+        "note",
+        "hubot",
+        "archive",
+        "book",
+        "note"
+      ],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "→": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "index.html",
+      "octicon_calls": [
+        "book",
+        "note",
+        "tools",
+        "rocket"
+      ],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "→": 1
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "resume.html",
+      "octicon_calls": [
+        "note",
+        "person",
+        "rocket",
+        "key",
+        "shield-check",
+        "device-desktop",
+        "beaker",
+        "star",
+        "tools",
+        "cross-reference",
+        "cpu",
+        "hubot",
+        "search",
+        "package",
+        "location",
+        "graph",
+        "server",
+        "broadcast",
+        "code",
+        "gear",
+        "mark-github",
+        "globe",
+        "briefcase",
+        "mortar-board",
+        "light-bulb"
+      ],
+      "inline_svg_count": 0,
+      "unicode_candidates_including_comments": {
+        "●": 6
+      },
+      "external_css_imports": []
+    },
+    {
+      "file": "showcase.html",
+      "octicon_calls": [
+        "globe",
+        "beaker",
+        "device-camera",
+        "hubot",
+        "note",
+        "cpu",
+        "mail",
+        "mark-github",
+        "link"
+      ],
+      "inline_svg_count": 8,
+      "unicode_candidates_including_comments": {
+        "→": 4
+      },
+      "external_css_imports": []
+    }
+  ]
+}

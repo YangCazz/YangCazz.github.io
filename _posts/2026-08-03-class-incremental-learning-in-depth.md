@@ -10,11 +10,19 @@ tags:
 - 深度学习
 - PyTorch
 excerpt: "为什么类增量学习是持续学习中最难的设定?从旧类判别、表示漂移到分类器偏差,再到方法演进的五波浪潮,系统拆解 Class-IL 的本质与前沿。"
-image: "/assets/images/covers/ai-dev-tools.jpg"
+cover_image: false
+image: "/assets/images/research/20261030/icarl-training-classification-v3.png"
 ---
 {% include series-nav.html series="continual-learning" position="top" %}
 
 ## 引言
+
+<figure class="research-figure research-figure--scientific">
+  <img src="{{ '/assets/images/research/20261030/icarl-training-classification-v3.png' | relative_url }}" alt="上半图混合新旧数据并蒸馏更新前模型的旧类sigmoid输出；下半图用当前编码器重新计算查询特征与各类样本均值。" loading="lazy" decoding="async" width="1536" height="1024" style="width:100%;height:auto;">
+  <figcaption><strong>AI 生成科研示意图（非论文原图）</strong>：训练与推理分成两条泳道：旧类蒸馏使用逐类 sigmoid 目标，推理使用归一化的当前特征与重算的类别样本均值。两个 Current encoder 表示共享的同一编码器。几何图案仅为样本占位符，颜色表示来源、不定义类别；样本数量和层形状不是精确实现或实验结果。依据 <a href="https://arxiv.org/abs/1611.07725">iCaRL: Incremental Classifier and Representation Learning</a>。
+  </figcaption>
+</figure>
+
 
 在我们此前的持续学习全景中,我们把增量学习分为任务增量(Task-IL)、类增量(Class-IL)与域增量(Domain-IL)三种设定,并指出 **Class-IL 是最难、也最能检验方法真实水平的一种**。这篇专题文章把它单独拎出来:为什么它难?研究又是如何一步步逼近它的?
 
@@ -103,13 +111,19 @@ graph LR
 
 ### iCaRL:三件套范式
 
+<figure class="research-figure">
+  <img src="{{ '/assets/images/research/20261030/icarl-training-inference-v1.svg' | relative_url }}" alt="iCaRL 训练时混合新数据与旧样本并蒸馏旧模型的 sigmoid 输出；推理时用当前编码器重算样本均值并选择最近类别原型。" loading="lazy" decoding="async" width="1200" height="760" style="width:100%;height:auto;">
+  <figcaption>原创示意（非论文原图）：依据 <a href="https://arxiv.org/abs/1611.07725">Rebuffi 等，iCaRL，2017</a> §2 / Algorithms 1–5。特征与原型均归一化，原型会随表示更新，不是冻结不变。</figcaption>
+</figure>
+
+
 **iCaRL**(Incremental Classifier and Representation Learning)是 Class-IL 的奠基之作,它把三个组件组合成了一个至今仍被广泛借鉴的模板<cite>[5]</cite>:
 
 - **样本回放**:维护一个小型样本缓冲,训练时联合重放旧样本;
-- **知识蒸馏**:让新模型在新数据上「对齐旧模型的输出」,以保留旧类别的决策;
+- **知识蒸馏**:让新模型在新数据与回放样本组成的训练集上「对齐更新前模型的旧类输出」,以保留旧类别的决策;
 - **最近均值分类器(NCM)**:放弃学得的全连接头,改用「每类特征均值 + 最近邻」做分类,规避新类别更新对旧类别权重的直接冲击。
 
-三个组件的协同流程如下:回放提供旧样本,蒸馏保留旧类别「意见」,NCM 把分类从「可学习的权重重心」换成「稳定的类原型重心」:
+三个组件的协同流程如下:回放提供旧样本,蒸馏保留旧类别「意见」,NCM 把分类从「可学习的权重重心」换成「用当前编码器重新计算的样本类原型」:
 
 ```mermaid
 graph LR
@@ -132,10 +146,10 @@ graph LR
 其中蒸馏项的具体形式,是对每个旧类别 $k$ 让新模型复现旧模型的输出分布:
 
 $$
-L_{\text{distill}} = -\sum_{k=1}^{s-1} q_k^{(t-1)}(x)\, \log p_k^{(t)}(x)
+L_{\text{distill}}(x) = -\sum_{k=1}^{s-1}\left[q_k^{(t-1)}(x)\log p_k^{(t)}(x)+(1-q_k^{(t-1)}(x))\log(1-p_k^{(t)}(x))\right]
 $$
 
-这里 $q_k^{(t-1)}$ 是旧模型在旧类别 $k$ 上的输出概率(softmax 软化后的「软标签」),$p_k^{(t)}$ 是新模型的对应输出——把旧模型的「知识」通过概率分布的形式蒸馏进新模型。
+这里 $q_k^{(t-1)}$ 是旧模型在旧类别 $k$ 上的逐类 sigmoid 输出（不是 softmax 分布）,$p_k^{(t)}$ 是新模型的对应输出——对每个旧类使用二元交叉熵蒸馏，再在混合训练集上汇总。此处写的是单样本的旧类蒸馏项，完整损失还包含新类分类项，见原论文 Algorithm 3。
 
 iCaRL 的意义在于**确立了一个重要认知:光靠蒸馏不够,回放是刚需**。它的蒸馏部分在保护表示,回放部分在修正表示漂移,NCM 在缓解分类器偏差——三件套各自对着一个病根。
 

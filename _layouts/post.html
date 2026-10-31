@@ -21,7 +21,7 @@ layout: default
 
 <!-- 文章头部 -->
 <article class="blog-post">
-    <header class="post-header{% if page.image %} post-header--cover{% endif %}"{% if page.image %} style="background-image: url('{{ page.image | relative_url }}');"{% endif %}>
+    <header class="post-header{% if page.image and page.cover_image != false %} post-header--cover{% endif %}"{% if page.image and page.cover_image != false %} style="background-image: url('{{ page.image | relative_url }}');"{% endif %}>
         <h1 class="post-title">{{ page.title }}</h1>
         <div class="post-meta">
             <time class="post-date">{{ page.date | date: "%Y年%m月%d日" }}</time>
@@ -31,7 +31,7 @@ layout: default
                 {% endfor %}
             </div>
             <span class="post-visitor-count">
-                {% octicon eye height:14 %}
+                {% include icon.html name="eye" size=14 %}
                 <img src="https://visitor-badge.laobi.icu/badge?page_id=YangCazz.{{ page.url | slugify }}&left_color=none&right_color=none&left_text=+" alt="" class="visitor-badge-img" />
             </span>
         </div>
@@ -50,13 +50,13 @@ layout: default
     <!-- 文章底部 -->
     <footer class="post-footer">
         <div class="post-navigation">
-            <a href="{{ '/blog' | relative_url }}" class="btn btn-outline">← 返回博客列表</a>
+            <a href="{{ '/blog' | relative_url }}" class="btn btn-outline">{% include icon.html name="arrow-left" size=16 %} 返回博客列表</a>
         </div>
 
         <!-- GitHub 开源项目 -->
         {% if site.data.github_projects.repos %}
         <section class="post-github-projects">
-            <h3 class="post-section-title">{% octicon mark-github height:20 %} 相关开源项目</h3>
+            <h3 class="post-section-title">{% include brand-icon.html name="github" size=20 %} 相关开源项目</h3>
             <div class="github-projects-grid">
                 {% for repo in site.data.github_projects.repos %}
                     {% include github-project-card.html repo=repo %}

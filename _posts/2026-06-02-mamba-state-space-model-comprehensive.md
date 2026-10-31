@@ -11,7 +11,8 @@ tags:
 - 医学图像分割
 - Transformer
 excerpt: 由浅入深全面解析 Mamba 架构——从 S4 的线性时不变系统到 Mamba 的选择性状态空间模型 S6，再到 Vision Mamba 家族和医学图像应用，涵盖数学原理、架构对比和实战代码。
-image: "/assets/images/covers/ai-dev-tools.jpg"
+cover_image: false
+image: "/assets/images/research/20261030/u-mamba-hybrid-architecture-v1.png"
 ---
 
 
@@ -237,14 +238,22 @@ Mamba 的线性复杂度使其在医学图像领域格外有吸引力——CT �
 
 ### U-Mamba 与 Mamba-UNet 系列
 
+<figure class="research-figure research-figure--scientific">
+  <img src="{{ '/assets/images/research/20261030/u-mamba-hybrid-architecture-v1.png' | relative_url }}" alt="上半图显示两段残差卷积、序列化、LayerNorm、Mamba与空间形状恢复；下半图显示编码器、瓶颈、残差解码器及跳连。" loading="lazy" decoding="async" width="1536" height="1024" style="width:100%;height:auto;">
+  <figcaption><strong>AI 生成科研示意图（非论文原图）</strong>：这是 U-Mamba Enc 的概念结构，不是固定层数的复现配置：残差卷积仍保留，Mamba 用于长程建模；Bot 变体仅在瓶颈使用混合块。输入与输出图案、层宽均为占位示意，不是临床图像、实际预测或性能证明；图中省略上采样细节。依据 <a href="https://arxiv.org/abs/2401.04722v1">U-Mamba: Enhancing Long-range Dependency for Biomedical Image Segmentation</a>。
+  </figcaption>
+</figure>
+
 将 Mamba 集成进 U-Net 架构成为 2024 年医学图像分割的重要方向<cite>[8]</cite>：
 
 | 模型 | 核心设计 | 目标应用 |
 |---|---|---|
-| **U-Mamba**<cite>[10]</cite> | U-Net 编码器中的卷积块替换为 Mamba 块 | 3D 腹部器官分割 | [GitHub](https://github.com/bowang-lab/U-Mamba) |
+| **U-Mamba**<cite>[10]</cite> | 残差卷积后接 Mamba；Enc 与仅瓶颈使用的 Bot 两种变体 | 3D 腹部器官分割 | [GitHub](https://github.com/bowang-lab/U-Mamba) |
 | **Mamba-UNet** | 纯 Mamba 编码器 + CNN 解码器 | 2D 多器官分割 | — |
 | **VM-UNet** | VMamba SS2D 作为编码器 | 2D 皮肤病变、细胞分割 | — |
 | **Swin-UMamba**<cite>[11]</cite> | Swin 风格的层次化 Mamba 编码器 | 3D 体积分割，>90 FPS 实时推理 | [GitHub](https://github.com/JiarunLiu/Swin-UMamba) |
+
+U-Mamba 并不是简单“用 Mamba 替换卷积”。原论文 §2.2 / Figure 1 的混合块保留两段残差卷积，再将特征展平、归一化并送入 Mamba，随后恢复空间形状。解码端保留残差块、上采样与跳连；Enc 和 Bot 的区别在于混合块放置范围。图中层数仅为示意，实际配置随数据集调整<cite>[10]</cite>。
 
 ### 血管分割中的 Mamba
 

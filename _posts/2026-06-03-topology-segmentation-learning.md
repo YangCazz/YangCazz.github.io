@@ -10,7 +10,8 @@ tags:
 - 医学图像分割
 - UNet
 excerpt: 深入解析图像分割中的拓扑结构保持方法——从持久同调和 Betti 数的数学基础，到 clDice 和 Betti Matching 等前沿拓扑感知损失函数，再到血管分割中的实战应用与代码实现。
-image: "/assets/images/covers/ai-dev-tools.jpg"
+cover_image: false
+image: "/assets/images/research/20261030/cldice-bidirectional-coverage-v1.png"
 ---
 
 
@@ -114,35 +115,43 @@ Hu 等人（2019）首次将持久同调用作分割损失函数<cite>[4]</cite>
 
 ### clDice：基于中心线的拓扑保持
 
+<figure class="research-figure research-figure--scientific">
+  <img src="{{ '/assets/images/research/20261030/cldice-bidirectional-coverage-v1.png' | relative_url }}" alt="参考掩码与有断裂的预测掩码示意；预测骨架对标注掩码、标注骨架对预测掩码分别计算覆盖比例，再取调和均值。" loading="lazy" decoding="async" width="1536" height="1024" style="width:100%;height:auto;">
+  <figcaption><strong>AI 生成科研示意图（非论文原图）</strong>：几何管状掩码是人工示意，不是患者影像或实验结果。下半图分别计算预测骨架落在标注区域内的比例、标注骨架被预测覆盖的比例；精确定义与理论前提见下文，图中不报告分数。依据 <a href="https://arxiv.org/abs/2003.07311v7">clDice — A Novel Topology-Preserving Loss Function for Tubular Structure Segmentation</a>。
+  </figcaption>
+</figure>
+
 **clDice（centerline Dice）** 由 Shit 等人于 2021 年提出，专门针对管状结构（血管、神经元、道路）设计<cite>[5]</cite>。
 
-**核心定义：**
+**核心定义：** 不能把 clDice 写成预测掩码与标注中心线的单向 Dice。原论文 §2，式 (1)–(2) 同时比较两个方向<cite>[5]</cite>：
 
 $$
-\operatorname{clDice} = \frac{2 \times |V_{pred} \cap S_{gt}|}{|V_{pred}| + |S_{gt}|}
+T_{prec}=\frac{|S_{pred}\cap V_{gt}|}{|S_{pred}|},\qquad
+T_{sens}=\frac{|S_{gt}\cap V_{pred}|}{|S_{gt}|}
 $$
 
-其中：
-- $V_{pred}$：预测分割的前景体素集合
-- $S_{gt}$：标注的中心线（骨架）体素集合
+$$
+\operatorname{clDice}=\frac{2T_{prec}T_{sens}}{T_{prec}+T_{sens}}
+$$
 
-clDice 直观地编码了一个约束：**预测的前景必须"覆盖"标注的中心线**。如果预测中断了，中心线上相应位置就缺少前景覆盖，clDice 会显著下降<cite>[5]</cite>。
+$V$ 表示前景掩码，$S$ 表示对应骨架；$pred$ 和 $gt$ 分别指预测与标注。前者检查预测骨架是否落在标注区域内，后者检查标注骨架是否被预测区域覆盖，再取调和均值。空集合与零分母必须另行约定，训练实现通常加入平滑项。
 
-**软 clDice（soft-clDice）：** 使用可微的软骨架化（soft-skeletonize）操作，使 clDice 可以作为端到端训练的损失函数。骨架提取基于 min-pooling 和 max-pooling 的迭代形态学运算。
+**软 clDice（soft-clDice）：** 原论文 Algorithm 1–2 对两侧应用基于池化的软骨架化，使该度量可用于训练；实际损失为 $1-\operatorname{softClDice}$。
 
-**理论保证：** 对于二值二维和三维分割，clDice 保证预测与标注在**同伦等价**（homotopy equivalence）意义上具有相同的拓扑结构<cite>[5]</cite>。
+**理论保证有前提：** 原论文 §3 / Corollary 1.1 在其前景、背景骨架假设下，要求前景与背景的 clDice 都达到 1 才推出相应同伦等价。不能将“使用该损失训练”或“前景分数较高”直接解释成任意预测都获得拓扑或临床安全保证。
 
 ```mermaid
 graph LR
-    A[预测分割<br/>概率图] --> B[软骨架化<br/>Soft Skeletonize]
-    C[标注分割<br/>二值掩码] --> D[硬骨架化<br/>Hard Skeletonize]
-    B --> E["软 clDice<br/>$2 \times V_{pred} \cap S_{gt}$<br/>除以 $(V_{pred} + S_{gt})$"]
-    D --> E
-    E --> F[与 Dice Loss 组合<br/>$\alpha \cdot clDice + \beta \cdot Dice$]
-    style A fill:#1a237e,stroke:#4299e1,color:#e8edf5
-    style C fill:#1a237e,stroke:#4299e1,color:#e8edf5
-    style E fill:#1b2d3a,stroke:#667eea,color:#e8edf5
-    style F fill:#1a2a1a,stroke:#48bb78,color:#e8edf5
+    A[预测概率图] --> B[预测软骨架]
+    C[标注掩码] --> D[标注软骨架]
+    B --> P[拓扑精确率 Tprec]
+    C --> P
+    D --> R[拓扑敏感度 Tsens]
+    A --> R
+    P --> H[调和均值 soft-clDice]
+    R --> H
+    H --> L[损失为 1 减 soft-clDice]
+    L --> F[与 Dice Loss 加权组合]
 ```
 
 ### 第二代：Betti Matching（2024 SOTA）
@@ -215,51 +224,35 @@ graph LR
 
 ## 实战：实现 clDice 损失
 
-以下代码展示软 clDice 损失的核心实现：
+以下是调用作者实现的**教学封装**，不是复现完成的训练基线。骨架化直接使用 [作者官方 `SoftSkeletonize`](https://github.com/jocpae/clDice/blob/master/cldice_loss/pytorch/soft_skeleton.py)（[MIT 许可](https://github.com/jocpae/clDice/blob/master/LICENSE)，Johannes C. Paetzold / Suprosanna Shit），不再使用本页旧版的相等比较筛选骨架或未使用的 Top-K。先取得官方仓库，并将其中 `cldice_loss/pytorch` 目录加入 Python 模块搜索路径，下面的导入才会成立。
+
+**验证边界：** 本次只检查了代码语法、公式及调用关系；维护环境没有 PyTorch，未运行数值、梯度或真实数据训练测试。`iter_skel` 需按结构尺度选择；示例按整个 batch 汇总，空掩码行为由平滑项决定，不能代替任务专用评估。
 
 ```python
 import torch
 import torch.nn as nn
-import torch.nn.functional as F
+from soft_skeleton import SoftSkeletonize
 
 class SoftClDiceLoss(nn.Module):
     """软 clDice 损失：通过可微骨架化保持拓扑连通性
     参考文献: Shit et al., clDice - A Novel Topology-Preserving Loss
     """
 
-    def __init__(self, iter_skel=5, iter_topk=4, smooth=1.0):
+    def __init__(self, iter_skel=5, smooth=1.0):
         super().__init__()
-        self.iter_skel = iter_skel
-        self.iter_topk = iter_topk
         self.smooth = smooth
+        self.skeletonize = SoftSkeletonize(num_iter=iter_skel)
 
     def soft_skel(self, x):
-        """可微软骨架化：迭代 min-pooling 和 max-pooling"""
-        B, C, H, W = x.shape
-        for i in range(self.iter_skel):
-            # Min-pooling: 腐蚀操作的可微近似
-            min_pool = -F.max_pool2d(-x, kernel_size=3, stride=1, padding=1)
-            # Max-pooling: 膨胀 + 保留细结构
-            max_pool = F.max_pool2d(min_pool, kernel_size=3, stride=1, padding=1)
-            # 保持原始值在局部最大值处
-            x = torch.where(x == max_pool, x, torch.zeros_like(x))
-        return x
-
-    def soft_topk(self, x, k=4):
-        """可微 Top-K：保留前 k 个最大值的软版本"""
-        B, C, H, W = x.shape
-        x_flat = x.view(B, C, -1)
-        top_vals, _ = torch.topk(x_flat, k, dim=-1)
-        threshold = top_vals[..., -1:]  # 第 k 大的值作为阈值
-        return x * (x >= threshold.unsqueeze(-1).expand(-1, -1, H*W)
-                   ).view(B, C, H, W).float()
+        # 委托给作者实现，不在教学示例中重新实现骨架化
+        return self.skeletonize(x)
 
     def forward(self, pred, target):
         """
         pred:  预测概率图 (B, 1, H, W)，值域 [0, 1]
         target: 二值标注 (B, 1, H, W)，值域 {0, 1}
         """
-        # 硬骨架化标注（不可微，但不需要梯度）
+        # 标注同样调用软骨架化；标注张量通常不需要梯度
         target_skel = self.soft_skel(target.float())
 
         # 软骨架化预测（可微）

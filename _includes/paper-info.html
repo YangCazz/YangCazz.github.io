@@ -1,6 +1,6 @@
 <!-- 论文/项目信息卡片 -->
 <div class="paper-info">
-    <div class="paper-info-title">📄 {{ include.title | default: "论文信息" }}</div>
+    <div class="paper-info-title">{% include icon.html name="article" size=20 %} {{ include.title | default: "论文信息" }}</div>
     {% if include.authors %}
     <div class="paper-info-row">
         <span class="paper-info-label">作者</span>

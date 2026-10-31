@@ -97,7 +97,11 @@ async function checkInteractions(page) {
     const lastToc = page.locator('#blogToc a').last();
     const target = await lastToc.getAttribute('href');
     await lastToc.click();
-    await page.waitForFunction(selector => Math.abs(document.querySelector(selector).getBoundingClientRect().top) < 150, target);
+    await page.waitForFunction(selector => {
+        const top = document.querySelector(selector).getBoundingClientRect().top;
+        const navBottom = document.querySelector('.top-nav')?.getBoundingClientRect().bottom || 0;
+        return top >= navBottom + 8 && top < 150;
+    }, target);
     await page.goBack();
     assert.ok(new URL(page.url()).pathname.startsWith('/blog'), 'Back must return to blog');
     await page.goForward();

@@ -1,3 +1,4 @@
+import './icons.js';
 // 代码块复制功能
 let observerCreated = false;
 
@@ -149,14 +150,11 @@ function createCopyButton() {
     button.type = 'button';
     button.setAttribute('aria-label', '复制代码');
     button.innerHTML = `
-        <svg class="copy-icon" viewBox="0 0 24 24" width="16" height="16">
-            <path fill="currentColor" d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
-        </svg>
-        <svg class="check-icon" viewBox="0 0 24 24" width="16" height="16" style="display: none;">
-            <path fill="currentColor" d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
-        </svg>
+        ${SiteIcons.render('copy', 'copy-icon')}
+        ${SiteIcons.render('check', 'check-icon')}
         <span class="copy-text">复制</span>
     `;
+    button.querySelector('.check-icon').style.display = 'none';
     return button;
 }
 

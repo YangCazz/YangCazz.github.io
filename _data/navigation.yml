@@ -6,7 +6,7 @@ default:
 
 - id: blog
   name: 博客
-  icon: note
+  icon: article
   url: /blog
 
 - id: resume
@@ -16,39 +16,39 @@ default:
 
 - id: showcase
   name: 展示
-  icon: rocket
+  icon: showcase
   url: /showcase
 
 - id: apps
   name: 应用
-  icon: package
+  icon: apps
   url: /apps
 
 home_navigation:
 - id: hero
   name: 欢迎
-  icon: ⌂
+  icon: home
 
 - id: blog
   name: 最新博客
-  icon: ◆
+  icon: article
 
 - id: tech
   name: 技术专长
-  icon: ◬
+  icon: tools
 
 - id: projects
   name: 精选项目
-  icon: ▸
+  icon: showcase
 
 blog_navigation:
 - id: tag-network
   name: 关键词网络
-  icon: hubot
+  icon: network
 
 - id: blog-list
   name: 文章列表
-  icon: note
+  icon: article
 
 - id: blog-footer
   name: 页面底部
@@ -61,7 +61,7 @@ resume_navigation:
 
 - id: achievements
   name: 成果总结
-  icon: rocket
+  icon: showcase
 
 - id: skills
   name: 技术能力
@@ -73,49 +73,30 @@ resume_navigation:
 
 - id: education
   name: 教育背景
-  icon: mortar-board
+  icon: education
 
 - id: innovation
   name: 创新创业
-  icon: light-bulb
+  icon: idea
 
 showcase_navigation:
 - id: showcase-hero
   name: 项目总览
-  icon: rocket
-
-- id: showcase-surgery-nav
-  name: 手术导航系统
-  icon: cross-reference
-
-- id: showcase-pixelknit
-  name: PixelKnit
-  icon: package
-
-- id: showcase-medical-seg
-  name: 医学图像分割
-  icon: beaker
-
-- id: showcase-pointcloud
-  name: 点云配准
-  icon: globe
-
-- id: showcase-gallery
-  name: 更多项目
-  icon: git-branch
-
-- id: showcase-github
-  name: 开源仓库
-  icon: mark-github
-
-- id: showcase-contact
-  name: 联系合作
-  icon: mail
+  icon: showcase
+- id: selected-work
+  name: 精选作品
+  icon: code
+- id: research-notes
+  name: 研究笔记
+  icon: research
+- id: working-notes
+  name: 工作方法
+  icon: layers
 
 apps_navigation:
 - id: apps-header
   name: 应用总览
-  icon: rocket
+  icon: showcase
 
 - id: professional
   name: 专业项目
@@ -123,7 +104,7 @@ apps_navigation:
 
 - id: opensource
   name: 开源项目
-  icon: git-branch
+  icon: branch
 
 - id: tools
   name: 实用工具
@@ -131,4 +112,4 @@ apps_navigation:
 
 - id: research
   name: 研究项目
-  icon: beaker
+  icon: research

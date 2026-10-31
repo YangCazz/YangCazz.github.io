@@ -1,0 +1,76 @@
+[
+  {
+    "source_url": "https://arxiv.org/abs/1611.07725",
+    "source_title": "iCaRL: Incremental Classifier and Representation Learning",
+    "source_date": "2017-04-14",
+    "source_version": "arXiv:1611.07725v2",
+    "verified_at": "2026-10-30",
+    "evidence": "§2.3, Algorithm 3: new data and stored exemplars form a combined training set.",
+    "rights": "New project-generated conceptual artwork; no source paper figure, screenshot or product photograph reproduced. No third-party redistribution license asserted.",
+    "id": "continual-learning-replay-v4",
+    "path": "/assets/images/research/20261030/continual-learning-replay-v4.png",
+    "kind": "generated-illustration",
+    "title": "经验回放的数据流与记忆支路",
+    "alt": "新数据与抽取的旧样本组成混合批次，用于共享模型更新；缓冲更新和旧任务评估分别走独立支路。",
+    "caption": "橙色表示当前数据、蓝色表示历史回放数据；记忆更新支路概括跨时间的样本维护，不表示所有步骤同时发生。右侧评估不向训练回传测试数据。样本图案、层宽与任务列表均为示意，不是数据集截图、实测结果或所有持续学习方法的统一架构。",
+    "status": "active",
+    "modifications": "Reference-image restyling to approved iCaRL SF-01 anchor; scientific relations preserved. Local edits routed support arrows clear of lane heading and restored update-memory label.",
+    "used_by": [
+      "_posts/2026-08-02-continual-learning-comprehensive-guide.md"
+    ],
+    "sha256": "b66711907f575a3a81f79ba2fde4ca243a8b8c0d99d23b20ea69bbe471ed88f9",
+    "bytes": 1555230,
+    "generation": {
+      "tool": "image_gen.imagegen",
+      "date": "2026-10-30",
+      "prompt": "Reference image 1 is the USER-APPROVED SCIENTIFIC STYLE ANCHOR (iCaRL). Reference image 2 is the diagram to restyle. Produce ONLY a restyled version of image 2, not a collage or new iCaRL diagram. Preserve ALL scientific content, labels, samples, directed relations and meanings from image 2. Apply the exact visual grammar of image 1: Times New Roman-like scholarly serif typography for title, section headings, module labels and annotations; dark navy text; crisp thin navy orthogonal arrows; fine slate horizontal divider rules rather than giant enclosing rounded bands; small navy circular section number badges; white background; restrained orange current/action path, blue stored-data path, teal model/feature blocks; small radius module containers with very light tinted fills; shallow perspective stacked feature-map slabs and short matrix vectors INSIDE model blocks (never landscape/paper/toy metaphors); sensible module sizes and support insets rather than thick generic equal-box chain. Use nuanced internal sample cards and layers to add scientific life. NO sans-serif heavy headline, no bold dashboard styling, no giant thick colored outlines, no texture, plants, landscapes, cartoon objects, neon, glow, or measurement charts. Keep landscape 1536x1024. Do not alter any label spelling or introduce data claims. Title size and serif hierarchy should closely match image 1. TARGET is experience replay. Preserve orange Current batch containing circle, slash, square, triangle; blue Replay samples containing plus and ring; Mixed minibatch contains exactly FOUR orange-border circle/slash/square/triangle and TWO blue-border plus/ring. The arrows from Current batch and Replay samples separately enter Mixed minibatch; Mixed minibatch -> Model update -> Evaluate all seen tasks. Memory buffer -> Replay samples labelled sample; Current batch -> Memory buffer labelled update memory. Preserve separate Task 1/Task 2/Task 3 evaluation panels with no scores. Reorganize into a main upper lane '1  Update with mixed experience' and lower support lane '2  Maintain replay memory', with navy numbered serif headers and thin divider as in approved image; retain scientifically correct sampling arrow from lower memory track to upper replay samples. Replace the model's cartoon dot layers with teal shallow stacked feature-map slabs from the approved reference style; retain 'Shared parameters'. Keep title exactly 'Continual learning with experience replay'. Footer exactly 'Schematic samples and task sequence; no measured results'. Do not change data sources or reverse arrows. The lower memory track must visually be a support path, not a second sequential learning stage.\n\nLOCAL ROUTING CORRECTION:\nKeep the exact approved serif scientific style and every module, sample, label and color in this replay figure. Make a LOCAL ROUTING CORRECTION ONLY so arrows do not pass behind the lower section heading. Remove the blue vertical sample line currently running through 'Maintain replay memory'. Redraw this blue route from the RIGHT edge of Memory buffer into the empty lower-right area, up through the divider at a clear position to the right of the lower heading, then left through the empty horizontal corridor below Replay samples, ending with an upward arrowhead at the BOTTOM edge of Replay samples. Label the horizontal segment 'sample'. It must clearly point Memory buffer -> Replay samples and must not cross any text or boxes. The orange update-memory line currently passes behind the navy section-2 badge: reroute it along the extreme left margin, outside the badge, retaining arrowhead into the LEFT edge of Memory buffer and label 'update memory'. All other content must remain unchanged. Do not add endpoints, repeated labels, or arrowheads at the buffer source.\n\nFINAL LABEL/CLEARANCE CORRECTION:\nOnly two small corrections, preserve everything else exactly. 1) Shift the lower lane's navy circle '2' AND the complete heading 'Maintain replay memory' horizontally 45 pixels to the right, together. This creates clear white separation from the orange vertical route at the extreme left: the line must NOT touch or pass behind the circle. 2) Restore the missing orange two-line label 'update' / 'memory' beside the left orange vertical route, located in the empty space between Current batch and the horizontal divider, approximately x55 y565. Keep this label clear of the blue sample line, use the same serif font as 'sample'. Keep the blue sample route, all arrows, all data samples, main title and every other label unchanged.",
+      "prompt_file": "notes/visual-assets/continual-learning-replay-v4-prompt.txt",
+      "model_version": "not exposed; not verified",
+      "reference_images": [
+        "assets/images/research/20261030/icarl-training-classification-v3.png",
+        "assets/images/research/20261030/continual-learning-replay-v3.png"
+      ]
+    },
+    "visual_review": "Inspected full-size output against approved anchor: serif hierarchy, thin separators, stacked feature-map primitives; all labels and arrows checked; replay support paths corrected to clear text.",
+    "style_guide": "docs/SCIENTIFIC-FIGURE-STYLE.md",
+    "style_anchor": "assets/images/research/20261030/icarl-training-classification-v3.png",
+    "style_anchor_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792"
+  },
+  {
+    "source_url": "https://arxiv.org/abs/1912.01603",
+    "source_title": "Dream to Control: Learning Behaviors by Latent Imagination",
+    "source_date": "2020-03-17",
+    "source_version": "arXiv:1912.01603v3",
+    "verified_at": "2026-10-30",
+    "evidence": "§2–3 / Figure 3: world-model learning from experience, behavior learning in latent imagination, collection of new experience.",
+    "rights": "New project-generated conceptual artwork; no source paper figure, screenshot or product photograph reproduced. No third-party redistribution license asserted.",
+    "id": "dreamer-latent-learning-v4",
+    "path": "/assets/images/research/20261030/dreamer-latent-learning-v4.png",
+    "kind": "generated-illustration",
+    "title": "Dreamer：世界模型、想象行为学习与环境采样",
+    "alt": "从回放经验学习世界模型；Actor提供动作推进潜状态，Critic估计状态价值，奖励由世界模型预测；策略回到环境收集经验。",
+    "caption": "三阶段流程示意：Critic 估计价值、世界模型预测奖励，行为学习的梯度可穿过参数固定的潜动态模型。图中省略状态编码到 Actor 的输入支路与 RSSM 内部细节；状态网格和观察帧均为占位示意，不是实际潜变量维度、实验画面或完整计算图。",
+    "status": "active",
+    "modifications": "Reference-image restyling to approved iCaRL SF-01 anchor; scientific relations preserved. Replaced dashboard bands with thin research lanes and serif labels; retained value/reward distinctions.",
+    "used_by": [
+      "_posts/2026-06-21-world-models-dreamer-evolution.md"
+    ],
+    "sha256": "dfc1588de43eb10404e88786d01cfae051b6a7b7b6b78034a9b053c7c373c77d",
+    "bytes": 1540253,
+    "generation": {
+      "tool": "image_gen.imagegen",
+      "date": "2026-10-30",
+      "prompt": "Reference image 1 is the USER-APPROVED SCIENTIFIC STYLE ANCHOR (iCaRL). Reference image 2 is the diagram to restyle. Produce ONLY a restyled version of image 2, not a collage or new iCaRL diagram. Preserve ALL scientific content, labels, samples, directed relations and meanings from image 2. Apply the exact visual grammar of image 1: Times New Roman-like scholarly serif typography for title, section headings, module labels and annotations; dark navy text; crisp thin navy orthogonal arrows; fine slate horizontal divider rules rather than giant enclosing rounded bands; small navy circular section number badges; white background; restrained orange current/action path, blue stored-data path, teal model/feature blocks; small radius module containers with very light tinted fills; shallow perspective stacked feature-map slabs and short matrix vectors INSIDE model blocks (never landscape/paper/toy metaphors); sensible module sizes and support insets rather than thick generic equal-box chain. Use nuanced internal sample cards and layers to add scientific life. NO sans-serif heavy headline, no bold dashboard styling, no giant thick colored outlines, no texture, plants, landscapes, cartoon objects, neon, glow, or measurement charts. Keep landscape 1536x1024. Do not alter any label spelling or introduce data claims. Title size and serif hierarchy should closely match image 1. TARGET is Dreamer. Keep title exactly 'Dreamer: learning behavior in latent imagination'. Preserve 3 named phase headings: 'Learn the world model', 'Learn behavior in imagination', 'Collect experience'. The top lane retains Replay experience -> World model -> Observation / reward prediction; inside world model keep Transition model, Reward model, Observation model labels. Output annotations must stay 'Observation reconstruction' and 'Reward prediction', reward symbol a simple cell r, NEVER bars. Middle lane preserves Actor -> a0/a1/a2 actions above s0 -> s1 -> s2 -> s3 state rollout, each state -> Critic downward (never reverse), Critic annotations 'Value estimates' and 'Rewards: world model'. Preserve 'Actor gradients pass through latent dynamics' and 'World-model parameters fixed during behavior learning'. Critic is not an input to state dynamics. Bottom lane retains Policy -> Environment -> Replay dataset with action and observation + reward labels. Replace thick enclosing bands by fine horizontal separators and generous whitespace like approved iCaRL; smaller serif labels and number badges. Use lightly extruded teal feature-state tiles/matrix slabs, thin navy arrows. Keep footer 'Conceptual data flow; no measured results'. Do not inject exemplar memory, nearest mean classification, or any iCaRL semantics.",
+      "prompt_file": "notes/visual-assets/dreamer-latent-learning-v4-prompt.txt",
+      "model_version": "not exposed; not verified",
+      "reference_images": [
+        "assets/images/research/20261030/icarl-training-classification-v3.png",
+        "assets/images/research/20261030/dreamer-latent-learning-v3.png"
+      ]
+    },
+    "visual_review": "Inspected full-size output against approved anchor: serif hierarchy, thin separators, stacked feature-map primitives; all labels and arrows checked; replay support paths corrected to clear text.",
+    "style_guide": "docs/SCIENTIFIC-FIGURE-STYLE.md",
+    "style_anchor": "assets/images/research/20261030/icarl-training-classification-v3.png",
+    "style_anchor_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792"
+  }
+]

@@ -1,0 +1,69 @@
+[
+  {
+    "id": "continual-learning-protocols-v1",
+    "path": "/assets/images/research/20261030/continual-learning-protocols-v1.svg",
+    "kind": "original-diagram",
+    "title": "持续学习测试协议",
+    "alt": "Task-IL 提供任务身份；Domain-IL 保持输出语义；Class-IL 判别全部已见类别。",
+    "source_url": "https://arxiv.org/abs/1904.07734",
+    "source_title": "Three scenarios for continual learning",
+    "source_date": "2019-04-15",
+    "verified_at": "2026-10-30",
+    "rights": "Project-created explanatory illustration; source paper figures are not reproduced. No third-party redistribution license asserted.",
+    "modifications": "Original conceptual composition based on cited method; not a paper screenshot. Editable SVG with accessible title and description.",
+    "used_by": [
+      "_posts/2026-08-02-continual-learning-comprehensive-guide.md"
+    ],
+    "evidence": "§2, Table 1, PDF p.2",
+    "sha256": "c61211e0406092c0f438f101e87313ad5caf7654cb7f770f8540260679f68ce6",
+    "bytes": 2664,
+    "source_version": "arXiv:1904.07734v1"
+  },
+  {
+    "id": "icarl-training-inference-v1",
+    "path": "/assets/images/research/20261030/icarl-training-inference-v1.svg",
+    "kind": "original-diagram",
+    "title": "iCaRL 训练与推理",
+    "alt": "iCaRL 训练混合新旧数据并蒸馏 sigmoid 输出；推理重新计算每类样本均值。",
+    "source_url": "https://arxiv.org/abs/1611.07725",
+    "source_title": "iCaRL: Incremental Classifier and Representation Learning",
+    "source_date": "2017-04-14",
+    "verified_at": "2026-10-30",
+    "rights": "Project-created explanatory illustration; source paper figures are not reproduced. No third-party redistribution license asserted.",
+    "modifications": "Original conceptual composition based on cited method; not a paper screenshot. Editable SVG with accessible title and description.",
+    "used_by": [
+      "_posts/2026-08-03-class-incremental-learning-in-depth.md"
+    ],
+    "evidence": "§2, Algorithms 1–5, PDF pp.2–4",
+    "sha256": "61f5b7a59e697b9a6523f9c900f5fb07df0d998b36b3a4c596df47f2be591608",
+    "bytes": 3233,
+    "source_version": "arXiv:1611.07725v2"
+  },
+  {
+    "id": "dreamer-learning-cycle-v1",
+    "path": "/assets/images/research/20261030/dreamer-learning-cycle-v1.png",
+    "kind": "generated-illustration",
+    "title": "Dreamer 真实经验与潜空间学习循环",
+    "alt": "从真实经验学习世界模型，在潜空间训练策略，再回环境采样。",
+    "source_url": "https://arxiv.org/abs/1912.01603",
+    "source_title": "Dream to Control: Learning Behaviors by Latent Imagination",
+    "source_date": "2020-03-17",
+    "verified_at": "2026-10-30",
+    "rights": "Project-created explanatory illustration; source paper figures are not reproduced. No third-party redistribution license asserted.",
+    "modifications": "Original conceptual composition based on cited method; not a paper screenshot. Dashed links indicate training association, not state-transition inputs.",
+    "used_by": [],
+    "evidence": "§2–3, Figure 3, PDF pp.2–4",
+    "sha256": "1554ec8325f797a22362278345d305ff8ad38c32b7c8f8c811dc9c64839534e2",
+    "bytes": 1326804,
+    "generation": {
+      "tool": "image_gen.imagegen",
+      "date": "2026-10-30",
+      "prompt": "Create one restrained scientific editorial diagram, landscape 1536x1024, plain warm-white background #f8f7f3, ink navy #243647, muted teal #4f847c, muted ochre #bc935c, thin consistent lines, generous whitespace, no gradients, no shadows, no glow, no robots, no brain clipart, no decorative icons. The subject is DreamerV1's conceptual real-experience versus imagined-experience learning cycle. Exactly three clearly separated horizontal numbered panels arranged top to bottom. Panel 1 title '01  LEARN THE WORLD MODEL': boxes 'Real experience' arrow to 'Replay dataset' arrow to 'World model'. Panel 2 title '02  LEARN IN IMAGINATION': three small latent-state circles linked left to right by arrows, each action arrow above explicitly marked 'action', underneath two simple boxes labeled 'Actor' and 'Critic'; show the text 'Predicted rewards + values' and 'Gradients through latent dynamics'. This panel is a conceptual rollout, not an exact network architecture. Panel 3 title '03  COLLECT NEW EXPERIENCE': boxes 'Actor' arrow labeled 'action' to 'Environment' arrow labeled 'observation + reward' to 'Replay dataset'. At bottom exact small footer 'Conceptual illustration · not a paper figure'. Top title 'DREAMER: LEARNING IN LATENT SPACE'. All label text must be exact, sharp, legible English with no additional prose. This is original explanatory artwork, not imitation of any published figure; do not include fabricated results, numerical performance or logos.",
+      "model_version": "not exposed; not verified",
+      "prompt_file": "notes/visual-assets/dreamer-generation-prompt-20261030.txt"
+    },
+    "source_version": "arXiv:1912.01603v3",
+    "status": "archived",
+    "archive_reason": "Superseded by corrected scientific methods diagram v3; original retained for provenance."
+  }
+]

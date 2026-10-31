@@ -1,0 +1,74 @@
+[
+  {
+    "id": "cldice-bidirectional-coverage-v1",
+    "path": "/assets/images/research/20261030/cldice-bidirectional-coverage-v1.png",
+    "kind": "generated-illustration",
+    "title": "clDice：双向中心线覆盖",
+    "alt": "参考掩码与有断裂的预测掩码示意；预测骨架对标注掩码、标注骨架对预测掩码分别计算覆盖比例，再取调和均值。",
+    "caption": "几何管状掩码是人工示意，不是患者影像或实验结果。下半图分别计算预测骨架落在标注区域内的比例、标注骨架被预测覆盖的比例；精确定义与理论前提见下文，图中不报告分数。",
+    "source_url": "https://arxiv.org/abs/2003.07311v7",
+    "source_title": "clDice — A Novel Topology-Preserving Loss Function for Tubular Structure Segmentation",
+    "source_date": "2022-07-15",
+    "source_version": "arXiv:2003.07311v7",
+    "verified_at": "2026-10-30",
+    "rights": "Original project-generated explanatory composition. No paper figure, screenshot or patient image reproduced. Source paper copyright is not a license for copied imagery.",
+    "modifications": "New scientific diagram composed from verified method facts, using approved SF-01 style anchor. Coverage outputs were locally regenerated as fraction placeholders to avoid misleading skeleton overlays.",
+    "used_by": [
+      "_posts/2026-06-03-topology-segmentation-learning.md"
+    ],
+    "evidence": "§2, equations (1)–(2), PDF p.3; §3 Corollary 1.1, PDF p.4; Algorithms 1–2, PDF p.5.",
+    "sha256": "c3f7d9f42be28c959b361217f11303103ac233c69074162f104a29644f1d4d8f",
+    "bytes": 1586816,
+    "status": "active",
+    "generation": {
+      "tool": "image_gen.imagegen",
+      "date": "2026-10-30",
+      "prompt": "Use the attached USER-APPROVED iCaRL scientific figure ONLY as a visual style reference, not as scientific content. Create a new rigorous original research methods diagram, landscape 1536x1024. Match its Times-like scholarly serif title/labels, dark navy text and thin orthogonal arrows, white background, thin slate horizontal lane dividers, navy circular numbered section badges, small-radius pale modules, blue/orange/teal palette, shallow stacked feature-map slabs and sample tiles, well-sized modules plus support annotations. No scenery, plants, paper art, toys, photoreal medical images, glow, invented measured results, scores or charts. English labels sharp and correctly spelled; detailed formulas remain in article, not raster. Meaningful arrows only; do not add decorative connections. Title 'clDice: centerline coverage in both directions'. Two lanes. TOP lane '1  Region overlap can miss a break'. Show two large schematic flat square mask tiles side by side: left labelled 'Reference mask' contains one clean connected Y-shaped thick blue tubular foreground on white, no anatomy realism; right labelled 'Prediction' contains exactly the same Y-shaped teal thick tube except a small clearly visible gap cutting fully across the middle of the right branch. Add an orange small bracket/circle around this gap and label 'Connectivity break'. A fine navy centerline appears INSIDE the foreground of each tile, following the foreground; the predicted centerline must also break at the gap, not bridge it. Under tiles small annotation 'Illustrative masks, not patient images'. No Dice numeric value. BOTTOM lane '2  Compare skeletons with the opposite mask'. Upper row of this lane: small tile 'Predicted skeleton' -> module 'Overlap with reference mask' -> small result 'Topology precision'. Lower row: small tile 'Reference skeleton' -> module 'Overlap with predicted mask' -> small result 'Topology sensitivity'. The small predicted skeleton tile shows the right-branch gap; the small reference skeleton is connected. Both result boxes each have a separate arrow to one shared right-side module 'Harmonic mean', then a short arrow to label 'clDice'. No numeric fraction scores. A footer annotation 'Soft skeletonization enables differentiable training'. Final footer 'Schematic masks; no measured results'. The two overlap modules explicitly mean skeleton intersection with opposite full mask, not skeleton-versus-skeleton overlap. Enough whitespace between arrow tracks; no crossing labels.\n\nSCIENTIFIC CLARIFICATION EDIT:\nKeep this clDice scientific figure exactly, but correct the two result panels in the bottom lane. Inside the box titled 'Topology precision', REMOVE the Y-shaped skeleton drawing and orange segment; replace that interior drawing with plain centered serif text 'Fraction covered'. Inside the box titled 'Topology sensitivity', also REMOVE the Y-shaped skeleton drawing and orange segment; replace with the same plain centered serif text 'Fraction covered'. Preserve the two headings, both box borders, ALL arrows, all other mask/skeleton illustrations, title, footer and layout. The original result drawings could be misinterpreted as false measured coverage; these panels should represent scalar fractions without invented numerical values or misleading highlighted segments. No other edits.",
+      "prompt_file": "notes/visual-assets/cldice-bidirectional-coverage-v1-prompt.txt",
+      "model_version": "not exposed; not verified",
+      "reference_images": [
+        "assets/images/research/20261030/icarl-training-classification-v3.png"
+      ]
+    },
+    "style_guide": "docs/SCIENTIFIC-FIGURE-STYLE.md",
+    "style_anchor": "assets/images/research/20261030/icarl-training-classification-v3.png",
+    "style_anchor_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+    "visual_review": "Actual output inspected at full size: labels, direction of arrows and source-bound scientific scope; placeholders explicitly non-empirical."
+  },
+  {
+    "id": "u-mamba-hybrid-architecture-v1",
+    "path": "/assets/images/research/20261030/u-mamba-hybrid-architecture-v1.png",
+    "kind": "generated-illustration",
+    "title": "U-Mamba：卷积与状态空间的混合编码器",
+    "alt": "上半图显示两段残差卷积、序列化、LayerNorm、Mamba与空间形状恢复；下半图显示编码器、瓶颈、残差解码器及跳连。",
+    "caption": "这是 U-Mamba Enc 的概念结构，不是固定层数的复现配置：残差卷积仍保留，Mamba 用于长程建模；Bot 变体仅在瓶颈使用混合块。输入与输出图案、层宽均为占位示意，不是临床图像、实际预测或性能证明；图中省略上采样细节。",
+    "source_url": "https://arxiv.org/abs/2401.04722v1",
+    "source_title": "U-Mamba: Enhancing Long-range Dependency for Biomedical Image Segmentation",
+    "source_date": "2024-01-09",
+    "source_version": "arXiv:2401.04722v1",
+    "verified_at": "2026-10-30",
+    "rights": "Original project-generated explanatory composition. No paper figure, screenshot or patient image reproduced. Source paper copyright is not a license for copied imagery.",
+    "modifications": "New scientific diagram composed from verified method facts, using approved SF-01 style anchor. Enc topology is conceptual; depth and Mamba internals not specified.",
+    "used_by": [
+      "_posts/2026-06-02-mamba-state-space-model-comprehensive.md"
+    ],
+    "evidence": "§2.2 / Figure 1; Enc and Bot distinction; decoder, skip connection and final 1x1 convolution + softmax.",
+    "sha256": "a3f5660f8344e83b76406e529f07110ae11fc103e875b10dca02a1a60682dcdc",
+    "bytes": 1456523,
+    "status": "active",
+    "generation": {
+      "tool": "image_gen.imagegen",
+      "date": "2026-10-30",
+      "prompt": "Use the attached USER-APPROVED iCaRL scientific figure ONLY as a visual style reference, not as scientific content. Create a new rigorous original research methods diagram, landscape 1536x1024. Match its Times-like scholarly serif title/labels, dark navy text and thin orthogonal arrows, white background, thin slate horizontal lane dividers, navy circular numbered section badges, small-radius pale modules, blue/orange/teal palette, shallow stacked feature-map slabs and sample tiles, well-sized modules plus support annotations. No scenery, plants, paper art, toys, photoreal medical images, glow, invented measured results, scores or charts. English labels sharp and correctly spelled; detailed formulas remain in article, not raster. Meaningful arrows only; do not add decorative connections. Title 'U-Mamba: local convolution and long-range state spaces'. Two lanes. TOP lane '1  Hybrid encoder building block'. Show left to right: stacked feature-map tiles 'Input features' -> a teal block 'Residual conv x2' -> a short flat vector 'Flatten + transpose' -> small module 'LayerNorm' -> teal stacked slab block 'Mamba' -> restored feature-map tiles 'Restore shape'. The Residual conv x2 block contains TWO small successive convolution/residual module glyphs, not parallel branches. A small annotation beneath it 'Local features'. Under Mamba annotation 'Long-range dependencies'. Tiny shape annotation below input 'B x C x H x W x D' and below flat vector 'B x L x C', with one clear note 'L = H x W x D'. Do not include Mamba internals or arbitrary hidden size. BOTTOM lane '2  Encoder-decoder with skip connections'. Draw a compact U-shaped architecture: two descending stacked teal encoder feature stages on the left labelled collectively 'U-Mamba encoder'; bottom center stage 'Bottleneck'; two ascending blue residual feature stages on the right labelled collectively 'Residual decoder'. Solid navy arrows descend encoder -> Bottleneck -> ascend decoder. ONE thin horizontal arrow from each of the two encoder stages to the corresponding decoder stage, labelled collectively 'Skip connections'. Put a small neutral schematic image tile at far left labeled 'Image', arrow to first encoder stage; a small teal/orange abstract categorical mask tile at far right labeled 'Segmentation probabilities', arrow from final decoder through a small module '1x1 conv + Softmax'. Use abstract rectangles/circles in tiles, no fake CT/patient image. A separate bottom annotation: 'Enc: hybrid blocks across encoder; Bot: hybrid block at bottleneck only'. Final footer 'Conceptual stages; depth is dataset-configured; no measured results'. The main shown network is the Enc variant, but the annotation explains Bot. Do not imply removal of convolution, fixed depth, performance gain, or clinical validation.",
+      "prompt_file": "notes/visual-assets/u-mamba-hybrid-architecture-v1-prompt.txt",
+      "model_version": "not exposed; not verified",
+      "reference_images": [
+        "assets/images/research/20261030/icarl-training-classification-v3.png"
+      ]
+    },
+    "style_guide": "docs/SCIENTIFIC-FIGURE-STYLE.md",
+    "style_anchor": "assets/images/research/20261030/icarl-training-classification-v3.png",
+    "style_anchor_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+    "visual_review": "Actual output inspected at full size: labels, direction of arrows and source-bound scientific scope; placeholders explicitly non-empirical."
+  }
+]

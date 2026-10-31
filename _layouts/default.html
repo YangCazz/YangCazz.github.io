@@ -68,6 +68,7 @@
         ]
     }
     </script>
+    <link rel="stylesheet" href="{{ "/assets/icons/icons.css" | relative_url }}">
 </head>
 <body class="{% if page.body_class %}{{ page.body_class }}{% endif %}">
     <!-- 顶部导航栏 -->
@@ -81,19 +82,19 @@
             </div>
             <div class="nav-menu">
                 <a href="{{ '/' | relative_url }}" class="nav-link">
-                    <span class="nav-icon">{% octicon home height:18 %}</span>
+                    <span class="nav-icon">{% include icon.html name="home" size=18 %}</span>
                     <span class="nav-text">首页</span>
                 </a>
                 <a href="{{ '/blog' | relative_url }}" class="nav-link">
-                    <span class="nav-icon">{% octicon note height:18 %}</span>
+                    <span class="nav-icon">{% include icon.html name="article" size=18 %}</span>
                     <span class="nav-text">博客</span>
                 </a>
                 <a href="{{ '/showcase' | relative_url }}" class="nav-link">
-                    <span class="nav-icon">{% octicon rocket height:18 %}</span>
+                    <span class="nav-icon">{% include icon.html name="showcase" size=18 %}</span>
                     <span class="nav-text">展示</span>
                 </a>
                 <a href="{{ '/apps' | relative_url }}" class="nav-link">
-                    <span class="nav-icon">{% octicon package height:18 %}</span>
+                    <span class="nav-icon">{% include icon.html name="apps" size=18 %}</span>
                     <span class="nav-text">应用</span>
                 </a>
             </div>
@@ -119,19 +120,19 @@
                     
                     <div class="profile-contact">
                         <div class="contact-item">
-                            {% octicon mail height:16 class:"contact-octicon" %}
+                            {% include icon.html name="mail" size=16 class="contact-octicon" %}
                             <a href="mailto:yangcazz@qq.com" class="contact-link">yangcazz@qq.com</a>
                         </div>
                         <div class="contact-item contact-phone-item">
-                            {% octicon device-mobile height:16 class:"contact-octicon" %}
+                            {% include icon.html name="phone" size=16 class="contact-octicon" %}
                             <span class="contact-phone" onclick="this.classList.toggle('revealed')" title="点击刮开">+86 153-0657-1803</span>
                         </div>
                         <div class="contact-item">
-                            {% octicon location height:16 class:"contact-octicon" %}
+                            {% include icon.html name="location" size=16 class="contact-octicon" %}
                             <span>杭州市余杭区</span>
                         </div>
                         <div class="contact-item">
-                            {% octicon mark-github height:16 class:"contact-octicon" %}
+                            {% include brand-icon.html name="github" size=16 class="contact-octicon" %}
                             <a href="https://github.com/yangcazz" target="_blank" rel="noopener noreferrer" class="contact-link">github.com/yangcazz</a>
                         </div>
                     </div>
@@ -153,9 +154,9 @@
                 ]</script>
                 <div class="calendar-widget">
                     <div class="calendar-header">
-                        <button class="calendar-nav" id="prevMonth">‹</button>
+                        <button class="calendar-nav" id="prevMonth" aria-label="上个月">{% include icon.html name="chevron-left" size=18 %}</button>
                         <h3 class="calendar-title" id="calendarTitle"></h3>
-                        <button class="calendar-nav" id="nextMonth">›</button>
+                        <button class="calendar-nav" id="nextMonth" aria-label="下个月">{% include icon.html name="chevron-right" size=18 %}</button>
                     </div>
                     <div class="calendar-weekdays">
                         <div class="weekday">日</div>
@@ -181,7 +182,7 @@
                 <div class="blog-post-navigation">
                     {% if page.previous %}
                     <a href="{{ page.previous.url }}" class="post-nav-link post-nav-prev" title="{{ page.previous.title }}">
-                        <span class="nav-arrow">←</span>
+                        <span class="nav-arrow">{% include icon.html name="arrow-left" size=16 %}</span>
                         <div class="nav-content">
                             <span class="nav-label">上一篇</span>
                             <span class="nav-title">{{ page.previous.title | truncate: 20 }}</span>
@@ -190,7 +191,7 @@
                     </a>
                     {% else %}
                     <div class="post-nav-link post-nav-disabled">
-                        <span class="nav-arrow">←</span>
+                        <span class="nav-arrow">{% include icon.html name="arrow-left" size=16 %}</span>
                         <div class="nav-content">
                             <span class="nav-label">上一篇</span>
                             <span class="nav-title">已是最早</span>
@@ -205,7 +206,7 @@
                             <span class="nav-title">{{ page.next.title | truncate: 20 }}</span>
                             <span class="nav-date">{{ page.next.date | date: "%Y年%m月%d日" }}</span>
                         </div>
-                        <span class="nav-arrow">→</span>
+                        <span class="nav-arrow">{% include icon.html name="arrow-right" size=16 %}</span>
                     </a>
                     {% else %}
                     <div class="post-nav-link post-nav-disabled">
@@ -213,7 +214,7 @@
                             <span class="nav-label">下一篇</span>
                             <span class="nav-title">已是最新</span>
                         </div>
-                        <span class="nav-arrow">→</span>
+                        <span class="nav-arrow">{% include icon.html name="arrow-right" size=16 %}</span>
                     </div>
                     {% endif %}
                 </div>
@@ -232,25 +233,7 @@
                         <a href="#{{ item.id }}" class="nav-link">
                     {% endif %}
                             <span class="nav-icon">
-                            {% case item.icon %}
-                            {% when 'person' %}{% octicon person height:18 %}
-                            {% when 'rocket' %}{% octicon rocket height:18 %}
-                            {% when 'tools' %}{% octicon tools height:18 %}
-                            {% when 'briefcase' %}{% octicon briefcase height:18 %}
-                            {% when 'mortar-board' %}{% octicon mortar-board height:18 %}
-                            {% when 'light-bulb' %}{% octicon light-bulb height:18 %}
-                            {% when 'book' %}{% octicon book height:18 %}
-                            {% when 'home' %}{% octicon home height:18 %}
-                            {% when 'note' %}{% octicon note height:18 %}
-                            {% when 'info' %}{% octicon info height:18 %}
-                            {% when 'package' %}{% octicon package height:18 %}
-                            {% when 'hubot' %}{% octicon hubot height:18 %}
-                            {% when 'git-branch' %}{% octicon git-branch height:18 %}
-                            {% when 'beaker' %}{% octicon beaker height:18 %}
-                            {% when 'globe' %}{% octicon globe height:18 %}
-                            {% when 'mail' %}{% octicon mail height:18 %}
-                            {% else %}{{ item.icon }}
-                            {% endcase %}
+                            {% include icon.html name=item.icon size=18 %}
                             </span>
                             <span class="nav-text">{{ item.name }}</span>
                         </a>
@@ -271,10 +254,7 @@
             <!-- 关于栏 -->
             <div class="footer-section">
                 <h3 class="footer-title">
-                    <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                        <circle cx="12" cy="7" r="4"></circle>
-                    </svg>
+                    {% include icon.html name="person" size=22 class="footer-icon-svg" %}
                     <span>关于我</span>
                 </h3>
                 <p class="footer-desc"><a href="{{ '/resume' | relative_url }}" class="footer-owner">医疗机器人算法工程师</a></p>
@@ -290,44 +270,24 @@
             <!-- 快速导航栏 -->
             <div class="footer-section">
                 <h3 class="footer-title">
-                    <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                    </svg>
+                    {% include icon.html name="home" size=22 class="footer-icon-svg" %}
                     <span>快速导航</span>
                 </h3>
                 <nav class="footer-nav-grid">
                     <a href="{{ '/' | relative_url }}" class="footer-nav-card">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                        </svg>
+                        {% include icon.html name="home" size=22 %}
                         <span>首页</span>
                     </a>
                     <a href="{{ '/blog' | relative_url }}" class="footer-nav-card">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                            <polyline points="14 2 14 8 20 8"></polyline>
-                            <line x1="16" y1="13" x2="8" y2="13"></line>
-                            <line x1="16" y1="17" x2="8" y2="17"></line>
-                        </svg>
+                        {% include icon.html name="article" size=22 %}
                         <span>博客</span>
                     </a>
                     <a href="{{ '/showcase' | relative_url }}" class="footer-nav-card">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="14" width="7" height="7"></rect>
-                            <rect x="3" y="14" width="7" height="7"></rect>
-                        </svg>
+                        {% include icon.html name="showcase" size=22 %}
                         <span>展示</span>
                     </a>
                     <a href="{{ '/apps' | relative_url }}" class="footer-nav-card">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <rect x="3" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="3" width="7" height="7"></rect>
-                            <rect x="14" y="14" width="7" height="7"></rect>
-                            <rect x="3" y="14" width="7" height="7"></rect>
-                        </svg>
+                        {% include icon.html name="apps" size=22 %}
                         <span>应用</span>
                     </a>
                 </nav>
@@ -336,47 +296,30 @@
             <!-- 联系方式栏 -->
             <div class="footer-section">
                 <h3 class="footer-title">
-                    <svg class="footer-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
-                        <line x1="9" y1="9" x2="9.01" y2="9"></line>
-                        <line x1="15" y1="9" x2="15.01" y2="9"></line>
-                    </svg>
+                    {% include icon.html name="mail" size=22 class="footer-icon-svg" %}
                     <span>联系方式</span>
                 </h3>
                 <div class="social-links-modern">
                     <a href="https://github.com/YangCazz" target="_blank" rel="noopener noreferrer" class="social-link-item" title="GitHub">
-                        <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
-                        </svg>
+                        {% include brand-icon.html name="github" size=20 class="social-svg" %}
                         <span>GitHub</span>
                     </a>
                     <a href="https://linkedin.com/in/YangCazz" target="_blank" rel="noopener noreferrer" class="social-link-item" title="LinkedIn">
-                        <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                        </svg>
+                        {% include brand-icon.html name="linkedin" size=20 class="social-svg" %}
                         <span>LinkedIn</span>
                     </a>
                     <a href="https://twitter.com/YangCazz" target="_blank" rel="noopener noreferrer" class="social-link-item" title="Twitter">
-                        <svg class="social-svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085 4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                        </svg>
+                        {% include brand-icon.html name="twitter" size=20 class="social-svg" %}
                         <span>Twitter</span>
                     </a>
                 </div>
                 <div class="contact-info-modern">
                     <div class="contact-item-modern">
-                        <svg class="contact-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                            <polyline points="22,6 12,13 2,6"></polyline>
-                        </svg>
+                        {% include icon.html name="mail" size=22 class="contact-svg" %}
                         <span>yangcazz@qq.com</span>
                     </div>
                     <div class="contact-item-modern">
-                        <svg class="contact-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                            <circle cx="12" cy="10" r="3"></circle>
-                        </svg>
+                        {% include icon.html name="location" size=22 class="contact-svg" %}
                         <span>杭州市余杭区</span>
                     </div>
                 </div>
@@ -394,7 +337,7 @@
                 <span class="footer-motto">持续更新中</span>
                 <span class="dot">•</span>
                 <span class="visitor-count">
-                    {% octicon eye height:14 %}
+                    {% include icon.html name="eye" size=14 %}
                     <img src="https://visitor-badge.laobi.icu/badge?page_id=YangCazz.github.io&left_color=none&right_color=none&left_text=+" alt="" class="visitor-badge-img" />
                 </span>
             </p>
@@ -403,19 +346,19 @@
 
     <!-- 回到顶部按钮 -->
     <div class="back-to-top" id="backToTop">
-        <span class="back-to-top-icon">↑</span>
+        <span class="back-to-top-icon">{% include icon.html name="arrow-up" size=16 %}</span>
   </div>
 
 <!-- 移动端浮动目录（仅博文页面） -->
 {% if page.layout == 'post' %}
 <button class="mobile-toc-toggle" id="mobileTocToggle" aria-label="目录">
-    {% octicon list-unordered height:20 %}
+    {% include icon.html name="list" size=20 %}
 </button>
 <div class="mobile-toc-overlay" id="mobileTocOverlay"></div>
 <div class="mobile-toc-panel" id="mobileTocPanel">
     <div class="mobile-toc-header">
         <span class="mobile-toc-title">文章目录</span>
-        <button class="mobile-toc-close" id="mobileTocClose">✕</button>
+        <button class="mobile-toc-close" id="mobileTocClose" aria-label="关闭目录">{% include icon.html name="close" size=16 %}</button>
     </div>
     <div class="mobile-toc-content" id="mobileToc"></div>
 </div>

@@ -7,7 +7,7 @@ navigation: blog_navigation
 
 <!-- 页面头部 -->
 <header class="page-header">
-    <h1 class="page-title">{% octicon note height:28 %} 技术博客</h1>
+    <h1 class="page-title">{% include icon.html name="article" size=28 %} 技术博客</h1>
     <p class="page-description">深度学习、医学图像处理、机器人控制等前沿技术分享</p>
 </header>
 
@@ -41,7 +41,7 @@ navigation: blog_navigation
 
 <!-- 关键词网络 V2 -->
 <section id="tag-network" class="tag-network-section" style="text-align:center">
-    <h2 class="section-title" style="color:var(--primary-color,#2d3748)">{% octicon hubot height:20 %} 关键词网络</h2>
+    <h2 class="section-title" style="color:var(--primary-color,#2d3748)">{% include icon.html name="network" size=20 %} 关键词网络</h2>
     <p class="section-subtitle" style="text-align:center">拖拽节点探索 · 右键固定详情 · 搜索高亮跳转</p>
     <div class="tnv2-search-wrap"><input class="tnv2-search" id="tnv2Search" placeholder="搜索关键词..." /></div>
     <div class="tnv2-legend" id="tnv2Legend"></div>
@@ -93,7 +93,7 @@ navigation: blog_navigation
                 <span class="tag">{{ tag }}</span>
                 {% endfor %}
             </div>
-            <a href="{{ post.url }}" class="read-more-btn">阅读全文 →</a>
+            <a href="{{ post.url }}" class="read-more-btn">阅读全文 {% include icon.html name="arrow-right" size=16 %}</a>
         </div>
     </article>
     {% endfor %}
@@ -103,7 +103,7 @@ navigation: blog_navigation
 {% if older_posts.size > 0 %}
 <!-- 早期文章归档 -->
 <section id="blog-archive" class="blog-archive">
-    <h2 class="archive-title">{% octicon archive height:18 %} 早期文章归档</h2>
+    <h2 class="archive-title">{% include icon.html name="archive" size=18 %} 早期文章归档</h2>
     <ul class="archive-list">
         {% for post in older_posts %}
         <li class="archive-item">
@@ -118,7 +118,7 @@ navigation: blog_navigation
 <!-- 页面底部 -->
 <section id="blog-footer" class="blog-footer">
     <div class="blog-footer-content">
-        <h2>{% octicon book height:22 %} 技术分享</h2>
+        <h2>{% include icon.html name="book" size=22 %} 技术分享</h2>
         <p>持续更新深度学习、医学图像处理、机器人控制等前沿技术内容</p>
         <div class="footer-stats">
             <div class="stat-item">
@@ -145,7 +145,7 @@ navigation: blog_navigation
 {% if site.posts.size == 0 %}
 <section id="no-posts" class="no-posts">
     <div class="no-posts-content">
-        <h2>{% octicon note height:24 %} 暂无博客文章</h2>
+        <h2>{% include icon.html name="article" size=24 %} 暂无博客文章</h2>
         <p>正在准备精彩的技术分享，敬请期待！</p>
         <a href="/" class="btn btn-primary">返回首页</a>
     </div>

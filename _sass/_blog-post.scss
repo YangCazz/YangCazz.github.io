@@ -154,13 +154,14 @@
     word-break: break-word;
 }
 
-/* 文章标题样式 */
+/* 文章标题样式：目录/片段跳转需避开固定的 60px 顶部导航。 */
 .blog-post .post-content h1,
 .blog-post .post-content h2,
 .blog-post .post-content h3,
 .blog-post .post-content h4,
 .blog-post .post-content h5,
 .blog-post .post-content h6 {
+    scroll-margin-top: 90px;
     color: var(--primary-color);
     margin: 2rem 0 1rem 0;
     font-weight: 600;
@@ -776,7 +777,13 @@
 }
 
 .series-banner-post.current::after {
-    content: "←";
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: currentColor;
+    -webkit-mask: url('icons/arrow-left.svg') center / contain no-repeat;
+    mask: url('icons/arrow-left.svg') center / contain no-repeat;
     margin-left: auto;
     color: var(--accent-color);
     font-size: 0.75rem;

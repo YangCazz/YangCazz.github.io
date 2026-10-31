@@ -327,7 +327,13 @@
     position: relative;
 
     &::before {
-        content: '\2713';
+        content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: currentColor;
+    -webkit-mask: url('icons/check.svg') center / contain no-repeat;
+    mask: url('icons/check.svg') center / contain no-repeat;
         position: absolute;
         left: 0;
         color: var(--accent-color);

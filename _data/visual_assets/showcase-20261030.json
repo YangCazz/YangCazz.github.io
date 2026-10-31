@@ -1,0 +1,55 @@
+[
+  {
+    "id": "pixelknit-editor-visual-20261030",
+    "path": "/assets/images/posts/pixelknit/visual-20261030/editor.jpg",
+    "kind": "source-screenshot",
+    "title": "PixelKnit 编辑器实际截图",
+    "alt": "像素编辑器与调色板",
+    "source_url": "https://yangcazz.github.io/apps/PixelKnit/index.html",
+    "source_title": "PixelKnit 编辑器实际截图",
+    "source_date": "2026-10-30",
+    "verified_at": "2026-10-30",
+    "rights": "本站项目界面截图；不包含第三方用户数据",
+    "modifications": "云端本地测试副本绘制48×48原创蓝色几何菱形；截图隐藏地图列表；展示页等比缩放，无界面内容合成",
+    "used_by": [
+      "showcase.html"
+    ],
+    "sha256": "54a5dc1a2ffc0c9d8fe4f19f4a314d32ec50609d4f5379bcf511cc301d436fd7",
+    "evidence": "实际通过UI复制测试副本、绘制、保存与浏览；新版本SVG工具栏横排；仅云浏览器localStorage测试数据，未修改仓库默认地图。"
+  },
+  {
+    "id": "pixelknit-browse-visual-20261030",
+    "path": "/assets/images/posts/pixelknit/visual-20261030/browse.jpg",
+    "kind": "source-screenshot",
+    "title": "PixelKnit 地图浏览实际截图",
+    "alt": "地图浏览与像素作品",
+    "source_url": "https://yangcazz.github.io/apps/PixelKnit/index.html",
+    "source_title": "PixelKnit 地图浏览实际截图",
+    "source_date": "2026-10-30",
+    "verified_at": "2026-10-30",
+    "rights": "本站项目界面截图；不包含第三方用户数据",
+    "modifications": "云端本地测试副本绘制48×48原创蓝色几何菱形；截图隐藏地图列表；展示页等比缩放，无界面内容合成",
+    "used_by": [
+      "showcase.html"
+    ],
+    "sha256": "0538b219a4133b3a5308ca2f9e108f7e324a8e4692137af169ab2a3e04b9d2c6",
+    "evidence": "实际通过UI复制测试副本、绘制、保存与浏览；新版本SVG工具栏横排；仅云浏览器localStorage测试数据，未修改仓库默认地图。"
+  },
+  {
+    "id": "cazzkb-retrieval-concept",
+    "path": "/assets/images/showcase/cazzkb-retrieval.svg",
+    "kind": "original-diagram",
+    "title": "CazzKB 检索增强生成概念流程",
+    "alt": "文档解析与检索、问题、证据及生成回答",
+    "source_url": "https://github.com/YangCazz/YangCazz.github.io/blob/main/_posts/2026-06-09-cazzkb-gui-upgrade.md",
+    "source_title": "CazzKB 检索增强生成概念流程",
+    "source_date": "2026-06-09",
+    "verified_at": "2026-10-30",
+    "rights": "本站原创 SVG 结构示意；基于公开文章，不是系统实拍或部署拓扑",
+    "modifications": "从工程记录抽象为流程，省略实现细节",
+    "used_by": [
+      "showcase.html"
+    ],
+    "sha256": "7cf4b39d6c1d454fc32711feab2740af510d4e7e5d2e26cf3ec963d1c2b97585"
+  }
+]

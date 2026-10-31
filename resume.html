@@ -8,43 +8,43 @@ body_class: resume
 
 <!-- 页面标题 -->
 <section class="page-header">
-    <h2 class="page-title">{% octicon note height:24 %} 个人简历</h2>
+    <h2 class="page-title">{% include icon.html name="article" size=24 %} 个人简历</h2>
     <p class="page-subtitle">医疗机器人算法工程师 | 医学图像处理专家 | 深度学习研究者</p>
 </section>
 
 <!-- 自我总结 -->
 <section id="about" class="resume-section resume-section--flat">
-    <h2>{% octicon person height:22 %} 自我总结</h2>
+    <h2>{% include icon.html name="person" size=22 %} 自我总结</h2>
     <p>医疗机器人算法工程师，专注于医学图像处理、手术导航与机器人控制系统开发。拥有多项医疗器械注册证和发明专利，主导多个三类医疗器械从0到1的研发过程。擅长C++/Python开发，深耕医学图像处理、点云配准、深度学习等技术，同时具备AI Agent系统设计、前端开发与工程化能力，具备丰富的医疗器械产品落地经验。</p>
 </section>
 
 <!-- 成果总结 -->
 <section id="achievements" class="resume-section resume-section--highlight">
-    <h2>{% octicon rocket height:22 %} 成果总结</h2>
+    <h2>{% include icon.html name="showcase" size=22 %} 成果总结</h2>
     <div class="achievements-summary">
         <div class="achievements-grid">
             <div class="achievement-stat">
-                <span class="stat-icon">{% octicon key height:24 %}</span>
+                <span class="stat-icon">{% include icon.html name="key" size=24 %}</span>
                 <span class="stat-number">30+</span>
                 <span class="stat-label">发明/使用新型专利</span>
             </div>
             <div class="achievement-stat">
-                <span class="stat-icon">{% octicon shield-check height:24 %}</span>
+                <span class="stat-icon">{% include icon.html name="shield" size=24 %}</span>
                 <span class="stat-number">3</span>
                 <span class="stat-label">主导/参与三类医疗器械注册</span>
             </div>
             <div class="achievement-stat">
-                <span class="stat-icon">{% octicon device-desktop height:24 %}</span>
+                <span class="stat-icon">{% include icon.html name="desktop" size=24 %}</span>
                 <span class="stat-number">1</span>
                 <span class="stat-label">二类医疗器械独立软件注册</span>
             </div>
             <div class="achievement-stat">
-                <span class="stat-icon">{% octicon beaker height:24 %}</span>
+                <span class="stat-icon">{% include icon.html name="research" size=24 %}</span>
                 <span class="stat-number">4</span>
                 <span class="stat-label">临床试验通过</span>
             </div>
             <div class="achievement-stat">
-                <span class="stat-icon">{% octicon star height:24 %}</span>
+                <span class="stat-icon">{% include icon.html name="star" size=24 %}</span>
                 <span class="stat-number">3</span>
                 <span class="stat-label">创新大赛奖项</span>
             </div>
@@ -55,11 +55,11 @@ body_class: resume
 
 <!-- 技术能力 -->
 <section id="skills" class="resume-section resume-section--flat">
-    <h2>{% octicon tools height:22 %} 技术能力</h2>
+    <h2>{% include icon.html name="tools" size=22 %} 技术能力</h2>
 
     <div class="skill-highlight">
         <h3 class="skill-highlight-title">
-            {% octicon cross-reference height:18 %}
+            {% include icon.html name="network" size=18 %}
             核心专业领域
         </h3>
         <div class="skill-tags-cloud">
@@ -83,7 +83,7 @@ body_class: resume
             <div class="skill-matrix-grid">
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon cpu height:28 %}</div>
+                        <div class="skill-icon">{% include icon.html name="cpu" size=28 %}</div>
                         <div>
                             <div class="skill-name">深度学习</div>
                             <div class="skill-level-bar">
@@ -104,7 +104,7 @@ body_class: resume
 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon hubot height:28 %}</div>
+                        <div class="skill-icon">{% include icon.html name="network" size=28 %}</div>
                         <div>
                             <div class="skill-name">AI Agent 开发</div>
                             <div class="skill-level-bar">
@@ -126,7 +126,7 @@ body_class: resume
 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon search height:28 %}</div>
+                        <div class="skill-icon">{% include icon.html name="search" size=28 %}</div>
                         <div>
                             <div class="skill-name">多模态医学人工智能</div>
                             <div class="skill-level-bar">
@@ -154,7 +154,7 @@ body_class: resume
             <div class="skill-matrix-grid">
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon package height:28 %}</div>
+                        <div class="skill-icon">{% include icon.html name="apps" size=28 %}</div>
                         <div>
                             <div class="skill-name">MITK/VTK/ITK</div>
                             <div class="skill-level-bar">
@@ -175,7 +175,7 @@ body_class: resume
 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon location height:28 %}</div>
+                        <div class="skill-icon">{% include icon.html name="location" size=28 %}</div>
                         <div>
                             <div class="skill-name">点云配准与手术导航</div>
                             <div class="skill-level-bar">
@@ -197,7 +197,7 @@ body_class: resume
 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon graph height:28 %}</div>
+                        <div class="skill-icon">{% include icon.html name="chart" size=28 %}</div>
                         <div>
                             <div class="skill-name">DICOM处理</div>
                             <div class="skill-level-bar">
@@ -224,7 +224,7 @@ body_class: resume
             <div class="skill-matrix-grid">
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon server height:26 %}</div>
+                        <div class="skill-icon">{% include icon.html name="server" size=26 %}</div>
                         <div>
                             <div class="skill-name">NVIDIA 边缘平台</div>
                             <div class="skill-level-bar">
@@ -246,7 +246,7 @@ body_class: resume
 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon broadcast height:26 %}</div>
+                        <div class="skill-icon">{% include icon.html name="broadcast" size=26 %}</div>
                         <div>
                             <div class="skill-name">实时通信协议</div>
                             <div class="skill-level-bar">
@@ -274,7 +274,7 @@ body_class: resume
             <div class="skill-matrix-grid">
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon code height:28 %}</div>
+                        <div class="skill-icon">{% include icon.html name="code" size=28 %}</div>
                         <div>
                             <div class="skill-name">Python</div>
                             <div class="skill-level-bar">
@@ -295,7 +295,7 @@ body_class: resume
 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon gear height:28 %}</div>
+                        <div class="skill-icon">{% include icon.html name="settings" size=28 %}</div>
                         <div>
                             <div class="skill-name">C++</div>
                             <div class="skill-level-bar">
@@ -322,7 +322,7 @@ body_class: resume
             <div class="skill-matrix-grid">
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon mark-github height:28 %}</div>
+                        <div class="skill-icon">{% include brand-icon.html name="github" size=28 %}</div>
                         <div>
                             <div class="skill-name">DevOps & 工具链</div>
                             <div class="skill-level-bar">
@@ -344,7 +344,7 @@ body_class: resume
 
                 <div class="skill-card">
                     <div class="skill-header">
-                        <div class="skill-icon">{% octicon globe height:28 %}</div>
+                        <div class="skill-icon">{% include icon.html name="globe" size=28 %}</div>
                         <div>
                             <div class="skill-name">前端开发</div>
                             <div class="skill-level-bar">
@@ -370,7 +370,7 @@ body_class: resume
 
 <!-- 工作经历 -->
 <section id="experience" class="resume-section resume-section--highlight">
-    <h2>{% octicon briefcase height:22 %} 工作经历</h2>
+    <h2>{% include icon.html name="briefcase" size=22 %} 工作经历</h2>
     <div class="timeline">
         <div class="timeline-company">
             <h3 class="company-name">
@@ -401,7 +401,7 @@ body_class: resume
                                 <span class="project-period">2025.07-至今</span>
                                 <span class="project-role">术前建模与导航算法</span>
                             </div>
-                            <span class="project-status status-ongoing">● 进行中</span>
+                            <span class="project-status status-ongoing">{% include icon.html name="clock" size=14 %} 进行中</span>
                         </div>
                     </div>
 
@@ -442,7 +442,7 @@ body_class: resume
                                 <span class="project-period">2025.07-至今</span>
                                 <span class="project-role">算法开发</span>
                             </div>
-                            <span class="project-status status-ongoing">● 进行中</span>
+                            <span class="project-status status-ongoing">{% include icon.html name="clock" size=14 %} 进行中</span>
                         </div>
                     </div>
                     
@@ -483,7 +483,7 @@ body_class: resume
                                 <span class="project-period">2025.08-至今</span>
                                 <span class="project-role">导航算法</span>
                             </div>
-                            <span class="project-status status-ongoing">● 进行中</span>
+                            <span class="project-status status-ongoing">{% include icon.html name="clock" size=14 %} 进行中</span>
                         </div>
                     </div>
                     
@@ -546,7 +546,7 @@ body_class: resume
                                 <span class="project-period">2024.07-2025.06</span>
                                 <span class="project-role">项目总负责人</span>
                             </div>
-                            <span class="project-status status-completed">● 已完成</span>
+                            <span class="project-status status-completed">{% include icon.html name="check" size=14 %} 已完成</span>
                         </div>
                     </div>
                     
@@ -589,7 +589,7 @@ body_class: resume
                                 <span class="project-period">2024.11-2025.06</span>
                                 <span class="project-role">导航算法开发</span>
                             </div>
-                            <span class="project-status status-completed">● 已完成</span>
+                            <span class="project-status status-completed">{% include icon.html name="check" size=14 %} 已完成</span>
                         </div>
                     </div>
                     
@@ -630,7 +630,7 @@ body_class: resume
                                 <span class="project-period">2024.08-2024.10</span>
                                 <span class="project-role">影像算法</span>
                             </div>
-                            <span class="project-status status-completed">● 已完成</span>
+                            <span class="project-status status-completed">{% include icon.html name="check" size=14 %} 已完成</span>
                         </div>
                     </div>
                     
@@ -671,7 +671,7 @@ body_class: resume
 
 <!-- 教育背景 -->
 <section id="education" class="resume-section resume-section--flat">
-    <h2>{% octicon mortar-board height:22 %} 教育背景</h2>
+    <h2>{% include icon.html name="education" size=22 %} 教育背景</h2>
     <div class="card-layout">
         <div class="info-card">
             <h3>广州国家实验室 <span class="edu-period">2023.06-2024.06</span></h3>
@@ -710,7 +710,7 @@ body_class: resume
 
 <!-- 创新创业 -->
 <section id="innovation" class="resume-section resume-section--flat">
-    <h2>{% octicon light-bulb height:22 %} 创新创业</h2>
+    <h2>{% include icon.html name="idea" size=22 %} 创新创业</h2>
     <div class="publication-wall">
         <div class="innovation-item">
             <span class="pub-type pub-medical">医疗器械</span>

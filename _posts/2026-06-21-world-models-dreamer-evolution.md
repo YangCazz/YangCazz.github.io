@@ -12,12 +12,20 @@ tags:
 - PyTorch
 - 从零构建
 excerpt: 从 2018 年 Ha & Schmidhuber 的「在梦境中训练」到 2023 年 DreamerV3 的「一套参数统治 Minecraft + 机器人 + Atari」，世界模型如何让智能体学会在想象中学习？本文逐层拆解 VAE → RSSM → 离散潜变量 → symlog 的技术演进逻辑。
-image: "/assets/images/posts/world-models/dreamer-evolution-cover.jpg"
+cover_image: false
+image: "/assets/images/research/20261030/dreamer-latent-learning-v4.png"
 ---
 
 {% include series-nav.html series="world-models" position="top" %}
 
 ## 引言
+
+<figure class="research-figure research-figure--scientific">
+  <img src="{{ '/assets/images/research/20261030/dreamer-latent-learning-v4.png' | relative_url }}" alt="从回放经验学习世界模型；Actor提供动作推进潜状态，Critic估计状态价值，奖励由世界模型预测；策略回到环境收集经验。" loading="lazy" decoding="async" width="1536" height="1024" style="width:100%;height:auto;">
+  <figcaption><strong>AI 生成科研示意图（非论文原图）</strong>：三阶段流程示意：Critic 估计价值、世界模型预测奖励，行为学习的梯度可穿过参数固定的潜动态模型。图中省略状态编码到 Actor 的输入支路与 RSSM 内部细节；状态网格和观察帧均为占位示意，不是实际潜变量维度、实验画面或完整计算图。依据 <a href="https://arxiv.org/abs/1912.01603">Dream to Control: Learning Behaviors by Latent Imagination</a>。
+  </figcaption>
+</figure>
+
 
 2018 年，David Ha 和 Jurgen Schmidhuber 发表了一篇改变模型-based RL 方向的论文<cite>[1]</cite>。它的核心思想出奇地简单：**让智能体先学一个世界的压缩模型，然后在这个"梦境"里训练策略，而不是在真实环境中反复试错。**
 
@@ -202,6 +210,8 @@ PlaNet 在每一步都要跑 CEM 规划——在潜空间采样、模拟、评�
 
 ### 想象学习 (Learning by Imagination)
 
+
+
 整个流程分为两步：
 
 **第一步：训练世界模型。** 与 PlaNet 相同，用 RSSM 学习环境的潜动态——从观测 $o_t$ 到潜状态 $s_t$ 的编码，以及 $s_t$ 在动作 $a_t$ 下的转移规律。
@@ -214,7 +224,7 @@ graph LR
     Imag -->|状态 s_t| Actor[Actor<br/>策略网络]
     Imag -->|状态 s_t| Critic[Critic<br/>价值网络]
     Actor -->|a_t| Imag
-    Critic -->|V_s_t<br/>价值估计| Update[REINFORCE +<br/>价值基线]
+    Critic -->|V_s_t<br/>价值估计| Update[沿潜动态反传<br/>价值梯度]
     Update --> Actor
     Update --> Critic
 
@@ -229,15 +239,9 @@ graph LR
 
 Critic 负责估计每个状态的价值 $V(s_t)$——该状态未来累计奖励的期望。训练目标是让 Critic 的估计尽可能接近实际 rollout 中的累计奖励。
 
-有了 Critic 提供的价值基线，Actor 用 REINFORCE 风格的策略梯度来更新：
+DreamerV1 的 Actor 并不是在这里使用 REINFORCE 风格的对数概率目标。原论文 §3 通过重参数化，沿着可微的潜动态、奖励与价值预测反向传播梯度，以提高想象轨迹的多步回报（λ-return）。Critic 拟合这些回报目标；Actor 借助价值估计学习更好的动作。训练行为模型时，世界模型参数保持固定，但梯度仍可穿过它传播到 Actor。
 
-$$
-\mathcal{L}_{\text{actor}} = -\mathbb{E}\left[ \sum_{t} \log \pi(a_t \mid s_t) \cdot \big(R_t - V(s_t)\big) \right]
-$$
-
-其中 $R_t$ 是从时刻 $t$ 开始的累计奖励，$V(s_t)$ 是 Critic 的价值估计。$R_t - V(s_t)$ 是优势函数——当动作产生的奖励高于预期时为正，低于预期时为负。乘以 $\log \pi$ 的梯度方向，Actor 被驱动去增加高优势动作的概率，降低低优势动作的概率。
-
-在一个完整的 rollout 中，只有世界模型在做计算——想象环境中没有昂贵的渲染管线，没有物理模拟器，只有潜空间中的前向传播。这使得 DreamerV1 的样本效率远超 model-free 方法：**从真实环境中获取一个样本，就能在想象中生成数十个变体。**
+在一个完整的 rollout 中，世界模型、Actor 与 Critic 在潜空间协同计算——想象环境中没有昂贵的渲染管线，没有物理模拟器，只有潜空间中的前向传播。这使得 DreamerV1 的样本效率远超 model-free 方法：**从真实环境中获取一个样本，就能在想象中生成数十个变体。**
 
 ---
 

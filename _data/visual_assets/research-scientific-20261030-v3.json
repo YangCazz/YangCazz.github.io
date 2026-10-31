@@ -1,0 +1,97 @@
+[
+  {
+    "source_url": "https://arxiv.org/abs/1611.07725",
+    "source_title": "iCaRL: Incremental Classifier and Representation Learning",
+    "source_date": "2017-04-14",
+    "source_version": "arXiv:1611.07725v2",
+    "verified_at": "2026-10-30",
+    "evidence": "§2.3, Algorithm 3: new data and stored exemplars form a combined training set.",
+    "rights": "New project-generated conceptual artwork; no source paper figure, screenshot or product photograph reproduced. No third-party redistribution license asserted.",
+    "id": "continual-learning-replay-v3",
+    "path": "/assets/images/research/20261030/continual-learning-replay-v3.png",
+    "kind": "generated-illustration",
+    "title": "经验回放的数据流与记忆支路",
+    "alt": "新数据与抽取的旧样本组成混合批次，用于共享模型更新；缓冲更新和旧任务评估分别走独立支路。",
+    "caption": "橙色表示当前数据、蓝色表示历史回放数据；记忆更新支路概括跨时间的样本维护，不表示所有步骤同时发生。右侧评估不向训练回传测试数据。样本图案、层宽与任务列表均为示意，不是数据集截图、实测结果或所有持续学习方法的统一架构。",
+    "status": "archived",
+    "modifications": "New scientific methods diagram replacing rejected artistic v2. Generated original; source paper figures are not reproduced. Localized generation edit corrected current-data triangle border from blue to orange.",
+    "used_by": [],
+    "sha256": "81ffe786669663fea68dd85be4e4a05e20135d7275b122be9ddae9cc91573668",
+    "bytes": 1549867,
+    "generation": {
+      "tool": "image_gen.imagegen",
+      "date": "2026-10-30",
+      "prompt": "Create a rigorous modern scientific research figure, landscape 1536x1024, white background, crisp vector-like rendering, journal-methods-figure aesthetic. NOT an artistic illustration. NO landscapes, paper texture, tabletop objects, toys, vehicles, decorative plants, shadows, glow, brains, robots, 3D scenery. Use precise thin dark navy lines, muted blue for earlier data, teal for model updates, warm orange for current data. Clean typography, generous whitespace, varied meaningful panel sizes instead of equal box chains. EXACT TITLE: 'Continual learning with experience replay'. Layout has a main horizontal training path in upper middle, with a support memory track below and a small right inset for evaluation. Upper left: a group labeled 'Current batch' containing four small square flat schematic grayscale sample tiles with simple geometric strokes, marked 'new data'. Immediately BELOW this group, a smaller group labeled 'Replay samples' with two blue-bordered sample tiles. These two groups each have their OWN directed arrow INTO a larger central group labeled 'Mixed minibatch', which visibly contains both orange-bordered and blue-bordered sample tiles. From Mixed minibatch ONE arrow points right to a compact neural-layer/matrix block labeled 'Model update'. From Model update ONE arrow points right into an inset labeled 'Evaluate all seen tasks', depicting three small plain output lists labeled 'Task 1', 'Task 2', 'Task 3', NO scores or plots. Bottom left a clearly separated wide container labeled 'Memory buffer' holds several blue-border sample tiles; ONE arrow labeled 'sample' goes upward from Memory buffer to Replay samples only. A second horizontal arrow labeled 'update memory' goes from Current batch down around the left side into Memory buffer; avoid any arrow entering backwards or crossing a label. A fine annotation near Model update says 'Shared parameters'. Footer exact text 'Schematic samples and task sequence; no measured results'. All text should be sharp, short, correctly spelled. No extra formulas. Emphasize data provenance and two source streams merging, active yet orderly scientific layout. This is generic experience replay, NOT a claim every continual-learning method stores raw data or performs identically.\n\nLOCALIZED SCIENTIFIC CORRECTION:\nEdit this scientific figure with exactly ONE localized correction: in the central 'Mixed minibatch' box, the triangle sample in its bottom-left cell currently has a blue rectangular border. Change only that border to the same orange used by the three samples in the top row and by the 'Current batch' samples. This triangle belongs to the current batch, so the mixed minibatch must visibly have FOUR orange-bordered new-data tiles (circle, slash, square, triangle) and TWO blue-bordered replay-data tiles (plus and ring). Preserve all other pixels/composition/text/lines/colors/labels/tiles/arrows, with no additions or redesign.",
+      "prompt_file": "notes/visual-assets/continual-learning-replay-v3-prompt.txt",
+      "model_version": "not exposed; not verified"
+    },
+    "visual_review": "Full-size image inspected: English labels, directed data relations, sources and scientific scope reviewed. No measured values or claimed experimental screenshots.",
+    "archive_reason": "Superseded by v4 to match user-approved iCaRL scientific style anchor; source retained."
+  },
+  {
+    "source_url": "https://arxiv.org/abs/1611.07725",
+    "source_title": "iCaRL: Incremental Classifier and Representation Learning",
+    "source_date": "2017-04-14",
+    "source_version": "arXiv:1611.07725v2",
+    "verified_at": "2026-10-30",
+    "evidence": "§2, Algorithms 1–5: exemplar selection, bounded memory and nearest-mean classification.",
+    "rights": "New project-generated conceptual artwork; no source paper figure, screenshot or product photograph reproduced. No third-party redistribution license asserted.",
+    "id": "icarl-training-classification-v3",
+    "path": "/assets/images/research/20261030/icarl-training-classification-v3.png",
+    "kind": "generated-illustration",
+    "title": "iCaRL：区分表示训练与样本均值分类",
+    "alt": "上半图混合新旧数据并蒸馏更新前模型的旧类sigmoid输出；下半图用当前编码器重新计算查询特征与各类样本均值。",
+    "caption": "训练与推理分成两条泳道：旧类蒸馏使用逐类 sigmoid 目标，推理使用归一化的当前特征与重算的类别样本均值。两个 Current encoder 表示共享的同一编码器。几何图案仅为样本占位符，颜色表示来源、不定义类别；样本数量和层形状不是精确实现或实验结果。",
+    "status": "active",
+    "modifications": "New scientific methods diagram replacing rejected artistic v2. Generated original; source paper figures are not reproduced. Original generation reviewed for training/inference and old-class target flow.",
+    "used_by": [
+      "_posts/2026-08-03-class-incremental-learning-in-depth.md"
+    ],
+    "sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+    "bytes": 1283864,
+    "generation": {
+      "tool": "image_gen.imagegen",
+      "date": "2026-10-30",
+      "prompt": "Create a rigorous modern scientific research figure, landscape 1536x1024, white background, crisp vector-like rendering, journal-methods-figure aesthetic. NOT an artistic illustration. NO landscapes, paper texture, tabletop objects, toys, vehicles, decorative plants, shadows, glow, brains, robots, 3D scenery. Use precise thin dark navy lines, muted blue for stored/previous information, teal for learned model and features, warm orange for incoming data or actions. Sharp short English labels; generous whitespace and aligned hierarchy, varied meaningful module sizes with support tracks and scientific detail, not a rigid row of equal boxes. Do not invent any measured performance scores. Exact title 'iCaRL: learning representations, classifying with exemplars'. Two spacious horizontal lanes separated by a fine rule. TOP LANE heading '1  Incremental training'. Upper-left small sample-tile group labeled 'New-class data', orange borders; below it another tile group 'Stored exemplars', blue borders. Each points into a shared container 'Combined training set'. This shared container has two outgoing branches: solid arrow to a box 'Updated model', and secondary arrow down to a blue outlined box 'Pre-update model'. From Pre-update model an arrow labelled 'Old-class sigmoid targets' goes right to a SMALL box 'Distillation loss'. From Updated model arrow labelled 'Old-class outputs' goes to that same Distillation loss box. A simple bracket alongside Updated model and Distillation loss says 'Classification + distillation'. No loss arrow must appear to be inference output. At upper-right separate small annotation 'Total exemplar budget: K' with tiny sample stacks below, explicitly NOT connected to the distillation loss. BOTTOM LANE heading '2  Classification after the update'. Left a small neutral sample tile labelled 'Query image' arrows to 'Current encoder' arrows to a short teal feature vector labelled 'Query features'. Under this path a blue stack labelled 'Class exemplars' arrows to a SECOND box also labelled 'Current encoder' then arrows to three short teal feature vectors labelled 'Recompute class means'. BOTH Query features and Recompute class means each send arrows into a right-side box labelled 'Nearest exemplar mean', with final output label 'All seen classes'. Put small annotation 'Normalized features and means' below this lower lane. Footer exact 'Schematic samples; no measured results'. Every depicted computational arrow must follow the specified source and destination; do not add guessed paths. Mini tiles are abstract geometric sample thumbnails not real dataset images.",
+      "prompt_file": "notes/visual-assets/icarl-training-classification-v3-prompt.txt",
+      "model_version": "not exposed; not verified"
+    },
+    "visual_review": "Full-size image inspected: English labels, directed data relations, sources and scientific scope reviewed. No measured values or claimed experimental screenshots.",
+    "style_approval": {
+      "status": "user-approved-style-anchor",
+      "date": "2026-10-30",
+      "evidence": "User selected the second delivered v3 figure and asked to use this style for other figures.",
+      "style_guide": "docs/SCIENTIFIC-FIGURE-STYLE.md",
+      "immutable_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792"
+    }
+  },
+  {
+    "source_url": "https://arxiv.org/abs/1912.01603",
+    "source_title": "Dream to Control: Learning Behaviors by Latent Imagination",
+    "source_date": "2020-03-17",
+    "source_version": "arXiv:1912.01603v3",
+    "verified_at": "2026-10-30",
+    "evidence": "§2–3 / Figure 3: world-model learning from experience, behavior learning in latent imagination, collection of new experience.",
+    "rights": "New project-generated conceptual artwork; no source paper figure, screenshot or product photograph reproduced. No third-party redistribution license asserted.",
+    "id": "dreamer-latent-learning-v3",
+    "path": "/assets/images/research/20261030/dreamer-latent-learning-v3.png",
+    "kind": "generated-illustration",
+    "title": "Dreamer：世界模型、想象行为学习与环境采样",
+    "alt": "从回放经验学习世界模型；Actor提供动作推进潜状态，Critic估计状态价值，奖励由世界模型预测；策略回到环境收集经验。",
+    "caption": "三阶段流程示意：Critic 估计价值、世界模型预测奖励，行为学习的梯度可穿过参数固定的潜动态模型。图中省略状态编码到 Actor 的输入支路与 RSSM 内部细节；状态网格和观察帧均为占位示意，不是实际潜变量维度、实验画面或完整计算图。",
+    "status": "archived",
+    "modifications": "New scientific methods diagram replacing rejected artistic v2. Generated original; source paper figures are not reproduced. Localized generation edit removed reward bars and clarified observation reconstruction / critic value versus world-model rewards.",
+    "used_by": [],
+    "sha256": "4a0e8482c138b3380314fb2453c121596d65c25ee020505afabb1dc22990488e",
+    "bytes": 1565106,
+    "generation": {
+      "tool": "image_gen.imagegen",
+      "date": "2026-10-30",
+      "prompt": "Create a rigorous modern scientific research figure, landscape 1536x1024, white background, crisp vector-like rendering, journal-methods-figure aesthetic. NOT an artistic illustration. NO landscapes, paper texture, tabletop objects, toys, vehicles, decorative plants, shadows, glow, brains, robots, 3D scenery. Use precise thin dark navy lines, muted blue for stored/previous information, teal for learned model and features, warm orange for incoming data or actions. Sharp short English labels; generous whitespace and aligned hierarchy, varied meaningful module sizes with support tracks and scientific detail, not a rigid row of equal boxes. Do not invent any measured performance scores. Exact title 'Dreamer: learning behavior in latent imagination'. Design THREE semantic regions with a wider middle region, clear named phases, consistent scientific arrows. Top band '1  Learn the world model': a stack of tiny flat gray sample frames labelled 'Replay experience' arrow right into a teal block 'World model' with three small stacked matrices inside, arrow right to a concise boxed list 'Observation / reward prediction'. These sample frames are schematic geometric observations, not real photos. Middle large band '2  Learn behavior in imagination': show a clean main sequence of four teal small square state grids left to right labeled 's0', 's1', 's2', 's3', connected by rightward arrows. Place a small orange action label 'a0', 'a1', 'a2' above each respective transition arrow. Above the sequence one orange outlined box 'Actor' with modest short cue to action labels, and below state sequence a blue outlined box 'Critic' connected FROM states downward, indicating value estimates; nearby text 'Predicted rewards + values'. A separate small note at bottom of this band: 'Actor gradients pass through latent dynamics' and another short note 'World-model parameters fixed during behavior learning'. DO NOT draw Critic as an input to state transition and DO NOT draw a REINFORCE or log-probability formula. The state sequence is a compact conceptual rollout not exact RSSM internals. Bottom band '3  Collect experience': box 'Policy' arrow labelled 'action' into box 'Environment' arrow labelled 'observation + reward' into stack 'Replay dataset'. Footer exact 'Conceptual data flow; no measured results'. Do not add a fake feedback arrow from environment to actor without a state encoder; simply show only the specified phase3 flow. No numerical horizon or performance data.\n\nLOCALIZED SCIENTIFIC CORRECTION:\nMake only three precise scientific-label corrections to the attached Dreamer diagram, preserving all layout, modules, arrows, state grids, fonts, colors, sizes and other text. (1) In top-right observation prediction inset replace the words 'Next observation prediction' with 'Observation reconstruction'. (2) In that same inset replace the three ascending dark bars beside 'Reward prediction' with one small plain rounded output cell containing the single letter 'r'. The bars could be mistaken for empirical measurements. (3) To the RIGHT of the middle blue Critic box replace 'Predicted rewards + values' with 'Value estimates'; place a second small separate line directly beneath reading 'Rewards: world model'. This clarifies the critic estimates value while rewards are predicted by the world model. Do not change any other content, do not add decorative objects, do not invent measurements.",
+      "prompt_file": "notes/visual-assets/dreamer-latent-learning-v3-prompt.txt",
+      "model_version": "not exposed; not verified"
+    },
+    "visual_review": "Full-size image inspected: English labels, directed data relations, sources and scientific scope reviewed. No measured values or claimed experimental screenshots.",
+    "archive_reason": "Superseded by v4 to match user-approved iCaRL scientific style anchor; source retained."
+  }
+]

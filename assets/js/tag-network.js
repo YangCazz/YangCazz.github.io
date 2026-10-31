@@ -1,3 +1,4 @@
+import './icons.js';
 // 关键词网络图
 export function initTagNetwork() {
     const canvas = document.getElementById('tagNetworkCanvas');
@@ -294,7 +295,7 @@ export function initTagNetwork() {
 
     function showTooltip(node, x, y, pinned = false, isTouch = false) {
         tooltip.innerHTML = `
-            <button class="tag-tooltip-close" onclick="closeTooltip()">×</button>
+            <button class="tag-tooltip-close" aria-label="关闭标签详情" onclick="closeTooltip()">${SiteIcons.render('close')}</button>
             <h4>${node.name}</h4>
             <p>文章数量: ${node.count}</p>
             <p>相关文章:</p>

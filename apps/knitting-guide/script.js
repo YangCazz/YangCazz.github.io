@@ -504,7 +504,8 @@ document.addEventListener('DOMContentLoaded', () => {
             const copyBtn = document.createElement('button');
             copyBtn.className = 'btn-map-action btn-copy';
             copyBtn.title = '复制地图';
-            copyBtn.innerHTML = '📋';
+            copyBtn.innerHTML = SiteIcons.render('copy');
+            copyBtn.setAttribute('aria-label', '复制地图');
             copyBtn.addEventListener('click', (e) => {
                 e.stopPropagation(); // 阻止触发地图切换
                 e.preventDefault(); // 阻止默认行为
@@ -519,7 +520,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const editBtn = document.createElement('button');
                 editBtn.className = 'btn-map-action btn-edit';
                 editBtn.title = '编辑地图';
-                editBtn.innerHTML = '✏️';
+                editBtn.innerHTML = SiteIcons.render('edit');
+            editBtn.setAttribute('aria-label', '编辑地图');
                 editBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     e.preventDefault(); // 阻止默认行为
@@ -534,7 +536,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 const deleteBtn = document.createElement('button');
                 deleteBtn.className = 'btn-map-action btn-delete';
                 deleteBtn.title = '删除地图';
-                deleteBtn.innerHTML = '🗑️';
+                deleteBtn.innerHTML = SiteIcons.render('trash');
+            deleteBtn.setAttribute('aria-label', '删除地图');
                 deleteBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
                     e.preventDefault(); // 阻止默认行为
@@ -1735,7 +1738,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCurrentPathStatus();
                 
                 // 提示完成
-                alert("🎉 所有对角线已完成！");
+                alert("所有对角线已完成！");
                 console.log('所有对角线已完成');
             }
         } else {
@@ -1842,13 +1845,13 @@ document.addEventListener('DOMContentLoaded', () => {
             const completedCount = completedSquares.length;
             const totalSquares = pixelMapData ? pixelMapData.grid_data.length * pixelMapData.grid_data[0].length : 0;
             const progressPercent = totalSquares > 0 ? Math.round((completedCount / totalSquares) * 100) : 0;
-            alert(`✅ 进度已保存！\n已完成：${completedCount} 个方块 (${progressPercent}%)`);
+            alert(`进度已保存！\n已完成：${completedCount} 个方块 (${progressPercent}%)`);
         }
     });
 
     loadProgressBtn.addEventListener('click', () => {
         if (loadProgressBtn.disabled) {
-            alert("⚠️ 当前地图没有保存的进度！");
+            alert("当前地图没有保存的进度！");
             return;
         }
         
@@ -1859,7 +1862,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         // 确认是否要覆盖当前进度
         if (completedSquares.length > 0) {
-            if (!confirm("⚠️ 加载进度将覆盖当前的编织进度，是否继续？")) {
+            if (!confirm("加载进度将覆盖当前的编织进度，是否继续？")) {
                 return;
             }
         }
@@ -1871,7 +1874,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const totalSquares = pixelMapData ? pixelMapData.grid_data.length * pixelMapData.grid_data[0].length : 0;
         const progressPercent = totalSquares > 0 ? Math.round((completedCount / totalSquares) * 100) : 0;
         const modeText = isDiagonalMode ? `对角模式 (第 ${currentDiagonalIndex + 1} 条)` : '普通模式';
-        alert(`✅ 进度已加载！\n已完成：${completedCount} 个方块 (${progressPercent}%)\n模式：${modeText}`);
+        alert(`进度已加载！\n已完成：${completedCount} 个方块 (${progressPercent}%)\n模式：${modeText}`);
     });
 
     resetProgressBtn.addEventListener('click', () => {
@@ -1880,7 +1883,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
         
-        if (confirm("⚠️ 确定要重置所有编织进度吗？\n这将清除所有已完成的方块和当前模式状态。\n此操作不可撤销！")) {
+        if (confirm("确定要重置所有编织进度吗？\n这将清除所有已完成的方块和当前模式状态。\n此操作不可撤销！")) {
             completedSquares = [];
             completedSquaresSet = new Set(); // 同步清空 Set
             currentDiagonalIndex = -1;
@@ -1906,9 +1909,9 @@ document.addEventListener('DOMContentLoaded', () => {
             updateNavigationButtons(); // 更新导航按钮状态（重置后应该恢复可用）
             
             if (success) {
-                alert("✅ 编织进度已重置！");
+                alert("编织进度已重置！");
             } else {
-                alert("⚠️ 进度已重置，但保存失败。请手动保存。");
+                alert("进度已重置，但保存失败。请手动保存。");
             }
         }
     });
@@ -2668,7 +2671,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 <span class="color-preview" style="background-color: rgb(${color[0]}, ${color[1]}, ${color[2]});"></span>
                 rgb(${color[0]}, ${color[1]}, ${color[2]})
             </div>
-            <div class="tooltip-row"><strong>状态:</strong> ${isCompleted ? '✅ 已完成' : isOnPath ? '🟢 路径中' : '⚪ 未完成'}</div>
+            <div class="tooltip-row"><strong>状态:</strong> ${isCompleted ? '已完成' : isOnPath ? '路径中' : '未完成'}</div>
         `;
 
         tooltip.innerHTML = tooltipContent;

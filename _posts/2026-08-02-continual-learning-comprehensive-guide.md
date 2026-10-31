@@ -10,11 +10,19 @@ tags:
 - 深度学习
 - PyTorch
 excerpt: "从灾难性遗忘出发,系统梳理持续学习的三大范式——正则化、经验回放、参数隔离,并延伸阐述概念谱系与医学影像应用。"
-image: "/assets/images/covers/ai-dev-tools.jpg"
+cover_image: false
+image: "/assets/images/research/20261030/continual-learning-replay-v4.png"
 ---
 {% include series-nav.html series="continual-learning" position="top" %}
 
 ## 引言
+
+<figure class="research-figure research-figure--scientific">
+  <img src="{{ '/assets/images/research/20261030/continual-learning-replay-v4.png' | relative_url }}" alt="新数据与抽取的旧样本组成混合批次，用于共享模型更新；缓冲更新和旧任务评估分别走独立支路。" loading="lazy" decoding="async" width="1536" height="1024" style="width:100%;height:auto;">
+  <figcaption><strong>AI 生成科研示意图（非论文原图）</strong>：橙色表示当前数据、蓝色表示历史回放数据；记忆更新支路概括跨时间的样本维护，不表示所有步骤同时发生。右侧评估不向训练回传测试数据。样本图案、层宽与任务列表均为示意，不是数据集截图、实测结果或所有持续学习方法的统一架构。依据 <a href="https://arxiv.org/abs/1611.07725">iCaRL: Incremental Classifier and Representation Learning</a>。
+  </figcaption>
+</figure>
+
 
 现实世界的数据流永不停歇:今天部署的模型,明天就要面对新的任务、新的类别、新的数据分布。医学影像模型会遇到前所未见的病种,手术机器人的技能库需要不断扩充,推荐系统要吸收源源不断的新行为。然而,传统监督学习建立在两个隐蔽却苛刻的假设之上——训练数据独立同分布(i.i.d.),且任务集固定不变。一旦这两个假设在真实世界中破碎,模型就会陷入一个尴尬的境地:**学习新知识的同时,迅速遗忘旧知识**。
 
@@ -67,9 +75,15 @@ graph LR
 
 ### 三种增量设定
 
-「增量学习」内部还因数据到来的方式不同,衍生出三种难度递增的设定——这是持续学习文献中最容易混淆、也最重要的分类:
+<figure class="research-figure">
+  <img src="{{ '/assets/images/research/20261030/continual-learning-protocols-v1.svg' | relative_url }}" alt="三种增量协议：Task-IL 提供任务身份；Domain-IL 不提供任务身份且输出语义不变；Class-IL 在全部已见类别中判别。" loading="lazy" decoding="async" width="1200" height="760" style="width:100%;height:auto;">
+  <figcaption>原创示意（非论文原图）：依据 <a href="https://arxiv.org/abs/1904.07734">van de Ven 与 Tolias，2019</a> §2 / Table 1。比较的是测试协议，不是跨所有任务都成立的性能排序。</figcaption>
+</figure>
 
-- **Task-IL(任务增量)**:每个任务带有已知的任务 ID,模型为每任务配备独立输出头,测试时任务 ID 已知、只需选择对应头。难度最低。
+
+「增量学习」还需区分测试时是否提供任务身份、标签语义是否改变,据此形成三种常见评估设定——这是持续学习文献中最容易混淆、也最重要的分类:
+
+- **Task-IL(任务增量)**:测试时提供任务 ID；模型因此可以选择任务专用输出头（常见实现，但并非定义要求）。这避免了跨任务类别竞争。
 - **Class-IL(类增量)**:新类别不断加入,所有类别共享一个分类器,测试时不知道样本来自哪个任务。模型必须从不断累积的类别池中正确判别——这是目前研究最活跃、也最难的设定,因为「全类别判别」对旧类别提出了苛刻的区分要求<cite>[7]</cite><cite>[8]</cite>。
 - **Domain-IL(域增量)**:输入分布变化(如成像域变化)而标签集相同,模型需适应新域而不忘记旧域。
 

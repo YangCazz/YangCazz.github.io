@@ -61,7 +61,7 @@
     {%- if prev_post_data -%}
     {%- assign prev_post = site.posts | where: 'slug', prev_post_data.slug | first -%}
     <a class="series-nav-link prev" href="{{ prev_post.url | relative_url }}">
-      <span class="nav-arrow">←</span>
+      <span class="nav-arrow">{% include icon.html name="arrow-left" size=16 %}</span>
       <span class="nav-label">{{ prev_post.title | truncate: 30 }}</span>
     </a>
     {%- else -%}
@@ -71,7 +71,7 @@
     {%- assign next_post = site.posts | where: 'slug', next_post_data.slug | first -%}
     <a class="series-nav-link next" href="{{ next_post.url | relative_url }}">
       <span class="nav-label">{{ next_post.title | truncate: 30 }}</span>
-      <span class="nav-arrow">→</span>
+      <span class="nav-arrow">{% include icon.html name="arrow-right" size=16 %}</span>
     </a>
     {%- endif -%}
   </div>

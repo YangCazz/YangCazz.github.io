@@ -78,6 +78,8 @@ export function initializeNavigation() {
 
 // 平滑滚动
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    // Showcase uses native fragment navigation: preserve history and keyboard focus.
+    if (anchor.closest('.workbench')) return;
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));

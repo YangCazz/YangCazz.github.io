@@ -181,7 +181,13 @@
 }
 
 .social-link-item::after {
-    content: '→';
+    content: '';
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    background: currentColor;
+    -webkit-mask: url('icons/arrow-right.svg') center / contain no-repeat;
+    mask: url('icons/arrow-right.svg') center / contain no-repeat;
     position: absolute;
     right: 1rem;
     opacity: 0;

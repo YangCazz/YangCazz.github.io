@@ -1,0 +1,12 @@
+/* Original Outline / 24. Preserve inherited color, never use an icon font. */
+svg.site-icon {
+  display: inline-block;
+  vertical-align: -0.15em;
+  flex-shrink: 0;
+  fill: none !important; /* Overrides legacy filled-Octicon selectors. */
+  stroke: currentColor;
+  stroke-width: 1.75;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  overflow: visible;
+}
