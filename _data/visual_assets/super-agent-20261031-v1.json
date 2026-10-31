@@ -1,0 +1,172 @@
+[
+  {
+    "id": "super-agent-routing-v1-svg",
+    "path": "/assets/images/research/20261031/super-agent-routing-v1.svg",
+    "kind": "original-diagram",
+    "title": "事件过滤、Router 与订阅直通",
+    "alt": "环境事件经过程序与语义策略过滤，新任务由 Router 分派，已订阅事件直通隔离 Worker；对外回复仍经 Router，历史上下文沿 ID 引用链召回。",
+    "source_url": "https://mp.weixin.qq.com/s/zoS7GlReWPhfCjENGxXCdg",
+    "source_title": "Super-agent 设计探索：迈向更自主的 Agent 系统",
+    "source_date": null,
+    "source_version": "User-supplied full pasted text, read 2026-10-31; webpage metadata not independently verified",
+    "source_sections": "2–3",
+    "verified_at": "2026-10-31",
+    "rights": "Original AI-assisted vector interpretation, not a DeepSeek official figure, paper screenshot, or copied WeChat image. Source concepts attributed; no source image pixels reused.",
+    "used_by": [
+      "_posts/2026-10-31-super-agent-continuous-event-driven-architecture.md"
+    ],
+    "status": "active",
+    "modifications": "Original vector layout; PNG is Inkscape rendering of SVG, with no manual raster edits.",
+    "sha256": "890a4c7a8d63d8dac2d5b6232eb8fd81140b1a359e7815d58087b1e84e069621",
+    "width": 1536,
+    "height": 1024,
+    "caption": "AI 生成科研示意图（非论文原图）。本图为依据原文第 2—3 节制作的原创矢量解释图：橙色表示当前事件与直通路径，青绿色表示 Router/Worker 计算角色，蓝色表示按需召回的历史对象。Router 保留全局观察，但不必逐条转发已订阅事件；下方重复展示的是同一 Router 的输出职责。省略部分创建、取消订阅及异常控制路径，Thread X/Y 仅为示例，无实测数值。",
+    "generation": {
+      "tool": "AI-authored native SVG (Python standard library); Inkscape PNG rendering",
+      "model": null,
+      "date": "2026-10-31",
+      "prompt": "Create a precise original editable SVG for 事件过滤、Router 与订阅直通. White 1536x1024 canvas, SF-01 navy serif hierarchy, thin directed orthogonal arrows, blue persistent/reference data, orange current events/actions, teal computing roles, numbered reading lanes. Inspect the approved iCaRL PNG as visual reference only, never copy its algorithm semantics. Ground in user-supplied full source, sections 2–3. Show events -> program policy -> semantic policy. New task -> Router -> Worker; subscribed events -> Workers directly, many-to-many subscriptions. Router retains global observation. Workers report to same Router, Router replies to humans. Recall inset Trigger -> Thread -> Worker Session -> other Thread. Omit some control paths explicitly. No metrics, paper art, fabricated screenshots, or claim of official architecture figure.",
+      "correction_prompts": [
+        "Shorten Incoming events title to avoid border collision. Reroute persistence edges around all labels and lane badge. Shorten daemon label.",
+        "Use Router retains global observation; mark one representative return path with other return paths omitted.",
+        "Change title isolated execution to isolated contexts: context isolation is not OS or security isolation."
+      ],
+      "reference_image": "assets/images/research/20261030/icarl-training-classification-v3.png",
+      "reference_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+      "generator": "_scripts/generate-super-agent-figures.py"
+    },
+    "validation": {
+      "pixel_inspected": true,
+      "dimensions_verified": true,
+      "anchor_hash_unchanged": true,
+      "notes": "Both full-size PNGs rendered and viewed after final corrections. No overlap, clipped labels, fabricated metrics, or semantic gradient/data-flow ambiguity. Page-level responsive QA delegated to publishing task."
+    }
+  },
+  {
+    "id": "super-agent-routing-v1-png",
+    "path": "/assets/images/research/20261031/super-agent-routing-v1.png",
+    "kind": "original-diagram",
+    "title": "事件过滤、Router 与订阅直通",
+    "alt": "环境事件经过程序与语义策略过滤，新任务由 Router 分派，已订阅事件直通隔离 Worker；对外回复仍经 Router，历史上下文沿 ID 引用链召回。",
+    "source_url": "https://mp.weixin.qq.com/s/zoS7GlReWPhfCjENGxXCdg",
+    "source_title": "Super-agent 设计探索：迈向更自主的 Agent 系统",
+    "source_date": null,
+    "source_version": "User-supplied full pasted text, read 2026-10-31; webpage metadata not independently verified",
+    "source_sections": "2–3",
+    "verified_at": "2026-10-31",
+    "rights": "Original AI-assisted vector interpretation, not a DeepSeek official figure, paper screenshot, or copied WeChat image. Source concepts attributed; no source image pixels reused.",
+    "used_by": [
+      "_posts/2026-10-31-super-agent-continuous-event-driven-architecture.md"
+    ],
+    "status": "active",
+    "modifications": "Original vector layout; PNG is Inkscape rendering of SVG, with no manual raster edits.",
+    "sha256": "1a2bc0f281855bd638e99c0d7797c4efa08014b295678243b8a97b4daef41dd9",
+    "width": 1536,
+    "height": 1024,
+    "caption": "AI 生成科研示意图（非论文原图）。本图为依据原文第 2—3 节制作的原创矢量解释图：橙色表示当前事件与直通路径，青绿色表示 Router/Worker 计算角色，蓝色表示按需召回的历史对象。Router 保留全局观察，但不必逐条转发已订阅事件；下方重复展示的是同一 Router 的输出职责。省略部分创建、取消订阅及异常控制路径，Thread X/Y 仅为示例，无实测数值。",
+    "generation": {
+      "tool": "AI-authored native SVG (Python standard library); Inkscape PNG rendering",
+      "model": null,
+      "date": "2026-10-31",
+      "prompt": "Create a precise original editable SVG for 事件过滤、Router 与订阅直通. White 1536x1024 canvas, SF-01 navy serif hierarchy, thin directed orthogonal arrows, blue persistent/reference data, orange current events/actions, teal computing roles, numbered reading lanes. Inspect the approved iCaRL PNG as visual reference only, never copy its algorithm semantics. Ground in user-supplied full source, sections 2–3. Show events -> program policy -> semantic policy. New task -> Router -> Worker; subscribed events -> Workers directly, many-to-many subscriptions. Router retains global observation. Workers report to same Router, Router replies to humans. Recall inset Trigger -> Thread -> Worker Session -> other Thread. Omit some control paths explicitly. No metrics, paper art, fabricated screenshots, or claim of official architecture figure.",
+      "correction_prompts": [
+        "Shorten Incoming events title to avoid border collision. Reroute persistence edges around all labels and lane badge. Shorten daemon label.",
+        "Use Router retains global observation; mark one representative return path with other return paths omitted.",
+        "Change title isolated execution to isolated contexts: context isolation is not OS or security isolation."
+      ],
+      "reference_image": "assets/images/research/20261030/icarl-training-classification-v3.png",
+      "reference_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+      "generator": "_scripts/generate-super-agent-figures.py"
+    },
+    "validation": {
+      "pixel_inspected": true,
+      "dimensions_verified": true,
+      "anchor_hash_unchanged": true,
+      "notes": "Both full-size PNGs rendered and viewed after final corrections. No overlap, clipped labels, fabricated metrics, or semantic gradient/data-flow ambiguity. Page-level responsive QA delegated to publishing task."
+    }
+  },
+  {
+    "id": "super-agent-persistence-v1-svg",
+    "path": "/assets/images/research/20261031/super-agent-persistence-v1.svg",
+    "kind": "original-diagram",
+    "title": "计算、持久化状态与执行环境分离",
+    "alt": "无状态 Agent Loop 将会话持久化到外部存储，通过只执行命令的 daemon 接入真实环境，外部 Watchdog 同时观察系统健康与任务进展。",
+    "source_url": "https://mp.weixin.qq.com/s/zoS7GlReWPhfCjENGxXCdg",
+    "source_title": "Super-agent 设计探索：迈向更自主的 Agent 系统",
+    "source_date": null,
+    "source_version": "User-supplied full pasted text, read 2026-10-31; webpage metadata not independently verified",
+    "source_sections": "5–6",
+    "verified_at": "2026-10-31",
+    "rights": "Original AI-assisted vector interpretation, not a DeepSeek official figure, paper screenshot, or copied WeChat image. Source concepts attributed; no source image pixels reused.",
+    "used_by": [
+      "_posts/2026-10-31-super-agent-continuous-event-driven-architecture.md"
+    ],
+    "status": "active",
+    "modifications": "Original vector layout; PNG is Inkscape rendering of SVG, with no manual raster edits.",
+    "sha256": "8c060fd3b32a8ae3f2e6d8ee37245c58ac0c2aaf156a8796f5883391247a8826",
+    "width": 1536,
+    "height": 1024,
+    "caption": "AI 生成科研示意图（非论文原图）。本图为依据原文第 5—6 节制作的原创矢量解释图，展示架构设想而非当前开源原型的完整部署清单。青绿色表示计算与执行组件，蓝色表示状态及结果回流，橙色表示工具请求，灰色虚线表示独立 Watchdog 控制回路；只画出一条代表性的结果返回路径，其余环境同理。Loop 数量仅作示意，无实测数据；信任边界、凭据隔离与权限控制仍需另行设计，Watchdog 不等于安全保证。",
+    "generation": {
+      "tool": "AI-authored native SVG (Python standard library); Inkscape PNG rendering",
+      "model": null,
+      "date": "2026-10-31",
+      "prompt": "Create a precise original editable SVG for 计算、持久化状态与执行环境分离. White 1536x1024 canvas, SF-01 navy serif hierarchy, thin directed orthogonal arrows, blue persistent/reference data, orange current events/actions, teal computing roles, numbered reading lanes. Inspect the approved iCaRL PNG as visual reference only, never copy its algorithm semantics. Ground in user-supplied full source, sections 5–6. Separate replaceable compute, external persistent state, real execution environments. Tool requests go to execution-only daemon; results return to loop. Independent Watchdog inspects health and progress. State explicitly design proposal, not deployment inventory or safety guarantee. Representative return path; others omitted. No metrics, paper art, fabricated screenshots, or claim of official architecture figure.",
+      "correction_prompts": [
+        "Shorten Incoming events title to avoid border collision. Reroute persistence edges around all labels and lane badge. Shorten daemon label.",
+        "Use Router retains global observation; mark one representative return path with other return paths omitted."
+      ],
+      "reference_image": "assets/images/research/20261030/icarl-training-classification-v3.png",
+      "reference_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+      "generator": "_scripts/generate-super-agent-figures.py"
+    },
+    "validation": {
+      "pixel_inspected": true,
+      "dimensions_verified": true,
+      "anchor_hash_unchanged": true,
+      "notes": "Both full-size PNGs rendered and viewed after final corrections. No overlap, clipped labels, fabricated metrics, or semantic gradient/data-flow ambiguity. Page-level responsive QA delegated to publishing task."
+    }
+  },
+  {
+    "id": "super-agent-persistence-v1-png",
+    "path": "/assets/images/research/20261031/super-agent-persistence-v1.png",
+    "kind": "original-diagram",
+    "title": "计算、持久化状态与执行环境分离",
+    "alt": "无状态 Agent Loop 将会话持久化到外部存储，通过只执行命令的 daemon 接入真实环境，外部 Watchdog 同时观察系统健康与任务进展。",
+    "source_url": "https://mp.weixin.qq.com/s/zoS7GlReWPhfCjENGxXCdg",
+    "source_title": "Super-agent 设计探索：迈向更自主的 Agent 系统",
+    "source_date": null,
+    "source_version": "User-supplied full pasted text, read 2026-10-31; webpage metadata not independently verified",
+    "source_sections": "5–6",
+    "verified_at": "2026-10-31",
+    "rights": "Original AI-assisted vector interpretation, not a DeepSeek official figure, paper screenshot, or copied WeChat image. Source concepts attributed; no source image pixels reused.",
+    "used_by": [
+      "_posts/2026-10-31-super-agent-continuous-event-driven-architecture.md"
+    ],
+    "status": "active",
+    "modifications": "Original vector layout; PNG is Inkscape rendering of SVG, with no manual raster edits.",
+    "sha256": "e1e3d862fc5691e912c36a7a3c0a152fec016f01af4e3a1cf5e9428844289062",
+    "width": 1536,
+    "height": 1024,
+    "caption": "AI 生成科研示意图（非论文原图）。本图为依据原文第 5—6 节制作的原创矢量解释图，展示架构设想而非当前开源原型的完整部署清单。青绿色表示计算与执行组件，蓝色表示状态及结果回流，橙色表示工具请求，灰色虚线表示独立 Watchdog 控制回路；只画出一条代表性的结果返回路径，其余环境同理。Loop 数量仅作示意，无实测数据；信任边界、凭据隔离与权限控制仍需另行设计，Watchdog 不等于安全保证。",
+    "generation": {
+      "tool": "AI-authored native SVG (Python standard library); Inkscape PNG rendering",
+      "model": null,
+      "date": "2026-10-31",
+      "prompt": "Create a precise original editable SVG for 计算、持久化状态与执行环境分离. White 1536x1024 canvas, SF-01 navy serif hierarchy, thin directed orthogonal arrows, blue persistent/reference data, orange current events/actions, teal computing roles, numbered reading lanes. Inspect the approved iCaRL PNG as visual reference only, never copy its algorithm semantics. Ground in user-supplied full source, sections 5–6. Separate replaceable compute, external persistent state, real execution environments. Tool requests go to execution-only daemon; results return to loop. Independent Watchdog inspects health and progress. State explicitly design proposal, not deployment inventory or safety guarantee. Representative return path; others omitted. No metrics, paper art, fabricated screenshots, or claim of official architecture figure.",
+      "correction_prompts": [
+        "Shorten Incoming events title to avoid border collision. Reroute persistence edges around all labels and lane badge. Shorten daemon label.",
+        "Use Router retains global observation; mark one representative return path with other return paths omitted."
+      ],
+      "reference_image": "assets/images/research/20261030/icarl-training-classification-v3.png",
+      "reference_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+      "generator": "_scripts/generate-super-agent-figures.py"
+    },
+    "validation": {
+      "pixel_inspected": true,
+      "dimensions_verified": true,
+      "anchor_hash_unchanged": true,
+      "notes": "Both full-size PNGs rendered and viewed after final corrections. No overlap, clipped labels, fabricated metrics, or semantic gradient/data-flow ambiguity. Page-level responsive QA delegated to publishing task."
+    }
+  }
+]

@@ -5,7 +5,7 @@
 [![GitHub Pages](https://img.shields.io/badge/GitHub%20Pages-deployed-blue?style=flat-square&logo=github)](https://yangcazz.github.io)
 [![Jekyll](https://img.shields.io/badge/Jekyll-4.x-cc0000?style=flat-square&logo=jekyll)](https://jekyllrb.com)
 [![Ruby](https://img.shields.io/badge/Ruby-3.4-cc342d?style=flat-square&logo=ruby)](https://www.ruby-lang.org)
-[![Posts](https://img.shields.io/badge/posts-85-3b82f6?style=flat-square)](https://yangcazz.github.io/blog)
+[![Posts](https://img.shields.io/badge/posts-86-3b82f6?style=flat-square)](https://yangcazz.github.io/blog)
 [![Tags](https://img.shields.io/badge/tags-79-8b5cf6?style=flat-square)](https://yangcazz.github.io/tag-network-v2)
 [![Template](https://img.shields.io/badge/template-可用-8b5cf6?style=flat-square)](https://github.com/YangCazz/YangCazz-jekyll-blog-template)
 [![License](https://img.shields.io/badge/license-MIT-22c55e?style=flat-square)](LICENSE.txt)
@@ -19,7 +19,7 @@
 ---
 
 <table align="center"><tr>
-<td align="center"><b>85</b><br><sub>Posts</sub></td>
+<td align="center"><b>86</b><br><sub>Posts</sub></td>
 <td align="center"><b>79</b><br><sub>Tags in Posts</sub></td>
 <td align="center"><b>11</b><br><sub>JS Modules</sub></td>
 <td align="center"><b>19</b><br><sub>SCSS Partials</sub></td>
@@ -131,7 +131,7 @@ YangCazz.github.io/
 │   ├── default.html              #   默认布局 (粒子背景)
 │   └── post.html                 #   文章布局 (MathJax + SEO)
 ├── _includes/                    # 可复用组件
-├── _posts/                       # 博客文章 (85 篇)
+├── _posts/                       # 博客文章 (86 篇)
 ├── _sass/                        # SCSS 模块 (19 partials)
 ├── assets/
 │   ├── js/                       # JavaScript 模块 (11 files)
