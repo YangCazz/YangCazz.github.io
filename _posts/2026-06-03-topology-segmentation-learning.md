@@ -10,7 +10,7 @@ tags:
 - 医学图像分割
 - UNet
 excerpt: 深入解析图像分割中的拓扑结构保持方法——从持久同调和 Betti 数的数学基础，到 clDice 和 Betti Matching 等前沿拓扑感知损失函数，再到血管分割中的实战应用与代码实现。
-cover_image: false
+cover_image: "/assets/images/covers/ai-dev-tools.jpg"
 image: "/assets/images/research/20261030/cldice-bidirectional-coverage-v1.png"
 ---
 

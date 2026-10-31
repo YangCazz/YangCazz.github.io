@@ -98,6 +98,10 @@ bundle _2.7.2_ exec jekyll build
 
 **发布来源应只选 GitHub Actions**：仓库 `Settings → Pages → Build and deployment → Source` 选择 `GitHub Actions`，由现有 `build-deploy.yml` 构建、测试并发布 `_site/`。不要另选 `Deploy from a branch`，也不需要再创建 GitHub 建议的模板工作流。分支式 Pages 构建不能替代本项目的自定义插件与回归检查，并可能与自定义部署相互覆盖。该 Source 是仓库设置，修改本文件或删除工作流文件不会自动切换它；切换时保留现有域名和 HTTPS 设置。
 
+### 文章封面与分享图片
+
+文章的 `image` 用于社交分享预览，默认也作为标题区背景。需要保留研究图作为分享图片时，可用 `cover_image: "/assets/images/covers/ai-dev-tools.jpg"` 单独指定装饰性封面；正文中的研究图保持完整展示，不裁切到标题背景中。省略 `cover_image` 或设为 `true` 保持旧行为；显式 `false` 才表示不显示封面。
+
 ### 回归测试
 
 测试还需要 **Node.js 24.x** 和 **Python 3**；Node.js 不参与网站的运行时渲染。

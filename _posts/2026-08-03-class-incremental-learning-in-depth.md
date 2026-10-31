@@ -10,7 +10,7 @@ tags:
 - 深度学习
 - PyTorch
 excerpt: "为什么类增量学习是持续学习中最难的设定?从旧类判别、表示漂移到分类器偏差,再到方法演进的五波浪潮,系统拆解 Class-IL 的本质与前沿。"
-cover_image: false
+cover_image: "/assets/images/covers/ai-dev-tools.jpg"
 image: "/assets/images/research/20261030/icarl-training-classification-v3.png"
 ---
 {% include series-nav.html series="continual-learning" position="top" %}

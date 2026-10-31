@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
 
@@ -32,10 +32,10 @@ test('research diagrams are not cropped beneath article title overlays', () => {
     const post = readFileSync(`_posts/${name}.md`, 'utf8');
     const image = post.match(/^image:\s*[\"']?([^\"'\n]+)/m)?.[1];
     assert.ok(image, `${name}: image metadata is present`);
-    if (image.endsWith('.svg')) assert.match(post, /cover_image: false/);
-    else assert.match(image, /\.(png|jpe?g|webp)$/i);
+    assert.match(image, /\.(svg|png|jpe?g|webp)$/i);
+    assert.match(post, /^cover_image: "\/assets\/images\/covers\//m);
   }
-  assert.match(readFileSync('_layouts/post.html','utf8'), /page\.cover_image != false/);
+  assert.match(readFileSync('_layouts/post.html','utf8'), /page\.cover_image == false/);
 });
 
 test('user-approved iCaRL scientific style anchor remains byte-identical', () => {
@@ -91,4 +91,32 @@ test('legacy knitting guide imports the particle background as an ES module', ()
   const html = readFileSync('apps/knitting-guide/index.html', 'utf8');
   assert.match(html, /<script type="module">\s*import \{ ParticleSystem \} from '\.\.\/\.\.\/assets\/js\/particle-system\.js';/);
   assert.doesNotMatch(html, /<script src="[^"]*particle-system\.js"><\/script>/);
+});
+
+test('all article covers resolve, with decorative covers separate from research figures', () => {
+  const posts = readdirSync('_posts').filter(name => name.endsWith('.md'));
+  assert.equal(posts.length, 86);
+  for (const name of posts) {
+    const front = readFileSync(`_posts/${name}`, 'utf8').split(/^---\s*$/m)[1];
+    const image = front.match(/^image:\s*"([^"]+)"/m)?.[1];
+    const cover = front.match(/^cover_image:\s*"([^"]+)"/m)?.[1] || image;
+    assert.ok(cover, `${name}: cover is defined`);
+    assert.doesNotMatch(front, /^cover_image:\s*false/m, `${name}: cover unexpectedly suppressed`);
+    assert.doesNotMatch(cover, /\/research\//, `${name}: research diagram must not be cropped as a hero`);
+    assert.ok(readFileSync(`.${cover}`).length > 0, `${name}: cover exists`);
+  }
+  const expected = {
+    '2026-06-02-mamba-state-space-model-comprehensive': '/assets/images/covers/ai-dev-tools.jpg',
+    '2026-06-03-topology-segmentation-learning': '/assets/images/covers/ai-dev-tools.jpg',
+    '2026-06-21-world-models-dreamer-evolution': '/assets/images/posts/world-models/dreamer-evolution-cover.jpg',
+    '2026-08-02-continual-learning-comprehensive-guide': '/assets/images/covers/ai-dev-tools.jpg',
+    '2026-08-03-class-incremental-learning-in-depth': '/assets/images/covers/ai-dev-tools.jpg',
+    '2026-10-31-super-agent-continuous-event-driven-architecture': '/assets/images/covers/ai-dev-tools.jpg',
+  };
+  for (const [name, cover] of Object.entries(expected)) {
+    const post = readFileSync(`_posts/${name}.md`, 'utf8');
+    assert.ok(post.includes(`cover_image: "${cover}"`), `${name}: decorative cover retained`);
+    assert.match(post, /^image: "\/assets\/images\/research\//m);
+    assert.ok(readFileSync(`.${cover}`).length > 0);
+  }
 });

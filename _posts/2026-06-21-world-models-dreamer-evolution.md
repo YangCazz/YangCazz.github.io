@@ -12,7 +12,7 @@ tags:
 - PyTorch
 - 从零构建
 excerpt: 从 2018 年 Ha & Schmidhuber 的「在梦境中训练」到 2023 年 DreamerV3 的「一套参数统治 Minecraft + 机器人 + Atari」，世界模型如何让智能体学会在想象中学习？本文逐层拆解 VAE → RSSM → 离散潜变量 → symlog 的技术演进逻辑。
-cover_image: false
+cover_image: "/assets/images/posts/world-models/dreamer-evolution-cover.jpg"
 image: "/assets/images/research/20261030/dreamer-latent-learning-v4.png"
 ---
 

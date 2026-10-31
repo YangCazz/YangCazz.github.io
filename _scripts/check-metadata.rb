@@ -47,6 +47,20 @@ Dir[File.join(destination, '**', '*.html')].each do |path|
   end
   assert(article['description'] == expected, "Wrong JSON-LD description in #{path}")
   assert(article.dig('author', 'name') == '杨钱俊', "Author changed in #{path}")
+  # Cover selection is independent of the social-preview/research image.
+  cover = front['cover_image']
+  hero = cover == false ? nil : (cover.is_a?(String) ? cover : front['image'])
+  header = doc.at_css('.blog-post > .post-header')
+  assert(header, "Missing article header in #{path}")
+  assert(header['class'].split.include?('post-header--cover') == !!hero, "Wrong cover state in #{path}")
+  expected_style = hero ? "background-image: url('#{config['baseurl']}#{hero}');" : nil
+  assert(header['style'] == expected_style, "Wrong hero image in #{path}")
+  if hero&.start_with?('/')
+    assert(File.file?(File.join(destination, hero.delete_prefix('/'))), "Missing hero asset #{hero}")
+  end
+  social_image = front['image'] || config['default_image']
+  assert(doc.at_css('meta[property="og:image"]')['content'].end_with?(social_image), "Social image changed in #{path}")
+
 end
 assert(post_count == posts_by_title.size, "Expected #{posts_by_title.size} posts, checked #{post_count}")
 
@@ -82,4 +96,22 @@ fixtures.each do |fixture|
   assert(doc.css('script').none? { |script| script.text == 'should-not-run' }, 'Closing script injection was not escaped')
 end
 
-puts JSON.pretty_generate({status: 'PASS', posts_checked: post_count, json_ld_blocks_checked: schema_count, description_fields_per_post: 4, edge_case_fixtures: fixtures.size, manifest_icons_checked: manifest['icons'].size, unsupported_search_action: false})
+# Exercise the real Liquid selector, including compatibility and opt-out cases.
+hero_source = File.read(File.join(source, '_layouts', 'post.html')).split('<!-- image remains', 2).last.split('<h1', 2).first
+[
+  [{}, nil],
+  [{'image' => '/legacy.jpg'}, '/legacy.jpg'],
+  [{'image' => '/legacy.jpg', 'cover_image' => nil}, '/legacy.jpg'],
+  [{'image' => '/legacy.jpg', 'cover_image' => true}, '/legacy.jpg'],
+  [{'image' => '/diagram.png', 'cover_image' => false}, nil],
+  [{'image' => '/diagram.png', 'cover_image' => '/hero.jpg'}, '/hero.jpg'],
+  [{'cover_image' => '/hero.jpg'}, '/hero.jpg']
+].each do |page, hero|
+  html = Liquid::Template.parse('<!-- image remains' + hero_source).render!({'page' => page}, registers: {site: site})
+  header = Nokogiri::HTML(html).at_css('header')
+  assert(header['class'].split.include?('post-header--cover') == !!hero, "Cover fixture class mismatch: #{page}")
+  expected = hero ? "background-image: url('#{config['baseurl']}#{hero}');" : nil
+  assert(header['style'] == expected, "Cover fixture source mismatch: #{page}")
+end
+
+puts JSON.pretty_generate({status: 'PASS', posts_checked: post_count, hero_headers_checked: post_count, cover_selection_fixtures: 7, json_ld_blocks_checked: schema_count, description_fields_per_post: 4, edge_case_fixtures: fixtures.size, manifest_icons_checked: manifest['icons'].size, unsupported_search_action: false})

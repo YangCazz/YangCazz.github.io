@@ -6,7 +6,7 @@ categories: [AI, 软件工程]
 tags: [AI Agent, Harness Engineering, Tool Calling, Subagent, 安全]
 excerpt: "DeepSeek 的 Super-agent 设计探索，把问题从单任务的模型能力转向多任务中的人的注意力。本文拆解 Router/Worker、事件直通、链式召回、异步交互与持久运行，并核查原型和初步实验的适用边界。"
 image: "/assets/images/research/20261031/super-agent-routing-v1.png"
-cover_image: false
+cover_image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
 
 ## 当瓶颈从模型转向人的注意力

@@ -19,9 +19,18 @@ layout: default
 }
 </script>
 
+<!-- image remains the social preview; cover_image can override the decorative hero.
+     Omitted/true uses image, false explicitly disables the hero. -->
+{% assign hero_image = page.image %}
+{% if page.cover_image == false %}
+    {% assign hero_image = nil %}
+{% elsif page.cover_image and page.cover_image != true %}
+    {% assign hero_image = page.cover_image %}
+{% endif %}
+
 <!-- 文章头部 -->
 <article class="blog-post">
-    <header class="post-header{% if page.image and page.cover_image != false %} post-header--cover{% endif %}"{% if page.image and page.cover_image != false %} style="background-image: url('{{ page.image | relative_url }}');"{% endif %}>
+    <header class="post-header{% if hero_image %} post-header--cover{% endif %}"{% if hero_image %} style="background-image: url('{{ hero_image | relative_url | escape }}');"{% endif %}>
         <h1 class="post-title">{{ page.title }}</h1>
         <div class="post-meta">
             <time class="post-date">{{ page.date | date: "%Y年%m月%d日" }}</time>
