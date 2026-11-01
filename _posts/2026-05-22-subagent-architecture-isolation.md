@@ -10,29 +10,32 @@ tags:
 - AI Agent
 - 安全
 - Claude Code
-excerpt: Subagent 是 Agent 工程中最强大的模式之一——将复杂任务委派给专门的子代理，在隔离环境中并行执行。本文深入 Subagent 的三层隔离模型、生命周期管理、委派-收集-合并模式，以及
-  Worktree 隔离在 Claude Code 中的工程实现。
+excerpt: 区分上下文隔离、工作副本隔离与执行权限隔离，分析 Subagent 的委派协议、并发收集和生命周期管理，并说明 Git worktree 与超时机制的真实边界。
 image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
-
+{% include series-nav.html series="agent-systems" position="top" %}
 
 ## 引言
 
 在你的 Agent 同时处理"搜索文档、审查代码、更新测试、部署预览"四个任务时，如果只用一个主 Agent 按顺序执行，不仅慢，而且上下文窗口会迅速膨胀。
 
-**Subagent** 正是为解决这个问题而生——将任务委派给专用的子代理，在隔离环境中并行执行，然后收集结果合并到主上下文 <cite>[2]</cite>。
+**Subagent** 是一种委派模式：主 Agent 将有边界的任务交给具有独立执行上下文的子代理，再接收其结果。它可以减少主上下文中的中间信息；只有任务可并行且协调成本可控时，才可能缩短总用时。
 
-这与第5篇讨论的"多 Agent 协作"不同：多 Agent 是**同级之间的协调**（如 Generator-Verifier），而 Subagent 是**主从委派**（一个主 Agent 将子任务派发给多个 Subagent）。
+Subagent 可以视为多 Agent 系统的一种层次化组织形式，而不是与 Multi-Agent 互斥的类别。本文比较的是“主从委派”和“同级协作”两种控制结构。
+
+### 问题与阅读指南
+
+本文围绕三个问题展开：子代理可以看见什么、可以修改什么，以及失败后谁负责收尾。先定义委派关系，再区分上下文、工作副本和操作系统权限，最后讨论结果收集、取消与资源清理。建议先理解 Harness 的工具授权和运行时边界；本文不把子代理数量、工作目录或一个超时参数视为安全保证。
 
 ## Subagent 的多维定义
 
 ### 什么算一个 Subagent
 
-一个组件要被称为 Subagent，需要满足三个条件：
+不同框架的命名并不完全一致。本文用以下三项描述子代理的设计契约，而不把它们当作所有产品都满足的定义：
 
 ```mermaid
 flowchart LR
-    Main["主 Agent<br/>（拥有完整上下文）"] -->|"委派任务"| Sub1["Subagent A<br/>（隔离上下文 + 特定工具集）"]
+    Main["主 Agent<br/>（任务级上下文）"] -->|"委派任务"| Sub1["Subagent A<br/>（隔离上下文 + 特定工具集）"]
     Main -->|"委派任务"| Sub2["Subagent B<br/>（隔离上下文 + 特定工具集）"]
     Main -->|"委派任务"| Sub3["Subagent C<br/>（隔离上下文 + 特定工具集）"]
     
@@ -41,136 +44,118 @@ flowchart LR
     Sub3 -->|"返回结果"| Main
 ```
 
-1. **上下文隔离**：Subagent 拥有独立的上下文窗口，不污染主 Agent 的上下文
-2. **工具限制**：Subagent 只能访问被授予的工具子集
+1. **上下文隔离**：Subagent 拥有独立的上下文窗口，减少主上下文的中间信息；返回结果仍需校验
+2. **工具限制**：应按子任务授予最小工具权限，并由运行时执行授权，而不是仅靠提示词约束
 3. **明确生命周期**：有清晰的创建、执行、返回、销毁过程
 
-### Subagent vs 多 Agent 协作
+### 主从委派与同级协作
 
-| 维度 | Subagent（主从委派） | Multi-Agent（同级协作） |
+| 维度 | 主从委派（本文的 Subagent 模式） | 同级协作模式 |
 |------|---------------------|----------------------|
-| 控制流 | 单向委派 → 收集 | 双向协作、协商 |
-| 上下文 | 隔离，只返回结果 | 共享或消息传递 |
-| 决策权 | 主 Agent 独有 | 各 Agent 有自主权 |
-| 并行性 | 天然并行 | 需要协调 |
+| 控制流 | 以委派与收集为主，也可有中间消息 | 以协作、协商为主 |
+| 上下文 | 通常分开维护，按契约返回结果或中间信息 | 可共享，也可分别维护并传递消息 |
+| 决策权 | 主 Agent 负责整体决策，子代理可在授权范围内自主行动 | 按协调协议分配 |
+| 并行性 | 独立子任务可以并行，依赖任务仍需排序 | 取决于依赖关系与协调方式 |
 | 适用场景 | 独立子任务分解 | 需要相互审查/辩论的任务 |
 
 ## 隔离模型
 
-### 三级隔离深度
+### 三个相互独立的隔离维度
+
+| 维度 | 解决的问题 | 不提供的保证 |
+|------|------------|--------------|
+| 上下文隔离 | 控制子代理输入和回传信息的范围，减少中间日志占用 | 不阻止工具读取共享磁盘，不自动防止提示注入或泄密 |
+| 工作副本隔离 | 将不同任务的源文件修改放在不同目录或分支 | 不限制进程访问目录外的文件、网络或凭据 |
+| 执行权限隔离 | 由操作系统或运行时约束文件、网络、进程与资源访问 | 不保证任务正确，也不替代输出审查与外部副作用管理 |
+
+这些维度需要分别配置，而不是从“独立上下文”自然升级到“安全沙箱”。单独启动一个进程不会自动削减其权限；容器也不会自动断网或获得独立内核。需要运行不可信代码时，应先按 Harness 的威胁模型选择并验证执行边界。
+
+### Git worktree：工作副本隔离，不是进程沙箱
+
+Git worktree 允许一个仓库关联多个工作目录；每个工作树有自己的索引与 `HEAD` 等状态，但共享仓库对象和部分引用。这适合把并行任务的改动分开管理。[Git worktree 官方文档](https://git-scm.com/docs/git-worktree)
 
 ```mermaid
 flowchart LR
-    L1["Level 1: 上下文隔离<br/>──────────────<br/>独立的上下文窗口<br/>共享进程和文件系统<br/>仅通过输入/输出通信<br/><br/>开销: 几乎为零<br/>安全性: 低"]
-    L2["Level 2: 进程级隔离<br/>──────────────<br/>独立上下文 + 沙箱进程<br/>seccomp / 受限文件系统<br/>网络可选<br/><br/>开销: 低<br/>安全性: 中"]
-    L3["Level 3: 完整沙箱隔离<br/>──────────────<br/>Docker / VM 级隔离<br/>完整文件系统快照<br/>网络完全隔离<br/>超时强制终止<br/><br/>开销: 中-高<br/>安全性: 高"]
+    MainRepo["主工作目录"] -->|"git worktree add"| Worktree["任务工作目录"]
+    MainAgent["主 Agent"] -->|"范围、权限、验收标准"| SubAgent["Subagent"]
+    SubAgent -->|"约定在此编辑"| Worktree
+    SubAgent -->|"提交 / 补丁 + 测试证据"| MainAgent
+    MainAgent --> Review["审查、测试、合并或保留"]
+    Policy["独立配置的 OS / 运行时策略"] -.->|"实际限制可访问资源"| SubAgent
 ```
 
-### 各层适用场景
+关键边界如下：
 
-**Level 1 — 上下文隔离**（最常用）：
-- 搜索类子任务（grepping、文件搜索）
-- 信息收集和摘要
-- 上下文太大时的"分片处理"
+- **改动分离**：在各自工作树内的普通源文件编辑不会直接改写另一工作树的对应文件，但合并仍可能发生冲突。
+- **不是权限隔离**：工作目录设置不阻止进程通过绝对路径访问主仓库、用户目录、共享凭据或网络。
+- **不是副作用回滚**：删除工作树不能撤回已发送消息、已部署服务、数据库写入或工作树外的文件改动。
+- **不是共享资源互斥**：Git 公共元数据、端口、数据库和缓存仍可能需要协调。
 
-**Level 2 — 进程级隔离**：
-- 执行模型生成的代码
-- 运行外部脚本
-- 需要文件写入的子任务
-
-**Level 3 — 完整沙箱**：
-- 执行不可信第三方代码
-- 安全测试 / 渗透测试
-- 可能需要 root 或危险操作的任务
-
-### Claude Code 中的 Worktree 隔离
-
-Claude Code 的 Subagent 支持 `isolation: "worktree"` ——这是一个 Level 2 隔离的优秀工程实例 <cite>[1]</cite>：
-
-```mermaid
-flowchart LR
-    MainRepo["主仓库<br/>/home/user/project"] -->|"git worktree add"| Worktree["临时 Worktree<br/>/tmp/claude-worktrees/abc123"]
-    MainAgent["主 Agent<br/>（完整上下文）"] -->|"委派任务 + 指令"| SubAgent["Subagent<br/>（隔离上下文，仅见 Worktree）"]
-    SubAgent -->|"读写文件"| Worktree
-    SubAgent -->|"返回结果"| MainAgent
-    MainAgent -.->|"任务完成"| Cleanup["清理 Worktree<br/>（git worktree remove）"]
-```
-
-Worktree 隔离的精妙之处：
-- **文件系统隔离**：Subagent 的修改不会影响主仓库，除非显式合并
-- **可丢弃性**：如果 Subagent 任务失败，直接丢弃 Worktree，零污染
-- **Git 原生**：不需要 Docker，利用 Git 的 worktree 机制实现轻量级分支隔离
-- **天然并行**：多个 Subagent 在独立的 Worktree 中并行工作，互不干扰
+Claude Code 的子代理提供独立上下文与工具权限配置，但这些配置应与实际运行环境一起核查，不能从“使用 worktree”推导出“仅能看见 worktree”。产品接口会变化，部署时应核对对应版本文档。[Claude Code 子代理文档](https://code.claude.com/docs/en/sub-agents)
 
 ## 委派-收集-合并模式
 
 ### 基本模式
 
+下面是可运行的异步编排教学示例（Python 3.10+）：注入的 `run` 协程代表任务执行，示例只演示并发限额、结果收集与协作式超时。它不调用真实模型，不装载沙箱，也不执行工具授权。
+
 ```python
 import asyncio
 from dataclasses import dataclass
-from typing import Any
+from time import monotonic
+from typing import Awaitable, Callable
 
-@dataclass
+
+@dataclass(frozen=True)
 class SubagentTask:
-    """委派给 Subagent 的任务"""
     task_id: str
     instruction: str
-    context_snippet: str      # 仅传递必要的上下文片段
-    allowed_tools: list[str]  # 允许的工具白名单
-    timeout_seconds: int = 120
-    isolation_level: int = 1  # 1=上下文, 2=进程, 3=沙箱
+    timeout_seconds: float = 120
 
-@dataclass
+
+@dataclass(frozen=True)
 class SubagentResult:
     task_id: str
     success: bool
     output: str
-    artifacts: list[Any]  # 文件路径、代码片段等
-    tokens_used: int
     elapsed_seconds: float
 
+
 class SubagentOrchestrator:
-    """Subagent 编排器"""
-    
-    def __init__(self, max_parallel: int = 4):
-        self.max_parallel = max_parallel
+    def __init__(self, run: Callable[[SubagentTask], Awaitable[str]],
+                 max_parallel: int = 4):
+        if max_parallel < 1:
+            raise ValueError("max_parallel must be positive")
+        self.run = run
         self.semaphore = asyncio.Semaphore(max_parallel)
-    
-    async def delegate_all(self, tasks: list[SubagentTask]) -> list[SubagentResult]:
-        """并行委派所有任务，收集结果"""
-        async def run_one(task):
-            async with self.semaphore:
-                return await self._execute_subagent(task)
-        
-        results = await asyncio.gather(*[run_one(t) for t in tasks])
-        return results
-    
-    async def _execute_subagent(self, task: SubagentTask) -> SubagentResult:
-        """执行单个 Subagent"""
-        # 1. 创建隔离上下文
-        context = self._create_isolated_context(task)
-        
-        # 2. 限制可用工具
-        tools = self._filter_tools(task.allowed_tools)
-        
-        # 3. 执行（带超时）
-        try:
-            output = await asyncio.wait_for(
-                self._run_agent_loop(context, task.instruction, tools),
-                timeout=task.timeout_seconds
-            )
-            return SubagentResult(
-                task_id=task.task_id, success=True, 
-                output=output, artifacts=[], tokens_used=0, elapsed_seconds=0
-            )
-        except asyncio.TimeoutError:
-            return SubagentResult(
-                task_id=task.task_id, success=False,
-                output=f"Timeout after {task.timeout_seconds}s",
-                artifacts=[], tokens_used=0, elapsed_seconds=task.timeout_seconds
-            )
+
+    async def delegate_all(self, tasks: list[SubagentTask]):
+        if len({task.task_id for task in tasks}) != len(tasks):
+            raise ValueError("duplicate task_id")
+        if any(task.timeout_seconds <= 0 for task in tasks):
+            raise ValueError("timeout must be positive")
+        return await asyncio.gather(*(self._run_one(task) for task in tasks))
+
+    async def _run_one(self, task: SubagentTask) -> SubagentResult:
+        # 教学口径：计时与超时从取得并发槽位后开始，不含排队。
+        async with self.semaphore:
+            started = monotonic()
+            try:
+                output = await asyncio.wait_for(
+                    self.run(task), timeout=task.timeout_seconds
+                )
+                success = True
+            except asyncio.TimeoutError:
+                output, success = "cooperative timeout", False
+            except Exception as exc:
+                output, success = f"task failed: {type(exc).__name__}", False
+            # 不捕获 CancelledError：主任务取消继续向上传播。
+            return SubagentResult(task.task_id, success, output,
+                                  monotonic() - started)
+
 ```
+
+`asyncio.wait_for` 会请求取消协程并等待取消完成；若协程吞掉取消、阻塞事件循环或启动了外部进程，它并不构成硬执行期限，也不会自动杀死进程树。真实系统应另外实现运行时终止、清理与验证。[Python asyncio 文档](https://docs.python.org/3/library/asyncio-task.html#asyncio.wait_for)
 
 ### 结果合并策略
 
@@ -186,6 +171,10 @@ flowchart LR
 
 ## Subagent 生命周期管理
 
+委派不能扩大授权：子代理权限应是主任务已获授权范围与子任务必要权限的交集；子代理的请求或产物也不能替代用户批准。接收结果时还应核对任务 ID、任务版本和取消状态；取消后或约束更新前产生的晚到结果只能作为待审查材料，不能自动提交改动或触发外部动作。上面的教学代码仅检查任务 ID 唯一性，未实现持久任务版本与晚到结果拒收。
+
+结果合并不等于正确性验证。即使多数子代理给出相同结论，也可能共享同一错误来源；交付时应保留来源、补丁和测试证据，按任务验收标准独立检查。
+
 ### 状态机
 
 ```mermaid
@@ -199,11 +188,13 @@ stateDiagram-v2
     Running --> Error: 执行错误
     Running --> Cancelled: 被主 Agent 取消
     Completed --> [*]: 收集结果
-    Timeout --> Terminated: 强制终止
-    Error --> Terminated: 释放资源
-    Cancelled --> Terminated: 释放资源
+    Timeout --> Terminated: 请求终止并确认清理
+    Error --> Terminated: 确认资源已释放
+    Cancelled --> Terminated: 确认资源已释放
     Terminated --> [*]
 ```
+
+状态图描述目标生命周期，不代表上面的协程示例实现了全部状态。终止请求、实际退出和副作用核查应分别记录；确认未完成时不能把状态标记为已清理。
 
 ### 资源限制与超时
 
@@ -218,10 +209,12 @@ SUBAGENT_LIMITS = {
 }
 ```
 
-**超时后的优雅降级**：
-1. 发送 `soft_timeout` 信号 → Subagent 有一轮的时间完成当前操作
-2. 如果仍未完成 → `hard_timeout` → 强制终止并收集已有的部分结果
-3. 返回部分结果 + 标注 "任务未完成"
+上述字典仅声明预算；必须由相应执行层计量并落实，声明本身不会限制资源。
+
+**超时后的处理契约**：
+1. 请求协作式取消，停止派发新工具调用，并保留已有证据。
+2. 若运行时支持硬终止，终止该任务拥有的执行进程并等待退出；未确认退出则继续标记为终止中。
+3. 返回部分结果并标注未完成项；独立核查网络请求、部署等无法随进程退出自动回滚的副作用。
 
 ## 设计决策框架
 
@@ -248,13 +241,13 @@ SUBAGENT_LIMITS = {
 - [ ] 网络访问是否需要？如不需要，是否已禁用？
 - [ ] 超时设置是否合理？（不应超过主 Agent 的超时）
 - [ ] 结果长度是否有限制？（防止返回大量无用数据污染主上下文）
-- [ ] 失败时是否有回滚机制？（Worktree 丢弃 / 事务回滚）
+- [ ] 本地改动与外部副作用是否分别有清理、补偿和确认机制？丢弃 Worktree 不等于全部回滚。
 
 ## 总结
 
-Subagent 模式是 Agent 从"单线程脚本"进化到"分布式系统"的关键一步。它的核心设计空间由三个轴定义：
+Subagent 是组织复杂任务的一种选择，并不必然要求分布式部署，也不保证优于单 Agent。它的核心设计空间由三个轴定义：
 
-1. **隔离深度**：从仅上下文隔离到完整 VM 沙箱
+1. **隔离维度**：上下文、工作副本与执行权限分别设计
 2. **编排模式**：从简单并行到 DAG 依赖编排
 3. **生命周期**：从即抛型到长期存活型
 
@@ -265,6 +258,9 @@ Subagent 模式是 Agent 从"单线程脚本"进化到"分布式系统"的关键
 ## 参考文献
 
 <ol class="references">
-<li><em>Anthropic. "Claude Code: Subagent Architecture and Worktree Isolation."</em> Anthropic Documentation, 2025.<br><a href="https://docs.anthropic.com/en/docs/claude-code/sub-agents">https://docs.anthropic.com/en/docs/claude-code/sub-agents</a></li>
-<li><em>Shah, V., et al. "Parallel Agent Execution with Context Isolation."</em> arXiv 2025.<br><a href="https://arxiv.org/abs/2501.12345">https://arxiv.org/abs/2501.12345</a></li>
+<li>Anthropic. <a href="https://code.claude.com/docs/en/sub-agents">Create custom subagents</a></li>
+<li>Git. <a href="https://git-scm.com/docs/git-worktree">git-worktree</a></li>
+<li>Python. <a href="https://docs.python.org/3/library/asyncio-task.html#asyncio.wait_for">Coroutines and Tasks: asyncio.wait_for</a></li>
 </ol>
+
+{% include series-nav.html series="agent-systems" position="bottom" %}

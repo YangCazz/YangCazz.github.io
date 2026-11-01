@@ -86,3 +86,11 @@
   posts:
     - slug: continual-learning-comprehensive-guide
     - slug: class-incremental-learning-in-depth
+
+- id: agent-systems
+  name: 从 Agent 到持续协作系统
+  description: 从受控工具执行与子任务委派出发，理解持续协作系统的事件路由、上下文组织与运行边界。
+  posts:
+    - slug: harness-engineering-agent-kernel
+    - slug: subagent-architecture-isolation
+    - slug: super-agent-continuous-event-driven-architecture

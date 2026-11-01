@@ -4,7 +4,7 @@
   "private": true,
   "engines": { "node": ">=22" },
   "scripts": {
-    "test": "node --test _scripts/test-*.mjs && python3 _scripts/test-site-check.py && python3 tests/test_research_batch2.py",
+    "test": "node --test _scripts/test-*.mjs && python3 _scripts/test-site-check.py && python3 tests/test_research_batch2.py && python3 tests/test_agent_foundations_examples.py",
     "check:site": "python3 _scripts/check-site.py",
     "check:metadata": "bundle exec ruby _scripts/check-metadata.rb . _site",
     "test:browser": "node _scripts/verify-pages.mjs",

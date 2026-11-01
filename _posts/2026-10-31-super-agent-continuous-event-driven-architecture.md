@@ -8,6 +8,7 @@ excerpt: "从一项跨群聊、代码评审与 CI 的修复任务出发，厘清
 image: "/assets/images/research/20261031/super-agent-routing-v1.png"
 cover_image: "/assets/images/covers/ai-dev-tools.jpg"
 ---
+{% include series-nav.html series="agent-systems" position="top" %}
 
 ## 引言
 
@@ -327,3 +328,5 @@ MAST 对多代理故障的研究，将问题归纳为系统设计、代理间失
 9. *DSH Superagent Prototype — Authorization.* 同上固定提交，核查日期：2026-10-31。<https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/002-authorization.md>
 10. *DSH Superagent Prototype — Deployment.* 同上固定提交，核查日期：2026-10-31。<https://github.com/deepseek-ai/dsh-superagent-prototype/blob/6337fc823ce20251c8de8085948165c81aaa701e/docs/006-deployment.md>
 {: .references }
+
+{% include series-nav.html series="agent-systems" position="bottom" %}
