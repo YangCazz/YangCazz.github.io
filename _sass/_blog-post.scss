@@ -673,6 +673,64 @@
     backdrop-filter: blur(8px);
 }
 
+/* Opt-in reading map: only series with relation_map enabled render this. */
+.series-relations {
+    margin-top: 0.75rem;
+    min-width: 0;
+    font-size: 0.85rem;
+
+    summary {
+        color: var(--accent-color);
+        cursor: pointer;
+        font-weight: 600;
+        padding: 0.35rem 0;
+    }
+
+    summary:focus-visible,
+    .series-relations-scroll:focus-visible,
+    a:focus-visible {
+        outline: 2px solid var(--accent-color);
+        outline-offset: 3px;
+    }
+
+    .series-relations-note {
+        margin: 0.5rem 0;
+        color: var(--secondary-color);
+        line-height: 1.6;
+    }
+
+    .series-relations-scroll {
+        max-width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .series-relations-table {
+        display: table;
+        width: 100%;
+        min-width: 640px;
+        margin: 0;
+        border-collapse: collapse;
+        line-height: 1.6;
+
+        caption {
+            text-align: left;
+            color: var(--secondary-color);
+            padding: 0.5rem 0;
+        }
+
+        th, td {
+            padding: 0.6rem;
+            text-align: left;
+            vertical-align: top;
+            white-space: normal;
+        }
+
+        th[scope="row"] { width: 22%; }
+        a[aria-current="page"] { font-weight: 700; }
+    }
+}
+
 .series-banner-header {
     display: flex;
     align-items: center;

@@ -4,8 +4,8 @@ from state import State, Event, Record, reduce, eligible, release_candidate
 
 
 class StateTests(unittest.TestCase):
-    def event(self, id="e1", generation=1, actor="owner", kind="cancel-release", value="", task="export-fix"):
-        return Event(id, task, generation, actor, kind, value)
+    def event(self, id="e1", generation=1, actor="owner", kind="cancel-release", value="", task="export-fix", run=1):
+        return Event(id, task, generation, actor, kind, value, run)
 
     def test_old_restriction_survives_new_ci(self):
         s, status = reduce(State(), self.event(actor="ci-service", kind="ci-pass", value="a1"))
@@ -90,6 +90,54 @@ class StateTests(unittest.TestCase):
                replace(r, id="gen", generation=0), replace(r, id="acl", readers=frozenset()),
                replace(r, id="expired", expires_at=10), replace(r, id="revoked", revoked=True)]
         self.assertEqual(eligible([r] + bad, State(), "worker", 10, frozenset({"task-ledger"})), [r])
+
+    def ci_event(self, id, kind, run):
+        return self.event(id=id, actor="ci-service", kind=kind, value="a1", run=run)
+
+    def test_new_failure_supersedes_old_success(self):
+        s = State(release_allowed=True)
+        s, _ = reduce(s, self.ci_event("pass", "ci-pass", 1))
+        self.assertTrue(release_candidate(s))
+        s, reason = reduce(s, self.ci_event("fail", "ci-fail", 2))
+        self.assertEqual((s.ci, reason), ("failed", "accepted"))
+        self.assertFalse(release_candidate(s))
+
+    def test_pending_new_run_blocks_gate(self):
+        s = State(release_allowed=True, ci="passed", ci_run=1)
+        s, _ = reduce(s, self.ci_event("pending", "ci-pending", 2))
+        self.assertFalse(release_candidate(s))
+        s, _ = reduce(s, self.ci_event("pass", "ci-pass", 2))
+        self.assertTrue(release_candidate(s))
+
+    def test_old_success_cannot_replace_new_failure(self):
+        s = State(ci="failed", ci_run=2, release_allowed=True)
+        self.assertEqual(reduce(s, self.ci_event("late", "ci-pass", 1)), (s, "stale-run"))
+
+    def test_late_pending_cannot_erase_terminal(self):
+        s = State(ci="passed", ci_run=2)
+        self.assertEqual(reduce(s, self.ci_event("late", "ci-pending", 2)), (s, "late-pending"))
+
+    def test_contradictory_terminal_blocks_until_new_run(self):
+        s = State(ci="passed", ci_run=1, release_allowed=True)
+        s, _ = reduce(s, self.ci_event("contradiction", "ci-fail", 1))
+        self.assertEqual(s.ci, "conflict")
+        self.assertFalse(release_candidate(s))
+        self.assertEqual(reduce(s, self.ci_event("again", "ci-pass", 1)), (s, "conflicting-run"))
+        s, _ = reduce(s, self.ci_event("fresh", "ci-pass", 2))
+        self.assertTrue(release_candidate(s))
+
+    def test_invalid_run_does_not_change_state(self):
+        s = State()
+        self.assertEqual(reduce(s, self.ci_event("bad", "ci-pass", 0)), (s, "invalid-run"))
+
+    def test_ci_failure_cannot_be_fabricated_by_owner(self):
+        s = State(ci="passed", ci_run=1)
+        self.assertEqual(reduce(s, self.event(kind="ci-fail", value="a1")), (s, "unauthorized"))
+
+    def test_duplicate_ci_result_no_second_update(self):
+        event = self.ci_event("same", "ci-fail", 2)
+        s, _ = reduce(State(), event)
+        self.assertEqual(reduce(s, event), (s, "duplicate"))
 
     def test_unknown_event_no_change(self):
         s = State()

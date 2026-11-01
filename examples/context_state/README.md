@@ -32,7 +32,7 @@ Rejected events are not stored; production event intake needs explicit handling
 of out-of-order delivery and rejected-event evidence. There is intentionally no
 resume operation in this small model.
 
-The 16 tests run on 2026-11-01 cover current CI without release permission,
+The 24 tests run on 2026-11-01 cover current CI without release permission,
 unauthorized control input, scope-specific cancellation, whole-task pause,
 stale/future generation, duplicate accepted event, wrong SHA, late result after
 cancel, wrong task, a positive proposal path, each retrieval-filter dimension,
@@ -41,3 +41,10 @@ Agent reliability.
 
 Additional tests cover accepted a1-to-b2 transition (including renewed approval),
 an owner trying to fabricate CI observations, paused control, and missing SHA.
+
+CI lifecycle is a closed event domain: ci-pending, ci-pass, and ci-fail for one
+fixed suite/environment. A trusted adapter supplies monotonically increasing
+run numbers per control generation. New runs supersede old; late pending cannot
+replace a terminal result, contradictory terminal results block the proposal
+until a new run, and stale runs cannot restore success. Tests cover all these
+cases. This is not aggregation across CI suites or authentication of run IDs.

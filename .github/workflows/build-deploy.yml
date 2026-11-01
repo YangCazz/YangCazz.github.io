@@ -41,6 +41,7 @@ jobs:
         run: |
           npm run check:site
           npm run check:metadata
+          bundle exec ruby _scripts/check-series-relations.rb . _site
       - name: Browser regression
         run: |
           bundle exec jekyll serve --skip-initial-build --no-watch --host 127.0.0.1 --port 4000 > /tmp/jekyll-preview.log 2>&1 &

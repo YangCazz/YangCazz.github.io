@@ -89,9 +89,27 @@
 
 - id: agent-systems
   name: 从 Agent 到持续协作系统
-  description: 从受控工具执行与子任务委派出发，理解持续协作系统的事件路由、上下文组织与运行边界。
+  description: 按执行边界、委派边界、有效状态、事件驱动四层递进，讨论各层解决什么问题、依赖什么条件，以及怎样验证其边界。
+  relation_map: true
+  reading_note: 建议按下列顺序阅读；这是概念依赖，不是发布时间排序。已有基础的读者可直接跳到对应问题。
   posts:
     - slug: harness-engineering-agent-kernel
+      stage: 1 · 受控执行（Harness）
+      prerequisite: 了解模型调用与工具调用；本篇建立后续三篇的执行边界。
+      question: 一次工具动作何时可执行，失败后何时可重试？
+      outcome: 权限检查、动作生命周期与恢复边界。
     - slug: subagent-architecture-isolation
+      stage: 2 · 子任务委派（Subagent）
+      prerequisite: 先读 Harness 的权限与恢复边界，再看如何把任务交给子执行单元。
+      question: 拆分任务后，如何隔离上下文、收回权限并验收结果？
+      outcome: 委派契约、结果采纳规则与取消边界。
     - slug: agent-context-effective-state
+      stage: 3 · 有效工作状态（Context）
+      prerequisite: 在执行与委派边界之上，区分历史材料和当前仍有效的依据。
+      question: 信息变化、授权撤销和结果晚到时，下一步该依据什么？
+      outcome: 带来源与版本的状态、失效规则及恢复检查。
     - slug: super-agent-continuous-event-driven-architecture
+      stage: 4 · 持续协作（Super Agent）
+      prerequisite: 综合前三篇：受控执行、子任务契约、有效状态。
+      question: 跨会话等待、被事件唤醒后，如何继续任务而不重复副作用？
+      outcome: 事件路由、任务状态机与端到端恢复边界。

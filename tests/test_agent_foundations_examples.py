@@ -124,6 +124,37 @@ class OrchestrationTests(unittest.IsolatedAsyncioTestCase):
             await parent
         self.assertTrue(cleaned.is_set())
 
+    async def test_child_cancel_keeps_sibling_result(self):
+        async def run(task):
+            if task.task_id == 'cancel':
+                raise asyncio.CancelledError()
+            await asyncio.sleep(0)
+            return 'sibling completed'
+        results = await Orchestrator(run, 1).delegate_all(
+            [Task('cancel', ''), Task('good', '')])
+        self.assertEqual(results[0].output, 'child cancelled')
+        self.assertIsNone(results[0].elapsed_seconds)
+        self.assertTrue(results[1].success)
+
+    async def test_parent_cancel_cleans_running_and_queued(self):
+        started, cleaned = asyncio.Event(), asyncio.Event()
+        seen = []
+        async def run(task):
+            seen.append(task.task_id)
+            started.set()
+            try:
+                await asyncio.Event().wait()
+            finally:
+                cleaned.set()
+        parent = asyncio.create_task(Orchestrator(run, 1).delegate_all(
+            [Task('running', ''), Task('queued', '')]))
+        await started.wait()
+        parent.cancel()
+        with self.assertRaises(asyncio.CancelledError):
+            await parent
+        self.assertTrue(cleaned.is_set())
+        self.assertEqual(seen, ['running'])
+
     async def test_invalid_contract(self):
         async def run(task):
             return 'ok'

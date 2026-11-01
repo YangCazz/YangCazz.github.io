@@ -50,6 +50,31 @@
     {%- endif -%}
     {%- endfor -%}
   </ol>
+  {%- if series.relation_map -%}
+  <details class="series-relations">
+    <summary>系列关联与阅读路径</summary>
+    <p class="series-relations-note">{{ series.reading_note | escape }}</p>
+    <div class="series-relations-scroll" role="region" aria-label="系列关联表，可横向滚动" tabindex="0">
+      <table class="series-relations-table">
+        <caption>四篇文章的前置关系、核心问题与阅读产出</caption>
+        <thead><tr><th scope="col">阅读阶段</th><th scope="col">前置关系</th><th scope="col">核心问题</th><th scope="col">阅读产出</th></tr></thead>
+        <tbody>
+          {%- for post_data in posts -%}
+          {%- assign relation_post = site.posts | where: 'slug', post_data.slug | first -%}
+          {%- if relation_post -%}
+          <tr>
+            <th scope="row"><a href="{{ relation_post.url | relative_url }}"{% if post_data.slug == current_slug %} aria-current="page"{% endif %}>{{ post_data.stage | escape }}</a></th>
+            <td>{{ post_data.prerequisite | escape }}</td>
+            <td>{{ post_data.question | escape }}</td>
+            <td>{{ post_data.outcome | escape }}</td>
+          </tr>
+          {%- endif -%}
+          {%- endfor -%}
+        </tbody>
+      </table>
+    </div>
+  </details>
+  {%- endif -%}
 </div>
 {%- endif -%}
 

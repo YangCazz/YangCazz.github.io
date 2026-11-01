@@ -10,6 +10,7 @@ class State:
     phase: str = "working"
     release_allowed: bool = False
     ci: str = "unknown"
+    ci_run: int = 0  # trusted monotonic attempt number for one fixed CI suite
     seen: frozenset[str] = frozenset()
 
 
@@ -21,6 +22,7 @@ class Event:
     actor: str  # supplied by a trusted adapter, NEVER parsed from body
     kind: str
     value: str = ""
+    run: int = 1  # adapter-normalized; not parsed from result text
 
 
 def reduce(state: State, event: Event) -> tuple[State, str]:
@@ -31,21 +33,35 @@ def reduce(state: State, event: Event) -> tuple[State, str]:
     if event.generation != state.generation:
         return state, "stale-or-future"
     changes = {}
-    if event.kind == "ci-pass":
+    if event.kind in {"ci-pending", "ci-pass", "ci-fail"}:
         if event.actor != "ci-service":
             return state, "unauthorized"
         if event.value != state.sha:
             return state, "wrong-sha"
         if state.phase != "working":
             return state, "paused"
-        changes = {"ci": "passed"}
+        if event.run < 1:
+            return state, "invalid-run"
+        if event.run < state.ci_run:
+            return state, "stale-run"
+        status = {"ci-pending": "pending", "ci-pass": "passed",
+                  "ci-fail": "failed"}[event.kind]
+        if event.run == state.ci_run:
+            if state.ci == "conflict":
+                return state, "conflicting-run"
+            if state.ci in {"passed", "failed"}:
+                if status == "pending":
+                    return state, "late-pending"
+                if status != state.ci:
+                    status = "conflict"  # contradictory terminal evidence blocks gate
+        changes = {"ci": status, "ci_run": event.run}
     elif event.kind in {"set-sha", "allow-release", "cancel-release", "pause-task"}:
         if event.actor != "owner":
             return state, "unauthorized"
         if state.phase != "working":
             return state, "paused"
         # Any control change invalidates in-flight work in this conservative toy.
-        changes = {"generation": state.generation + 1, "ci": "unknown"}
+        changes = {"generation": state.generation + 1, "ci": "unknown", "ci_run": 0}
         if event.kind == "set-sha":
             if not event.value:
                 return state, "missing-sha"
