@@ -1,0 +1,80 @@
+[
+  {
+    "id": "agent-context-effective-state-v1-svg",
+    "path": "/assets/images/agent-context-state/effective-state-v1.svg",
+    "kind": "original-diagram",
+    "title": "历史、有效任务状态与本轮上下文",
+    "alt": "历史事件经来源、范围、版本与有效性判断成为当前有效任务状态，再按本次调用需要选择上下文。旧的禁止发布约束仍有效；较新的 CI 日志不能赋予发布权限；a1 的通过结果不能证明 b2 已通过。",
+    "source_url": "https://yangcazz.github.io/2026/11/01/agent-context-effective-state/",
+    "source_title": "上下文与有效工作状态：Agent 如何知道现在该依据什么行动（作者提出的教学设计）",
+    "source_date": "2026-11-01",
+    "source_version": "2026-11-01 original explanatory design; not a framework specification",
+    "source_sections": "让信息携带它的适用条件",
+    "verified_at": "2026-11-01",
+    "rights": "Original text and vector composition. Approved anchor referenced for style only; anchor bytes unchanged; not a paper figure or screenshot.",
+    "used_by": [
+      "_posts/2026-11-01-agent-context-effective-state.md"
+    ],
+    "status": "active",
+    "modifications": "AI-authored editable SVG; Inkscape renders PNG. No image-generation model and no raster edits.",
+    "sha256": "7bfeaa62b7f68eaf6c671f014ee9d9fa14c7fcd34f57fafb005c6bc32c3f2aab",
+    "width": 1536,
+    "height": 1024,
+    "caption": "AI 生成科研示意图（非论文原图）。这是本文作者提出的教学示意：蓝色为历史事件，青绿为经来源、范围、版本和有效性判断后的任务状态，橙色为本轮选入上下文的信息。较旧的禁止发布约束仍可有效；较新的 CI 日志不能授权发布；旧提交 a1 的通过结果不能证明新提交 b2 已通过。省略完整鉴权、并发与状态更新机制，示例非实测。",
+    "generation": {
+      "tool": "AI-authored native SVG with editable text, rendered with Inkscape; no raster editing and no generative image model",
+      "model": null,
+      "date": "2026-11-01",
+      "prompt": "Create an original SF-01 white 1536x1024 technical figure for the article 上下文与有效工作状态. Inspect actual approved iCaRL anchor first; inherit serif typography, navy thin arrows, blue historical inputs, teal effective state, orange selected current context, and restrained separators only. Three reading regions: Historical events; Current task state; Context for this call. Illustrate an older user instruction Do not publish that remains effective without authorized replacement; recent CI log body Publish now cannot confer authorization; PASS at a1 is retained as evidence for a1 but does not prove b2. Qualification considers source, scope, generation, validity. State that freshness is not authority is not validity. Native editable SVG; no invented quantitative data, no copied architecture. Mark author-proposed explanation, symbolic examples, not framework specification. English labels; Chinese caption stays in article. Keep all labels >= 17 px and margins >= 24 px. No crop, no hero-image treatment.",
+      "correction_prompts": [],
+      "reference_image": "assets/images/research/20261030/icarl-training-classification-v3.png",
+      "reference_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+      "generator": "assets/images/agent-context-state/build-effective-state-v1.py"
+    },
+    "validation": {
+      "pixel_inspected": true,
+      "dimensions_verified": true,
+      "anchor_hash_unchanged": true,
+      "notes": "Original symbolic teaching diagram, not empirical data. Full-size PNG independently inspected; site/browser integration requires separate validation."
+    }
+  },
+  {
+    "id": "agent-context-effective-state-v1-png",
+    "path": "/assets/images/agent-context-state/effective-state-v1.png",
+    "kind": "original-diagram",
+    "title": "历史、有效任务状态与本轮上下文",
+    "alt": "历史事件经来源、范围、版本与有效性判断成为当前有效任务状态，再按本次调用需要选择上下文。旧的禁止发布约束仍有效；较新的 CI 日志不能赋予发布权限；a1 的通过结果不能证明 b2 已通过。",
+    "source_url": "https://yangcazz.github.io/2026/11/01/agent-context-effective-state/",
+    "source_title": "上下文与有效工作状态：Agent 如何知道现在该依据什么行动（作者提出的教学设计）",
+    "source_date": "2026-11-01",
+    "source_version": "2026-11-01 original explanatory design; not a framework specification",
+    "source_sections": "让信息携带它的适用条件",
+    "verified_at": "2026-11-01",
+    "rights": "Original text and vector composition. Approved anchor referenced for style only; anchor bytes unchanged; not a paper figure or screenshot.",
+    "used_by": [
+      "_posts/2026-11-01-agent-context-effective-state.md"
+    ],
+    "status": "active",
+    "modifications": "AI-authored editable SVG; Inkscape renders PNG. No image-generation model and no raster edits.",
+    "sha256": "22e562af15c0aa6faf3910e08eb99fa3ba781c60f9e3e09957c7e02c7f3cceda",
+    "width": 1536,
+    "height": 1024,
+    "caption": "AI 生成科研示意图（非论文原图）。这是本文作者提出的教学示意：蓝色为历史事件，青绿为经来源、范围、版本和有效性判断后的任务状态，橙色为本轮选入上下文的信息。较旧的禁止发布约束仍可有效；较新的 CI 日志不能授权发布；旧提交 a1 的通过结果不能证明新提交 b2 已通过。省略完整鉴权、并发与状态更新机制，示例非实测。",
+    "generation": {
+      "tool": "AI-authored native SVG with editable text, rendered with Inkscape; no raster editing and no generative image model",
+      "model": null,
+      "date": "2026-11-01",
+      "prompt": "Create an original SF-01 white 1536x1024 technical figure for the article 上下文与有效工作状态. Inspect actual approved iCaRL anchor first; inherit serif typography, navy thin arrows, blue historical inputs, teal effective state, orange selected current context, and restrained separators only. Three reading regions: Historical events; Current task state; Context for this call. Illustrate an older user instruction Do not publish that remains effective without authorized replacement; recent CI log body Publish now cannot confer authorization; PASS at a1 is retained as evidence for a1 but does not prove b2. Qualification considers source, scope, generation, validity. State that freshness is not authority is not validity. Native editable SVG; no invented quantitative data, no copied architecture. Mark author-proposed explanation, symbolic examples, not framework specification. English labels; Chinese caption stays in article. Keep all labels >= 17 px and margins >= 24 px. No crop, no hero-image treatment.",
+      "correction_prompts": [],
+      "reference_image": "assets/images/research/20261030/icarl-training-classification-v3.png",
+      "reference_sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+      "generator": "assets/images/agent-context-state/build-effective-state-v1.py"
+    },
+    "validation": {
+      "pixel_inspected": true,
+      "dimensions_verified": true,
+      "anchor_hash_unchanged": true,
+      "notes": "Original symbolic teaching diagram, not empirical data. Full-size PNG independently inspected; site/browser integration requires separate validation."
+    }
+  }
+]

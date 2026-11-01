@@ -95,14 +95,14 @@ test('legacy knitting guide imports the particle background as an ES module', ()
 
 test('all article covers resolve, with decorative covers separate from research figures', () => {
   const posts = readdirSync('_posts').filter(name => name.endsWith('.md'));
-  assert.equal(posts.length, 86);
+  assert.equal(posts.length, 87);
   for (const name of posts) {
     const front = readFileSync(`_posts/${name}`, 'utf8').split(/^---\s*$/m)[1];
     const image = front.match(/^image:\s*"([^"]+)"/m)?.[1];
     const cover = front.match(/^cover_image:\s*"([^"]+)"/m)?.[1] || image;
     assert.ok(cover, `${name}: cover is defined`);
     assert.doesNotMatch(front, /^cover_image:\s*false/m, `${name}: cover unexpectedly suppressed`);
-    assert.doesNotMatch(cover, /\/research\//, `${name}: research diagram must not be cropped as a hero`);
+    assert.doesNotMatch(cover, /\/(research|agent-context-state)\//, `${name}: research diagram must not be cropped as a hero`);
     assert.ok(readFileSync(`.${cover}`).length > 0, `${name}: cover exists`);
   }
   const expected = {
@@ -119,4 +119,13 @@ test('all article covers resolve, with decorative covers separate from research 
     assert.match(post, /^image: "\/assets\/images\/research\//m);
     assert.ok(readFileSync(`.${cover}`).length > 0);
   }
+});
+
+
+test('context-state article preserves decorative hero and native image zoom markup', () => {
+  const post = readFileSync('_posts/2026-11-01-agent-context-effective-state.md', 'utf8');
+  assert.match(post, /^cover_image: "\/assets\/images\/covers\/ai-dev-tools.jpg"/m);
+  assert.match(post, /^image: "\/assets\/images\/agent-context-state\/effective-state-v1.png"/m);
+  assert.match(post, /<img[^>]+effective-state-v1.png[^>]+style="width:100%;height:auto;"/);
+  assert.doesNotMatch(post, /<a[^>]*>\s*<img/);
 });

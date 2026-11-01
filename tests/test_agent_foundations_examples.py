@@ -146,6 +146,7 @@ class SeriesNavigationTests(unittest.TestCase):
         slugs = re.findall(r'^    - slug: (.+)$', entries[0], re.M)
         expected = ['harness-engineering-agent-kernel',
                     'subagent-architecture-isolation',
+                    'agent-context-effective-state',
                     'super-agent-continuous-event-driven-architecture']
         self.assertEqual(slugs, expected)
         self.assertIn('  name: 从 Agent 到持续协作系统', entries[0])

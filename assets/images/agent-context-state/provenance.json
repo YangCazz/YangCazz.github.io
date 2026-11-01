@@ -1,0 +1,82 @@
+{
+  "id": "effective-state-v1",
+  "version": "1.0",
+  "status": "active",
+  "created_date": "2026-11-01",
+  "verified_date": "2026-11-01",
+  "title": "History is not effective state; state is not context",
+  "description_zh": "历史事件经来源、范围、版本与有效性判断成为当前有效任务状态，再按本次调用需要选择上下文。旧的禁止发布约束仍有效；较新的 CI 日志不能赋予发布权限；a1 的通过结果不能证明 b2 已通过。",
+  "classification": "Original author-proposed explanatory diagram; not an official framework or paper architecture",
+  "dimensions": {
+    "width": 1536,
+    "height": 1024
+  },
+  "cover_image": false,
+  "display": "Full aspect ratio in article body; link to original for zoom; do not use as cropped hero",
+  "source": [
+    {
+      "title": "Author-proposed teaching examples for 上下文与有效工作状态",
+      "url": "https://yangcazz.github.io/2026/11/01/agent-context-effective-state/",
+      "version": "2026-11-01 article",
+      "date": "2026-11-01",
+      "page_or_algorithm": null,
+      "role": "Original content brief coordinated with article author; not copied from external diagram"
+    },
+    {
+      "title": "科研配图范式：iCaRL 锚点 / SF-01",
+      "url": "docs/SCIENTIFIC-FIGURE-STYLE.md",
+      "version": "local repository version read 2026-11-01",
+      "date": "2026-10-30",
+      "page_or_algorithm": null,
+      "role": "Visual language only; no iCaRL algorithm semantics reused"
+    }
+  ],
+  "reference_image": {
+    "path": "assets/images/research/20261030/icarl-training-classification-v3.png",
+    "sha256": "69b318ffd725e979fef5ff6ce6fc08622d4f2104784f95f547db441a0e70e792",
+    "inspected": true,
+    "modified": false
+  },
+  "generation": {
+    "method": "AI-authored native SVG with editable text, rendered with Inkscape; no raster editing and no generative image model",
+    "model_version": null,
+    "script": "build-effective-state-v1.py",
+    "prompt": "Create an original SF-01 white 1536x1024 technical figure for the article 上下文与有效工作状态. Inspect actual approved iCaRL anchor first; inherit serif typography, navy thin arrows, blue historical inputs, teal effective state, orange selected current context, and restrained separators only. Three reading regions: Historical events; Current task state; Context for this call. Illustrate an older user instruction Do not publish that remains effective without authorized replacement; recent CI log body Publish now cannot confer authorization; PASS at a1 is retained as evidence for a1 but does not prove b2. Qualification considers source, scope, generation, validity. State that freshness is not authority is not validity. Native editable SVG; no invented quantitative data, no copied architecture. Mark author-proposed explanation, symbolic examples, not framework specification. English labels; Chinese caption stays in article. Keep all labels >= 17 px and margins >= 24 px. No crop, no hero-image treatment.",
+    "corrections": []
+  },
+  "copyright_boundary": "Original text and vector composition. Approved anchor referenced for style only; anchor bytes unchanged; not a paper figure or screenshot.",
+  "simplifications": [
+    "Authority resolution, concurrent updates, authorization enforcement, and full state schema are not depicted.",
+    "Numbered badges are reading regions, not a specified algorithm sequence.",
+    "t0/t1/t2 and a1/b2 are symbolic identifiers, not measurements.",
+    "No claim of a complete framework implementation or verified performance."
+  ],
+  "caption_suggestion": "AI 生成科研示意图（非论文原图）。这是本文作者提出的教学示意：蓝色为历史事件，青绿为经来源、范围、版本和有效性判断后的任务状态，橙色为本轮选入上下文的信息。较旧的禁止发布约束仍可有效；较新的 CI 日志不能授权发布；旧提交 a1 的通过结果不能证明新提交 b2 已通过。省略完整鉴权、并发与状态更新机制，示例非实测。",
+  "qa": {
+    "pixel_review": "Opened rendered 1536x1024 PNG; no clipped labels, overlapping text, arrows crossing text, or missing glyphs observed.",
+    "svg_xml_valid": true,
+    "editable_text_elements": 39,
+    "minimum_font_px": 21,
+    "external_resources": false,
+    "render_warnings": "Inkscape could not write its optional home profile/font cache; rendering succeeded and PNG was visually inspected.",
+    "browser_integration": "Article author responsible for full-ratio display and native click-to-zoom validation."
+  },
+  "used_by": [
+    "_posts/2026-11-01-agent-context-effective-state.md"
+  ],
+  "intended_article": "上下文与有效工作状态：Agent 如何知道现在该依据什么行动",
+  "files": [
+    {
+      "path": "effective-state-v1.svg",
+      "sha256": "7bfeaa62b7f68eaf6c671f014ee9d9fa14c7fcd34f57fafb005c6bc32c3f2aab"
+    },
+    {
+      "path": "effective-state-v1.png",
+      "sha256": "22e562af15c0aa6faf3910e08eb99fa3ba781c60f9e3e09957c7e02c7f3cceda"
+    },
+    {
+      "path": "build-effective-state-v1.py",
+      "sha256": "2c6d339a1ff3f8f6baff5f9fc203d9dd8fb04a0f669ca21d20ce43db68690dbd"
+    }
+  ]
+}

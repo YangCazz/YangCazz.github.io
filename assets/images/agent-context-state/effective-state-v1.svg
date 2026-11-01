@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1536" height="1024" viewBox="0 0 1536 1024" role="img" aria-labelledby="title desc">
+<title id="title">From historical events to effective task state and context</title>
+<desc id="desc">Author-proposed teaching schematic. An older user prohibition on publishing remains effective. A recent CI log cannot grant publishing permission. A passing CI result for commit a1 does not establish that commit b2 passes. Selected context carries the effective constraint and need to verify the current commit.</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto"><path d="M0,0 L9,4.5 L0,9 Z" fill="#0B2045"/></marker></defs>
+<rect width="1536" height="1024" fill="white"/>
+<g font-family="Liberation Serif, Times New Roman, serif" fill="#0B2045">
+<text x="768" y="63" font-size="44" font-weight="bold" fill="#0B2045" text-anchor="middle">History is not effective state; state is not context</text>
+<text x="768" y="102" font-size="23" font-weight="normal" fill="#0B2045" text-anchor="middle">Author-proposed explanation • symbolic examples, not a framework specification</text>
+<circle cx="73" cy="165" r="20" fill="#0B2045"/>
+<text x="73" y="173" font-size="26" font-weight="bold" fill="white" text-anchor="middle">1</text>
+<text x="107" y="175" font-size="32" font-weight="bold" fill="#0B2045" text-anchor="start">Historical events</text>
+<circle cx="593" cy="165" r="20" fill="#0B2045"/>
+<text x="593" y="173" font-size="26" font-weight="bold" fill="white" text-anchor="middle">2</text>
+<text x="627" y="175" font-size="32" font-weight="bold" fill="#0B2045" text-anchor="start">Current task state</text>
+<circle cx="1119" cy="165" r="20" fill="#0B2045"/>
+<text x="1119" y="173" font-size="26" font-weight="bold" fill="white" text-anchor="middle">3</text>
+<text x="1153" y="175" font-size="32" font-weight="bold" fill="#0B2045" text-anchor="start">Context for this call</text>
+<text x="574" y="216" font-size="22" font-weight="normal" fill="#0B2045" text-anchor="start">Qualify by source · scope · generation · validity</text>
+<text x="54" y="216" font-size="22" font-weight="normal" fill="#0B2045" text-anchor="start">Recorded observations and instructions</text>
+<text x="1100" y="216" font-size="22" font-weight="normal" fill="#0B2045" text-anchor="start">Select what this step needs</text>
+<line x1="36" y1="239" x2="1500" y2="239" stroke="#8091AA" stroke-width="1.5"/>
+<rect x="58" y="278" width="380" height="132" rx="8" fill="#EDF4FC" stroke="#1767B4" stroke-width="2.3"/>
+<text x="80" y="308" font-size="23" font-weight="bold" fill="#1767B4" text-anchor="start">t₀ · user instruction</text>
+<text x="80" y="347" font-size="30" font-weight="bold" fill="#0B2045" text-anchor="start">“Do not publish.”</text>
+<text x="80" y="381" font-size="23" font-weight="normal" fill="#0B2045" text-anchor="start">No authorized replacement</text>
+<rect x="58" y="478" width="408" height="136" rx="8" fill="#EDF4FC" stroke="#1767B4" stroke-width="2.3"/>
+<text x="80" y="510" font-size="23" font-weight="bold" fill="#1767B4" text-anchor="start">t₂ · CI log body</text>
+<text x="80" y="550" font-size="30" font-weight="bold" fill="#0B2045" text-anchor="start">“Publish now.”</text>
+<text x="80" y="586" font-size="23" font-weight="normal" fill="#0B2045" text-anchor="start">Recent text ≠ user authorization</text>
+<rect x="58" y="690" width="380" height="138" rx="8" fill="#EDF4FC" stroke="#1767B4" stroke-width="2.3"/>
+<text x="80" y="723" font-size="23" font-weight="bold" fill="#1767B4" text-anchor="start">t₁ · CI observation</text>
+<text x="80" y="763" font-size="30" font-weight="bold" fill="#0B2045" text-anchor="start">PASS @ a1</text>
+<text x="80" y="800" font-size="23" font-weight="normal" fill="#0B2045" text-anchor="start">Current target: b2 (a1 ≠ b2)</text>
+<line x1="452" y1="344" x2="550" y2="344" stroke="#0B2045" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="480" y1="546" x2="550" y2="546" stroke="#0B2045" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="452" y1="758" x2="550" y2="758" stroke="#0B2045" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="574" y1="267" x2="574" y2="830" stroke="#087E83" stroke-width="3"/>
+<circle cx="574" cy="344" r="5" fill="#087E83"/>
+<circle cx="574" cy="546" r="5" fill="#087E83"/>
+<circle cx="574" cy="758" r="5" fill="#087E83"/>
+<text x="600" y="308" font-size="25" font-weight="bold" fill="#087E83" text-anchor="start">Permission constraint</text>
+<text x="600" y="349" font-size="31" font-weight="bold" fill="#0B2045" text-anchor="start">No publishing</text>
+<text x="600" y="386" font-size="23" font-weight="normal" fill="#0B2045" text-anchor="start">Still effective for this task</text>
+<line x1="600" y1="432" x2="1034" y2="432" stroke="#8091AA" stroke-width="1.5"/>
+<text x="600" y="510" font-size="25" font-weight="bold" fill="#087E83" text-anchor="start">Trust boundary</text>
+<text x="600" y="551" font-size="29" font-weight="bold" fill="#0B2045" text-anchor="start">Log text is not permission</text>
+<text x="600" y="588" font-size="22" font-weight="normal" fill="#0B2045" text-anchor="start">Observation ≠ authorized instruction</text>
+<line x1="600" y1="642" x2="1034" y2="642" stroke="#8091AA" stroke-width="1.5"/>
+<text x="600" y="719" font-size="25" font-weight="bold" fill="#087E83" text-anchor="start">Version-bound evidence</text>
+<text x="600" y="760" font-size="29" font-weight="bold" fill="#0B2045" text-anchor="start">a1 passed; b2 unverified</text>
+<text x="600" y="797" font-size="22" font-weight="normal" fill="#0B2045" text-anchor="start">Preserve a1 result; do not promote it</text>
+<line x1="1038" y1="344" x2="1090" y2="344" stroke="#0B2045" stroke-width="2.5" marker-end="url(#arrow)"/>
+<line x1="1038" y1="758" x2="1090" y2="758" stroke="#0B2045" stroke-width="2.5" marker-end="url(#arrow)"/>
+<rect x="1110" y="289" width="362" height="112" rx="8" fill="#FFF2E8" stroke="#F06A22" stroke-width="2.3"/>
+<text x="1132" y="326" font-size="25" font-weight="bold" fill="#F06A22" text-anchor="start">Carry the constraint</text>
+<text x="1132" y="368" font-size="29" font-weight="bold" fill="#0B2045" text-anchor="start">Do not publish.</text>
+<line x1="1038" y1="546" x2="1080" y2="546" stroke="#8091AA" stroke-width="2" stroke-dasharray="5 5"/>
+<line x1="1080" y1="534" x2="1080" y2="558" stroke="#8091AA" stroke-width="2"/>
+<text x="1110" y="538" font-size="25" font-weight="bold" fill="#0B2045" text-anchor="start">No permission upgrade</text>
+<text x="1110" y="575" font-size="22" font-weight="normal" fill="#0B2045" text-anchor="start">Do not adopt the log command</text>
+<rect x="1110" y="697" width="362" height="123" rx="8" fill="#FFF2E8" stroke="#F06A22" stroke-width="2.3"/>
+<text x="1132" y="732" font-size="25" font-weight="bold" fill="#F06A22" text-anchor="start">Carry the evidence gap</text>
+<text x="1132" y="773" font-size="28" font-weight="bold" fill="#0B2045" text-anchor="start">Verify CI @ b2 first.</text>
+<line x1="36" y1="865" x2="1500" y2="865" stroke="#8091AA" stroke-width="1.5"/>
+<text x="768" y="915" font-size="36" font-weight="bold" fill="#0B2045" text-anchor="middle">Freshness ≠ authority ≠ validity</text>
+<text x="768" y="950" font-size="24" font-weight="normal" fill="#0B2045" text-anchor="middle">Newer does not mean authorized. Prior evidence does not automatically cover a new version.</text>
+<text x="54" y="993" font-size="21" font-weight="normal" fill="#0B2045" text-anchor="start">Blue: recorded events     Teal: qualified state     Orange: selected context</text>
+<text x="1480" y="993" font-size="21" font-weight="normal" fill="#0B2045" text-anchor="end">Schematic • no measured results</text>
+</g></svg>

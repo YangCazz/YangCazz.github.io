@@ -93,4 +93,5 @@
   posts:
     - slug: harness-engineering-agent-kernel
     - slug: subagent-architecture-isolation
+    - slug: agent-context-effective-state
     - slug: super-agent-continuous-event-driven-architecture
