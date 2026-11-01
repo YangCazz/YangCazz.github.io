@@ -1,0 +1,32 @@
+---
+layout: default
+title: 隐私与访问统计
+permalink: /privacy/
+description: 本站访问统计的用途、统计口径、数据处理和浏览器退出设置。
+analytics: false
+---
+<section class="privacy-notice">
+    <h1>隐私与访问统计</h1>
+    <p>本站使用访问统计了解哪些技术文章对读者有帮助，并改进内容。此页面本身不加载 Umami 统计脚本。</p>
+    {% if site.analytics.enabled == true and site.analytics.website_id != '' %}
+    <p><strong>当前状态：</strong>正式网站已配置 Umami Cloud 访问统计。数据从启用后开始采集，历史徽章数字不合并到新统计。</p>
+    {% else %}
+    <p><strong>当前状态：</strong>Umami 访问统计尚未启用。下面的退出设置可以预先保存；配置完成前不会向 Umami 发送访问事件。</p>
+    {% endif %}
+    <h2>统计什么</h2>
+    <p>启用后，浏览器会向 Umami Cloud 发送页面路径、标题、来源路径及浏览器、设备和语言等基础信息。本集成移除页面与来源地址中的查询参数和片段，不启用会话录像、错误采集、个人身份关联或自定义事件。</p>
+    <p>Umami 在处理请求时可能使用 IP 地址推导粗略位置和匿名会话标识。标准统计记录不把 IP 作为单独字段保存，不代表服务商的基础设施或安全日志完全不处理 IP。详见 <a href="https://umami.is/privacy" rel="noopener noreferrer">Umami 隐私政策</a>和 <a href="https://docs.umami.is/docs/metric-definitions" rel="noopener noreferrer">统计口径</a>。</p>
+    <h2>数字怎么理解</h2>
+    <p>浏览量表示采集到的页面浏览；访客数是服务按匿名标识规则估算的去重数，不是经过身份核验的真人数量。网络失败、脚本拦截、共享网络、设备变化和自动化访问都会影响结果。当前使用 Umami Cloud Hobby 免费套餐，数据保留期限为 6 个月，不承诺永久累计。</p>
+    <p>原 Visitor Badge 属于徽章加载次数，不能代表独立读者，也不能转换为新统计的历史访客数。正式分析与旧徽章采用不同口径。</p>
+    <h2>排除本人的访问</h2>
+    <p>你可以在当前浏览器选择不参与本站 Umami 统计。设置仅保存在本机本站的 localStorage 中，不是跨设备的账号设置。每个浏览器需要分别设置，清除站点数据后需要重新设置。</p>
+    <div class="analytics-preferences">
+        <button type="button" id="analytics-disable">不统计此浏览器</button>
+        <button type="button" id="analytics-enable">取消此浏览器的排除设置</button>
+    </div>
+    <p id="analytics-preference-status" role="status" aria-live="polite">启用 JavaScript 后可查看和修改当前浏览器的统计偏好。</p>
+    <p>退出从设置成功后生效，不会追溯删除此前统计。取消排除不会在本页立即发送事件，之后浏览其他页面时才可能恢复。本站也尊重浏览器提供的 Do Not Track 和 Global Privacy Control 信号，并排除本地预览与已标识的自动化验收；这些措施不构成精确的人机识别。</p>
+    <h2>网站托管</h2>
+    <p>本站由 GitHub Pages 托管。即使停用分析脚本，页面请求仍由托管服务处理，其日志和隐私政策独立于本站的统计偏好。参见 <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement" rel="noopener noreferrer">GitHub 隐私声明</a>。</p>
+</section>

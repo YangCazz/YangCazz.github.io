@@ -36,6 +36,8 @@ jobs:
           npm test
           bundle exec ruby _scripts/test-content-validator.rb
       - name: Build
+        env:
+          JEKYLL_ENV: production
         run: bundle exec jekyll build
       - name: Check links and metadata
         run: |

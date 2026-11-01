@@ -55,3 +55,11 @@ defaults:
       layout: "post"
 
 permalink: /:year/:month/:day/:title/
+
+# Umami Cloud: website_id is a public tracking ID, NOT an account API key.
+# Website registered as YangCazz Blog; account API credentials are not used here.
+analytics:
+  enabled: true
+  hostname: yangcazz.github.io
+  website_id: "cf1a10cc-f772-4d5e-ab17-f9b142cca4f8"
+  script_url: https://cloud.umami.is/script.js

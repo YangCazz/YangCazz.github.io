@@ -98,6 +98,20 @@ bundle _2.7.2_ exec jekyll build
 
 **发布来源应只选 GitHub Actions**：仓库 `Settings → Pages → Build and deployment → Source` 选择 `GitHub Actions`，由现有 `build-deploy.yml` 构建、测试并发布 `_site/`。不要另选 `Deploy from a branch`，也不需要再创建 GitHub 建议的模板工作流。分支式 Pages 构建不能替代本项目的自定义插件与回归检查，并可能与自定义部署相互覆盖。该 Source 是仓库设置，修改本文件或删除工作流文件不会自动切换它；切换时保留现有域名和 HTTPS 设置。
 
+### 访问统计（Umami Cloud）
+
+统计集成位于 `_includes/analytics.html` 和 `assets/js/analytics.js`。已配置正式网站 `YangCazz Blog` 的公开 Website ID；`analytics.enabled` 控制是否加载统计。复用本模板时，应先关闭该开关，在自己的 Umami Cloud 中添加网站，再替换 `_config.yml` 的 `analytics.website_id`。不要填 API key、密码或访问令牌。脚本来源仅允许官方 `https://cloud.umami.is/script.js`；本集成不是任意第三方脚本加载器。
+
+生产构建使用 `JEKYLL_ENV=production bundle exec jekyll build`（现有 Actions 已设置）。即使生产产物在本机预览，运行时仍仅允许 `https://yangcazz.github.io` 采集；开发构建、隐私页、已设置退出的浏览器及已标识的自动化验收都不加载统计脚本。无有效配置时不发送请求，不生成替代数字。
+
+站长及读者可从页脚进入 `/privacy/`，点击“不统计此浏览器”。每个设备/浏览器需单独设置，清除站点数据后需重设。设置保存失败会明确提示；不承诺排除所有机器人。DNT/GPC 信号也会阻止脚本加载。
+
+只采集页面浏览，移除本页与来源 URL 的查询参数和片段，不启用身份关联、录像、自定义事件、性能或错误采集。统计服务仍会处理网络请求及匿名会话标识，详见隐私页，不能声称绝对匿名或精准真人数。
+
+**公开阅读数与后台采集是两个功能。** 当前没有接入收费 API，也没有把旧徽章数据转换为新访客数。当前采用 Hobby 免费套餐（核对于 2026-11-01）：1 个站点、每月 100,000 个事件、6 个月数据保留，不含 API 访问。套餐变更以服务方最新规则为准；不能把 6 个月滚动数据包装为永久累计。若后续启用公开汇总，应只发布允许公开的文章路径和汇总值，凭据仅保留在受保护的运行环境中，并处理未配置、缺失、过期及接口失败状态。
+
+上线验收：确认真实 Website ID 和正式构建后，先在排除模式下检查页面，再用一次明确允许计入的浏览验证后台到达；验证隐私按钮、重复点击、退出后下一页不发送事件，以及本地/CI 无上报。代码检查通过不能替代真实账户的到达验证。
+
 ### 文章封面与分享图片
 
 文章的 `image` 用于社交分享预览，默认也作为标题区背景。需要保留研究图作为分享图片时，可用 `cover_image: "/assets/images/covers/ai-dev-tools.jpg"` 单独指定装饰性封面；正文中的研究图保持完整展示，不裁切到标题背景中。省略 `cover_image` 或设为 `true` 保持旧行为；显式 `false` 才表示不显示封面。
@@ -116,7 +130,7 @@ npm run check:metadata
 npx playwright install chromium
 ```
 
-另开终端启动上文的本地预览，再运行 `npm run test:browser`。脚本遍历全部文章，检查 HTTP、浏览器错误、目录、Mermaid、MathJax、本地图片，以及日历、关键词搜索和页面导航。仅外部访问量徽章使用测试替身，站内资源仍真实加载。可用 `BASE_URL` 指定预览地址；结果写入 `_site-verify/`，加 `-- --screenshot` 可保存截图。
+另开终端启动上文的本地预览，再运行 `npm run test:browser`。脚本遍历全部文章，检查 HTTP、浏览器错误、目录、Mermaid、MathJax、本地图片，以及日历、关键词搜索和页面导航。外部访问量徽章使用测试替身，Umami 在浏览器初始化时设为退出并阻止其请求；站内资源仍真实加载。可用 `BASE_URL` 指定预览地址；结果写入 `_site-verify/`，加 `-- --screenshot` 可保存截图。
 
 `npm run test:mermaid` 可单独遍历全部文章检查图表与公式。CI 会安装 Chromium 系统依赖，并在构建、静态资源/SEO 校验和浏览器测试通过后才上传部署产物。
 

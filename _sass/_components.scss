@@ -1313,3 +1313,28 @@
         .visitor-badge-img { opacity: 0.95; }
     }
 }
+
+/* Privacy controls share the site's typography and restrained card treatment. */
+.privacy-notice {
+    max-width: 860px;
+    margin: 2rem auto;
+    padding: clamp(1.2rem, 4vw, 2.5rem);
+    line-height: 1.8;
+    border-radius: 16px;
+    background: rgba(255, 255, 255, 0.84);
+    color: #334155;
+    h1, h2 { color: #0f172a; }
+    h2 { margin-top: 1.8rem; font-size: 1.25rem; }
+    a { text-decoration: underline; }
+    .analytics-preferences { display: flex; flex-wrap: wrap; gap: 0.7rem; }
+    button {
+        padding: 0.65rem 1rem;
+        border: 1px solid #475569;
+        border-radius: 8px;
+        background: #f8fafc;
+        color: #0f172a;
+        cursor: pointer;
+        font: inherit;
+        &:focus-visible { outline: 3px solid #2563eb; outline-offset: 3px; }
+    }
+}

@@ -1,0 +1,9 @@
+{% comment %}Public site identifier only. Never render account API credentials into HTML.{% endcomment %}
+<div id="blog-analytics-config" hidden
+     data-enabled="{% if site.analytics.enabled == true %}true{% else %}false{% endif %}"
+     data-production="{% if jekyll.environment == 'production' %}true{% else %}false{% endif %}"
+     data-track-page="{% if page.analytics == false %}false{% else %}true{% endif %}"
+     data-hostname="{{ site.analytics.hostname | escape }}"
+     data-website-id="{{ site.analytics.website_id | escape }}"
+     data-script-url="{{ site.analytics.script_url | escape }}"></div>
+<script type="module" src="{{ '/assets/js/analytics.js' | relative_url }}"></script>

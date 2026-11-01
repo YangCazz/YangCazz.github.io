@@ -8,7 +8,7 @@ import { uniquePostPaths, validatePageState } from './browser-checks.mjs';
 
 const BASE = (process.env.BASE_URL || 'http://127.0.0.1:4000').replace(/\/$/, '');
 const OUT = new URL('../_site-verify/', import.meta.url);
-const PAGES = ['/', '/blog/', '/resume/', '/showcase/', '/apps/'];
+const PAGES = ['/', '/blog/', '/resume/', '/showcase/', '/apps/', '/privacy/'];
 
 async function settleArticle(page) {
     await page.waitForFunction(() => [...document.querySelectorAll('.mermaid-container')]
@@ -108,6 +108,57 @@ async function checkInteractions(page) {
     await page.waitForURL(articleUrl);
 }
 
+async function checkAnalyticsPreferences(browser) {
+    // A separate context tests persistence without the QA init script resetting the preference.
+    // Tracking requests remain blocked; privacy.html also opts out of collection itself.
+    const context = await browser.newContext();
+    const errors = [];
+    let trackerRequests = 0;
+    await context.route('https://visitor-badge.laobi.icu/**', route => route.fulfill({
+        status: 200, contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>',
+    }));
+    for (const domain of ['cloud.umami.is', 'gateway.umami.is']) {
+        await context.route('https://' + domain + '/**', route => { trackerRequests++; return route.abort(); });
+    }
+    try {
+        const page = await context.newPage();
+        page.on('pageerror', error => errors.push(error.message));
+        await page.goto(BASE + '/privacy/', { waitUntil: 'load' });
+        const status = page.locator('#analytics-preference-status');
+        await page.waitForFunction(() => document.querySelector('#analytics-preference-status').textContent.includes('未设置排除'));
+        await page.locator('#analytics-disable').focus();
+        const beforeToggle = await page.evaluate(() => ({ url: location.href, scrollY }));
+        await page.keyboard.press('Enter');
+        assert.deepEqual(await page.evaluate(() => ({ url: location.href, scrollY })), beforeToggle, 'toggle must not navigate or scroll');
+        assert.match(await status.innerText(), /已排除/);
+        await page.locator('#analytics-disable').click();
+        assert.equal(await page.evaluate(() => localStorage.getItem('umami.disabled')), '1');
+        await page.reload({ waitUntil: 'load' });
+        await page.waitForFunction(() => document.querySelector('#analytics-preference-status').textContent.includes('已排除'));
+        await page.locator('#analytics-enable').click();
+        await page.locator('#analytics-enable').click();
+        assert.match(await status.innerText(), /未设置排除/);
+        assert.equal(await page.evaluate(() => localStorage.getItem('umami.disabled')), null);
+        await page.reload({ waitUntil: 'load' });
+        await page.waitForFunction(() => document.querySelector('#analytics-preference-status').textContent.includes('未设置排除'));
+        assert.equal(await page.locator('#umami-tracker').count(), 0);
+        assert.equal(trackerRequests, 0, 'privacy controls must not load or send to analytics');
+        assert.deepEqual(errors, []);
+        const blocked = await context.newPage();
+        await blocked.addInitScript(() => {
+            for (const method of ['getItem', 'setItem', 'removeItem']) {
+                Storage.prototype[method] = () => { throw new DOMException('Blocked for test', 'SecurityError'); };
+            }
+        });
+        await blocked.goto(BASE + '/privacy/', { waitUntil: 'load' });
+        await blocked.waitForFunction(() => document.querySelector('#analytics-preference-status').textContent.includes('不允许'));
+        await blocked.locator('#analytics-disable').click();
+        assert.match(await blocked.locator('#analytics-preference-status').innerText(), /未保存/);
+        assert.equal(await blocked.locator('#umami-tracker').count(), 0);
+        assert.equal(trackerRequests, 0);
+    } finally { await context.close(); }
+}
+
 export async function runChecks({ diagramsOnly = false } = {}) {
     await mkdir(OUT, { recursive: true });
     const launch = { headless: true };
@@ -121,6 +172,10 @@ export async function runChecks({ diagramsOnly = false } = {}) {
         await context.route('https://visitor-badge.laobi.icu/**', route => route.fulfill({
             status: 200, contentType: 'image/svg+xml', body: '<svg xmlns="http://www.w3.org/2000/svg" width="1" height="1"/>',
         }));
+        // Exclude all QA visits, including an explicitly supplied production BASE_URL.
+        await context.addInitScript(() => localStorage.setItem('umami.disabled', '1'));
+        await context.route('https://cloud.umami.is/**', route => route.abort());
+        await context.route('https://gateway.umami.is/**', route => route.abort());
         const page = await context.newPage();
         await page.clock.setFixedTime(new Date('2026-10-29T12:00:00Z'));
         page.on('console', message => { if (message.type() === 'error') errors.push(message.text()); });
@@ -161,6 +216,7 @@ export async function runChecks({ diagramsOnly = false } = {}) {
             errors = [];
             try {
                 await checkInteractions(page);
+                await checkAnalyticsPreferences(browser);
                 assert.deepEqual(errors, []);
                 results.push({ path: 'interactions', status: 'PASS' });
             } catch (error) {

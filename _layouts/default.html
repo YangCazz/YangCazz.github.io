@@ -336,6 +336,8 @@
                 <span class="dot">•</span>
                 <span class="footer-motto">持续更新中</span>
                 <span class="dot">•</span>
+                <a href="{{ '/privacy/' | relative_url }}">隐私与访问统计</a>
+                <span class="dot">•</span>
                 <span class="visitor-count">
                     {% include icon.html name="eye" size=14 %}
                     <img src="https://visitor-badge.laobi.icu/badge?page_id=YangCazz.github.io&left_color=none&right_color=none&left_text=+" alt="" class="visitor-badge-img" />
@@ -409,5 +411,6 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
+{% include analytics.html %}
 </body>
 </html>
