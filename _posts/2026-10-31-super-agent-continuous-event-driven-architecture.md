@@ -134,7 +134,7 @@ Worker 内部可以再创建子代理或团队，比如将复现与代码审查�
 
 
 <figure class="research-figure research-figure--scientific">
-  <a href="{{ '/assets/images/research/20261031/super-agent-routing-v1.svg' | relative_url }}"><img src="{{ '/assets/images/research/20261031/super-agent-routing-v1.png' | relative_url }}" alt="环境事件经过程序与语义策略过滤，新任务由 Router 分派，已订阅事件直通隔离 Worker；对外回复仍经 Router，历史上下文沿 ID 引用链召回。" loading="lazy" decoding="async" width="1536" height="1024" style="width:100%;height:auto;"></a>
+  <img src="{{ '/assets/images/research/20261031/super-agent-routing-v1.png' | relative_url }}" alt="环境事件经过程序与语义策略过滤，新任务由 Router 分派，已订阅事件直通隔离 Worker；对外回复仍经 Router，历史上下文沿 ID 引用链召回。" loading="lazy" decoding="async" width="1536" height="1024" style="width:100%;height:auto;">
   <figcaption><strong>AI 生成科研示意图（非论文原图）</strong>。本图为依据原文第 2—3 节制作的原创矢量解释图：橙色表示当前事件与直通路径，青绿色表示 Router/Worker 计算角色，蓝色表示按需召回的历史对象。Router 保留全局观察，但不必逐条转发已订阅事件；下方重复展示的是同一 Router 的输出职责。省略部分创建、取消订阅及异常控制路径，Thread X/Y 仅为示例，无实测数值。依据<a href="https://mp.weixin.qq.com/s/zoS7GlReWPhfCjENGxXCdg">原文设计探索</a>；<a href="{{ '/assets/images/research/20261031/super-agent-routing-v1.svg' | relative_url }}">打开矢量图放大阅读</a>。</figcaption>
 </figure>
 
@@ -235,7 +235,7 @@ Anthropic 的上下文工程实践也讨论了按需加载、压缩、结构化�
 
 
 <figure class="research-figure research-figure--scientific">
-  <a href="{{ '/assets/images/research/20261031/super-agent-persistence-v1.svg' | relative_url }}"><img src="{{ '/assets/images/research/20261031/super-agent-persistence-v1.png' | relative_url }}" alt="无状态 Agent Loop 将会话持久化到外部存储，通过只执行命令的 daemon 接入真实环境，外部 Watchdog 同时观察系统健康与任务进展。" loading="lazy" decoding="async" width="1536" height="1024" style="width:100%;height:auto;"></a>
+  <img src="{{ '/assets/images/research/20261031/super-agent-persistence-v1.png' | relative_url }}" alt="无状态 Agent Loop 将会话持久化到外部存储，通过只执行命令的 daemon 接入真实环境，外部 Watchdog 同时观察系统健康与任务进展。" loading="lazy" decoding="async" width="1536" height="1024" style="width:100%;height:auto;">
   <figcaption><strong>AI 生成科研示意图（非论文原图）</strong>。本图为依据原文第 5—6 节制作的原创矢量解释图，展示架构设想而非当前开源原型的完整部署清单。青绿色表示计算与执行组件，蓝色表示状态及结果回流，橙色表示工具请求，灰色虚线表示独立 Watchdog 控制回路；只画出一条代表性的结果返回路径，其余环境同理。Loop 数量仅作示意，无实测数据；信任边界、凭据隔离与权限控制仍需另行设计，Watchdog 不等于安全保证。依据<a href="https://mp.weixin.qq.com/s/zoS7GlReWPhfCjENGxXCdg">原文设计探索</a>；<a href="{{ '/assets/images/research/20261031/super-agent-persistence-v1.svg' | relative_url }}">打开矢量图放大阅读</a>。</figcaption>
 </figure>
 
